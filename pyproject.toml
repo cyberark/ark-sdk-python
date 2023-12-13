@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "ark-sdk-python"
+version = "1.0.0"
+description='Official Ark SDK / CLI for CyberArk Identity Security Platform'
+authors = ["CyberArk <cyberark@cyberark.com>", "Ofir Iluz <ofir.iluz@cyberark.com"]
+readme = "README.md"
+license = "Apache-2.0"
+classifiers = [
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11'
+]
+repository = "https://github.com/cyberark/ark-sdk-python"
+packages = [{ include = "ark_sdk_python" }]
+
+[tool.poetry.group.dev.dependencies]
+isort = "*"
+pylint = "*"
+black = "*"
+toml = "*"
+GitPython = "*"
+wheel = "*"
+astunparse = "*"
+pytest = "*"
+pytest-mock = "*"
+python-dotenv = "*"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+requests = "*"
+keyring = "*"
+"keyrings.cryptfile" = "*"
+colorama = "*"
+pydantic = "1.10.*"
+argcomplete = "*"
+humps = "*"
+overrides = "*"
+packaging = "*"
+deepdiff = "*"
+pycryptodome = "*"
+dill = "*"
+urlextract = "*"
+inquirer = "*"
+progress = "*"
+aenum = "*"
+cachetools = "*"
+python-jose = { extras = ["cryptography"], version = "*" }
+fake-useragent = "*"
+retry = "*"
+tzlocal = "*"
+pyyaml = "*"
+python-dateutil = "*"
+
+[tool.poetry.scripts]
+ark = 'ark_sdk_python.ark:main'
+
+[tool.poetry.build]
+generate-setup-file = false
+script = "build.py"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

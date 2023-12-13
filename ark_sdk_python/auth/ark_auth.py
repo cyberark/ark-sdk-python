@@ -1,0 +1,276 @@
+from abc import ABC, abstractmethod
+from datetime import datetime, timedelta
+from typing import List, Optional, Tuple, cast
+from urllib.parse import urlparse
+
+from ark_sdk_python.common import ArkKeyring, get_logger
+from ark_sdk_python.common.ark_keyring import DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS
+from ark_sdk_python.models import ArkAuthException, ArkProfile, ArkProfileLoader
+from ark_sdk_python.models.auth import (
+    ArkAuthMethod,
+    ArkAuthMethodSettings,
+    ArkAuthMethodsRequireCredentials,
+    ArkAuthProfile,
+    ArkSecret,
+    ArkToken,
+    DirectArkAuthMethodSettings,
+)
+
+
+class ArkAuth(ABC):
+    def __init__(self, cache_authentication: bool = True) -> None:
+        self._logger = get_logger(app=self.__class__.__name__)
+        self._cache_authentication = cache_authentication
+        self._cache_keyring = None
+        if cache_authentication:
+            self._cache_keyring = ArkKeyring(self.authenticator_name())
+        self.__token = None
+        self._active_profile = None
+        self._active_auth_profile = None
+
+    def _resolve_cache_postfix(self, auth_profile: ArkAuthProfile) -> str:
+        """
+        Resolves the postfix used to get the token based on the auth method
+
+        Args:
+            auth_profile (ArkAuthProfile): _description_
+
+        Returns:
+            str: _description_
+        """
+        postfix = auth_profile.username
+        if auth_profile.auth_method == ArkAuthMethod.Direct and auth_profile.auth_method_settings:
+            direct_method_settings = cast(DirectArkAuthMethodSettings, auth_profile.auth_method_settings)
+            if direct_method_settings.endpoint:
+                postfix = f'{postfix}_{urlparse(direct_method_settings.endpoint).netloc}'
+        return postfix
+
+    @abstractmethod
+    def _perform_authentication(
+        self, profile: ArkProfile, auth_profile: ArkAuthProfile, secret: Optional[ArkSecret] = None, force: bool = False
+    ) -> ArkToken:
+        """
+        Performs the actual authentication, based on the implementation
+
+        Args:
+            profile (ArkProfile): Profile to authenticate on
+            auth_profile (ArkAuthProfile): Specific auth profile for the authentication
+            secret (Optional[ArkSecret]): Secret used for authentication. Defaults to None
+            force (bool): Force authenticate and ignore caching
+
+        Returns:
+            Optional[ArkToken]: Token of the authentication to be used
+        """
+
+    @abstractmethod
+    def _perform_refresh_authentication(self, profile: ArkProfile, auth_profile: ArkAuthProfile, token: ArkToken) -> ArkToken:
+        """
+        Tries to perform refresh authentication on the existing token
+        This is not promised for all authenticators
+
+        Args:
+            profile (ArkProfile): _description_
+            auth_profile (ArkAuthProfile): _description_
+            token (ArkToken): _description_
+
+        Returns:
+            ArkToken: _description_
+        """
+
+    def authenticate(
+        self,
+        profile: Optional[ArkProfile] = None,
+        auth_profile: Optional[ArkAuthProfile] = None,
+        secret: Optional[ArkSecret] = None,
+        force: bool = False,
+        refresh_auth: bool = False,
+    ) -> ArkToken:
+        """
+        Authenticates with the specific authenticator implementation
+        The implementation is based on the _perform_authentication method
+        Alongside that, if caching is allowed, will also cache / load from cache the credentials
+
+        Args:
+            profile (Optional[ArkProfile]): Profile containing information about the environemnt and authentication profiles
+            auth_profile (Optional[ArkAuthProfile]): Specific auth profile to be used instead of looking at the profile if given
+            secret (Optional[ArkSecret]): Secret used for authentication
+            force (bool): Whether to force authenticate and discard cache
+            refresh_auth (bool): Tries to refresh an existing cached auth if possible
+
+        Raises:
+            ArkAuthException: _description_
+
+        Returns:
+            ArkToken: Token of the authentication to be used, the token is also saved within the class
+        """
+        if not auth_profile and not profile:
+            raise ArkAuthException('Either a profile or a specific auth profile must be supplied')
+        if not auth_profile and profile:
+            if self.authenticator_name() in profile.auth_profiles:
+                auth_profile = profile.auth_profiles[self.authenticator_name()]
+            else:
+                raise ArkAuthException(
+                    f'{self.authenticator_human_readable_name()} [{self.authenticator_name()}] is not defined within the authentication profiles'
+                )
+        if not profile:
+            profile = ArkProfileLoader.load_default_profile()
+        if auth_profile.auth_method not in self.supported_auth_methods() and auth_profile.auth_method != ArkAuthMethod.Default:
+            raise ArkAuthException(
+                f'{self.authenticator_human_readable_name()} does not support authentication method {auth_profile.auth_method}'
+            )
+        if auth_profile.auth_method == ArkAuthMethod.Default:
+            auth_profile.auth_method, auth_profile.auth_method_settings = self.default_auth_method()
+        if auth_profile.auth_method in ArkAuthMethodsRequireCredentials and not auth_profile.username:
+            raise ArkAuthException(f'{self.authenticator_human_readable_name()} requires a username and optionally a secret')
+        ark_token = None
+        if self._cache_authentication and self._cache_keyring and not force:
+            # Load the postfix of the token based on the auth profile and method type
+            ark_token = self._cache_keyring.load_token(profile, self._resolve_cache_postfix(auth_profile))
+            if ark_token and ark_token.expires_in.replace(tzinfo=None) <= datetime.now():
+                # Expired
+                ark_token = None
+        if not ark_token:
+            ark_token = self._perform_authentication(profile, auth_profile, secret, force)
+            if self._cache_authentication and self._cache_keyring:
+                self._cache_keyring.save_token(profile, ark_token, self._resolve_cache_postfix(auth_profile))
+        elif refresh_auth:
+            try:
+                ark_token = self._perform_refresh_authentication(profile, auth_profile, ark_token)
+                if self._cache_authentication and self._cache_keyring:
+                    self._cache_keyring.save_token(profile, ark_token, self._resolve_cache_postfix(auth_profile))
+            except Exception as ex:  # Fallback to normal authentication
+                self._logger.info(
+                    f'Refresh auth for [{self.authenticator_human_readable_name()}] failed, falling back to normal authentication [{str(ex)}]'
+                )
+                ark_token = self._perform_authentication(profile, auth_profile, secret, force)
+                if self._cache_authentication and self._cache_keyring:
+                    self._cache_keyring.save_token(profile, ark_token, self._resolve_cache_postfix(auth_profile))
+        self.__token = ark_token
+        self._active_profile = profile
+        self._active_auth_profile = auth_profile
+        return ark_token
+
+    def is_authenticated(self, profile: ArkProfile) -> bool:
+        """
+        Checks whether we are authenticated, either from the keyring or in memory
+        If from keyring, will also load it into memory
+
+        Args:
+            profile (ArkProfile): _description_
+
+        Returns:
+            bool: _description_
+        """
+        self._logger.info(f'Checking if [{self.authenticator_name()}] is authenticated')
+        if self.__token:
+            self._logger.info('Token is already loaded')
+            return True
+        if self.authenticator_name() in profile.auth_profiles and self._cache_keyring:
+            self.__token = self._cache_keyring.load_token(profile, profile.auth_profiles[self.authenticator_name()].username)
+            if self.__token and self.__token.expires_in.replace(tzinfo=None) <= datetime.now():
+                self.__token = None
+            else:
+                self._logger.info('Loaded token from cache successfully')
+            return self.__token != None
+        return False
+
+    def load_authentication(self, profile: Optional[ArkProfile] = None, refresh_auth: bool = False) -> Optional[ArkToken]:
+        """
+        Loads the authentication token from the cache if exists and returns it
+        Can also refresh it if need be
+
+        Args:
+            profile (Optional[ArkProfile], optional): _description_. Defaults to None.
+            refresh_auth (bool, optional): _description_. Defaults to False.
+
+        Returns:
+            Optional[ArkToken]: _description_
+        """
+        self._logger.info(f'Trying to load [{self.authenticator_name()}] authentication')
+        if not profile:
+            if self._active_profile:
+                profile = self._active_profile
+            else:
+                profile = ArkProfileLoader.load_default_profile()
+        auth_profile = self._active_auth_profile
+        if not auth_profile and self.authenticator_name() in profile.auth_profiles:
+            auth_profile = profile.auth_profiles[self.authenticator_name()]
+        if auth_profile:
+            self._logger.info(
+                f'Loading authentication for profile [{profile.profile_name}] and auth profile [{self.authenticator_name()}] of type [{auth_profile.auth_method.value}]'
+            )
+            if self._cache_keyring:
+                self.__token = self._cache_keyring.load_token(profile, self._resolve_cache_postfix(auth_profile))
+            if refresh_auth:
+                if (
+                    self.__token
+                    and self.__token.expires_in.replace(tzinfo=None) - timedelta(seconds=DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS)
+                    > datetime.now()
+                ):
+                    self._logger.info('Token did not pass grace expiration, no need to refresh')
+                else:
+                    self._logger.info('Trying to refresh token authentication')
+                    self.__token = self._perform_refresh_authentication(profile, auth_profile, self.__token)
+                    if self.__token and self.__token.expires_in.replace(tzinfo=None) > datetime.now():
+                        self._logger.info('Token refreshed')
+                    if self.__token and self._cache_authentication and self._cache_keyring:
+                        self._cache_keyring.save_token(profile, self.__token, self._resolve_cache_postfix(auth_profile))
+            if self.__token and self.__token.expires_in.replace(tzinfo=None) <= datetime.now():
+                self.__token = None
+            if self.__token:
+                self._active_profile = profile
+                self._active_auth_profile = auth_profile
+            return self.__token
+        return None
+
+    @property
+    def token(self) -> Optional[ArkToken]:
+        return self.__token
+
+    @property
+    def active_profile(self) -> Optional[ArkProfile]:
+        return self._active_profile
+
+    @property
+    def active_auth_profile(self) -> Optional[ArkAuthProfile]:
+        return self._active_auth_profile
+
+    @staticmethod
+    @abstractmethod
+    def authenticator_name() -> str:
+        """
+        Name of the authenticator to be used for the auth profiles and services
+
+        Returns:
+            str: _description_
+        """
+
+    @staticmethod
+    @abstractmethod
+    def authenticator_human_readable_name() -> str:
+        """
+        Human readable name of the authenticator to be used for representation to the user
+
+        Returns:
+            str: _description_
+        """
+
+    @staticmethod
+    @abstractmethod
+    def supported_auth_methods() -> List[ArkAuthMethod]:
+        """
+        Supported authenticaton methods by this authenticator
+
+        Returns:
+            List[ArkAuthMethod]: _description_
+        """
+
+    @staticmethod
+    @abstractmethod
+    def default_auth_method() -> Tuple[ArkAuthMethod, ArkAuthMethodSettings]:
+        """
+        Default authentication method used by this authenticator with its default settings
+
+        Returns:
+            Tuple[ArkAuthMethod, ArkAuthMethodSettings]: _description_
+        """

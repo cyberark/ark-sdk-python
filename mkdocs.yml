@@ -1,0 +1,108 @@
+site_name: Ark SDK
+site_description: Python Ark SDK for CyberArk's Identity Security Platform
+site_author: CyberArk, Ofir Iluz
+repo_url: https://github.com/cyberark/ark-sdk-python
+edit_uri: edit/main/docs
+
+nav:
+  - Homepage: index.md
+  - Getting Started: getting_started.md
+  - Architecture: architecture.md
+  - Commands:
+      - Configure: commands/configure.md
+      - Login: commands/login.md
+      - Exec: commands/exec.md
+      - Profiles: commands/profiles.md
+      - Cache: commands/cache.md
+  - SDK:
+      - Authenticators: sdk/authenticators.md
+      - Services: sdk/services.md
+      - Schemas: sdk/schemas.md
+      - Async Requests: sdk/async_requests.md
+      - Pagination: sdk/pagination.md
+  - How-To's:
+      - Working With Profiles: howto/working_with_profiles.md
+      - Working With Ark Cache: howto/working_with_ark_cache.md
+      - Simple Commands Workflow: howto/simple_commands_workflow.md
+      - Simple SDK Workflow: howto/simple_sdk_workflow.md
+      - Refreshing Authentication: howto/refreshing_authentication.md
+  - Examples: 
+      - Commands Examples: examples/commands_examples.md
+      - SDK Examples: examples/sdk_examples.md
+  - Contributing:
+      - Adding a New API: contrib/adding_a_new_api.md
+      - Adding a New Service: contrib/adding_a_new_service.md
+      - Adding a New Authenticator: contrib/adding_a_new_authenticator.md
+  - API: 
+      - Reference: reference/
+theme:
+  name: material
+  custom_dir: docs/overrides
+  font:
+    text: Ubuntu
+  palette:
+    - scheme: default
+      primary: dark blue
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: teal
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.instant
+    - navigation.indexes
+    - navigation.tracking
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github
+  logo: media/logo.svg
+  favicon: media/favicon.ico
+
+markdown_extensions:
+  - admonition
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path: "."
+      check_paths: true
+  - meta
+  - toc:
+      permalink: true
+      toc_depth: 4
+  - attr_list
+  - pymdownx.emoji
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+copyright: Copyright &copy; 2022 CyberArk
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+      - docs/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+      markdown_extensions:
+        - sane_lists
+  - section-index
+  - mkdocstrings
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  version:
+    provider: mike
