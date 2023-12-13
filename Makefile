@@ -43,14 +43,14 @@ clean:
 
 linters-edit:
 	@echo Run code formatting
-	poetry run isort --sp .isort.cfg ark_sdk_python scripts tests
-	poetry run black --skip-string-normalization -l 140 -t py38 ark_sdk_python scripts tests
+	poetry run isort --sp .isort.cfg ark_sdk_python tests
+	poetry run black --skip-string-normalization -l 140 -t py38 ark_sdk_python tests
 
 linters-diff:
 	@echo Run code formatting
-	poetry run pylint --disable=R,C --rcfile .pylintrc ark_sdk_python scripts tests
-	poetry run isort --check-only --sp .isort.cfg ark_sdk_python scripts tests
-	poetry run black --check --skip-string-normalization -l 140 -t py38 ark_sdk_python scripts tests
+	poetry run pylint --disable=R,C --rcfile .pylintrc ark_sdk_python tests
+	poetry run isort --check-only --sp .isort.cfg ark_sdk_python tests
+	poetry run black --check --skip-string-normalization -l 140 -t py38 ark_sdk_python tests
 
 run:
 	@echo Execute ark-sdk-python directly
