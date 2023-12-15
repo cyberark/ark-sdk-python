@@ -23,6 +23,7 @@ nav:
   - How-To's:
       - Working With Profiles: howto/working_with_profiles.md
       - Working With Ark Cache: howto/working_with_ark_cache.md
+      - Enduser Databases Workflow: howto/enduser_databases_workflow.md  
       - Simple Commands Workflow: howto/simple_commands_workflow.md
       - Simple SDK Workflow: howto/simple_sdk_workflow.md
       - Refreshing Authentication: howto/refreshing_authentication.md

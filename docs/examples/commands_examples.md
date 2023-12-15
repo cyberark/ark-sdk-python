@@ -20,52 +20,66 @@ ark login -s --isp-secret=CoolPassword
 ```
 
 ## Exec Commands Examples
-
-Add a DPA DB Secret
+Add DPA Database Secret
 ```shell
-ark exec dpa secrets db add-secret -sn blop -st username_password -u ofir -pa coolpassword
+ark exec dpa secrets db add-secret --secret-name mysecret --secret-type username_password --username user --password mypass
 ```
 
-Add a DPA DB Database
+Delete DPA Database Secret
 ```shell
-ark exec dpa workspaces db add-database -n cooldb3 -pe postgres-sh -rwe myendpoint.domain.com
+ark exec dpa secrets db delete-secret --secret-name mysecret
 ```
 
-List Databases
+Add DPA Database
+```shell
+ark exec dpa workspaces db add-database --name mydb --provider-engine postgres-sh --read-write-endpoint myendpoint.domain.com
+```
+
+List DPA Databases
 ```shell
 ark exec dpa workspaces db list-databases
 ```
 
-List Policies
+Get VM policies stats
 ```shell
-ark exec dpa policies db list-policies
+ark exec dpa policies vm policies-stats
 ```
 
 Edit policies interactively
 
-This gives the ability to locally work with a db policies workspace, and edit / reset / create policies
+This gives the ability to locally work with a policies workspace, and edit / reset / create policies, applied to both databases and vm policies
 
-When they are ready, once can commit all the db policies changes to the remote
+When they are ready, once can commit all the policies changes to the remote
 
-Initially, the db policies can be loaded and reloaded using
+Initially, the policies can be loaded and reloaded using
 
 ```shell
-ark exec dpa policies db editor load-policies
+ark exec dpa policies vm editor load-policies
 ```
 
 Once they are loaded locally, they can be edited using the following commands
 ```shell
-ark exec dpa policies db editor edit-policies
-ark exec dpa policies db editor view-policies
-ark exec dpa policies db editor reset-policies
-ark exec dpa policies db editor generate-policy
-ark exec dpa policies db editor remove-policies
-ark exec dpa policies db editor policies diff
+ark exec dpa policies vm editor edit-policies
+ark exec dpa policies vm editor view-policies
+ark exec dpa policies vm editor reset-policies
+ark exec dpa policies vm editor generate-policy
+ark exec dpa policies vm editor remove-policies
+ark exec dpa policies vm editor policies diff
 ```
 
 Evantually, they can be committed using
 ```shell
-ark exec dpa policies db editor commit-policies
+ark exec dpa policies vm editor commit-policies
+```
+
+Generate a short lived SSO password for databases connection
+```shell
+ark exec dpa sso short-lived-password
+```
+
+Generate a short lived SSO oracle wallet for oracle database connection
+```shell
+ark exec dpa sso short-lived-oracle-wallet --folder ~/wallet
 ```
 
 Generate kubectl config file 

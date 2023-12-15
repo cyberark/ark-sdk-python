@@ -14,7 +14,9 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] MFA Support for Identity
     - [x] Identity Security Platform
 - [x] Services API
-    - [x] DPA Policies and Policies Interactive Editor Service
+    - [x] DPA VM / Databases Policies and Policies Interactive Editor Service
+    - [x] DPA Databases Onboarding
+    - [x] DPA Databases Secrets
     - [x] DPA Certificates Service
     - [x] DPA SSO Service
     - [x] DPA K8S Service
@@ -29,6 +31,17 @@ CyberArk's Official SDK and CLI for different services operations
 - [x] Filesystem Inputs and Outputs for the CLI
 - [x] Silent and Verbose logging
 - [x] Profile Management and Authentication Caching
+
+
+TL;DR
+=====
+
+## Enduser
+![Ark SDK Enduser Usage](https://github.com/cyberark/ark-sdk-python/blob/master/assets/ark_sdk_enduser_tldr.gif)
+
+## Admin
+![Ark SDK Admin Usage](https://github.com/cyberark/ark-sdk-python/blob/master/assets/ark_sdk_admin_tldr.gif)
+
 
 
 Installation
@@ -170,7 +183,14 @@ The exec command is used to execute various commands based on supported services
 The following services and commands are supported:
 - <b>dpa</b> - Dynamic Privilege Access Services
     - <b>policies</b> - DPA Policies Management
-        - <b>editor</b> - DPA Policies Interactive Editor
+        - <b>vm</b> - DPA VM Policies Service
+            - <b>editor</b> - DPA Policies Interactive Editor
+        - <b>db</b> - DPA DB Policies Service
+            - <b>editor</b> - DPA Policies Interactive Editor
+    - <b>workspaces</b> - DPA Workspaces Management
+        - <b>db</b> - DPA DB Workspace Service
+    - <b>secrets</b> - DPA Secrets / Strong Accounts Management
+        - <b>db</b> - DPA DB Secrets Service
     - <b>certificates</b> - DPA Certificates Management
     - <b>databases</b> - DPA Databases Enduser Operations
     - <b>sso</b> - DPA SSO Enduser Operations
@@ -180,74 +200,76 @@ Any command has its own subcommands, with respective arguments
 
 For example configure a profile to login to that respective tenant and perform DPA actions such as:
 
+Add DPA Database Secret
 ```shell
-ark exec dpa workspaces add-account --name test --account-id=965428623928 --deploy-cloudformation --poll
-ark exec dpa access connector-setup-script --connector-type aws --connector-os linux
-ark exec dpa policies editor generate-policy
+ark exec dpa secrets db add-secret --secret-name mysecret --secret-type username_password --username user --password mypass
 ```
 
-There are many other actions that can be performed, such as the following examples:
-
-Create DPA AWS workspace
+Delete DPA Database Secret
 ```shell
-ark exec dpa workspaces add-account --name test --account-id=965428623928 --deploy-cloudformation --poll
+ark exec dpa secrets db delete-secret --secret-name mysecret
 ```
 
-Add DPA Domain
+Add DPA Database
 ```shell
-ark exec dpa workspaces add-domain --name mydomain
+ark exec dpa workspaces db add-database --name mydb --provider-engine postgres-sh --read-write-endpoint myendpoint.domain.com
 ```
 
-Create a DPA connector pool
+List DPA Databases
 ```shell
-ark exec dpa access create-connector-pool --name mypool
+ark exec dpa workspaces db list-databases
 ```
 
-Get policies stats
+Get VM policies stats
 ```shell
-ark exec dpa policies policies-stats
-```
-
-Install a DPA Windows Connector Remotely
-```shell
-ark exec dpa access install-connector --connector-type aws --connector-os windows --target-machine 1.2.3.4 --username myuser --password mypassword
-```
-
-Install a DPA Linux Connector Remotely
-```shell
-ark exec dpa access install-connector --connector-type aws --connector-os linux --target-machine 1.2.3.4 --username ec2-user --private-key-path /path/to/key.pem
-```
-
-Delete and uninstall a DPA Connector
-```shell
-ark exec dpa access delete-connector --connector-id=CMSConnector_e9685e0d-a92e-4097-ad4d-b54eadb69bcb_81fa03c5-d0d3-4157-95f8-6a1903900fa0 --uninstall-connector --target-machine 1.2.3.4 --username ec2-user --private-key-path /path/to/key.pem
+ark exec dpa policies vm policies-stats
 ```
 
 Edit policies interactively
 
-This gives the ability to locally work with a policies workspace, and edit / reset / create policies
+This gives the ability to locally work with a policies workspace, and edit / reset / create policies, applied to both databases and vm policies
 
 When they are ready, once can commit all the policies changes to the remote
 
 Initially, the policies can be loaded and reloaded using
 
 ```shell
-ark exec dpa policies editor load-policies
+ark exec dpa policies vm editor load-policies
 ```
 
 Once they are loaded locally, they can be edited using the following commands
 ```shell
-ark exec dpa policies editor edit-policies
-ark exec dpa policies editor view-policies
-ark exec dpa policies editor reset-policies
-ark exec dpa policies editor generate-policy
-ark exec dpa policies editor remove-policies
-ark exec dpa policies editor policies diff
+ark exec dpa policies vm editor edit-policies
+ark exec dpa policies vm editor view-policies
+ark exec dpa policies vm editor reset-policies
+ark exec dpa policies vm editor generate-policy
+ark exec dpa policies vm editor remove-policies
+ark exec dpa policies vm editor policies diff
 ```
 
 Evantually, they can be committed using
 ```shell
-ark exec dpa policies editor commit-policies
+ark exec dpa policies vm editor commit-policies
+```
+
+Generate a short lived SSO password for databases connection
+```shell
+ark exec dpa sso short-lived-password
+```
+
+Generate a short lived SSO oracle wallet for oracle database connection
+```shell
+ark exec dpa sso short-lived-oracle-wallet --folder ~/wallet
+```
+
+Generate kubectl config file 
+```shell
+ark exec dpa k8s generate-kubeconfig 
+```
+
+Generate kubectl config file and save on specific path
+```shell
+ark exec dpa k8s generate-kubeconfig --folder=/Users/My.User/.kube
 ```
 
 You can view all of the commands via the --help for each respective exec action
@@ -310,14 +332,14 @@ As well as using the CLI, one can also develop under the ark sdk using its API /
 
 The same idea as the CLI applies here as well
 
-For example, let's say we want to create a demo environment containing all needed DPA assets
+For example, let's say we want to create a demo environment containing all needed DPA DB assets
 
 To do so, we can use the following script:
 
 ```python
 ArkSystemConfig.disable_verbose_logging()
 # Authenticate to the tenant with an auth profile to configure DPA
-username = 'tina@cyberark.cloud.12345'
+username = 'user@cyberark.cloud.12345'
 print(f'Authenticating to the created tenant with user [{username}]')
 isp_auth = ArkISPAuth()
 isp_auth.authenticate(
@@ -327,47 +349,62 @@ isp_auth.authenticate(
     secret=ArkSecret(secret='CoolPassword'),
 )
 
-print('Adding DPA Policy')
+# Create DPA DB Secret, Database, Connector and DB Policy
 dpa_service = ArkDPAAPI(isp_auth)
-dpa_service.policies.add_policy(
-    ArkDPAAddPolicy(
+print('Adding DPA DB User Secret')
+secret = dpa_service.secrets_db.add_secret(
+    ArkDPADBAddSecret(secret_type=ArkDPADBSecretType.UsernamePassword, username='Administrator', password='CoolPassword')
+)
+print('Adding DPA Database')
+dpa_service.workspace_db.add_database(
+    ArkDPADBAddDatabase(
+        name='mydomain.com',
+        provider_engine=ArkDPADBDatabaseEngineType.PostgresSH,
+        secret_id=secret.secret_id,
+        read_write_endpoint="myendpoint.mydomain.com",
+    )
+)
+print('Adding DPA DB Policy')
+dpa_service.policies_db.add_policy(
+    ArkDPADBAddPolicy(
         policy_name='IT Policy',
+        status=ArkDPARuleStatus.Active,
         description='IT Policy',
-        status=ArkDPARuleStatus.Enabled,
-        providers_data={
-            ArkWorkspaceType.AWS: ArkDPAAWSProviderData(
-                account_ids=['965428623928'], tags=[{'key': 'team', 'value': 'IT'}], regions=[], vpc_ids=[]
-            )
-        },
+        providers_data=ArkDPADBProvidersData(
+            postgres=ArkDPADBPostgres(
+                resources=['postgres-onboarded-asset'],
+            ),
+        ),
         user_access_rules=[
-            ArkDPAAuthorizationRule(
+            ArkDPADBAuthorizationRule(
                 rule_name='IT Rule',
-                user_data=ArkDPAUserData(roles=['IT']),
-                connection_information=ArkDPAConnectionInformation(
+                user_data=ArkDPAUserData(roles=['DpaAdmin'], groups=[], users=[]),
+                connection_information=ArkDPADBConnectionInformation(
+                    grant_access=2,
+                    idle_time=10,
                     full_days=True,
-                    days_of_week=[],
+                    hours_from='07:00',
+                    hours_to='17:00',
                     time_zone='Asia/Jerusalem',
-                    connect_as={
-                        ArkWorkspaceType.AWS: {
-                            ArkProtocolType.SSH: 'root',
-                            ArkProtocolType.RDP: ArkDPARDPLocalEphemeralUserConnectionData(
-                                local_ephemeral_user=ArkDPALocalEphemeralUserConnectionMethodData(assign_groups={'Administrators'})
+                    connect_as=ArkDPADBConnectAs(
+                        db_auth=[
+                            ArkDPADBLocalDBAuth(
+                                roles=['rds_superuser'],
+                                applied_to=[
+                                    ArkDPADBAppliedTo(
+                                        name='postgres-onboarded-asset',
+                                        type=ArkDPADBResourceIdentifierType.RESOURCE,
+                                    )
+                                ],
                             ),
-                        }
-                    },
+                        ],
+                    ),
                 ),
             )
         ],
     )
 )
-print('Finished Successfully')
 ```
-
-Where in the above the following flow occurres:
-- We login to the admin user in order to perform actions on the tenant
-- We first create a user and role for the IT department
-- Afterwards, we configure DPA's secret, aws account, domain and policy
-
 
 More examples can be found in the examples folder
 

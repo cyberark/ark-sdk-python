@@ -13,3 +13,12 @@ CyberArk's Official SDK and CLI for different services operations written in pyt
 Ark SDK is an API first library, widely used to automate different set of operations in order to ease day to day development
 
 It is used both as a CLI, for a general purpose automation and human access, and code via the SDK in python, to further enhance capabilities of automation
+
+
+## TL;DR
+
+### Enduser
+![Ark SDK Enduser Usage](./media/ark_sdk_enduser_tldr.gif)
+
+### Admin
+![Ark SDK Admin Usage](./media/ark_sdk_admin_tldr.gif)

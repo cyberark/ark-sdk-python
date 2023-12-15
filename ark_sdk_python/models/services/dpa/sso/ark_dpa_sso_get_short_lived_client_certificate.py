@@ -14,7 +14,7 @@ class ArkDPASSOShortLiveClientCertificateFormat(str, Enum):
 
 
 class ArkDPASSOGetShortLivedClientCertificate(ArkModel):
-    allow_caching: bool = Field(description='Allow short lived token caching', default=True)
+    allow_caching: bool = Field(description='Allow short lived token caching', default=False)
     folder: Optional[str] = Field(description='Output folder to write the key / certificate to. Required if format is File')
     output_format: ArkDPASSOShortLiveClientCertificateFormat = Field(
         description='The output format of the key / ' 'certificate. i.e. File, Raw, Base64',
