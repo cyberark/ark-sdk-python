@@ -56,7 +56,7 @@ isp_auth.authenticate(
     ),
     secret=ArkSecret(secret="CoolPassword"),
 )
-identity_service = ArkIdentityService(isp_auth=isp_auth)
+dpa_api = ArkDPAAPI(isp_auth=isp_auth)
 ```
 
 Where in the above example, we create an authenticator, and authenticate to a specific ISP tenant, using identity authentication type with a given username and password

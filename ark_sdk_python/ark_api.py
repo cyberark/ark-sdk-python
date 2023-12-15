@@ -11,20 +11,20 @@ from ark_sdk_python.services.ark_service import ArkService
 class ArkAPI:
     def __init__(self, authenticators: List[ArkAuth], profile: Optional[ArkProfile] = None) -> None:
         self.__authenticators = authenticators
-        self.__lazy_loaded_services: Dict[(str, ArkService)] = {}
+        self.__lazy_loaded_services: Dict[str, ArkService] = {}
         self.__profile = profile or ArkProfileLoader.load_default_profile()
 
     def __lazy_load_service(self, service_type: Type[ArkService]) -> ArkService:
         service_name = service_type.service_config().service_name
         required_auth_names = service_type.service_config().required_authenticator_names
-        required_autheneticators = [auth for auth in self.__authenticators if (auth.authenticator_name() in required_auth_names)]
+        required_autheneticators = [auth for auth in self.__authenticators if auth.authenticator_name() in required_auth_names]
         optional_authenticators = [
             auth
             for auth in self.__authenticators
-            if (auth.authenticator_name() in service_type.service_config().optional_authenticator_names)
+            if auth.authenticator_name() in service_type.service_config().optional_authenticator_names
         ]
         if len(required_autheneticators) == len(required_auth_names):
-            authenticators = {f'{a.authenticator_name()}_auth': a for a in (required_autheneticators + optional_authenticators)}
+            authenticators = {f'{a.authenticator_name()}_auth': a for a in required_autheneticators + optional_authenticators}
             self.__lazy_loaded_services[service_name] = service_type(**authenticators)
         else:
             raise ArkServiceException(
@@ -33,16 +33,39 @@ class ArkAPI:
         return self.__lazy_loaded_services[service_name]
 
     def authenticator(self, authenticator_name: str) -> ArkAuth:
-        '\n        Returns an authenticator by given name\n\n        Args:\n            authenticator_name (str): _description_\n\n        Raises:\n            ArkServiceException: _description_\n\n        Returns:\n            ArkAuth: _description_\n'
+        """
+        Returns an authenticator by given name
+
+        Args:
+            authenticator_name (str): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkAuth: _description_
+        """
         for auth in self.__authenticators:
             if auth.authenticator_name() == authenticator_name:
                 return auth
         raise ArkServiceException(f'{authenticator_name} is not supported or not found')
 
     def service(self, service_type: Type[ArkService]) -> ArkService:
-        '\n        Returns a service by its given name\n        Only if the authenticators were given that fit the service, will it be supported\n\n        Args:\n            service_type (Type[ArkService]): _description_\n\n        Raises:\n            ArkServiceException: _description_\n\n        Returns:\n            ArkService: _description_\n'
+        """
+        Returns a service by its given name
+        Only if the authenticators were given that fit the service, will it be supported
+
+        Args:
+            service_type (Type[ArkService]): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkService: _description_
+        """
         if not issubclass(service_type, ArkService):
-            raise ArkServiceException(f'Type {service_type} is invalid')
+            raise ArkServiceException(f"Type {service_type} is invalid")
         service_name = service_type.service_config().service_name
         if service_name in self.__lazy_loaded_services:
             return self.__lazy_loaded_services[service_name]
@@ -50,54 +73,106 @@ class ArkAPI:
 
     @property
     def profile(self) -> ArkProfile:
-        '\n        Gets the API profile\n\n        Returns:\n            ArkProfile: _description_\n'
+        """
+        Gets the API profile
+
+        Returns:
+            ArkProfile: _description_
+        """
         return self.__profile
 
     @property
-    def dpa_workspaces_db(self) -> 'ArkDPADBWorkspaceService':
-        '\n        Returns the DPA DB Workspace service if the fitting authenticators were given\n\n        Returns:\n            ArkDPADBWorkspaceService: _description_\n'
+    def dpa_workspaces_db(self) -> "ArkDPADBWorkspaceService":
+        """
+        Returns the DPA DB Workspace service if the fitting authenticators were given
+
+        Returns:
+            ArkDPADBWorkspaceService: _description_
+        """
         from ark_sdk_python.services.dpa.workspaces.db import ArkDPADBWorkspaceService
 
         return cast(ArkDPADBWorkspaceService, self.service(ArkDPADBWorkspaceService))
 
     @property
-    def dpa_policies_db(self) -> 'ArkDPADBPoliciesService':
-        '\n        Returns the DPA DB Policies service if the fitting authenticators were given\n\n        Returns:\n            ArkDPADBPoliciesService: _description_\n'
+    def dpa_policies_vm(self) -> "ArkDPAVMPoliciesService":
+        """
+        Returns the DPA VM Policies service if the fitting authenticators were given
+
+        Returns:
+            ArkDPAVMPoliciesService: _description_
+        """
+        from ark_sdk_python.services.dpa.policies.vm import ArkDPAVMPoliciesService
+
+        return cast(ArkDPAVMPoliciesService, self.service(ArkDPAVMPoliciesService))
+
+    @property
+    def dpa_policies_db(self) -> "ArkDPADBPoliciesService":
+        """
+        Returns the DPA DB Policies service if the fitting authenticators were given
+
+        Returns:
+            ArkDPADBPoliciesService: _description_
+        """
         from ark_sdk_python.services.dpa.policies.db import ArkDPADBPoliciesService
 
         return cast(ArkDPADBPoliciesService, self.service(ArkDPADBPoliciesService))
 
     @property
-    def dpa_secrets_db(self) -> 'ArkDPADBSecretsService':
-        '\n        Returns the DPA DB Secrets service if the fitting authenticators were given\n\n        Returns:\n            ArkDPADBSecretsService: _description_\n'
+    def dpa_secrets_db(self) -> "ArkDPADBSecretsService":
+        """
+        Returns the DPA DB Secrets service if the fitting authenticators were given
+
+        Returns:
+            ArkDPADBSecretsService: _description_
+        """
         from ark_sdk_python.services.dpa.secrets.db import ArkDPADBSecretsService
 
         return cast(ArkDPADBSecretsService, self.service(ArkDPADBSecretsService))
 
     @property
-    def dpa_sso(self) -> 'ArkDPASSOService':
-        '\n        Returns the DPA sso service if the fitting authenticators were given\n\n        Returns:\n            ArkDPASSOService: _description_\n'
+    def dpa_sso(self) -> "ArkDPASSOService":
+        """
+        Returns the DPA sso service if the fitting authenticators were given
+
+        Returns:
+            ArkDPASSOService: _description_
+        """
         from ark_sdk_python.services.dpa.sso import ArkDPASSOService
 
         return cast(ArkDPASSOService, self.service(ArkDPASSOService))
 
     @property
-    def dpa_databases(self) -> 'ArkDPADatabasesService':
-        '\n        Returns the DPA databases service if the fitting authenticators were given\n\n        Returns:\n            ArkDPADatabasesService: _description_\n'
+    def dpa_databases(self) -> "ArkDPADatabasesService":
+        """
+        Returns the DPA databases service if the fitting authenticators were given
+
+        Returns:
+            ArkDPADatabasesService: _description_
+        """
         from ark_sdk_python.services.dpa.databases import ArkDPADatabasesService
 
         return cast(ArkDPADatabasesService, self.service(ArkDPADatabasesService))
 
     @property
-    def dpa_certificates(self) -> 'ArkDPACertificatesService':
-        '\n        Returns the DPA certificates service if the fitting authenticators were given\n\n        Returns:\n            ArkDPACertificatesService: _description_\n'
+    def dpa_certificates(self) -> "ArkDPACertificatesService":
+        """
+        Returns the DPA certificates service if the fitting authenticators were given
+
+        Returns:
+            ArkDPACertificatesService: _description_
+        """
         from ark_sdk_python.services.dpa.certificates import ArkDPACertificatesService
 
         return cast(ArkDPACertificatesService, self.service(ArkDPACertificatesService))
 
     @property
-    def dpa_k8s(self) -> 'ArkDPAK8SService':
-        '\n        Returns the DPA Policies service if the fitting authenticators were given\n\n        Returns:\n            ArkDPAK8SService: _description_\n'
+    def dpa_k8s(self) -> "ArkDPAK8SService":
+        """
+        Returns the DPA Policies service if the fitting authenticators were given
+
+        Returns:
+            ArkDPAK8SService: _description_
+        """
         from ark_sdk_python.services.dpa.k8s import ArkDPAK8SService
 
         return cast(ArkDPAK8SService, self.service(ArkDPAK8SService))

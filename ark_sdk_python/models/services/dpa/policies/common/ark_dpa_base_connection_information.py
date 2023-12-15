@@ -23,7 +23,7 @@ class ArkDPABaseConnectionInformation(ArkCamelizedModel):
     full_days: Optional[bool] = Field(description='Whether this rule is allowed for the entirety of the week', default=False)
     hours_from: Optional[str] = Field(description='From which hours this rule is allowed')
     hours_to: Optional[str] = Field(description='To which hours this rule is allowed')
-    time_zone: Union[Dict, str] = Field(description='Timezone in which the hours apply to')
+    time_zone: Optional[Union[Dict, str]] = Field(description='Timezone in which the hours apply to')
     grant_access: conint(gt=0, le=24) = Field(description='For how many hours to grant access in this rule in hours', default=2)
     idle_time: Optional[conint(gt=0, le=120)] = Field(
         description='How long the session can stay idle until stopped in minutes', default=None

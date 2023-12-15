@@ -128,7 +128,7 @@ class ArkLoginAction(ArkAction):
                     if not args.force and (
                         (
                             auth_profile.auth_method == ArkAuthMethod.Identity
-                            and ArkIdentity.has_cache_record(profile, auth_profile.username)
+                            and ArkIdentity.has_cache_record(profile, auth_profile.username, args.refresh_auth)
                         )
                     ):
                         # Check if there is a secret already cached, if there is, no need to ask for password

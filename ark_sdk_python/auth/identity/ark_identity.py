@@ -356,13 +356,14 @@ class ArkIdentity:
             time.sleep(POLL_INTERVAL_MS)
 
     @classmethod
-    def has_cache_record(cls, profile: ArkProfile, username: str) -> bool:
+    def has_cache_record(cls, profile: ArkProfile, username: str, refresh_auth_allowed: bool) -> bool:
         """
         Checks if a record exists within the identity cache for profile and username
 
         Args:
             profile (ArkProfile): _description_
             username (str): _description_
+            refresh_auth_allowed (bool): _description_
 
         Returns:
             bool: _description_
@@ -370,7 +371,13 @@ class ArkIdentity:
         keyring = ArkKeyring(cls.__name__.lower())
         token = keyring.load_token(profile, f'{username}_identity')
         session = keyring.load_token(profile, f'{username}_identity_session')
-        return token is not None and session is not None
+        if token is not None and session is not None:
+            if token.expires_in and token.expires_in < datetime.now():
+                if token.refresh_token and refresh_auth_allowed:
+                    return True
+                return False
+            return True
+        return False
 
     @classmethod
     @cached(cache=LRUCache(maxsize=1024))

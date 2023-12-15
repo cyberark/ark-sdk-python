@@ -123,17 +123,23 @@ class ArkAuth(ABC):
         if auth_profile.auth_method in ArkAuthMethodsRequireCredentials and not auth_profile.username:
             raise ArkAuthException(f'{self.authenticator_human_readable_name()} requires a username and optionally a secret')
         ark_token = None
+        token_refreshed = False
         if self._cache_authentication and self._cache_keyring and not force:
             # Load the postfix of the token based on the auth profile and method type
             ark_token = self._cache_keyring.load_token(profile, self._resolve_cache_postfix(auth_profile))
             if ark_token and ark_token.expires_in.replace(tzinfo=None) <= datetime.now():
-                # Expired
-                ark_token = None
+                # Expired, try to refresh
+                if refresh_auth and ark_token.refresh_token:
+                    ark_token = self._perform_refresh_authentication(profile, auth_profile, ark_token)
+                    if ark_token:
+                        token_refreshed = True
+                else:
+                    ark_token = None
         if not ark_token:
             ark_token = self._perform_authentication(profile, auth_profile, secret, force)
             if self._cache_authentication and self._cache_keyring:
                 self._cache_keyring.save_token(profile, ark_token, self._resolve_cache_postfix(auth_profile))
-        elif refresh_auth:
+        elif refresh_auth and not token_refreshed:
             try:
                 ark_token = self._perform_refresh_authentication(profile, auth_profile, ark_token)
                 if self._cache_authentication and self._cache_keyring:

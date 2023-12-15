@@ -13,6 +13,7 @@ from ark_sdk_python.models.cli_services.dpa.policies_editor.common import (
     ArkDPAViewPolicies,
 )
 from ark_sdk_python.models.cli_services.dpa.policies_editor.db import ArkDPADBGeneratePolicy
+from ark_sdk_python.models.cli_services.dpa.policies_editor.vm import ArkDPAVMGeneratePolicy
 from ark_sdk_python.models.services.dpa.certificates import (
     ArkDPACertificatesFilter,
     ArkDPACreateCertificate,
@@ -24,6 +25,7 @@ from ark_sdk_python.models.services.dpa.databases import ArkDPADatabasesPsqlExec
 from ark_sdk_python.models.services.dpa.k8s.ark_dpa_k8s_generate_kubeconfig import ArkDPAK8SGenerateKubeConfig
 from ark_sdk_python.models.services.dpa.policies.common import ArkDPADeletePolicy, ArkDPAGetPolicy, ArkDPAUpdatePolicyStatus
 from ark_sdk_python.models.services.dpa.policies.db import ArkDPADBAddPolicy, ArkDPADBPoliciesFilter, ArkDPADBUpdatePolicy
+from ark_sdk_python.models.services.dpa.policies.vm import ArkDPAVMAddPolicy, ArkDPAVMPoliciesFilter, ArkDPAVMUpdatePolicy
 from ark_sdk_python.models.services.dpa.secrets.db import (
     ArkDPADBAddSecret,
     ArkDPADBDeleteSecret,
@@ -61,6 +63,32 @@ WORKSPACES_DB_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefini
 WORKSPACES_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='workspaces', subactions=[WORKSPACES_DB_ACTION]
 )
+POLICIES_VM_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
+    'add-policy': ArkDPAVMAddPolicy,
+    'delete-policy': ArkDPADeletePolicy,
+    'update-policy': ArkDPAVMUpdatePolicy,
+    'update-policy-status': ArkDPAUpdatePolicyStatus,
+    'policy': ArkDPAGetPolicy,
+    'list-policies': None,
+    'list-policies-by': ArkDPAVMPoliciesFilter,
+    'policies-stats': None,
+}
+POLICIES_VM_EDITOR_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
+    'load-policies': ArkDPALoadPolicies,
+    'generate-policy': ArkDPAVMGeneratePolicy,
+    'edit-policies': ArkDPAEditPolicies,
+    'remove-policies': ArkDPARemovePolicies,
+    'view-policies': ArkDPAViewPolicies,
+    'reset-policies': ArkDPAResetPolicies,
+    'policies-diff': ArkDPAPoliciesDiff,
+    'policies-status': ArkDPAGetPoliciesStatus,
+    'commit-policies': ArkDPACommitPolicies,
+}
+POLICIES_VM_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
+    action_name='vm',
+    schemas=POLICIES_VM_ACTION_TO_SCHEMA_MAP,
+    subactions=[ArkServiceActionDefinition(action_name='editor', schemas=POLICIES_VM_EDITOR_ACTION_TO_SCHEMA_MAP)],
+)
 POLICIES_DB_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
     'add-policy': ArkDPADBAddPolicy,
     'delete-policy': ArkDPADeletePolicy,
@@ -87,7 +115,9 @@ POLICIES_DB_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefiniti
     schemas=POLICIES_DB_ACTION_TO_SCHEMA_MAP,
     subactions=[ArkServiceActionDefinition(action_name='editor', schemas=POLICIES_DB_EDITOR_ACTION_TO_SCHEMA_MAP)],
 )
-POLICIES_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(action_name='policies', subactions=[POLICIES_DB_ACTION])
+POLICIES_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
+    action_name='policies', subactions=[POLICIES_VM_ACTION, POLICIES_DB_ACTION]
+)
 CERTIFICATES_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
     'add-certificate': ArkDPACreateCertificate,
     'delete-certificate': ArkDPADeleteCertificate,

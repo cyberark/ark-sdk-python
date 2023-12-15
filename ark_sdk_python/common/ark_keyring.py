@@ -18,7 +18,7 @@ ARK_BASIC_KEYRING_FOLDER_ENV_VAR: Final[str] = 'ARK_KEYRING_FOLDER'
 ARK_BASIC_KEYRING_OVERRIDE_ENV_VAR: Final[str] = 'ARK_BASIC_KEYRING'
 DBUS_SESSION_ENV_VAR: Final[str] = 'DBUS_SESSION_BUS_ADDRESS'
 DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS: Final[int] = 60
-MAX_KEYRING_RECORD_TIME_HOURS: Final[int] = 48
+MAX_KEYRING_RECORD_TIME_HOURS: Final[int] = 12
 
 
 class BasicKeyring:
@@ -166,10 +166,13 @@ class ArkKeyring:
             token (ArkToken): _description_
             postfix (str): _description_
         """
-        self.__logger.info(f'Trying to save token [{self.__service_name}-{postfix}] of profile [{profile.profile_name}]')
-        kr = self.get_keyring()
-        kr.set_password(f'{self.__service_name}-{postfix}', profile.profile_name, token.json())
-        self.__logger.info('Saved token successfully')
+        try:
+            self.__logger.info(f'Trying to save token [{self.__service_name}-{postfix}] of profile [{profile.profile_name}]')
+            kr = self.get_keyring()
+            kr.set_password(f'{self.__service_name}-{postfix}', profile.profile_name, token.json())
+            self.__logger.info('Saved token successfully')
+        except Exception as ex:
+            self.__logger.warning(f'Failed to save token [{str(ex)}]')
 
     def load_token(self, profile: ArkProfile, postfix: str) -> Optional[ArkToken]:
         """
@@ -185,28 +188,36 @@ class ArkKeyring:
         Returns:
             Optional[ArkToken]: _description_
         """
-        kr = self.get_keyring()
-        self.__logger.info(f'Trying to load token [{self.__service_name}-{postfix}] of profile [{profile.profile_name}]')
-        token_val = kr.get_password(f'{self.__service_name}-{postfix}', profile.profile_name)
-        if not token_val:
-            self.__logger.info('No token found')
+        try:
+            kr = self.get_keyring()
+            self.__logger.info(f'Trying to load token [{self.__service_name}-{postfix}] of profile [{profile.profile_name}]')
+            token_val = kr.get_password(f'{self.__service_name}-{postfix}', profile.profile_name)
+            if not token_val:
+                self.__logger.info('No token found')
+                return None
+            token = ArkToken.parse_raw(token_val)
+            if token.expires_in:
+                if (
+                    not token.refresh_token
+                    and token.token_type != ArkTokenType.Internal
+                    and (token.expires_in.replace(tzinfo=None) - timedelta(seconds=DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS)) < datetime.now()
+                ):
+                    self.__logger.info('Token is expired and no refresh token exists')
+                    kr.delete_password(f'{self.__service_name}-{postfix}', profile.profile_name)
+                    return None
+                elif (
+                    token.refresh_token
+                    and (token.expires_in.replace(tzinfo=None) + timedelta(hours=MAX_KEYRING_RECORD_TIME_HOURS)) < datetime.now()
+                ):
+                    self.__logger.info('Token is expired and has been in the cache for too long before another usage')
+                    kr.delete_password(f'{self.__service_name}-{postfix}', profile.profile_name)
+                    return None
+            self.__logger.info('Loaded token successfully')
+            return token
+        except Exception as ex:
+            self.__logger.warning(f'Failed to load cached token [{str(ex)}]')
+            try:
+                kr.delete_password(f'{self.__service_name}-{postfix}', profile.profile_name)
+            except Exception as ex_deletion:
+                self.__logger.warning(f'Failed to delete failed loaded cached token [{str(ex_deletion)}]')
             return None
-        token = ArkToken.parse_raw(token_val)
-        if token.expires_in:
-            if (
-                not token.refresh_token
-                and token.token_type != ArkTokenType.Internal
-                and (token.expires_in.replace(tzinfo=None) - timedelta(seconds=DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS)) < datetime.now()
-            ):
-                self.__logger.info('Token is expired and no refresh token exists')
-                kr.delete_password(f'{self.__service_name}-{postfix}', profile.profile_name)
-                return None
-            elif (
-                token.refresh_token
-                and (token.expires_in.replace(tzinfo=None) + timedelta(hours=MAX_KEYRING_RECORD_TIME_HOURS)) < datetime.now()
-            ):
-                self.__logger.info('Token is expired and has been in the cache for too long before another usage')
-                kr.delete_password(f'{self.__service_name}-{postfix}', profile.profile_name)
-                return None
-        self.__logger.info('Loaded token successfully')
-        return token
