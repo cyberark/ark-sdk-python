@@ -1,7 +1,7 @@
 Ark SDK Python
 =================
 
-**[📜Documentation](https://pages.github.com/cyberark/ark-sdk-python/)**
+**[📜Documentation](https://shiny-engine-93j8j5p.pages.github.io/)**
 
 ![Ark SDK Python](assets/sdk.png)
 
