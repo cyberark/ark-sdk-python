@@ -8703,7 +8703,7 @@ You're not viewing the latest version.
 <span class="sd">        Retrieves a certificate from Access Certificates Service by its id.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            certificate_id (str): The id of the certificate to retrieve.</span>
+<span class="sd">            get_certificate (ArkDPAGetCertificate): The id of the certificate to retrieve.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkServiceException: If the certificate could not be retrieved.</span>
@@ -8726,7 +8726,7 @@ You're not viewing the latest version.
 <span class="sd">        Delete an existing certificate.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            certificate_id (str): The id of the certificate to delete.</span>
+<span class="sd">            cert (ArkDPADeleteCertificate): The id of the certificate to delete.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkServiceException: _description_</span>
@@ -8741,7 +8741,7 @@ You're not viewing the latest version.
 <span class="sd">        Update an existing certificate.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            certificate_id (str): The id of the certificate to update.</span>
+<span class="sd">            update_certificate (ArkDPAUpdateCertificate): The id of the certificate to update.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkServiceException: _description_</span>
@@ -9014,9 +9014,9 @@ You're not viewing the latest version.
     </thead>
     <tbody>
         <tr>
-          <td><code>certificate_id</code></td>
+          <td><code>get_certificate</code></td>
           <td>
-                <code>str</code>
+                <code><span title="ark_sdk_python.models.services.dpa.certificates.ArkDPAGetCertificate">ArkDPAGetCertificate</span></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -9106,7 +9106,7 @@ You're not viewing the latest version.
 <span class="sd">    Retrieves a certificate from Access Certificates Service by its id.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        certificate_id (str): The id of the certificate to retrieve.</span>
+<span class="sd">        get_certificate (ArkDPAGetCertificate): The id of the certificate to retrieve.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkServiceException: If the certificate could not be retrieved.</span>
@@ -9159,9 +9159,9 @@ You're not viewing the latest version.
     </thead>
     <tbody>
         <tr>
-          <td><code>certificate_id</code></td>
+          <td><code>cert</code></td>
           <td>
-                <code>str</code>
+                <code><span title="ark_sdk_python.models.services.dpa.certificates.ArkDPADeleteCertificate">ArkDPADeleteCertificate</span></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -9219,7 +9219,7 @@ You're not viewing the latest version.
 <span class="sd">    Delete an existing certificate.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        certificate_id (str): The id of the certificate to delete.</span>
+<span class="sd">        cert (ArkDPADeleteCertificate): The id of the certificate to delete.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkServiceException: _description_</span>
@@ -9490,9 +9490,9 @@ You're not viewing the latest version.
     </thead>
     <tbody>
         <tr>
-          <td><code>certificate_id</code></td>
+          <td><code>update_certificate</code></td>
           <td>
-                <code>str</code>
+                <code><span title="ark_sdk_python.models.services.dpa.certificates.ArkDPAUpdateCertificate">ArkDPAUpdateCertificate</span></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -9558,7 +9558,7 @@ You're not viewing the latest version.
 <span class="sd">    Update an existing certificate.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        certificate_id (str): The id of the certificate to update.</span>
+<span class="sd">        update_certificate (ArkDPAUpdateCertificate): The id of the certificate to update.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkServiceException: _description_</span>
