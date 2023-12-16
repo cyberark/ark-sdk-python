@@ -33,6 +33,8 @@ if __name__ == '__main__':
     )
     policies_service = ArkDPADBPoliciesService(isp_auth=isp_auth)
     policies = policies_service.list_policies()
+    for policy in policies:
+        pprint.pprint(policy.json(indent=4))
 ```
 
 Where in the above example, we authenticate to a specific ISP tenant, and create a DPA policies service, and then use it to list the policies
@@ -46,7 +48,13 @@ There are alot of different supported functions, the following is a list of supp
     - <b>ArkDPACertificatesService (certificates)</b> - DPA Certificates service
         - Required Authenticators: isp
         - Optional Authenticators: None
-    - <b>ArkDPAK8SService (kubernetes)</b> - DPA Kubernetes service
+    - <b>ArkDPASSOService (sso)</b> - DPA Enduser SSO service
+        - Required Authenticators: isp
+        - Optional Authenticators: None
+    - <b>ArkDPAK8SService (kubernetes)</b> - DPA Enduser Kubernetes service
+        - Required Authenticators: isp
+        - Optional Authenticators: None
+    - <b>ArkDPADatabasesService (databases)</b> - DPA Endusr Databases service
         - Required Authenticators: isp
         - Optional Authenticators: None
     - <b>ArkDPAPoliciesService (policies)</b> - DPA Policies Management
@@ -54,8 +62,12 @@ There are alot of different supported functions, the following is a list of supp
             - ArkDPADBPoliciesEditorService (editor) - DPA DB Policies Interactive
             - Required Authenticators: isp
             - Optional Authenticators: None
-    - <b>ArkDPASecretsService (policies)</b> - DPA Secrets Management
-        - <b>ArkDPADBSecretsService (secrets)</b> - DPA DB Secrets Services
+        - <b>ArkDPAVMPoliciesService (vm)</b> - DPA VM Policies Management
+            - ArkDPAVMPoliciesEditorService (editor) - DPA VM Policies Interactive
+            - Required Authenticators: isp
+            - Optional Authenticators: None
+    - <b>ArkDPASecretsService (secrets)</b> - DPA Secrets Management
+        - <b>ArkDPADBSecretsService (db)</b> - DPA DB Secrets Services
             - Required Authenticators: isp
             - Optional Authenticators: None
     - <b>ArkDPAWorkspacesService (workspaces)</b> - DPA Workspaces Management

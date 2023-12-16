@@ -24,4 +24,5 @@ Alongside that, caching can be disabled in the SDK for authenticators like this:
 isp_auth = ArkISPAuth(cache_authentication=False)
 ```
 
-Lastly, cache can be completely cleared by simply removing it from the filesystem under $HOME/.ark_cache
+Lastly, cache can be completely cleared by running 'ark cache clear'
+or if working with the basic keyring, simply removing it from the filesystem under $HOME/.ark_cache

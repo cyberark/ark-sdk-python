@@ -8,6 +8,16 @@ nav:
   - Homepage: index.md
   - Getting Started: getting_started.md
   - Architecture: architecture.md
+  - How-To's:
+      - Working With Profiles: howto/working_with_profiles.md
+      - Working With Ark Cache: howto/working_with_ark_cache.md
+      - Enduser Databases Workflow: howto/enduser_databases_workflow.md  
+      - Simple Commands Workflow: howto/simple_commands_workflow.md
+      - Simple SDK Workflow: howto/simple_sdk_workflow.md
+      - Refreshing Authentication: howto/refreshing_authentication.md
+  - Examples: 
+      - Commands Examples: examples/commands_examples.md
+      - SDK Examples: examples/sdk_examples.md
   - Commands:
       - Configure: commands/configure.md
       - Login: commands/login.md
@@ -20,16 +30,6 @@ nav:
       - Schemas: sdk/schemas.md
       - Async Requests: sdk/async_requests.md
       - Pagination: sdk/pagination.md
-  - How-To's:
-      - Working With Profiles: howto/working_with_profiles.md
-      - Working With Ark Cache: howto/working_with_ark_cache.md
-      - Enduser Databases Workflow: howto/enduser_databases_workflow.md  
-      - Simple Commands Workflow: howto/simple_commands_workflow.md
-      - Simple SDK Workflow: howto/simple_sdk_workflow.md
-      - Refreshing Authentication: howto/refreshing_authentication.md
-  - Examples: 
-      - Commands Examples: examples/commands_examples.md
-      - SDK Examples: examples/sdk_examples.md
   - Contributing:
       - Adding a New API: contrib/adding_a_new_api.md
       - Adding a New Service: contrib/adding_a_new_service.md

@@ -99,6 +99,7 @@ Notes:
 - You may disable certificate validation for login to different authenticators using the --disable-certificate-verification or supply a certificate to be used, not recommended to disable
 
 
-Usafe Env Vars:
+Useful Env Vars:
+
 - ARK_PROFILE - Sets the profile to be used across the CLI
 - ARK_DISABLE_CERTIFICATE_VERIFICATION - Disables certificate verification on REST API's

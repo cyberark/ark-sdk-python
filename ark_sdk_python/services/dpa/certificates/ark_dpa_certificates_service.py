@@ -74,7 +74,7 @@ class ArkDPACertificatesService(ArkService):
         Retrieves a certificate from Access Certificates Service by its id.
 
         Args:
-            certificate_id (str): The id of the certificate to retrieve.
+            get_certificate (ArkDPAGetCertificate): The id of the certificate to retrieve.
 
         Raises:
             ArkServiceException: If the certificate could not be retrieved.
@@ -97,7 +97,7 @@ class ArkDPACertificatesService(ArkService):
         Delete an existing certificate.
 
         Args:
-            certificate_id (str): The id of the certificate to delete.
+            cert (ArkDPADeleteCertificate): The id of the certificate to delete.
 
         Raises:
             ArkServiceException: _description_
@@ -112,7 +112,7 @@ class ArkDPACertificatesService(ArkService):
         Update an existing certificate.
 
         Args:
-            certificate_id (str): The id of the certificate to update.
+            update_certificate (ArkDPAUpdateCertificate): The id of the certificate to update.
 
         Raises:
             ArkServiceException: _description_

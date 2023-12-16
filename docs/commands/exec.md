@@ -12,15 +12,17 @@ The following services and commands are supported:
 
 - <b>dpa</b> - Dynamic Privilege Access Services
     - <b>policies</b> - DPA Policies Management
-      - <b>db</b> - DPA DB Policies
-        - <b>editor</b> - DPA DB Policies Interactive Editor
+        - <b>db</b> - DPA DB Policies
+            - <b>editor</b> - DPA DB Policies Interactive Editor
+        - <b>vm</b> - DPA VM Policies
+            - <b>editor</b> - DPA VM Policies Interactive Editor
     - <b>certificates</b> - DPA Certificates Management
     - <b>databases</b> - DPA Databases Enduser Operations
     - <b>sso</b> - DPA SSO Enduser Operations
     - <b>secrets</b> - DPA Secrets Services
-      <b>db</b> - DPA DB Secrets Service
+        - <b>db</b> - DPA DB Secrets Service
     - <b>workspaces</b> - DPA Workspaces Management
-      - <b>db</b> - DPA DB Workspace Management
+        - <b>db</b> - DPA DB Workspace Management
     - <b>k8s</b> - DPA kubernetes service
 
 Any command has its own subcommands, with respective arguments
