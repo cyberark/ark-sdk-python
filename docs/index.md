@@ -22,3 +22,10 @@ It is used both as a CLI, for a general purpose automation and human access, and
 
 ### Admin
 ![Ark SDK Admin Usage](./media/ark_sdk_admin_tldr.gif)
+
+
+## License
+
+This project is licensed under Apache License 2.0 - see [`LICENSE`](./license.md) for more details
+
+Copyright (c) 2023 CyberArk Software Ltd. All rights reserved.

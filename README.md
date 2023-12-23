@@ -1,9 +1,9 @@
 Ark SDK Python
 =================
 
-**[📜Documentation](https://shiny-engine-93j8j5p.pages.github.io/)**
+**[📜Documentation](https://pages.github.com/cyberark/ark-sdk-python/)**
 
-![Ark SDK Python](assets/sdk.png)
+![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/master/assets/sdk.png)
 
 CyberArk's Official SDK and CLI for different services operations
 
@@ -37,10 +37,10 @@ TL;DR
 =====
 
 ## Enduser
-![Ark SDK Enduser Usage](assets/ark_sdk_enduser_tldr.gif)
+![Ark SDK Enduser Usage](https://github.com/cyberark/ark-sdk-python/blob/master/assets/ark_sdk_enduser_tldr.gif)
 
 ## Admin
-![Ark SDK Admin Usage](assets/ark_sdk_admin_tldr.gif)
+![Ark SDK Admin Usage](https://github.com/cyberark/ark-sdk-python/blob/master/assets/ark_sdk_admin_tldr.gif)
 
 
 
@@ -408,115 +408,8 @@ dpa_service.policies_db.add_policy(
 
 More examples can be found in the examples folder
 
+## License
 
-Contributing
-============
-Contributing new services or authenticators requires implementing different interfaces per the required purpose
+This project is licensed under Apache License 2.0 - see [`LICENSE`](LICENSE) for more details
 
-Adding a new authenticator
---------------------------
-To add a new authenticator, one must implement the following interface under auth/ark_auth.py:
-```python
-class ArkAuth(ABC):
-    @abstractmethod
-    def _perform_authentication(self, profile: ArkProfile, auth_profile: ArkAuthProfile, 
-                                secret: Optional[ArkSecret] = None, force: bool = False) -> ArkToken:
-        """
-        Performs the actual authentication, based on the implementation
-
-        Args:
-            profile (ArkProfile): Profile to authenticate on
-            auth_profile (ArkAuthProfile): Specific auth profile for the authentication
-            secret (Optional[ArkSecret]): Secret used for authentication. Defaults to None
-            force (bool): Force authenticate and ignore caching
-
-        Returns:
-            Optional[ArkToken]: Token of the authentication to be used
-        """
-        pass
-
-    @staticmethod
-    @abstractmethod
-    def authenticator_name() -> str:
-        """
-        Name of the authenticator to be used for the auth profiles and services
-
-        Returns:
-            str: 
-        """
-        pass
-
-    @staticmethod
-    @abstractmethod
-    def authenticator_human_readable_name() -> str:
-        """
-        Human readable name of the authenticator to be used for representation to the user
-
-        Returns:
-            str: 
-        """
-        pass
-
-    @staticmethod
-    @abstractmethod
-    def supported_auth_methods() -> List[ArkAuthMethod]:
-        """
-        Supported authenticaton methods by this authenticator
-
-        Returns:
-            List[ArkAuthMethod]
-        """
-        pass
-
-    @staticmethod
-    @abstractmethod
-    def default_auth_method() -> Tuple[ArkAuthMethod, ArkAuthMethodSettings]:
-        """
-        Default authentication method used by this authenticator
-
-        Returns:
-            Tuple[ArkAuthMethod, ArkAuthMethodSettings]
-        """
-        pass
-```
-
-The above will implement the authenticator logic itself, and all needed information about the authenticator
-
-Once implemented, you may use it accordingly with the fitting services who need such authenticator
-
-If you also wish to expose the authenticator to the CLI, u may also add him to the SUPPORTED_AUTHENTICATORS list under auth/__init__.py
-
-Once added, it will be automatically exposed on configure and login actions
-
-
-Adding a new service
---------------------
-To add a new service that can be executed, once must implement the following interface under services/ark_service.py:
-
-```python
-class ArkService(ABC):
-    @staticmethod
-    @abstractmethod
-    def service_config() -> ArkServiceConfig:
-        """
-        Returns the service config containing the service name, and required / optional authenticators
-
-        Returns:
-            ArkServiceConfig
-        """
-        pass
-```
-The only required thing from the service is to expose its configuration
-
-Any other action on the service is implemented explictly
-
-Once implemented, you can use it along with the fitting authenticators
-
-If you wish to expose it on the api, add a property to the service, and add it to the SUPPORTED_SERVICES list
-
-If you also wish to expose it on the CLI, you will need to add definitions to what exactly will be exposed, along with exposing it on the API
-To expose an action to the cli, you can add a new consts definition for the service, under modes/actions/services, definining its actions and schemas, and finally, expose it using the ArkServiceActionDefinition class
-
-Once the definition is done, to automatically expose it, add the ArkServiceActionDefinition definition to SUPPORTED_SERVICE_ACTIONS
-
-You may use the existing services as references
+Copyright (c) 2023 CyberArk Software Ltd. All rights reserved.

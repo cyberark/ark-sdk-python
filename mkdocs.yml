@@ -7,6 +7,7 @@ edit_uri: edit/main/docs
 nav:
   - Homepage: index.md
   - Getting Started: getting_started.md
+  - License: license.md
   - Architecture: architecture.md
   - How-To's:
       - Working With Profiles: howto/working_with_profiles.md
@@ -30,10 +31,6 @@ nav:
       - Schemas: sdk/schemas.md
       - Async Requests: sdk/async_requests.md
       - Pagination: sdk/pagination.md
-  - Contributing:
-      - Adding a New API: contrib/adding_a_new_api.md
-      - Adding a New Service: contrib/adding_a_new_service.md
-      - Adding a New Authenticator: contrib/adding_a_new_authenticator.md
   - API: 
       - Reference: reference/
 theme:
