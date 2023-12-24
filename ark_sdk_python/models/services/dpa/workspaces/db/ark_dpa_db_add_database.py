@@ -15,9 +15,12 @@ class ArkDPADBAddDatabase(ArkCamelizedModel):
         description='Platform of the database, as in, where it resides, defaulted to on premises', default=ArkWorkspaceType.ONPREM
     )
     services: Optional[List[str]] = Field(description='Services related to the database, most commonly used with oracle')
+    domain_controller_name: Optional[str] = Field(description='Domain controller name associated to this database')
+    domain_controller_netbios: Optional[str] = Field(description='Domain controller netbios associated to this database')
     provider_engine: ArkDPADBDatabaseEngineType = Field(
         description='Provider engine, will be later deduced to the identifer of the provider'
     )
+    enable_certificate_validation: bool = Field(description='Whether to enable and enforce certificate validation', default=True)
     certificate: Optional[str] = Field(description='Certificate id used for this database that resides in the certificates service')
     read_write_endpoint: str = Field(description='Read write endpoint of the database')
     read_only_endpoint: Optional[str] = Field(description='Optionally, a read only endpoint of the database')

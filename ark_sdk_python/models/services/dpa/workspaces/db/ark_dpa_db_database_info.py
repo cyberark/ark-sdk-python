@@ -10,6 +10,7 @@ from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_provider import
 class ArkDPADBDatabaseInfo(ArkModel):
     id: int = Field(description='ID of the database target that can be referenced in operations')
     name: str = Field(description='Name of the database, often referenced in policies and other APIs')
+    enable_certificate_validation: bool = Field(description='Whether to enable and enforce certificate validation', default=True)
     certificate: Optional[str] = Field(description='Certificate id related to this database')
     services: List[str] = Field(description='Services related to the database, most commonly used with oracle', default_factory=list)
     secret_id: Optional[str] = Field(description='Secret identifier stored in the secret service related to this database')
