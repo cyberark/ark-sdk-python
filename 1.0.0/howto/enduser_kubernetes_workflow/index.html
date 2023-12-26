@@ -6,32 +6,32 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Python Ark SDK for CyberArk's Identity Security Platform">
+        <meta name="description" content="Enduser Kubernetes Workflow">
       
       
         <meta name="author" content="CyberArk, Ofir Iluz">
       
       
       
-        <link rel="prev" href="../certificates/ark_dpa_certificates_update_certificate/">
+        <link rel="prev" href="../enduser_databases_workflow/">
       
       
-        <link rel="next" href="ark_dpa_databases_base_execution/">
+        <link rel="next" href="../simple_commands_workflow/">
       
       
-      <link rel="icon" href="../../../../../media/favicon.ico">
+      <link rel="icon" href="../../media/favicon.ico">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
     
     
       
-        <title>databases - Ark SDK</title>
+        <title>Enduser Kubernetes Workflow - Ark SDK</title>
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,11 +50,11 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ark_sdk_python.models.services.dpa.databases" class="md-skip">
+        <a href="#enduser-kubernetes-workflow" class="md-skip">
           Skip to content
         </a>
       
@@ -95,7 +95,7 @@
             <div class="md-banner__inner md-grid md-typeset">
               
 You're not viewing the latest version.
-<a href="../../../../../..">
+<a href="../../..">
     <strong>Click here to go to latest.</strong>
 </a>
 
@@ -112,9 +112,9 @@ You're not viewing the latest version.
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../../.." title="Ark SDK" class="md-header__button md-logo" aria-label="Ark SDK" data-md-component="logo">
+    <a href="../.." title="Ark SDK" class="md-header__button md-logo" aria-label="Ark SDK" data-md-component="logo">
       
-  <img src="../../../../../media/logo.svg" alt="logo">
+  <img src="../../media/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -131,7 +131,7 @@ You're not viewing the latest version.
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              databases
+              Enduser Kubernetes Workflow
             
           </span>
         </div>
@@ -244,9 +244,9 @@ You're not viewing the latest version.
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../../.." title="Ark SDK" class="md-nav__button md-logo" aria-label="Ark SDK" data-md-component="logo">
+    <a href="../.." title="Ark SDK" class="md-nav__button md-logo" aria-label="Ark SDK" data-md-component="logo">
       
-  <img src="../../../../../media/logo.svg" alt="logo">
+  <img src="../../media/logo.svg" alt="logo">
 
     </a>
     Ark SDK
@@ -273,7 +273,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -293,7 +293,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../getting_started/" class="md-nav__link">
+      <a href="../../getting_started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -313,7 +313,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../license/" class="md-nav__link">
+      <a href="../../license/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -333,7 +333,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../architecture/" class="md-nav__link">
+      <a href="../../architecture/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -350,8 +350,10 @@ You're not viewing the latest version.
       
   
   
+    
   
   
+  
     
     
       
@@ -367,6 +369,8 @@ You're not viewing the latest version.
       
         
       
+        
+      
     
     
     
@@ -374,12 +378,12 @@ You're not viewing the latest version.
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -393,7 +397,7 @@ You're not viewing the latest version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             How-To's
@@ -407,7 +411,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../howto/working_with_profiles/" class="md-nav__link">
+      <a href="../working_with_profiles/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -428,7 +432,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../howto/working_with_ark_cache/" class="md-nav__link">
+      <a href="../working_with_ark_cache/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -449,7 +453,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../howto/enduser_databases_workflow/" class="md-nav__link">
+      <a href="../enduser_databases_workflow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -467,10 +471,41 @@ You're not viewing the latest version.
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Enduser Kubernetes Workflow
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../../../../../howto/simple_commands_workflow/" class="md-nav__link">
+      <a href="../simple_commands_workflow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -491,7 +526,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../howto/simple_sdk_workflow/" class="md-nav__link">
+      <a href="../simple_sdk_workflow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -512,7 +547,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../howto/refreshing_authentication/" class="md-nav__link">
+      <a href="../refreshing_authentication/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -586,7 +621,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../examples/commands_examples/" class="md-nav__link">
+      <a href="../../examples/commands_examples/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -607,7 +642,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../examples/sdk_examples/" class="md-nav__link">
+      <a href="../../examples/sdk_examples/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -687,7 +722,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../commands/configure/" class="md-nav__link">
+      <a href="../../commands/configure/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -708,7 +743,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../commands/login/" class="md-nav__link">
+      <a href="../../commands/login/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -729,7 +764,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../commands/exec/" class="md-nav__link">
+      <a href="../../commands/exec/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -750,7 +785,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../commands/profiles/" class="md-nav__link">
+      <a href="../../commands/profiles/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -771,7 +806,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../commands/cache/" class="md-nav__link">
+      <a href="../../commands/cache/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -851,7 +886,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../sdk/authenticators/" class="md-nav__link">
+      <a href="../../sdk/authenticators/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -872,7 +907,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../sdk/services/" class="md-nav__link">
+      <a href="../../sdk/services/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -893,7 +928,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../sdk/schemas/" class="md-nav__link">
+      <a href="../../sdk/schemas/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -914,7 +949,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../sdk/async_requests/" class="md-nav__link">
+      <a href="../../sdk/async_requests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -935,7 +970,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../../sdk/pagination/" class="md-nav__link">
+      <a href="../../sdk/pagination/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -960,10 +995,8 @@ You're not viewing the latest version.
       
   
   
-    
   
   
-  
     
     
       
@@ -976,12 +1009,12 @@ You're not viewing the latest version.
       
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
           <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
@@ -995,7 +1028,7 @@ You're not viewing the latest version.
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             API
@@ -1006,10 +1039,8 @@ You're not viewing the latest version.
                 
   
   
-    
   
   
-  
     
     
       
@@ -1053,17 +1084,17 @@ You're not viewing the latest version.
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../" class="md-nav__link ">
+            <a href="../../reference/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1080,7 +1111,7 @@ You're not viewing the latest version.
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_1">
             <span class="md-nav__icon md-icon"></span>
             Reference
@@ -1126,7 +1157,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../actions/" class="md-nav__link ">
+            <a href="../../reference/actions/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1157,7 +1188,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../actions/ark_action/" class="md-nav__link">
+      <a href="../../reference/actions/ark_action/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1178,7 +1209,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../actions/ark_cache_action/" class="md-nav__link">
+      <a href="../../reference/actions/ark_cache_action/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1199,7 +1230,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../actions/ark_configure_action/" class="md-nav__link">
+      <a href="../../reference/actions/ark_configure_action/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1220,7 +1251,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../actions/ark_exec_action/" class="md-nav__link">
+      <a href="../../reference/actions/ark_exec_action/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1241,7 +1272,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../actions/ark_login_action/" class="md-nav__link">
+      <a href="../../reference/actions/ark_login_action/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1262,7 +1293,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../actions/ark_profiles_action/" class="md-nav__link">
+      <a href="../../reference/actions/ark_profiles_action/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1283,7 +1314,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../actions/ark_service_exec_action/" class="md-nav__link">
+      <a href="../../reference/actions/ark_service_exec_action/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1332,7 +1363,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../args/" class="md-nav__link ">
+            <a href="../../reference/args/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1363,7 +1394,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../args/ark_args_formatter/" class="md-nav__link">
+      <a href="../../reference/args/ark_args_formatter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1384,7 +1415,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../args/ark_pydantic_argparse/" class="md-nav__link">
+      <a href="../../reference/args/ark_pydantic_argparse/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1413,7 +1444,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../ark/" class="md-nav__link">
+      <a href="../../reference/ark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1434,7 +1465,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../ark_api/" class="md-nav__link">
+      <a href="../../reference/ark_api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1479,7 +1510,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../auth/" class="md-nav__link ">
+            <a href="../../reference/auth/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1510,7 +1541,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../auth/ark_auth/" class="md-nav__link">
+      <a href="../../reference/auth/ark_auth/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1531,7 +1562,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../auth/ark_isp_auth/" class="md-nav__link">
+      <a href="../../reference/auth/ark_isp_auth/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1574,7 +1605,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../auth/identity/" class="md-nav__link ">
+            <a href="../../reference/auth/identity/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1605,7 +1636,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../auth/identity/ark_identity/" class="md-nav__link">
+      <a href="../../reference/auth/identity/ark_identity/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1626,7 +1657,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../auth/identity/ark_identity_fqdn_resolver/" class="md-nav__link">
+      <a href="../../reference/auth/identity/ark_identity_fqdn_resolver/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1647,7 +1678,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../auth/identity/ark_identity_service_user/" class="md-nav__link">
+      <a href="../../reference/auth/identity/ark_identity_service_user/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1706,7 +1737,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../cli_services/" class="md-nav__link ">
+            <a href="../../reference/cli_services/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1737,7 +1768,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli_services/ark_cli_api/" class="md-nav__link">
+      <a href="../../reference/cli_services/ark_cli_api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1786,7 +1817,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../cli_services/dpa/" class="md-nav__link ">
+            <a href="../../reference/cli_services/dpa/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1835,7 +1866,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../cli_services/dpa/common/" class="md-nav__link ">
+            <a href="../../reference/cli_services/dpa/common/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1866,7 +1897,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli_services/dpa/common/ark_dpa_base_policies_editor_service/" class="md-nav__link">
+      <a href="../../reference/cli_services/dpa/common/ark_dpa_base_policies_editor_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1913,7 +1944,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../cli_services/dpa/db/" class="md-nav__link ">
+            <a href="../../reference/cli_services/dpa/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1944,7 +1975,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli_services/dpa/db/ark_dpa_db_policies_editor_service/" class="md-nav__link">
+      <a href="../../reference/cli_services/dpa/db/ark_dpa_db_policies_editor_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1991,7 +2022,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../cli_services/dpa/vm/" class="md-nav__link ">
+            <a href="../../reference/cli_services/dpa/vm/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2022,7 +2053,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli_services/dpa/vm/ark_dpa_vm_policies_editor_service/" class="md-nav__link">
+      <a href="../../reference/cli_services/dpa/vm/ark_dpa_vm_policies_editor_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2109,7 +2140,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../common/" class="md-nav__link ">
+            <a href="../../reference/common/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2140,7 +2171,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/ark_async_client/" class="md-nav__link">
+      <a href="../../reference/common/ark_async_client/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2161,7 +2192,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/ark_async_request/" class="md-nav__link">
+      <a href="../../reference/common/ark_async_request/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2182,7 +2213,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/ark_client/" class="md-nav__link">
+      <a href="../../reference/common/ark_client/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2203,7 +2234,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/ark_keyring/" class="md-nav__link">
+      <a href="../../reference/common/ark_keyring/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2224,7 +2255,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/ark_logger/" class="md-nav__link">
+      <a href="../../reference/common/ark_logger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2245,7 +2276,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/ark_page/" class="md-nav__link">
+      <a href="../../reference/common/ark_page/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2266,7 +2297,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/ark_pollers/" class="md-nav__link">
+      <a href="../../reference/common/ark_pollers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2287,7 +2318,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/ark_random_utils/" class="md-nav__link">
+      <a href="../../reference/common/ark_random_utils/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2308,7 +2339,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/ark_system_config/" class="md-nav__link">
+      <a href="../../reference/common/ark_system_config/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2347,7 +2378,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../common/env/" class="md-nav__link ">
+            <a href="../../reference/common/env/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2378,7 +2409,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/env/ark_env_mapping/" class="md-nav__link">
+      <a href="../../reference/common/env/ark_env_mapping/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2425,7 +2456,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../common/isp/" class="md-nav__link ">
+            <a href="../../reference/common/isp/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2456,7 +2487,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/isp/ark_isp_service_client/" class="md-nav__link">
+      <a href="../../reference/common/isp/ark_isp_service_client/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2490,10 +2521,8 @@ You're not viewing the latest version.
                 
   
   
-    
   
   
-  
     
     
       
@@ -2527,17 +2556,17 @@ You're not viewing the latest version.
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../" class="md-nav__link ">
+            <a href="../../reference/models/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2554,7 +2583,7 @@ You're not viewing the latest version.
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_9_1_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_9_1_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_1_9">
             <span class="md-nav__icon md-icon"></span>
             models
@@ -2592,7 +2621,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../actions/" class="md-nav__link ">
+            <a href="../../reference/models/actions/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2623,7 +2652,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../actions/ark_configure_action_consts/" class="md-nav__link">
+      <a href="../../reference/models/actions/ark_configure_action_consts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2644,7 +2673,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../actions/ark_service_action_definition/" class="md-nav__link">
+      <a href="../../reference/models/actions/ark_service_action_definition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2683,7 +2712,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../actions/services/" class="md-nav__link ">
+            <a href="../../reference/models/actions/services/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2714,7 +2743,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../actions/services/ark_dpa_exec_action_consts/" class="md-nav__link">
+      <a href="../../reference/models/actions/services/ark_dpa_exec_action_consts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2751,7 +2780,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../ark_exceptions/" class="md-nav__link">
+      <a href="../../reference/models/ark_exceptions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2772,7 +2801,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../ark_model/" class="md-nav__link">
+      <a href="../../reference/models/ark_model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2793,7 +2822,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../ark_profile/" class="md-nav__link">
+      <a href="../../reference/models/ark_profile/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2838,7 +2867,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../auth/" class="md-nav__link ">
+            <a href="../../reference/models/auth/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2869,7 +2898,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../auth/ark_auth_method/" class="md-nav__link">
+      <a href="../../reference/models/auth/ark_auth_method/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2890,7 +2919,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../auth/ark_auth_profile/" class="md-nav__link">
+      <a href="../../reference/models/auth/ark_auth_profile/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2911,7 +2940,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../auth/ark_secret/" class="md-nav__link">
+      <a href="../../reference/models/auth/ark_secret/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2932,7 +2961,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../auth/ark_token/" class="md-nav__link">
+      <a href="../../reference/models/auth/ark_token/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2981,7 +3010,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../cli_services/" class="md-nav__link ">
+            <a href="../../reference/models/cli_services/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3032,7 +3061,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../cli_services/dpa/" class="md-nav__link ">
+            <a href="../../reference/models/cli_services/dpa/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3091,7 +3120,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../cli_services/dpa/policies_editor/" class="md-nav__link ">
+            <a href="../../reference/models/cli_services/dpa/policies_editor/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3160,7 +3189,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../cli_services/dpa/policies_editor/common/" class="md-nav__link ">
+            <a href="../../reference/models/cli_services/dpa/policies_editor/common/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3191,7 +3220,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_base_generate_policy/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_base_generate_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3212,7 +3241,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_commit_policies/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_commit_policies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3233,7 +3262,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_edit_policies/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_edit_policies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3254,7 +3283,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_get_policies_status/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_get_policies_status/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3275,7 +3304,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_load_policies/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_load_policies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3296,7 +3325,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_loaded_policies/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_loaded_policies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3317,7 +3346,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_policies_diff/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_policies_diff/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3338,7 +3367,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_policies_status/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_policies_status/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3359,7 +3388,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_remove_policies/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_remove_policies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3380,7 +3409,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_reset_policies/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_reset_policies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3401,7 +3430,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/common/ark_dpa_view_policies/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/common/ark_dpa_view_policies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3448,7 +3477,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../cli_services/dpa/policies_editor/db/" class="md-nav__link ">
+            <a href="../../reference/models/cli_services/dpa/policies_editor/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3479,7 +3508,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/db/ark_dpa_db_generate_policy/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/db/ark_dpa_db_generate_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3526,7 +3555,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../cli_services/dpa/policies_editor/vm/" class="md-nav__link ">
+            <a href="../../reference/models/cli_services/dpa/policies_editor/vm/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3557,7 +3586,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../cli_services/dpa/policies_editor/vm/ark_dpa_vm_generate_policy/" class="md-nav__link">
+      <a href="../../reference/models/cli_services/dpa/policies_editor/vm/ark_dpa_vm_generate_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3639,6 +3668,8 @@ You're not viewing the latest version.
         
       
         
+      
+        
           
         
       
@@ -3668,7 +3699,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../common/" class="md-nav__link ">
+            <a href="../../reference/models/common/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3699,7 +3730,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_async_request_settings/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_async_request_settings/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3720,7 +3751,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_async_status/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_async_status/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3741,7 +3772,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_async_task/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_async_task/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3762,7 +3793,28 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_connector_type/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_connection_method/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ark_connection_method
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/models/common/ark_connector_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3783,7 +3835,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_counted_values/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_counted_values/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3804,7 +3856,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_network_entity_type/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_network_entity_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3825,7 +3877,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_os_type/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_os_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3846,7 +3898,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_protocol_type/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_protocol_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3867,7 +3919,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_region/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_region/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3888,7 +3940,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_status/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_status/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3909,7 +3961,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_status_stats/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_status_stats/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3930,7 +3982,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_validations/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_validations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3951,7 +4003,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/ark_workspace_type/" class="md-nav__link">
+      <a href="../../reference/models/common/ark_workspace_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3985,12 +4037,12 @@ You're not viewing the latest version.
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_14" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_15" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../common/aws/" class="md-nav__link ">
+            <a href="../../reference/models/common/aws/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4001,14 +4053,14 @@ You're not viewing the latest version.
             </a>
             
               
-              <label class="md-nav__link " for="__nav_9_1_9_7_14" id="__nav_9_1_9_7_14_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_9_1_9_7_15" id="__nav_9_1_9_7_15_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_7_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_1_9_7_14">
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_7_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_1_9_7_15">
             <span class="md-nav__icon md-icon"></span>
             aws
           </label>
@@ -4021,7 +4073,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/aws/ark_cfn_async_task/" class="md-nav__link">
+      <a href="../../reference/models/common/aws/ark_cfn_async_task/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4073,12 +4125,12 @@ You're not viewing the latest version.
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_15" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_16" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../common/connections/" class="md-nav__link ">
+            <a href="../../reference/models/common/connections/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4089,14 +4141,14 @@ You're not viewing the latest version.
             </a>
             
               
-              <label class="md-nav__link " for="__nav_9_1_9_7_15" id="__nav_9_1_9_7_15_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_9_1_9_7_16" id="__nav_9_1_9_7_16_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_7_15_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_1_9_7_15">
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_7_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_1_9_7_16">
             <span class="md-nav__icon md-icon"></span>
             connections
           </label>
@@ -4109,7 +4161,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/connections/ark_connection_command/" class="md-nav__link">
+      <a href="../../reference/models/common/connections/ark_connection_command/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4130,7 +4182,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/connections/ark_connection_credentials/" class="md-nav__link">
+      <a href="../../reference/models/common/connections/ark_connection_credentials/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4151,7 +4203,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/connections/ark_connection_details/" class="md-nav__link">
+      <a href="../../reference/models/common/connections/ark_connection_details/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4172,7 +4224,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/connections/ark_connection_result/" class="md-nav__link">
+      <a href="../../reference/models/common/connections/ark_connection_result/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4208,12 +4260,12 @@ You're not viewing the latest version.
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_15_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_16_5" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../common/connections/connection_data/" class="md-nav__link ">
+            <a href="../../reference/models/common/connections/connection_data/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4224,14 +4276,14 @@ You're not viewing the latest version.
             </a>
             
               
-              <label class="md-nav__link " for="__nav_9_1_9_7_15_5" id="__nav_9_1_9_7_15_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_9_1_9_7_16_5" id="__nav_9_1_9_7_16_5_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="6" aria-labelledby="__nav_9_1_9_7_15_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_1_9_7_15_5">
+        <nav class="md-nav" data-md-level="6" aria-labelledby="__nav_9_1_9_7_16_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_1_9_7_16_5">
             <span class="md-nav__icon md-icon"></span>
             connection_data
           </label>
@@ -4244,7 +4296,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/connections/connection_data/ark_ssh_connection_data/" class="md-nav__link">
+      <a href="../../reference/models/common/connections/connection_data/ark_ssh_connection_data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4265,7 +4317,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/connections/connection_data/ark_winrm_connection_data/" class="md-nav__link">
+      <a href="../../reference/models/common/connections/connection_data/ark_winrm_connection_data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4319,12 +4371,12 @@ You're not viewing the latest version.
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_16" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_17" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../common/identity/" class="md-nav__link ">
+            <a href="../../reference/models/common/identity/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4335,14 +4387,14 @@ You're not viewing the latest version.
             </a>
             
               
-              <label class="md-nav__link " for="__nav_9_1_9_7_16" id="__nav_9_1_9_7_16_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_9_1_9_7_17" id="__nav_9_1_9_7_17_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_7_16_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_1_9_7_16">
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_7_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_1_9_7_17">
             <span class="md-nav__icon md-icon"></span>
             identity
           </label>
@@ -4355,7 +4407,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/identity/ark_identity_auth_schemas/" class="md-nav__link">
+      <a href="../../reference/models/common/identity/ark_identity_auth_schemas/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4376,7 +4428,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/identity/ark_identity_common_schemas/" class="md-nav__link">
+      <a href="../../reference/models/common/identity/ark_identity_common_schemas/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4397,7 +4449,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/identity/ark_identity_directory_schemas/" class="md-nav__link">
+      <a href="../../reference/models/common/identity/ark_identity_directory_schemas/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4439,12 +4491,12 @@ You're not viewing the latest version.
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_17" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_7_18" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../common/isp/" class="md-nav__link ">
+            <a href="../../reference/models/common/isp/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4455,14 +4507,14 @@ You're not viewing the latest version.
             </a>
             
               
-              <label class="md-nav__link " for="__nav_9_1_9_7_17" id="__nav_9_1_9_7_17_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_9_1_9_7_18" id="__nav_9_1_9_7_18_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_7_17_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_1_9_7_17">
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_7_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_1_9_7_18">
             <span class="md-nav__icon md-icon"></span>
             isp
           </label>
@@ -4475,7 +4527,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../common/isp/ark_platform_discovery_schemas/" class="md-nav__link">
+      <a href="../../reference/models/common/isp/ark_platform_discovery_schemas/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4509,8 +4561,6 @@ You're not viewing the latest version.
                 
   
   
-    
-  
   
   
     
@@ -4526,17 +4576,17 @@ You're not viewing the latest version.
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_8" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../reference/models/services/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4553,7 +4603,7 @@ You're not viewing the latest version.
             
           </div>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_9_1_9_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_9_1_9_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_1_9_8">
             <span class="md-nav__icon md-icon"></span>
             services
@@ -4567,7 +4617,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../ark_service_config/" class="md-nav__link">
+      <a href="../../reference/models/services/ark_service_config/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4585,10 +4635,8 @@ You're not viewing the latest version.
                 
   
   
-    
   
   
-  
     
     
       
@@ -4624,17 +4672,17 @@ You're not viewing the latest version.
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_8_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_8_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4651,7 +4699,7 @@ You're not viewing the latest version.
             
           </div>
         
-        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_8_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_9_8_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_1_9_8_2">
             <span class="md-nav__icon md-icon"></span>
             dpa
@@ -4691,7 +4739,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../certificates/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/certificates/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4722,7 +4770,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../certificates/ark_dpa_certificates_certificate/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/certificates/ark_dpa_certificates_certificate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4743,7 +4791,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../certificates/ark_dpa_certificates_delete_certificate/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/certificates/ark_dpa_certificates_delete_certificate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4764,7 +4812,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../certificates/ark_dpa_certificates_filter/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/certificates/ark_dpa_certificates_filter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4785,7 +4833,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../certificates/ark_dpa_certificates_get_certificate/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/certificates/ark_dpa_certificates_get_certificate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4806,7 +4854,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../certificates/ark_dpa_certificates_update_certificate/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/certificates/ark_dpa_certificates_update_certificate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4832,10 +4880,8 @@ You're not viewing the latest version.
                 
   
   
-    
   
   
-  
     
     
       
@@ -4843,41 +4889,49 @@ You're not viewing the latest version.
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_8_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_1_9_8_2_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../reference/models/services/dpa/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
-    databases
+    db
   </span>
   
 
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_9_1_9_8_2_2" id="__nav_9_1_9_8_2_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_9_1_9_8_2_2" id="__nav_9_1_9_8_2_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="6" aria-labelledby="__nav_9_1_9_8_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="6" aria-labelledby="__nav_9_1_9_8_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_1_9_8_2_2">
             <span class="md-nav__icon md-icon"></span>
-            databases
+            db
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -4888,11 +4942,11 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="ark_dpa_databases_base_execution/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/db/ark_dpa_db_base_execution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ark_dpa_databases_base_execution
+    ark_dpa_db_base_execution
   </span>
   
 
@@ -4909,11 +4963,95 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="ark_dpa_databases_psql_execution/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/db/ark_dpa_db_base_generate_assets/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ark_dpa_databases_psql_execution
+    ark_dpa_db_base_generate_assets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/models/services/dpa/db/ark_dpa_db_generated_assets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ark_dpa_db_generated_assets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/models/services/dpa/db/ark_dpa_db_mysql_execution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ark_dpa_db_mysql_execution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/models/services/dpa/db/ark_dpa_db_oracle_generate_assets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ark_dpa_db_oracle_generate_assets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/models/services/dpa/db/ark_dpa_db_psql_execution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ark_dpa_db_psql_execution
   </span>
   
 
@@ -4956,7 +5094,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../k8s/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/k8s/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4987,7 +5125,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../k8s/ark_dpa_k8s_generate_kubeconfig/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/k8s/ark_dpa_k8s_generate_kubeconfig/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5044,7 +5182,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../policies/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/policies/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -5117,7 +5255,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../policies/common/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/policies/common/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -5148,7 +5286,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_base_add_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_base_add_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5169,7 +5307,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_base_authorization_rule/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_base_authorization_rule/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5190,7 +5328,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_base_connection_information/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_base_connection_information/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5211,7 +5349,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_base_policies_filter/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_base_policies_filter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5232,7 +5370,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_base_policies_stats/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_base_policies_stats/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5253,7 +5391,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_base_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_base_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5274,7 +5412,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_base_policy_list_item/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_base_policy_list_item/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5295,7 +5433,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_base_update_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_base_update_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5316,7 +5454,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_delete_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_delete_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5337,7 +5475,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_get_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_get_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5358,7 +5496,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_rule_status/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_rule_status/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5379,7 +5517,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_update_policy_status/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_update_policy_status/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5400,7 +5538,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/common/ark_dpa_user_data/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/common/ark_dpa_user_data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5465,7 +5603,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../policies/db/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/policies/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -5496,7 +5634,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_add_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_add_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5517,7 +5655,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_authorization_rule/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_authorization_rule/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5538,7 +5676,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_connection_data/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_connection_data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5559,7 +5697,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_policies_filter/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_policies_filter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5580,7 +5718,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_policies_stats/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_policies_stats/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5601,7 +5739,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_policies_workspace_type_serializer/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_policies_workspace_type_serializer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5622,7 +5760,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5643,7 +5781,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_policy_list_item/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_policy_list_item/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5664,7 +5802,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_providers/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_providers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5685,7 +5823,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/db/ark_dpa_db_update_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/db/ark_dpa_db_update_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5752,7 +5890,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../policies/vm/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/policies/vm/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -5783,7 +5921,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_add_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_add_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5804,7 +5942,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_authorization_rule/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_authorization_rule/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5825,7 +5963,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_connection_data/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_connection_data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5846,7 +5984,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_policies_filter/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_policies_filter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5867,7 +6005,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_policies_protocol_type_serializer/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_policies_protocol_type_serializer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5888,7 +6026,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_policies_stats/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_policies_stats/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5909,7 +6047,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_policies_workspace_type_serializer/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_policies_workspace_type_serializer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5930,7 +6068,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5951,7 +6089,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_policy_list_item/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_policy_list_item/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5972,7 +6110,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_providers/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_providers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5993,7 +6131,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../policies/vm/ark_dpa_vm_update_policy/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/policies/vm/ark_dpa_vm_update_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6050,7 +6188,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../secrets/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/secrets/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -6129,7 +6267,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../secrets/db/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/secrets/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -6160,7 +6298,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_add_secret/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_add_secret/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6181,7 +6319,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_delete_secret/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_delete_secret/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6202,7 +6340,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_disable_secret/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_disable_secret/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6223,7 +6361,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_enable_secret/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_enable_secret/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6244,7 +6382,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_get_secret/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_get_secret/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6265,7 +6403,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_secret_metadata/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_secret_metadata/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6286,7 +6424,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_secret_type/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_secret_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6307,7 +6445,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_secrets_filter/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_secrets_filter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6328,7 +6466,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_secrets_stats/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_secrets_stats/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6349,7 +6487,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_store_descriptor/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_store_descriptor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6370,7 +6508,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_store_type/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_store_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6391,7 +6529,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/ark_dpa_db_update_secret/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/ark_dpa_db_update_secret/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6430,7 +6568,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../secrets/db/secret_links/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/secrets/db/secret_links/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -6461,7 +6599,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/secret_links/ark_dpa_db_pam_account_secret_link/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/secret_links/ark_dpa_db_pam_account_secret_link/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6508,7 +6646,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../secrets/db/secrets_data/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/secrets/db/secrets_data/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -6539,7 +6677,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../secrets/db/secrets_data/ark_dpa_db_user_password_secret_data/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/secrets/db/secrets_data/ark_dpa_db_user_password_secret_data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6608,7 +6746,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../sso/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/sso/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -6639,7 +6777,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../sso/ark_dpa_sso_acquire_token_response/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/sso/ark_dpa_sso_acquire_token_response/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6660,7 +6798,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../sso/ark_dpa_sso_get_short_lived_client_certificate/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/sso/ark_dpa_sso_get_short_lived_client_certificate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6681,7 +6819,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../sso/ark_dpa_sso_get_short_lived_oracle_wallet/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/sso/ark_dpa_sso_get_short_lived_oracle_wallet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6702,7 +6840,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../sso/ark_dpa_sso_get_short_lived_password/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/sso/ark_dpa_sso_get_short_lived_password/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6751,7 +6889,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../workspaces/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/workspaces/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -6822,7 +6960,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../workspaces/db/" class="md-nav__link ">
+            <a href="../../reference/models/services/dpa/workspaces/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -6853,7 +6991,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_add_database/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_add_database/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6874,7 +7012,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_database/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_database/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6895,7 +7033,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_database_info/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_database_info/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6916,7 +7054,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_databases_filter/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_databases_filter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6937,7 +7075,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_databases_stats/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_databases_stats/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6958,7 +7096,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_delete_database/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_delete_database/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6979,7 +7117,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_get_database/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_get_database/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7000,7 +7138,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_platform_type_serializer/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_platform_type_serializer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7021,7 +7159,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_provider/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_provider/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7042,7 +7180,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_tag/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_tag/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7063,7 +7201,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_update_database/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_update_database/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7084,7 +7222,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../workspaces/db/ark_dpa_db_warning/" class="md-nav__link">
+      <a href="../../reference/models/services/dpa/workspaces/db/ark_dpa_db_warning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7167,7 +7305,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/" class="md-nav__link ">
+            <a href="../../reference/services/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7198,7 +7336,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/ark_service/" class="md-nav__link">
+      <a href="../../reference/services/ark_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7265,7 +7403,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7296,7 +7434,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/dpa/ark_dpa_api/" class="md-nav__link">
+      <a href="../../reference/services/dpa/ark_dpa_api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7335,7 +7473,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/certificates/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/certificates/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7366,7 +7504,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/dpa/certificates/ark_dpa_certificates_service/" class="md-nav__link">
+      <a href="../../reference/services/dpa/certificates/ark_dpa_certificates_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7413,11 +7551,11 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/databases/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
-    databases
+    db
   </span>
   
 
@@ -7433,7 +7571,7 @@ You're not viewing the latest version.
         <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_9_1_10_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9_1_10_2_3">
             <span class="md-nav__icon md-icon"></span>
-            databases
+            db
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -7444,11 +7582,11 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/dpa/databases/ark_dpa_databases_service/" class="md-nav__link">
+      <a href="../../reference/services/dpa/db/ark_dpa_db_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ark_dpa_databases_service
+    ark_dpa_db_service
   </span>
   
 
@@ -7491,7 +7629,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/k8s/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/k8s/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7522,7 +7660,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/dpa/k8s/ark_dpa_k8s_service/" class="md-nav__link">
+      <a href="../../reference/services/dpa/k8s/ark_dpa_k8s_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7575,7 +7713,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/policies/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/policies/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7624,7 +7762,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/policies/db/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/policies/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7655,7 +7793,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/dpa/policies/db/ark_dpa_db_policies_service/" class="md-nav__link">
+      <a href="../../reference/services/dpa/policies/db/ark_dpa_db_policies_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7702,7 +7840,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/policies/vm/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/policies/vm/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7733,7 +7871,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/dpa/policies/vm/ark_dpa_vm_policies_service/" class="md-nav__link">
+      <a href="../../reference/services/dpa/policies/vm/ark_dpa_vm_policies_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7790,7 +7928,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/secrets/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/secrets/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7839,7 +7977,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/secrets/db/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/secrets/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7870,7 +8008,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/dpa/secrets/db/ark_dpa_db_secrets_service/" class="md-nav__link">
+      <a href="../../reference/services/dpa/secrets/db/ark_dpa_db_secrets_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7925,7 +8063,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/sso/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/sso/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7956,7 +8094,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/dpa/sso/ark_dpa_sso_service/" class="md-nav__link">
+      <a href="../../reference/services/dpa/sso/ark_dpa_sso_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -8005,7 +8143,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/workspaces/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/workspaces/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -8054,7 +8192,7 @@ You're not viewing the latest version.
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../services/dpa/workspaces/db/" class="md-nav__link ">
+            <a href="../../reference/services/dpa/workspaces/db/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -8085,7 +8223,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="../../../../services/dpa/workspaces/db/ark_dpa_db_workspace_service/" class="md-nav__link">
+      <a href="../../reference/services/dpa/workspaces/db/ark_dpa_db_workspace_service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -8163,23 +8301,8 @@ You're not viewing the latest version.
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#ark_sdk_python.models.services.dpa.databases" class="md-nav__link">
-    <span class="md-ellipsis">
-      databases
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -8197,40 +8320,53 @@ You're not viewing the latest version.
   
 
 
-  <h1>databases</h1>
+<h1 id="enduser-kubernetes-workflow">Enduser Kubernetes Workflow<a class="headerlink" href="#enduser-kubernetes-workflow" title="Permanent link">&para;</a></h1>
+<p>In order to securely access to Kubernetes cluster the user will follow below steps.</p>
+<p>First, he would install ark-sdk-python using pip if he did not do so already.</p>
+<p>Afterwards, he would configure a profile once as follows interactivaly:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ark<span class="w"> </span>configure
+</code></pre></div></td></tr></table></div>
+Or silently:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ark<span class="w"> </span>configure<span class="w"> </span>--silent<span class="w"> </span>--work-with-isp<span class="w"> </span>--isp-username<span class="w"> </span>myuser
+</code></pre></div></td></tr></table></div></p>
+<p>Now that the profile is configured, the user can login.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ark<span class="w"> </span>login<span class="w"> </span>--silent<span class="w"> </span>--isp-secret<span class="w"> </span>mysecret
+</code></pre></div></td></tr></table></div></p>
+<p>Now that the user is logged in, the user may generate a kubectl kubeconfig file, that contain all the clusters that are accessbile to the user, based on its permissions.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ark<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dpa<span class="w"> </span>k8s<span class="w"> </span>generate-kubeconfig
+</code></pre></div></td></tr></table></div></p>
+<p>Alternatively, by adding an optional flag and path, the config file will be generated in the provided path, overriding any existing file with the same name.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ark<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dpa<span class="w"> </span>k8s<span class="w"> </span>generate-kubeconfig<span class="w"> </span>-f<span class="w"> </span>~/.kube
+</code></pre></div></td></tr></table></div></p>
+<h1 id="refresh-sso-certificate-data-workflow">Refresh SSO certificate data Workflow<a class="headerlink" href="#refresh-sso-certificate-data-workflow" title="Permanent link">&para;</a></h1>
+<p>Refreshing the certificate allows the user to keep using its existing generated kubeconfig file and only refresh the MFA authentication data.
+The command expect a flag that indicates the output format: "-of" with one of the following arguments:</p>
+<ol>
+<li>
+<p>File - generating 2 files for certificate and private key. if chosen, a flag -f with path is mandatory
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ark<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dpa<span class="w"> </span>sso<span class="w"> </span>short-lived-client-certificate<span class="w"> </span>-of<span class="w"> </span>file<span class="w"> </span>-f<span class="w"> </span>~/home
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>raw - the certificate and the private key will be  printed to the client as plaintext:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ark<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dpa<span class="w"> </span>sso<span class="w"> </span>short-lived-client-certificate<span class="w"> </span>-of<span class="w"> </span>raw
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>base64 - the certificate and the private key will be encoded to Base64 format and will be printed to the client:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ark<span class="w"> </span>ark<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dpa<span class="w"> </span>sso<span class="w"> </span>short-lived-client-certificate<span class="w"> </span>-of<span class="w"> </span>base64
+</code></pre></div></td></tr></table></div></p>
+</li>
+</ol>
 
-<div class="doc doc-object doc-module">
 
 
 
-<a id="ark_sdk_python.models.services.dpa.databases"></a>
-  <div class="doc doc-contents first">
+
+
 
   
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-
-
+  
 
 
 
@@ -8281,10 +8417,10 @@ You're not viewing the latest version.
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>
