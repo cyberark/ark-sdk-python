@@ -1,39 +1,35 @@
 ---
-title: Enduser Databases Workflow
-description: Enduser Databases Workflow
+title: End-user database workflow
+description: End-user Database Workflow
 ---
 
-# Enduser Databases Workflow
-Say an end user wants to connect to a database
-to do so, he would perform the following steps:
+# End-user database Workflow
+Here is an example workflow for connecting to a database:
 
-First, he would install ark-sdk-python using pip if he did not do so already
-
-Afterwards, he would configure a profile once as follows interactivaly:
-```shell
-ark configure
-```
-Or silently:
-```shell
-ark configure --silent --work-with-isp --isp-username myuser
-```
-
-Now that we configured a profile, we may log into it
-```shell
-ark login --silent --isp-secret mysecret
-```
-
-Now that the user is logged in, he may execute actions, one of them being generating a short lived sso password
-```shell
-ark exec dpa sso short-lived-password
-```
-
-The user will receive a secret which he can use to connect to his database of choice, for example postgres
-```shell
-psql "host=mytenant.postgres.cyberark.cloud user=user@cyberark.cloud.12345@postgres@mypostgres.fqdn.com"
-```
-
-Or, using ark
-```shell
-ark exec dpa databases psql --target-username postgres --target-address mypostgres.fqdn.com
-```
+1. Install Ark SDK: `pip3 install ark-sdk-python`
+1. Create a profile:  
+    * Interactively:
+        ```shell linenums="0"
+        ark configure
+        ```
+    * Silently:
+        ```shell linenums="0"
+        ark configure --silent --work-with-isp --isp-username myuser
+        ```
+1. Log in to Ark:
+    ```shell linenums="0"
+    ark login --silent --isp-secret <my-ark-secret>
+    ```
+1. Get a short-lived SSO password for a database from the DPA service:
+    ```shell linenums="0"
+    ark exec dpa sso short-lived-password
+    ```
+1. One of these:
+    * Log in directly to the database:
+        ```shell linenums="0"
+        psql "host=mytenant.postgres.cyberark.cloud user=user@cyberark.cloud.12345@postgres@mypostgres.fqdn.com"
+        ```
+    * Log in to the database from Ark:
+        ```shell linenums="0"
+        ark exec dpa databases psql --target-username postgres --target-address mypostgres.fqdn.com
+        ```

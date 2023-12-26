@@ -5,7 +5,6 @@ description: Login Command
 
 # Login
 
-## Motivation
 The login command is used to login to the authentication methods configured for the profile
 
 You will be asked to write a password for each respective authentication method that supports password, and alongside that, any needed MFA prompt
@@ -14,7 +13,7 @@ Once the login is done, the access tokens are stored on the computer keystore fo
 
 Once they are expired, a consecutive login will be required
 
-## Running
+## Run
 ```shell
 ark login
 ```
