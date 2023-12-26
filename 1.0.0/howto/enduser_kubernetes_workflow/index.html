@@ -483,6 +483,17 @@ You're not viewing the latest version.
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Enduser Kubernetes Workflow
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -492,6 +503,34 @@ You're not viewing the latest version.
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#refresh-sso-certificates-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh SSO Certificates Workflow
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -8304,6 +8343,23 @@ You're not viewing the latest version.
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#refresh-sso-certificates-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh SSO Certificates Workflow
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -8338,7 +8394,7 @@ Or silently:
 <p>Alternatively, by adding an optional flag and path, the config file will be generated in the provided path, overriding any existing file with the same name.
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ark<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dpa<span class="w"> </span>k8s<span class="w"> </span>generate-kubeconfig<span class="w"> </span>-f<span class="w"> </span>~/.kube
 </code></pre></div></td></tr></table></div></p>
-<h1 id="refresh-sso-certificate-data-workflow">Refresh SSO certificate data Workflow<a class="headerlink" href="#refresh-sso-certificate-data-workflow" title="Permanent link">&para;</a></h1>
+<h2 id="refresh-sso-certificates-workflow">Refresh SSO Certificates Workflow<a class="headerlink" href="#refresh-sso-certificates-workflow" title="Permanent link">&para;</a></h2>
 <p>Refreshing the certificate allows the user to keep using its existing generated kubeconfig file and only refresh the MFA authentication data.
 The command expect a flag that indicates the output format: "-of" with one of the following arguments:</p>
 <ol>
