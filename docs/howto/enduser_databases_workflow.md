@@ -35,5 +35,5 @@ psql "host=mytenant.postgres.cyberark.cloud user=user@cyberark.cloud.12345@postg
 
 Or, using ark
 ```shell
-ark exec dpa databases psql --target-username postgres --target-address mypostgres.fqdn.com
+ark exec dpa db psql --target-username postgres --target-address mypostgres.fqdn.com
 ```

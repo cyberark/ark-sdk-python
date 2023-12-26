@@ -20,7 +20,7 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] DPA Certificates Service
     - [x] DPA SSO Service
     - [x] DPA K8S Service
-    - [x] DPA Databases Service
+    - [x] DPA DB Service
 - [x] All services contains CRUD and Statistics per respective service
 - [x] Ready to use SDK in Python
 - [x] CLI and SDK Examples
@@ -192,7 +192,7 @@ The following services and commands are supported:
     - <b>secrets</b> - DPA Secrets / Strong Accounts Management
         - <b>db</b> - DPA DB Secrets Service
     - <b>certificates</b> - DPA Certificates Management
-    - <b>databases</b> - DPA Databases Enduser Operations
+    - <b>db</b> - DPA DB Enduser Operations
     - <b>sso</b> - DPA SSO Enduser Operations
     - <b>k8s</b> - DPA kubernetes service
 

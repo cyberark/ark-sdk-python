@@ -142,16 +142,16 @@ class ArkAPI:
         return cast(ArkDPASSOService, self.service(ArkDPASSOService))
 
     @property
-    def dpa_databases(self) -> "ArkDPADatabasesService":
+    def dpa_db(self) -> "ArkDPADBService":
         """
-        Returns the DPA databases service if the fitting authenticators were given
+        Returns the DPA DB service if the fitting authenticators were given
 
         Returns:
-            ArkDPADatabasesService: _description_
+            ArkDPADBService: _description_
         """
-        from ark_sdk_python.services.dpa.databases import ArkDPADatabasesService
+        from ark_sdk_python.services.dpa.db import ArkDPADBService
 
-        return cast(ArkDPADatabasesService, self.service(ArkDPADatabasesService))
+        return cast(ArkDPADBService, self.service(ArkDPADBService))
 
     @property
     def dpa_certificates(self) -> "ArkDPACertificatesService":

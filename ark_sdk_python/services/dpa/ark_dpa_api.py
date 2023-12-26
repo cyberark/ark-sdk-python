@@ -1,6 +1,6 @@
 from ark_sdk_python.auth import ArkISPAuth
 from ark_sdk_python.services.dpa.certificates import ArkDPACertificatesService
-from ark_sdk_python.services.dpa.databases import ArkDPADatabasesService
+from ark_sdk_python.services.dpa.db import ArkDPADBService
 from ark_sdk_python.services.dpa.k8s import ArkDPAK8SService
 from ark_sdk_python.services.dpa.policies.db import ArkDPADBPoliciesService
 from ark_sdk_python.services.dpa.secrets.db import ArkDPADBSecretsService
@@ -14,7 +14,7 @@ class ArkDPAAPI:
         self.__db_policies_service = ArkDPADBPoliciesService(isp_auth)
         self.__db_secrets_service = ArkDPADBSecretsService(isp_auth)
         self.__sso_service = ArkDPASSOService(isp_auth)
-        self.__databases_service = ArkDPADatabasesService(isp_auth)
+        self.__db_service = ArkDPADBService(isp_auth)
         self.__certificates_service = ArkDPACertificatesService(isp_auth)
         self.__k8s_service = ArkDPAK8SService(isp_auth)
 
@@ -59,14 +59,14 @@ class ArkDPAAPI:
         return self.__sso_service
 
     @property
-    def databases(self) -> ArkDPADatabasesService:
+    def db(self) -> ArkDPADBService:
         """
-        Getter for the databases service
+        Getter for the db service
 
         Returns:
-            ArkDPADatabasesService: _description_
+            ArkDPADBService: _description_
         """
-        return self.__databases_service
+        return self.__db_service
 
     @property
     def certificates(self) -> ArkDPACertificatesService:

@@ -54,7 +54,7 @@ There are alot of different supported functions, the following is a list of supp
     - <b>ArkDPAK8SService (kubernetes)</b> - DPA Enduser Kubernetes service
         - Required Authenticators: isp
         - Optional Authenticators: None
-    - <b>ArkDPADatabasesService (databases)</b> - DPA Endusr Databases service
+    - <b>ArkDPADBService (db)</b> - DPA Endusr DB service
         - Required Authenticators: isp
         - Optional Authenticators: None
     - <b>ArkDPAPoliciesService (policies)</b> - DPA Policies Management

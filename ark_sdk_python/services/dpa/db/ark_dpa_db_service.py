@@ -7,17 +7,17 @@ from overrides import overrides
 
 from ark_sdk_python.auth.ark_isp_auth import ArkISPAuth
 from ark_sdk_python.models.services import ArkServiceConfig
-from ark_sdk_python.models.services.dpa.databases import ArkDPADatabasesPsqlExecution
+from ark_sdk_python.models.services.dpa.db import ArkDPADBPsqlExecution
 from ark_sdk_python.models.services.dpa.sso import ArkDPASSOGetShortLivedPassword
 from ark_sdk_python.services.ark_service import ArkService
 from ark_sdk_python.services.dpa.sso.ark_dpa_sso_service import ArkDPASSOService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
-    service_name='dpa-databases', required_authenticator_names=['isp'], optional_authenticator_names=[]
+    service_name='dpa-db', required_authenticator_names=['isp'], optional_authenticator_names=[]
 )
 
 
-class ArkDPADatabasesService(ArkService):
+class ArkDPADBService(ArkService):
     def __init__(self, isp_auth: ArkISPAuth) -> None:
         super().__init__(isp_auth)
         self.__isp_auth = isp_auth
@@ -66,12 +66,12 @@ class ArkDPADatabasesService(ArkService):
         p = subprocess.Popen(command_line, shell=True)
         p.communicate()
 
-    def psql(self, psql_execution: ArkDPADatabasesPsqlExecution) -> None:
+    def psql(self, psql_execution: ArkDPADBPsqlExecution) -> None:
         """
         Exectues psql command line for postgres via CyberArk's Database Proxy
 
         Args:
-            psql_execution (ArkDPADatabasesPsqlExecution): _description_
+            psql_execution (ArkDPADBPsqlExecution): _description_
 
         Raises:
             ArkServiceException: _description_

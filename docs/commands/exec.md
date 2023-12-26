@@ -17,7 +17,7 @@ The following services and commands are supported:
         - <b>vm</b> - DPA VM Policies
             - <b>editor</b> - DPA VM Policies Interactive Editor
     - <b>certificates</b> - DPA Certificates Management
-    - <b>databases</b> - DPA Databases Enduser Operations
+    - <b>db</b> - DPA DB Enduser Operations
     - <b>sso</b> - DPA SSO Enduser Operations
     - <b>secrets</b> - DPA Secrets Services
         - <b>db</b> - DPA DB Secrets Service
