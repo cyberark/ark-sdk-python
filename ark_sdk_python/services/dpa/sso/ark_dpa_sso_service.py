@@ -23,6 +23,7 @@ from ark_sdk_python.models.services.dpa.sso import (
     ArkDPASSOGetShortLivedClientCertificate,
     ArkDPASSOGetShortLivedOracleWallet,
     ArkDPASSOGetShortLivedPassword,
+    ArkDPASSOGetShortLivedRDPFile,
 )
 from ark_sdk_python.models.services.dpa.sso.ark_dpa_sso_get_short_lived_client_certificate import ArkDPASSOShortLiveClientCertificateFormat
 from ark_sdk_python.services.ark_service import ArkService
@@ -103,6 +104,15 @@ class ArkDPASSOService(ArkService):
             wallet_bytes = BytesIO(result.token['wallet'])
             with zipfile.ZipFile(wallet_bytes, 'r') as zipf:
                 zipf.extractall(folder)
+
+    def __save_rdp_file(self, get_short_lived_rdp_file: ArkDPASSOGetShortLivedRDPFile, result: ArkDPASSOAcquireTokenResponse) -> None:
+        if not os.path.exists(get_short_lived_rdp_file.folder):
+            os.makedirs(get_short_lived_rdp_file.folder)
+        filename: str = f'dpa _a {get_short_lived_rdp_file.target_address}'
+        if get_short_lived_rdp_file.target_domain:
+            filename += f' _d {get_short_lived_rdp_file.target_domain}'
+        with open(f'{get_short_lived_rdp_file.folder}{filename}.rdp', 'w', encoding='utf-8') as file_handle:
+            file_handle.write(result.token['text'])
 
     def short_lived_password(self, get_short_lived_password: ArkDPASSOGetShortLivedPassword) -> str:
         """
@@ -209,6 +219,46 @@ class ArkDPASSOService(ArkService):
             self.__save_oracle_wallet(get_short_lived_oracle_wallet.folder, get_short_lived_oracle_wallet.unzip_wallet, result)
             return
         raise ArkServiceException(f'Failed to generate short lived password - [{response.status_code}] - [{response.text}]')
+
+    def short_lived_rdp_file(self, get_short_lived_rdp_file: ArkDPASSOGetShortLivedRDPFile) -> None:
+        """
+        Generates a short lived RDP file to be used to connect via RDP to Windows machines
+
+        Args:
+            get_short_lived_rdp_file (ArkDPASSOGetShortLivedRDPFile): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            str: __description__
+        """
+        self._logger.info('Generating short lived rdp file')
+        if get_short_lived_rdp_file.allow_caching:
+            result = self.__load_from_cache('rdp_file')
+            if result:
+                self.__save_rdp_file(get_short_lived_rdp_file, result)
+        response: Response = self.__client.post(
+            ACQUIRE_SSO_TOKEN_URL,
+            json={
+                'token_type': 'rdp_file',
+                'service': 'DPA-RDP',
+                'token_parameters': {
+                    'targetAddress': f'{get_short_lived_rdp_file.target_address}',
+                    'targetDomain': f'{get_short_lived_rdp_file.target_domain}',
+                },
+                'token_response_format': 'extended',
+            },
+        )
+        if response.status_code != HTTPStatus.CREATED:
+            raise ArkServiceException(f'Failed to generate short lived rdp file - [{response.status_code}] - [{response.text}]')
+        result: ArkDPASSOAcquireTokenResponse = ArkDPASSOAcquireTokenResponse.parse_obj(response.json())
+        if 'text' in result.token:
+            if get_short_lived_rdp_file.allow_caching:
+                self.__save_to_cache(result, 'rdp_file')
+            self.__save_rdp_file(get_short_lived_rdp_file, result)
+            return
+        raise ArkServiceException(f'Failed to generate short rdp file - [{response.status_code}] - [{response.text}]')
 
     @staticmethod
     @overrides
