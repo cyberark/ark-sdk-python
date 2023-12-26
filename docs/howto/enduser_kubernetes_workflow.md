@@ -32,7 +32,7 @@ Alternatively, by adding an optional flag and path, the config file will be gene
 ark exec dpa k8s generate-kubeconfig -f ~/.kube
 ```
 
-# Refresh SSO certificate data Workflow
+## Refresh SSO Certificates Workflow
 Refreshing the certificate allows the user to keep using its existing generated kubeconfig file and only refresh the MFA authentication data.
 The command expect a flag that indicates the output format: "-of" with one of the following arguments:
 
