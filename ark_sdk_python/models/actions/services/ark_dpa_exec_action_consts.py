@@ -21,7 +21,7 @@ from ark_sdk_python.models.services.dpa.certificates import (
     ArkDPAGetCertificate,
     ArkDPAUpdateCertificate,
 )
-from ark_sdk_python.models.services.dpa.databases import ArkDPADatabasesPsqlExecution
+from ark_sdk_python.models.services.dpa.db import ArkDPADBMysqlExecution, ArkDPADBOracleGenerateAssets, ArkDPADBPsqlExecution
 from ark_sdk_python.models.services.dpa.k8s.ark_dpa_k8s_generate_kubeconfig import ArkDPAK8SGenerateKubeConfig
 from ark_sdk_python.models.services.dpa.policies.common import ArkDPADeletePolicy, ArkDPAGetPolicy, ArkDPAUpdatePolicyStatus
 from ark_sdk_python.models.services.dpa.policies.db import ArkDPADBAddPolicy, ArkDPADBPoliciesFilter, ArkDPADBUpdatePolicy
@@ -39,6 +39,7 @@ from ark_sdk_python.models.services.dpa.sso import (
     ArkDPASSOGetShortLivedClientCertificate,
     ArkDPASSOGetShortLivedOracleWallet,
     ArkDPASSOGetShortLivedPassword,
+    ArkDPASSOGetShortLivedRDPFile,
 )
 from ark_sdk_python.models.services.dpa.workspaces.db import (
     ArkDPADBAddDatabase,
@@ -146,15 +147,18 @@ SSO_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
     'short-lived-password': ArkDPASSOGetShortLivedPassword,
     'short-lived-client-certificate': ArkDPASSOGetShortLivedClientCertificate,
     'short-lived-oracle-wallet': ArkDPASSOGetShortLivedOracleWallet,
+    'short-lived-rdp-file': ArkDPASSOGetShortLivedRDPFile,
 }
 SSO_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(action_name='sso', schemas=SSO_ACTION_TO_SCHEMA_MAP)
-DATABASES_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {'psql': ArkDPADatabasesPsqlExecution}
-DATABASES_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
-    action_name='databases', schemas=DATABASES_ACTION_TO_SCHEMA_MAP
-)
+DB_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
+    'psql': ArkDPADBPsqlExecution,
+    'mysql': ArkDPADBMysqlExecution,
+    'generate-oracle-tnsnames': ArkDPADBOracleGenerateAssets,
+}
+DB_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(action_name='db', schemas=DB_ACTION_TO_SCHEMA_MAP)
 K8S_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {'generate-kubeconfig': ArkDPAK8SGenerateKubeConfig}
 K8S_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(action_name='k8s', schemas=K8S_ACTION_TO_SCHEMA_MAP)
 DPA_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='dpa',
-    subactions=[POLICIES_ACTION, WORKSPACES_ACTION, SECRETS_ACTION, SSO_ACTION, DATABASES_ACTION, CERTIFICATES_ACTION, K8S_ACTION],
+    subactions=[POLICIES_ACTION, WORKSPACES_ACTION, SECRETS_ACTION, SSO_ACTION, DB_ACTION, CERTIFICATES_ACTION, K8S_ACTION],
 )
