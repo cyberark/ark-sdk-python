@@ -5,16 +5,12 @@ description: Login Command
 
 # Login
 
-The login command is used to login to the authentication methods configured for the profile
+The `login` command is used to authenticate to Aek using the configured profile. When you run the command, you are prompted for the required login information (such as a password and MFA verifications).
 
-You will be asked to write a password for each respective authentication method that supports password, and alongside that, any needed MFA prompt
-
-Once the login is done, the access tokens are stored on the computer keystore for their lifetime
-
-Once they are expired, a consecutive login will be required
+After you have logged in, the returned access tokens are stored in a secure location on your machine. After the tokens expire, a new login is required.
 
 ## Run
-```shell
+```shell linenums="0"
 ark login
 ```
 

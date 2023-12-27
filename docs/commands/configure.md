@@ -7,9 +7,7 @@ description: Configure Command
 
 The `configure` command is used to create a profile. Profiles define user and authentication information, such as which authentication methods to use, the method settings, and other information like MFA.
 
-Profiles are saved to the `~/.ark_profiles` folder.
-
-
+Profiles are saved in the `~/.ark_profiles` folder.
 
 ## Run
 
@@ -29,32 +27,31 @@ usage: ark configure [-h] [-r] [-s] [-ao] [-v] [-ls {default}] [-ll {DEBUG,INFO,
                      [-iiaa ISP_IDENTITY_AUTHORIZATION_APPLICATION]
 
 optional arguments:
-  -h, --help            Show this help message and exit
-  -r, --raw             Enable raw output
-  -s, --silent          Silent execution (no interactive prompts)
-  -ao, --allow-output   Allow stdout/stderr even in silent mode
-  -v, --verbose         Enable verbose log
+  -h, --help            show this help message and exit
+  -r, --raw             Whether to raw output
+  -s, --silent          Silent execution, no interactiveness
+  -ao, --allow-output   Allow stdout / stderr even when silent and not interactive
+  -v, --verbose         Whether to verbose log
   -ls {default}, --logger-style {default}
                         Which verbose logger style to use
   -ll {DEBUG,INFO,WARN,ERROR,CRITICAL}, --log-level {DEBUG,INFO,WARN,ERROR,CRITICAL}
                         Log level to use while verbose
   -dcv, --disable-cert-verification
-                        Disables certificate verification for HTTPS calls, unsafe!
+                        Disables certificate verification on HTTPS calls, unsafe!
   -tc TRUSTED_CERT, --trusted-cert TRUSTED_CERT
                         Certificate to use for HTTPS calls
   -pn PROFILE_NAME, --profile-name PROFILE_NAME
-                        Profile storage name
+                        Profile name for storage
   -pd PROFILE_DESCRIPTION, --profile-description PROFILE_DESCRIPTION
                         Info about the profile
   -wwis, --work-with-isp
-                        Enable integration with Identity Security Platform services
+                        Whether to work with Identity Security Platform services
   -isam {identity,identity_service_user}, --isp-auth-method {identity,identity_service_user}
   -iu ISP_USERNAME, --isp-username ISP_USERNAME
                         Username to authenticate with
   -iimm {pf,sms,email,otp}, --isp-identity-mfa-method {pf,sms,email,otp}
-                        MFA method (if configured)
+                        MFA method if mfa is needed
   -iiu ISP_IDENTITY_URL, --isp-identity-url ISP_IDENTITY_URL
-                        Identity URL to use for authentication instead of fqdn resolving
+                        Identity url to use for authentication instead of fqdn resolving
   -iiaa ISP_IDENTITY_AUTHORIZATION_APPLICATION, --isp-identity-authorization-application ISP_IDENTITY_AUTHORIZATION_APPLICATION
-                        Identity application to authorize after service user is logged in
-```
+                        Identity application to authorize once logged in with the service user

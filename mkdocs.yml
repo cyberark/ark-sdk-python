@@ -19,7 +19,7 @@ nav:
   - Examples: 
       - Commands examples: examples/commands_examples.md
       - SDK examples: examples/sdk_examples.md
-  - Commands:
+  - CLI commands:
       - Configure: commands/configure.md
       - Login: commands/login.md
       - Exec: commands/exec.md
