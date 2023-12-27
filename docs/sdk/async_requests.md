@@ -1,16 +1,12 @@
 ---
-title: Async Requests
+title: Async requests
 description: Async Requests
 ---
 
-# Async Requests
+# Async requests
 
-## Motivation
-Some of the requests may be async requests, such as creating a tenant, and those requests do not end straight away
+To support async requests, relevant methods return an ArkAsyncRequest type with the following interfaces:
 
-To support such a mechanism, API's that have this kind of behaviour can return an ArkAsyncRequest
-
-The request implements the following interface
 ```python
 @abstractmethod
 def is_finished(self) -> bool:
@@ -54,20 +50,15 @@ def poll(self, timeout_seconds: int, progress_callback: Callable[[ArkAsyncTask, 
     """
 ```
 
-A user can then use the returned request, to poll or check whether a request is finished or not
+You can call these methods for polling the service to check the request's status. 
 
-Each of the existing services that have async requests, already have their respective requests implemented
+Async requests also inherits the ArkPollableModel type, which contains information about whether or not to poll the request and how long to wait until the request times out. Additionally, when the request's authenticator can be refreshed, it is refreshed during the polling cycle.
 
-The requests which are async, receive an ArkPollableModel type of request model, which also has information to whether to poll the request or not, and for how long to wait until timeout
+## Predefined pollers
 
-Another feature of the pollable model, is if the authentication is refreshable, will also refresh it automatically during the polling operations if allowed and possible
+These predefined pollers can be used (see [ark_pollers.py](https://github.com/cyberark/ark-sdk-python/blob/master/ark_sdk_python/common/ark_pollers.py){:target="_blank" rel="noopener"}):
 
-## Predefined Pollers
-There are pre defined pollers that can already be used, and are located in [ark_pollers.py](https://github.com/cyberark/ark-sdk-python/blob/master/ark_sdk_python/common/ark_pollers.py){:target="_blank" rel="noopener"}
-
-Existing pollers are:
-
-- default_poller - Default console logger polling
+- default_poller (default console logger polling)
 - line_spinner_poller
 - pixel_spinner_poller
 - moon_spinner_poller

@@ -5,10 +5,9 @@ description: Authenticators
 
 # Authenticators
 
-## Motivation
-An authenticator provides the abilities to authenticate to a cyberark resource based on authentication profiles, where an authentication profile contains the auth method to authenticate with, along with settings that are coupled to the authentication method
+An authenticator provides the ability to authenticate to a CyberArk Identity Security Platform (ISP) resource. The authentication is based on authentication profiles, where the authentication profile defines the authentication method and its associated settings.
 
-An example of creating an authenticator can be seen as follows:
+Here's an example of initialize an authenticator:
 
 ```python
 from ark_sdk_python.auth import ArkISPAuth
@@ -16,33 +15,30 @@ from ark_sdk_python.auth import ArkISPAuth
 auth = ArkISPAuth(cache_authentication=False)
 ```
 
-Notice that each authenticator can cache its authenticated credentials if need be, and we can disable it on the constructor
+!!! note
+    When you call the constructor, you can determine whether or not the authentication credentials are cached.
 
-Each authentictor has a base authenticate method, which receives a auth profile or a profile as an input and outputs / saves a token
+The Authenticators have a base authenticate method that receives a profile as an input and returns an auth token. Additionally, the ArkISPAuth class exposes functions to retrieve a profile's authentication methods and settings. Although the returned token can be used as a return value, it can normally be ignored as it is saved internally.
 
-Alongside that, each authenticator class exposes what the auth methods that are authenticator supports
+These are the different types of authenticator types and auth methods:
 
-The token can be used as a return value or can be ignored as it is also saved internally
+## Authenticator types
 
-There are different types of authenticators and auth methods implemented:
+Currently, ArkISPAuth is the only supported authenticator type, which is derived from the ArkISPAuth class and accepts the `Identity` (default) and `IdentityServiceUser` auth methods.
 
 ## Auth methods
-- <b>Identity (identity)</b> - Identity authentication, to a tenant or to an application within the identity tenant, used in conjunction with IdentityArkAuthMethodSettings
-- <b>IdentityServiceUser (identity_service_user)</b> - Same idea as identity, but with a service user, used in conjunction with IdentityServiceUserArkAuthMethodSettings
-- <b>Direct (direct)</b> - Direct authentication to an endpoint, used in conjunction with DirectArkAuthMethodSettings
-- <b>default</b> - Default authenticator auth method for the authenticator
-- <b>other </b>- Custom implemented
 
-More on the auth methods can be seen on [ark_auth_method.py](https://github.com/cyberark/ark-sdk-python/blob/master/ark_sdk_python/models/auth/ark_auth_method.py){:target="_blank" rel="noopener"}
+- <b>Identity</b> (`identity`) - Identity authentication to a tenant or to an application within the Identity tenant, used with the IdentityArkAuthMethodSettings class
+- <b>IdentityServiceUser</b> (`identity_service_user`) - Identity authentication with a service user, used with IdentityServiceUserArkAuthMethodSettings class
+- <b>Direct</b> (`direct`) - Direct authentication to an endpoint, used with the DirectArkAuthMethodSettings class
+- <b>Default</b> (`default`) - Default authenticator auth method for the authenticator
+- <b>Other</b> (`other`) - For custom implementations
 
+See [ark_auth_method.py](https://github.com/cyberark/ark-sdk-python/blob/master/ark_sdk_python/models/auth/ark_auth_method.py){:target="_blank" rel="noopener"} for more information about auth methods.
 
-## Authenticator Types
-- <b>ArkISPAuth (isp)</b> - Authenticator to a specific tenant in the platform
-    - Auth Methods: identity, identity_service_user
-    - Default: identity
+## SDK authenticate example
 
-## Authenticating in the SDK
-When u wish to authenticate to a resource, an example authentication flow would look as follows:
+Here is an example authentication flow that uses implements the ArkISPAuth class:
 
 ```python
 from ark_sdk_python.auth import ArkISPAuth
@@ -59,8 +55,8 @@ isp_auth.authenticate(
 dpa_api = ArkDPAAPI(isp_auth=isp_auth)
 ```
 
-Where in the above example, we create an authenticator, and authenticate to a specific ISP tenant, using identity authentication type with a given username and password
+The example above initializes an instance of the ArkISPAuth class and authenticates to the specified ISP tenant, using the `Identity` authentication type with the provided username and password.
 
-Once authenticated, the authenticate method can return a token but it can also be ignored if not needed as it is stored internally.
+The `authenticate` method returns a token, which be ignored because it is stored internally.
 
-The authenticator can be passed on to the fitting service for the service execution.
+After authenticating, the authenticator can be used passed to the services you want to access.

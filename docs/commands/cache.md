@@ -5,14 +5,10 @@ description: Cache Command
 
 # Cache
 
-## Motivation
-As the CLI is mostly managed in a cached fashion, we can use the ark cache command in order to clear / control the cache
-
-Right now, only clearing the entire cache is supported and only for local filesystem cache type
-
+Use the `cache` command to manage the Ark data cached on your machine. Currently, you can only clear the filesystem cache (not data cached in the OS's keystore). 
 
 ## Running
-```shell
+```shell linenums="0"
 ark cache
 ```
 

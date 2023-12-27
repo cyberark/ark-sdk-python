@@ -5,14 +5,9 @@ description: Services
 
 # Services
 
-## Motivation
-A service is whats executing the actual requests, in a context of the authenticators that were created with it
+SDK services are defined to execute requests on available ISP services (such as DPA). When a service is initialized, a valid authenticator is required to authorize access to the ISP service. To perform service actions, each service exposes a set of classes and methods.
 
-Each service exposes a set of API's specifically to the service, and receives in its constructor a set of authenticators to work with
-
-A service exposes its service_config, containing which authenticators are required and which are optional for the service to work
-
-A service usage can be seen as follows:
+Here's an example that initializes the `ArkDPADBPoliciesService` service:
 
 ```python
 import pprint
@@ -37,42 +32,22 @@ if __name__ == '__main__':
         pprint.pprint(policy.json(indent=4))
 ```
 
-Where in the above example, we authenticate to a specific ISP tenant, and create a DPA policies service, and then use it to list the policies
+The above example authenticates to the specified ISP tenant, initializes a DPA policies service using the authorized authenticator, and then uses the service to list the policies.
 
-Each service only needs to expose its service_config in order to be supported in the SDK
+## Dynamic Privilege Access service
 
-## Services
-There are alot of different supported functions, the following is a list of supported services and their authenticators
+The Dynamic Privilege Access (DPA) service requires the ArkISPAuth authenticator, and exposes these service classes:
 
-- <b>Dynamic Privilege Access Services</b>
-    - <b>ArkDPACertificatesService (certificates)</b> - DPA Certificates service
-        - Required Authenticators: isp
-        - Optional Authenticators: None
-    - <b>ArkDPASSOService (sso)</b> - DPA Enduser SSO service
-        - Required Authenticators: isp
-        - Optional Authenticators: None
-    - <b>ArkDPAK8SService (kubernetes)</b> - DPA Enduser Kubernetes service
-        - Required Authenticators: isp
-        - Optional Authenticators: None
-    - <b>ArkDPADatabasesService (databases)</b> - DPA Endusr Databases service
-        - Required Authenticators: isp
-        - Optional Authenticators: None
-    - <b>ArkDPAPoliciesService (policies)</b> - DPA Policies Management
-        - <b>ArkDPADBPoliciesService (db)</b> - DPA DB Policies Management
-            - ArkDPADBPoliciesEditorService (editor) - DPA DB Policies Interactive
-            - Required Authenticators: isp
-            - Optional Authenticators: None
-        - <b>ArkDPAVMPoliciesService (vm)</b> - DPA VM Policies Management
-            - ArkDPAVMPoliciesEditorService (editor) - DPA VM Policies Interactive
-            - Required Authenticators: isp
-            - Optional Authenticators: None
-    - <b>ArkDPASecretsService (secrets)</b> - DPA Secrets Management
-        - <b>ArkDPADBSecretsService (db)</b> - DPA DB Secrets Services
-            - Required Authenticators: isp
-            - Optional Authenticators: None
-    - <b>ArkDPAWorkspacesService (workspaces)</b> - DPA Workspaces Management
-        - Required Authenticators: isp
-        - Optional Authenticators: None
-        - <b>ArkDPADBWorkspaceService (db)</b> - DPA DB Workspace Management
-            - Required Authenticators: isp
-            - Optional Authenticators: None
+- <b>ArkDPACertificatesService (certificates)</b> - DPA certificates service
+- <b>ArkDPASSOService (sso)</b> - DPA end-user SSO service
+- <b>ArkDPAK8SService (kubernetes)</b> - DPA end-user Kubernetes service
+- <b>ArkDPADatabasesService (databases)</b> - DPA end-user databases service
+- <b>ArkDPAPoliciesService (policies)</b> - DPA policies management
+    - <b>ArkDPADBPoliciesService (db)</b> - DPA DB policies management
+        - **ArkDPADBPoliciesEditorService (editor)** - DPA DB policies interactive
+    - <b>ArkDPAVMPoliciesService (vm)</b> - DPA VM policies management
+        - **ArkDPAVMPoliciesEditorService (editor)** - DPA VM policies interactive
+- <b>ArkDPASecretsService (secrets)</b> - DPA secrets management
+    - <b>ArkDPADBSecretsService (db)</b> - DPA DB secrets services
+- <b>ArkDPAWorkspacesService (workspaces)</b> - DPA workspaces management
+    - <b>ArkDPADBWorkspaceService (db)</b> - DPA DB workspace management

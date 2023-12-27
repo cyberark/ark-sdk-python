@@ -8,13 +8,13 @@ description: Getting started
 ## Installation
 
 You can install the SDK via [PyPI](https://pypi.org/) with the following command:
-```shell
+```shell linenums="0"
 pip3 install ark-sdk-python
 ```
 
 ## CLI Usage
 
-Both the SDK and the CLI support profiles, which can be configured as needed and used for consecutive actions.
+Both the SDK and the CLI support [profiles](howto/working_with_profiles.md), which can be configured as needed and used for consecutive actions.
 
 The CLI has the following basic commands:
 
@@ -37,7 +37,7 @@ The CLI has the following basic commands:
     ark login --silent --isp-secret mysecret
     ```
 
-1. Execute actions, one of them being generating a short lived SSO password:
+1. Execute actions (such as generating a short-lived SSO password):
     ``` shell linenums="0"
     ark exec dpa sso short-lived-password
     ```

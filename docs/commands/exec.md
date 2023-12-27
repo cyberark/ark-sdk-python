@@ -5,30 +5,30 @@ description: Exec Command
 
 # Exec
 
-## Motivation
-The exec command is used to execute various commands based on supported services for the fitting logged in authenticators
+You use the `exec` command is used to run commands on available services (the available services depend on the authorized user's account).
 
-The following services and commands are supported:
+## DPA services
 
-- <b>dpa</b> - Dynamic Privilege Access Services
-    - <b>policies</b> - DPA Policies Management
-        - <b>db</b> - DPA DB Policies
-            - <b>editor</b> - DPA DB Policies Interactive Editor
-        - <b>vm</b> - DPA VM Policies
-            - <b>editor</b> - DPA VM Policies Interactive Editor
-    - <b>certificates</b> - DPA Certificates Management
-    - <b>databases</b> - DPA Databases Enduser Operations
-    - <b>sso</b> - DPA SSO Enduser Operations
-    - <b>secrets</b> - DPA Secrets Services
-        - <b>db</b> - DPA DB Secrets Service
-    - <b>workspaces</b> - DPA Workspaces Management
-        - <b>db</b> - DPA DB Workspace Management
-    - <b>k8s</b> - DPA kubernetes service
+The following DPA services and commands are supported:
 
-Any command has its own subcommands, with respective arguments
+- <b>policies</b> - Policy management
+    - <b>db</b> - DB policies
+        - <b>editor</b> - DB policies interactive editor
+    - <b>vm</b> - DPA VM policies
+        - <b>editor</b> - DPA VM policies interactive editor
+- <b>certificates</b> - Certificate management
+- <b>databases</b> - Databases end-user operations
+- <b>sso</b> - SSO end-user operations
+- <b>secrets</b> - Secrets service
+    - <b>db</b> - DB secrets service
+- <b>workspaces</b> - Workspaces management
+    - <b>db</b> - DB workspace management
+- <b>k8s</b> - Kubernetes service
+
+All commands have their own subcommands and respective arguments.
 
 ## Running
-```shell
+```shell linenums="0"
 ark exec
 ```
 
