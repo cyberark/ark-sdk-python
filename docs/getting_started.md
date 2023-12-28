@@ -1,48 +1,43 @@
 ---
-title: Getting Started
+title: Getting started
 description: Getting started
 ---
 
-# Getting Started
+# Getting started
 
 ## Installation
 
-One can install the SDK via the community pypi with the following command:
-```shell
+You can install the SDK via [PyPI](https://pypi.org/) with the following command:
+```shell linenums="0"
 pip3 install ark-sdk-python
 ```
 
 ## CLI Usage
 
-Both the SDK and the CLI works with profiles
-
-The profiles can be configured upon need and be used for the consecutive actions
+Both the SDK and the CLI support [profiles](howto/working_with_profiles.md), which can be configured as needed and used for consecutive actions.
 
 The CLI has the following basic commands:
 
-- <b>configure</b> - Configures profiles and their respective authentication methods
-- <b>login</b> - Logs into the profile authentication methods
-- <b>exec</b> - Executes different commands based on the supported services
-- <b>profiles</b> - Manage multiple profiles on the machine
-- <b>cache</b> - Manage ark cache on the machine
+- <b>configure</b>: Configure profiles and their authentication methods (see [Configure](commands/configure.md))
+- <b>login</b>: Log in using the configured profile authentication methods (see [Login](commands/login.md))
+- <b>exec</b>: Execute commands for supported services (see [Exec](commands/exec.md))
+- <b>profiles</b>: Manage multiple profiles on the machine (see [Profiles](commands/profiles.md))
+- <b>cache</b>: Manage ark cache on the machine (see [Cache](commands/cache.md))
 
 
-## TL;DR - Basic flow
+### Basic flow
 
-A basic flow for an end user would look something as follows
+1. Install Ark SDK and then configure a profile (either silently or interactively):  
+    ``` shell linenums="0"
+    ark configure --silent --work-with-isp --isp-username myuser
+    ```
 
-The user, after installing ark-sdk, would first configure a profile, interactively or silently
+1. After the profile is configured, log in:
+    ``` shell linenums="0"
+    ark login --silent --isp-secret mysecret
+    ```
 
-```shell
-ark configure --silent --work-with-isp --isp-username myuser
-```
-
-Once configured, he can login
-```shell
-ark login --silent --isp-secret mysecret
-```
-
-Now that the user is logged in, he may execute actions, one of them being generating a short lived sso password
-```shell
-ark exec dpa sso short-lived-password
-```
+1. Execute actions (such as generating a short-lived SSO password):
+    ``` shell linenums="0"
+    ark exec dpa sso short-lived-password
+    ```

@@ -5,13 +5,10 @@ description: Profiles Command
 
 # Profiles
 
-## Motivation
-As one may have multiple environments to manage, this would also imply that multiple profiles are required, either for multiple users in the same environment or multiple tenants
-
-Therefore, the profiles command manages those profiles as a convenice set of methods
+Use the `profiles` command to manage multiple users and tenants. You can create, copy, modify, and delete profiles for different users and tenant, and to list all existing profiles.
 
 ## Running
-```shell
+```shell linenums="0"
 ark profiles
 ```
 

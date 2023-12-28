@@ -1,12 +1,11 @@
 ---
-title: Simple SDK Workflow
+title: Simple SDK workflow
 description: Simple SDK Workflow
 ---
 
-# Simple SDK Workflow
-Let's say we want to create a demo environment containing all needed DPA DB assets
+# Simple SDK workflow
 
-To do so, we can use the following script:
+This example shows how to create, with a Python script, a demo environment that contains the required DPA DB assets:
 
 ```python
 ArkSystemConfig.disable_verbose_logging()
@@ -19,7 +18,7 @@ isp_auth.authenticate(auth_profile=ArkAuthProfile(
     auth_method_settings=IdentityArkAuthMethodSettings()
 ), secret=ArkSecret(secret='CoolPassword'))
 
-# Create DPA DB Secret, Database, Connector and DB Policy
+# Create DPA DB secret, database, connector, and DB policy
 dpa_service = ArkDPAAPI(isp_auth)
 print('Adding DPA DB User Secret')
 secret = dpa_service.secrets_db.add_secret(ArkDPADBAddSecret(
@@ -77,6 +76,7 @@ dpa_service.policies_db.add_policy(
 print('Finished Successfully')
 ```
 
-Where in the above the following flow occurres:
-- We login to the admin user in order to perform actions on the tenant
-- we then configure DPA's secret, database and policy
+In the script above, the following actions are defined:
+
+- The admin user is logged in to perform actions on the tenant (lines 4-9)
+- The DPA's secret, database, and policy are configured (lines 12-65)

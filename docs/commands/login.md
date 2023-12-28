@@ -5,17 +5,12 @@ description: Login Command
 
 # Login
 
-## Motivation
-The login command is used to login to the authentication methods configured for the profile
+The `login` command is used to authenticate to Ark using the configured profile. When you run the command, you are prompted for the required login information (such as a password and MFA verifications).
 
-You will be asked to write a password for each respective authentication method that supports password, and alongside that, any needed MFA prompt
+After you have logged in, the returned access tokens are stored in a secure location on your machine. After the tokens expire, a token refresh maybe attempted (see [Refresh token](../howto/refreshing_authentication.md)) or a new login is required.
 
-Once the login is done, the access tokens are stored on the computer keystore for their lifetime
-
-Once they are expired, a consecutive login will be required
-
-## Running
-```shell
+## Run
+```shell linenums="0"
 ark login
 ```
 

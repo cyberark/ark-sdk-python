@@ -1,12 +1,14 @@
 ---
-title: SDK Examples
+title: SDK examples
 description: SDK Examples
 ---
 
-# SDK Examples
-Using the SDK is similar to using the CLI
+# SDK examples
 
-## Read tenant db policies
+This page lists some useful SDK examples.
+
+## Authenticate and read tenant DB policies
+
 ```python
 from ark_sdk_python.auth import ArkISPAuth
 from ark_sdk_python.models.auth import ArkSecret, ArkAuthMethod, ArkAuthProfile, IdentityArkAuthMethodSettings
@@ -24,7 +26,8 @@ if __name__ == "__main__":
     policies = db_policies_service.list_policies()
 ```
 
-## Provision dpa databases and policy
+## Authenticate and provision DPA databases and policy
+
 ```python
 if __name__ == '__main__':
     ArkSystemConfig.disable_verbose_logging()
@@ -96,7 +99,8 @@ if __name__ == '__main__':
     )
 ```
 
-## Provision dpa vm policies
+## Authenticate and provision DPA VM policies
+
 ```python
     isp_auth = ArkISPAuth()
     isp_auth.authenticate(

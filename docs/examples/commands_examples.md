@@ -1,63 +1,81 @@
 ---
-title: Commands Examples
+title: Commands examples
 description: Commands Examples
 ---
 
-# Commands Examples
-As a CLI user, there are many different actions that can be done under many different services
+# Commands examples
 
-## Configure Commands Examples
-The configure command can work interactive or silent, an example of configuring ISP in a silent fashion:
+This page lists some useful CLI examples.
 
-```bash
+!!! note
+
+    You can disable certificate validation for login to an authenticator using the `--disable-certificate-verification` flag. **This option is not recommended.**
+
+    **Useful environment variables**
+
+    - `ARK_PROFILE`: Sets the profile to be used across the CLI
+    - `ARK_DISABLE_CERTIFICATE_VERIFICATION`: Disables certificate verification for REST APIs
+
+## Configure command example
+
+The `configure` command works in interactive or silent mode. When using silent mode, the required parameters need to specified. Here's an example of configuring ISP in silent mode:
+
+```bash linenums="0"
 ark configure --profile-name="PROD" --work-with-isp --isp-username="tina@cyberark.cloud.12345" --silent --allow-output
 ```
 
-## Login Commands Examples
-The login command can work interactive or silent, example of logging in in a silent fashion to the above configure example:
-```bash
-ark login -s --isp-secret=CoolPassword
+## Login commands Example
+
+The login command can work in interactive or silent mode. Here's an example of a silent login with the profile configured in the example above:
+```bash linenums="0"
+ark login -s --isp-secret=CoolPasswordß
 ```
 
-## Exec Commands Examples
-Add DPA Database Secret
-```shell
+## Exec command examples
+
+Use the `--help` flag to view all `exec` options.
+
+### Add DPA database secret
+
+```shell linenums="0"
 ark exec dpa secrets db add-secret --secret-name mysecret --secret-type username_password --username user --password mypass
 ```
 
-Delete DPA Database Secret
-```shell
+### Delete DPA database secret
+
+```shell linenums="0"
 ark exec dpa secrets db delete-secret --secret-name mysecret
 ```
 
-Add DPA Database
-```shell
+### Add DPA database
+
+```shell linenums="0"
 ark exec dpa workspaces db add-database --name mydb --provider-engine postgres-sh --read-write-endpoint myendpoint.domain.com
 ```
 
-List DPA Databases
-```shell
+### List DPA databases
+
+```shell linenums="0"
 ark exec dpa workspaces db list-databases
 ```
 
-Get VM policies stats
-```shell
+### Get VM policies stats
+
+```shell linenums="0"
 ark exec dpa policies vm policies-stats
 ```
 
-Edit policies interactively
+### Edit policies interactively example
 
-This gives the ability to locally work with a policies workspace, and edit / reset / create policies, applied to both databases and vm policies
+This example shows how to locally work with a policies workspace, and edit, reset, and create policies that are applied to both databases and VM policies. After the local policies are ready, you can commit all the policies changes to the remote workspace.
 
-When they are ready, once can commit all the policies changes to the remote
+To load and reload policies locally:
 
-Initially, the policies can be loaded and reloaded using
-
-```shell
+```shell linenums="0"
 ark exec dpa policies vm editor load-policies
 ```
 
-Once they are loaded locally, they can be edited using the following commands
+After loading the policies, use these commands to edit them:
 ```shell
 ark exec dpa policies vm editor edit-policies
 ark exec dpa policies vm editor view-policies
@@ -67,39 +85,27 @@ ark exec dpa policies vm editor remove-policies
 ark exec dpa policies vm editor policies diff
 ```
 
-Evantually, they can be committed using
-```shell
+When they are ready to be committed, run:
+```shell linenums="0"
 ark exec dpa policies vm editor commit-policies
 ```
 
-Generate a short lived SSO password for databases connection
-```shell
+### Generate a short-lived SSO password for a database connection
+```shell linenums="0"
 ark exec dpa sso short-lived-password
 ```
 
-Generate a short lived SSO oracle wallet for oracle database connection
-```shell
+### Generate a short-lived SSO Oracle wallet for an Oracle database connection
+```shell linenums="0"
 ark exec dpa sso short-lived-oracle-wallet --folder ~/wallet
 ```
 
-Generate kubectl config file 
-```shell
+### Generate a kubectl config file 
+```shell linenums="0"
 ark exec dpa k8s generate-kubeconfig 
 ```
 
-Generate kubectl config file and save on specific path
-```shell
+### Generate a kubectl config file and save it in the specified path
+```shell linenums="0"
 ark exec dpa k8s generate-kubeconfig --folder=/Users/My.User/.kube
 ```
-
-You can view all of the commands via the --help for each respective exec action
-
-Notes:
-
-- You may disable certificate validation for login to different authenticators using the --disable-certificate-verification or supply a certificate to be used, not recommended to disable
-
-
-Useful Env Vars:
-
-- ARK_PROFILE - Sets the profile to be used across the CLI
-- ARK_DISABLE_CERTIFICATE_VERIFICATION - Disables certificate verification on REST API's

@@ -1,22 +1,18 @@
 ---
-title: Working With Profiles
+title: Work with profiles
 description: Working With Profiles
 ---
 
-# Working With Profiles
-Profiles are the way to work with the CLI (and the SDK, but less dominant)
+# Work with profiles
+Profiles define authentication methods for users. They are used with the CLI and, to a lesser extent, the SDK. Different profiles can be created and configured via the Ark `configure` command.
 
-As such, each profile can be configured seperatly via ark configure command
+You can specify which profile a command uses with the `--profile-name` flag or setting the `ARK_PROFILE` environment variable.
 
-Each subsequent command can receive --profile-name to work with the specific configured profile
+Profiles are stored as JSON files in the `$HOME/.ark_profiles` folder.
 
-Alongside that, ARK_PROFILE environment variable can be set to globally work with a profile instead of passing it as a parameter all the times
+Here is an example profile file:
 
-All of the profiles are json files that reside on $HOME/.ark_profiles folder
-
-A profile looks as follows:
-
-```json
+``` json
 {
     "profile_name": "ark",
     "profile_description": "Default Ark Profile",
@@ -35,4 +31,4 @@ A profile looks as follows:
 }
 ```
 
-Profiles can be added / removed via the configure command, or manipulating the profiles folder
+As well as using the CLI to manage profiles, you can create, modify, and delete profiles directly in the `$HOME/.ark_profiles` folder.

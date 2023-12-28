@@ -5,34 +5,34 @@ repo_url: https://github.com/cyberark/ark-sdk-python
 edit_uri: edit/main/docs
 
 nav:
-  - Homepage: index.md
-  - Getting Started: getting_started.md
-  - License: license.md
+  - Overview: index.md
+  - Getting started: getting_started.md
   - Architecture: architecture.md
-  - How-To's:
-      - Working With Profiles: howto/working_with_profiles.md
-      - Working With Ark Cache: howto/working_with_ark_cache.md
-      - Enduser Databases Workflow: howto/enduser_databases_workflow.md
-      - Enduser Kubernetes Workflow: howto/enduser_kubernetes_workflow.md
-      - Simple Commands Workflow: howto/simple_commands_workflow.md
-      - Simple SDK Workflow: howto/simple_sdk_workflow.md
-      - Refreshing Authentication: howto/refreshing_authentication.md
+  - License: license.md
+  - How to guides:
+      - Work with profiles: howto/working_with_profiles.md
+      - Work with Ark cache: howto/working_with_ark_cache.md
+      - End-user database workflow: howto/enduser_databases_workflow.md  
+      - Simple commands workflow: howto/simple_commands_workflow.md
+      - Simple SDK workflow: howto/simple_sdk_workflow.md
+      - End-user Kubernetes workflow: howto/enduser_kubernetes_workflow.md
+      - Refresh authentication: howto/refreshing_authentication.md
   - Examples: 
-      - Commands Examples: examples/commands_examples.md
-      - SDK Examples: examples/sdk_examples.md
-  - Commands:
+      - Commands examples: examples/commands_examples.md
+      - SDK examples: examples/sdk_examples.md
+  - CLI commands:
       - Configure: commands/configure.md
       - Login: commands/login.md
       - Exec: commands/exec.md
       - Profiles: commands/profiles.md
       - Cache: commands/cache.md
-  - SDK:
+  - SDK overview:
       - Authenticators: sdk/authenticators.md
       - Services: sdk/services.md
       - Schemas: sdk/schemas.md
-      - Async Requests: sdk/async_requests.md
+      - Async requests: sdk/async_requests.md
       - Pagination: sdk/pagination.md
-  - API: 
+  - SDK reference: 
       - Reference: reference/
 theme:
   name: material
@@ -86,7 +86,7 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 
-copyright: Copyright &copy; 2022 CyberArk
+copyright: Copyright &copy; 2023 CyberArk
 
 plugins:
   - search

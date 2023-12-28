@@ -3,24 +3,22 @@ title: Configure
 description: Configure Command
 ---
 
-# Configure
+# Configure command
 
-## Motivation
-The configure command is used to create a profile to work on<br>
-The profile consists of infomration regarding which authentication methods to use and what are their method settings, along with other related information such as MFA
+The `configure` command is used to create a profile. Profiles define user and authentication information, such as which authentication methods to use, the method settings, and other information like MFA.
 
-## Running
-```shell
+Profiles are saved in the `~/.ark_profiles` folder.
+
+## Run
+
+```shell linenums="0"
 ark configure
 ```
 
-The profiles are saved to ~/.ark_profiles
-
-No arguments are required, and interactive questions will be asked
-
-If you wish to only supply arguments in a silent fashion, --silent can be added along with the arugments
+When you run the command without arguments, you are prompted for the required information (alternatively, add the `--silent` flag with the required arguments).
 
 ## Usage
+
 ```shell
 usage: ark configure [-h] [-r] [-s] [-ao] [-v] [-ls {default}] [-ll {DEBUG,INFO,WARN,ERROR,CRITICAL}]
                      [-dcv] [-tc TRUSTED_CERT] [-pn PROFILE_NAME] [-pd PROFILE_DESCRIPTION] [-wwis]
