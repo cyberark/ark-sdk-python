@@ -51,25 +51,3 @@ isp_auth.authenticate(
 ...
 isp_auth.load_authentication(refresh_auth=True)
 ```
-
-<!-- For polling operation, use poll_allow_refreshable_connection arg:
-
-```python
-isp_auth = ArkISPAuth()
-isp_auth.authenticate(
-    auth_profile=ArkAuthProfile(
-        username=username, auth_method=ArkAuthMethod.Idaptive, auth_method_settings=IdaptiveArkAuthMethodSettings()
-    ),
-    secret=ArkSecret(secret='CoolPassword'),
-)
-dpa_service = ArkDPAAPI(isp_auth)
-...
-dpa_service.workspaces.add_account(ArkDPAAddAccount(
-    account_id='965428623928', 
-    name='it-dev', 
-    deploy_cfn=True, 
-    poll=True,
-    poll_allow_refreshable_connection=True,
-))
-...
-``` -->

@@ -17,6 +17,6 @@ The main components are:
 - <b>Services</b>: The service providing functionality (requires one or more associated authenticators to perform actions). For example, the DPA service exposes DPA APIs in an secure manner.
 - <b>Services Model Schemes</b> The models exposed by a service, which can be used to perform the service's actions.
 - <b>CLI Actions</b>: CLI interface built on the SDK, which provides users with the following shell commands:
-    - `login`: Log in with a profile authenticator
+    - `configure`: Configure a profile with authentication details
+    - `login`: Log in with a configured profile authenticator
     - `exec`: Execute services actions
-    - `configure`: Configure profiles
