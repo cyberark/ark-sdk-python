@@ -16,7 +16,7 @@
         <link rel="prev" href="../working_with_ark_cache/">
       
       
-        <link rel="next" href="../simple_commands_workflow/">
+        <link rel="next" href="../enduser_kubernetes_workflow/">
       
       
       <link rel="icon" href="../../media/favicon.ico">
@@ -484,6 +484,27 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
+      <a href="../enduser_kubernetes_workflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    End-user Kubernetes workflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../simple_commands_workflow/" class="md-nav__link">
         
   
@@ -510,27 +531,6 @@ You're not viewing the latest version.
   
   <span class="md-ellipsis">
     Simple SDK workflow
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../enduser_kubernetes_workflow/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    End-user Kubernetes workflow
   </span>
   
 
@@ -8367,7 +8367,7 @@ You're not viewing the latest version.
     <div class="highlight"><pre><span></span><code>psql<span class="w"> </span><span class="s2">&quot;host=mytenant.postgres.cyberark.cloud user=user@cyberark.cloud.12345@postgres@mypostgres.fqdn.com&quot;</span>
 </code></pre></div></li>
 <li>Log in to the database from Ark:
-    <div class="highlight"><pre><span></span><code>ark<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dpa<span class="w"> </span>databases<span class="w"> </span>psql<span class="w"> </span>--target-username<span class="w"> </span>postgres<span class="w"> </span>--target-address<span class="w"> </span>mypostgres.fqdn.com
+    <div class="highlight"><pre><span></span><code>ark<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dpa<span class="w"> </span>db<span class="w"> </span>psql<span class="w"> </span>--target-username<span class="w"> </span>postgres<span class="w"> </span>--target-address<span class="w"> </span>mypostgres.fqdn.com
 </code></pre></div></li>
 </ul>
 </li>
