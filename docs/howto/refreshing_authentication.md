@@ -5,16 +5,16 @@ description: Refreshing Authentication
 
 # Refresh authentication
 
-When you want to continue working with existing authenticator, you can refresh the authentications. You can refresh authentications for the following:
+When you want to continue working with an existing authenticator, you can refresh the authentications. You can refresh authentications for the following:
 
 - The login command
 - The exec command
 - Polling operations
-- The SDK
+- Via the SDK code
 
 ## Login command
 
-To try to authenticate with an existing authenticator, use the `-ra `or -`-refresh-auth` CLI flag:
+To try to authenticate with an existing authenticator, use the `-ra `or `--refresh-auth` CLI flag:
 ```bash  linenums="0"
 ark login -ra
 ```

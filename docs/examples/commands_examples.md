@@ -9,7 +9,7 @@ This page lists some useful CLI examples.
 
 !!! note
 
-    You can disable certificate validation for login to an authenticator using the `--disable-certificate-verification` flag. This option is not recommended.
+    You can disable certificate validation for login to an authenticator using the `--disable-certificate-verification` flag. **This option is not recommended.**
 
     **Useful environment variables**
 

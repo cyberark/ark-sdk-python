@@ -9,21 +9,22 @@ You use the `exec` command is used to run commands on available services (the av
 
 ## DPA services
 
-The following DPA services and commands are supported:
+The following DPA commands are supported:
 
-- <b>policies</b> - Policy management
-    - <b>db</b> - DB policies
-        - <b>editor</b> - DB policies interactive editor
-    - <b>vm</b> - DPA VM policies
-        - <b>editor</b> - DPA VM policies interactive editor
-- <b>certificates</b> - Certificate management
-- <b>databases</b> - Databases end-user operations
-- <b>sso</b> - SSO end-user operations
-- <b>secrets</b> - Secrets service
-    - <b>db</b> - DB secrets service
-- <b>workspaces</b> - Workspaces management
-    - <b>db</b> - DB workspace management
-- <b>k8s</b> - Kubernetes service
+- `ark exec dpa`: Root command for the DBA service
+    - `policies` - Policy management
+        - `db` - DB policies
+            - `editor` - DB policies interactive editor
+        - `vm` - DPA VM policies
+            - `editor` - DPA VM policies interactive editor
+    - `certificates` - Certificate management
+    - `databases` - Databases end-user operations
+    - `sso` - SSO end-user operations
+    - `secrets` - Secrets service
+        - `db` - DB secrets service
+    - `workspaces` - Workspaces management
+        - `db` - DB workspace management
+    - `k8s` - Kubernetes service
 
 All commands have their own subcommands and respective arguments.
 

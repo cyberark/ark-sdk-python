@@ -15,7 +15,7 @@ Profiles are saved in the `~/.ark_profiles` folder.
 ark configure
 ```
 
-Command arguments are not required, and after running the command questions are asked to collect the required information. Use the `--silent` flag to supply the required arguments as options instead of being prompted for the required information.
+When you run the command without arguments, you are prompted for the required information (alternatively, add the `--silent` flag with the required arguments).
 
 ## Usage
 

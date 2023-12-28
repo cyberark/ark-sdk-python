@@ -26,7 +26,7 @@ if __name__ == "__main__":
     policies = db_policies_service.list_policies()
 ```
 
-## PAuthenticate and provision DPA databases and policy
+## Authenticate and provision DPA databases and policy
 
 ```python
 if __name__ == '__main__':

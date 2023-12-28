@@ -1,52 +1,49 @@
 ---
-title: Enduser Kubernetes Workflow
-description: Enduser Kubernetes Workflow
+title: End-user Kubernetes workflow
+description: End-user Kubernetes Workflow
 ---
 
-# Enduser Kubernetes Workflow
-In order to securely access to Kubernetes cluster the user will follow below steps.
+# End-user Kubernetes workflow
 
-First, he would install ark-sdk-python using pip if he did not do so already.
+To securely access a Kubernetes cluster, do the following:
 
-Afterwards, he would configure a profile once as follows interactivaly:
-```shell
-ark configure
-```
-Or silently:
-```shell
-ark configure --silent --work-with-isp --isp-username myuser
-```
+1. If required, install the Ark SDK (`pip3 install ark-sdk-python`).
+1. Configure a profile:
+    * Interactively:
+        ```shell linenums="0"
+        ark configure
+        ```
+    * Silently:
+        ```shell linenums="0"
+        ark configure --silent --work-with-isp --isp-username myuser
+        ```
+1. Log in to Ark:
+    ```shell linenums="0"
+    ark login --silent --isp-secret <my-ark-secret>
+    ```
+1. To generate a kubectl kubeconfig file, which defines the user's permissions and accessible clusters, do **one** of the following:
+    * Run this command:
+        ```shell linenums="0"
+        ark exec dpa k8s generate-kubeconfig
+        ```
+    * Use the `-f` flag to generate the config file in the specified path (this option **overrides** existing files with the same name):
+        ```shell
+        ark exec dpa k8s generate-kubeconfig -f ~/.kube
+        ```
 
-Now that the profile is configured, the user can login.
-```shell
-ark login --silent --isp-secret mysecret
-```
+## Refresh SSO certificate workflow
 
-Now that the user is logged in, the user may generate a kubectl kubeconfig file, that contain all the clusters that are accessbile to the user, based on its permissions.
-```shell
-ark exec dpa k8s generate-kubeconfig
-```
+When you refresh the certificate, you can keep using its associated kubeconfig file and only need to refresh the MFA authentication data. To refresh the certificate, run **one** of the following:
 
-Alternatively, by adding an optional flag and path, the config file will be generated in the provided path, overriding any existing file with the same name.
-```shell
-ark exec dpa k8s generate-kubeconfig -f ~/.kube
-```
-
-## Refresh SSO Certificates Workflow
-Refreshing the certificate allows the user to keep using its existing generated kubeconfig file and only refresh the MFA authentication data.
-The command expect a flag that indicates the output format: "-of" with one of the following arguments:
-
-1. File - generating 2 files for certificate and private key. if chosen, a flag -f with path is mandatory
-```shell
-ark exec dpa sso short-lived-client-certificate -of file -f ~/home
-```
-
-2. raw - the certificate and the private key will be  printed to the client as plaintext:
-```shell
-ark exec dpa sso short-lived-client-certificate -of raw
-```
-
-3. base64 - the certificate and the private key will be encoded to Base64 format and will be printed to the client:
-```shell
-ark ark exec dpa sso short-lived-client-certificate -of base64
-```
+* To generate two files (certificate and private key files), where the required `-f` flag defines the generated files' location:
+    ```shell
+    ark exec dpa sso short-lived-client-certificate -of file -f ~/home
+    ```
+* To print the certificate and private key to the console as plaintext:
+    ```shell
+    ark exec dpa sso short-lived-client-certificate -of raw
+    ```
+* To print the certificate and private key to the console as base64-encoded strings:
+    ```shell
+    ark ark exec dpa sso short-lived-client-certificate -of base64
+    ```
