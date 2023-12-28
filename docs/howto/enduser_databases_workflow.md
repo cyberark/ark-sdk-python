@@ -31,5 +31,5 @@ Here is an example workflow for connecting to a database:
         ```
     * Log in to the database from Ark:
         ```shell linenums="0"
-        ark exec dpa databases psql --target-username postgres --target-address mypostgres.fqdn.com
+        ark exec dpa db psql --target-username postgres --target-address mypostgres.fqdn.com
         ```

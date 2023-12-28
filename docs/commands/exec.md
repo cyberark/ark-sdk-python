@@ -18,7 +18,7 @@ The following DPA commands are supported:
         - `vm` - DPA VM policies
             - `editor` - DPA VM policies interactive editor
     - `certificates` - Certificate management
-    - `databases` - Databases end-user operations
+    - `db` - Databases end-user operations
     - `sso` - SSO end-user operations
     - `secrets` - Secrets service
         - `db` - DB secrets service
