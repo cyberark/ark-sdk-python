@@ -13,8 +13,7 @@ class ArkCacheAction(ArkAction):
     @overrides
     def define_action(self, subparsers: argparse._SubParsersAction) -> None:
         """
-        Defines the cache CLI action
-        Adds action for clearing cache
+        Defines the CLI `cache` action, and adds the clear cache function.
 
         Args:
             subparsers (argparse._SubParsersAction): _description_
@@ -38,13 +37,12 @@ class ArkCacheAction(ArkAction):
     @overrides
     def run_action(self, args: argparse.Namespace) -> None:
         """
-        Perform the actual cache action
+        Runs the cache action.
 
         Args:
             args (argparse.Namespace): _description_
 
         Raises:
-            ArkException: _description_
             ArkException: _description_
         """
         if args.cache_cmd == 'clear':
@@ -55,7 +53,7 @@ class ArkCacheAction(ArkAction):
     @overrides
     def can_run_action(self, action_name: str, args: argparse.Namespace) -> bool:
         """
-        Asserts the action is profile
+        Asserts the action is `cache`.
 
         Args:
             action_name (str): _description_

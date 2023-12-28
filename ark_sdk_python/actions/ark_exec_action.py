@@ -167,7 +167,7 @@ class ArkExecAction(ArkAction):
     @overrides
     def define_action(self, subparsers: argparse._SubParsersAction) -> None:
         """
-        Defines the exec action, with subparsers exec for each service
+        Defines the CLI `exec` action, with its subparsers (args) for the service.
 
         Args:
             subparsers (argparse._SubParsersAction): _description_
@@ -200,10 +200,10 @@ class ArkExecAction(ArkAction):
     @overrides
     def run_action(self, args: argparse.Namespace) -> None:
         """
-        Runs the action
-        Loads the authenticators from the cache and creates the API with the authenticators
-        Each service will be created on the API based on the given authenticators
-        Runs the actual exec action afterwards with the API
+        Runs the exec action.  
+        Loads the authenticators from the cache and connects to the API using the loaded authenticators.
+        Each service is created from the API, based on the given authenticators, and then
+        runs the exec action using the API.
 
         Args:
             args (argparse.Namespace): _description_
@@ -250,7 +250,7 @@ class ArkExecAction(ArkAction):
     @overrides
     def can_run_action(self, action_name: str, args: argparse.Namespace) -> bool:
         """
-        Asserts the action is exec
+        Asserts the action is `exec`.
 
         Args:
             action_name (str): _description_
@@ -264,7 +264,7 @@ class ArkExecAction(ArkAction):
     @abstractmethod
     def define_exec_action(self, exec_subparsers: argparse._SubParsersAction) -> None:
         """
-        Defines an exec action for a service with its configurations and args
+        Defines an exec action, and its specified configurations and args, for a service.
 
         Args:
             exec_subparsers (argparse._SubParsersAction): _description_
@@ -273,7 +273,7 @@ class ArkExecAction(ArkAction):
     @abstractmethod
     def run_exec_action(self, api: ArkCLIAPI, args: argparse.Namespace) -> None:
         """
-        Runs the exec action for a service with its arguments and API
+        Runs the exec action for a service with the specified arguments and API.
 
         Args:
             api (ArkCLIAPI): _description_
@@ -283,7 +283,7 @@ class ArkExecAction(ArkAction):
     @abstractmethod
     def can_run_exec_action(self, command_name: str, args: argparse.Namespace) -> bool:
         """
-        Checks whether the specific exec service action can be ran
+        Checks whether the specified exec service action can be run.
 
         Args:
             command_name (str): _description_

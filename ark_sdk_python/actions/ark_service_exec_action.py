@@ -67,7 +67,7 @@ class ArkServiceExecAction(ArkExecAction):
     @overrides
     def define_exec_action(self, exec_subparsers: argparse._SubParsersAction) -> None:
         """
-        Defines all the supported service actions as cli actions / arguments and schemas
+        Defines all the supported service actions as CLI actions, with its associated arguments and schemas.
 
         Args:
             exec_subparsers (argparse._SubParsersAction): _description_
@@ -78,8 +78,8 @@ class ArkServiceExecAction(ArkExecAction):
     @overrides
     def run_exec_action(self, api: ArkCLIAPI, args: argparse.Namespace) -> None:
         """
-        Deduces from the arguments the fitting action definition and action
-        Finds the fitting service using the defintinion and executes the sync or async service action
+        Deduces from the arguments the appropriate service definition and action.  
+        Finds the appropriate service using the definition and executes the sync or async service action.
 
         Args:
             api (ArkCLIAPI): _description_
@@ -99,7 +99,7 @@ class ArkServiceExecAction(ArkExecAction):
     @overrides
     def can_run_exec_action(self, command_name: str, args: argparse.Namespace) -> bool:
         """
-        Checks whether theres a service definition for the command and actions
+        Checks whether there is a service definition for the command and its actions.
 
         Args:
             command_name (str): _description_
