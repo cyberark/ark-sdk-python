@@ -21,7 +21,7 @@ class ArkDPAAPI:
     @property
     def workspace_db(self) -> ArkDPADBWorkspaceService:
         """
-        Getter for the DB workspace service
+        Getter for the DB workspace service.
 
         Returns:
             ArkDPADBWorkspaceService: _description_
@@ -31,7 +31,7 @@ class ArkDPAAPI:
     @property
     def policies_db(self) -> ArkDPADBPoliciesService:
         """
-        Getter for the policies db service
+        Getter for the DB policies service.
 
         Returns:
             ArkDPADBPoliciesService: _description_
@@ -41,7 +41,7 @@ class ArkDPAAPI:
     @property
     def secrets_db(self) -> ArkDPADBSecretsService:
         """
-        Getter for the db secrets service
+        Getter for the DB secrets service.
 
         Returns:
             ArkDPADBSecretsService: _description_
@@ -51,7 +51,7 @@ class ArkDPAAPI:
     @property
     def sso(self) -> ArkDPASSOService:
         """
-        Getter for the sso service
+        Getter for the SSO service.
 
         Returns:
             ArkDPASSOService: _description_
@@ -61,7 +61,7 @@ class ArkDPAAPI:
     @property
     def db(self) -> ArkDPADBService:
         """
-        Getter for the db service
+        Getter for the DB service.
 
         Returns:
             ArkDPADBService: _description_
@@ -71,7 +71,7 @@ class ArkDPAAPI:
     @property
     def certificates(self) -> ArkDPACertificatesService:
         """
-        Getter for the certificates service
+        Getter for the certificates service.
 
         Returns:
             ArkDPACertificatesService: _description_
@@ -81,7 +81,7 @@ class ArkDPAAPI:
     @property
     def k8s(self) -> ArkDPAK8SService:
         """
-        Getter for the k8s service
+        Getter for the K8s service.
 
         Returns:
             ArkDPAK8SService: _description_

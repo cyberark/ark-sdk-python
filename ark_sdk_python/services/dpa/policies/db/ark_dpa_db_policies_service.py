@@ -55,7 +55,7 @@ class ArkDPADBPoliciesService(ArkService):
 
     def add_policy(self, add_policy: ArkDPADBAddPolicy) -> ArkDPADBPolicy:
         """
-        Adds a new db policy with the given information
+        Adds a new DB policy with the specified information.
 
         Args:
             add_policy (ArkDPADBAddPolicy): _description_
@@ -80,7 +80,7 @@ class ArkDPADBPoliciesService(ArkService):
 
     def delete_policy(self, delete_policy: ArkDPADeletePolicy) -> None:
         """
-        Deletes a db policy by id or name
+        Deletes the specified (ID or name) DB policy.
 
         Args:
             delete_policy (ArkDPADeletePolicy): _description_
@@ -97,7 +97,7 @@ class ArkDPADBPoliciesService(ArkService):
 
     def update_policy(self, update_policy: ArkDPADBUpdatePolicy) -> ArkDPADBPolicy:
         """
-        Updates a db policy with new information
+        Updates a DB policy.
 
         Args:
             update_policy (ArkDPADBUpdatePolicy): _description_
@@ -127,7 +127,7 @@ class ArkDPADBPoliciesService(ArkService):
 
     def update_policy_status(self, update_policy_status: ArkDPAUpdatePolicyStatus) -> ArkDPADBPolicy:
         """
-        Updates the status of the db policy by id
+        Updates the status of the specified (by ID) DB policy.
 
         Args:
             update_policy_status (ArkDPAUpdatePolicyStatus): _description_
@@ -151,7 +151,7 @@ class ArkDPADBPoliciesService(ArkService):
 
     def list_policies(self) -> List[ArkDPADBPolicyListItem]:
         """
-        Lists all the db policies of the tenant
+        Lists all of the tenants's DB policies.
 
         Raises:
             ArkServiceException: _description_
@@ -171,7 +171,7 @@ class ArkDPADBPoliciesService(ArkService):
 
     def list_policies_by(self, policies_filter: ArkDPADBPoliciesFilter) -> List[ArkDPADBPolicyListItem]:
         """
-        Lists db policies by given filters
+        Lists DB policies that match the specified filters.
 
         Args:
             policies_filter (ArkDPADBPoliciesFilter): _description_
@@ -198,7 +198,7 @@ class ArkDPADBPoliciesService(ArkService):
 
     def policy(self, get_policy: ArkDPAGetPolicy) -> ArkDPADBPolicy:
         """
-        Retrieves a db policy by its id
+        Retrieves a DB policy by ID.
 
         Args:
             get_policy (ArkDPAGetPolicy): _description_
@@ -223,7 +223,7 @@ class ArkDPADBPoliciesService(ArkService):
 
     def policies_stats(self) -> ArkDPADBPoliciesStats:
         """
-        Calculates policies statistics
+        Calculates policy statistics.
 
         Returns:
             ArkDPADBPoliciesStats: _description_

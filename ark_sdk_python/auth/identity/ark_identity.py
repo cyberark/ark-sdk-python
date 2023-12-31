@@ -383,7 +383,7 @@ class ArkIdentity:
     @cached(cache=LRUCache(maxsize=1024))
     def is_idp_user(cls, username: str) -> bool:
         """
-        Checks whether or not the given username is from an external IDP.
+        Checks whether or not the specified username is from an external IDP.
 
         Args:
             username (str): _description_
@@ -416,7 +416,7 @@ class ArkIdentity:
 
     def auth_identity(self, profile: Optional[ArkProfile] = None, interactive: bool = False, force: bool = False) -> None:
         """
-        Authenticates to Identity using the given information provided in the constructor.  
+        Authenticates to Identity with the information specified in the constructor.  
         If MFA is configured and `interactive` is enabled, the user is prompted for the MFA secret.
         The auth token and other details are stored in the object for future use.
 
@@ -504,7 +504,7 @@ class ArkIdentity:
     # pylint: disable=unused-argument
     def refresh_auth_identity(self, profile: Optional[ArkProfile] = None, interactive: bool = False, force: bool = False) -> None:
         """
-        Performs a token refresh with the existing object details.
+        Performs a token refresh with the object's existing details.
 
         Args:
             profile (Optional[ArkProfile]): The profile to load from the cache, if available

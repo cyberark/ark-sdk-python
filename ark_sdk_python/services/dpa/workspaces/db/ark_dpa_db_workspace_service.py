@@ -64,7 +64,7 @@ class ArkDPADBWorkspaceService(ArkService):
 
     def add_database(self, add_database: ArkDPADBAddDatabase) -> ArkDPADBDatabase:
         """
-        Add a new database
+        Adds a new database.
 
         Args:
             add_database (ArkDPADBAddDatabase): _description_
@@ -92,7 +92,7 @@ class ArkDPADBWorkspaceService(ArkService):
 
     def delete_database(self, delete_database: ArkDPADBDeleteDatabase) -> None:
         """
-        Delete an existing database
+        Deletes a database.
 
         Args:
             delete_database (ArkDPADBDeleteDatabase): _description_
@@ -109,7 +109,7 @@ class ArkDPADBWorkspaceService(ArkService):
 
     def update_database(self, update_database: ArkDPADBUpdateDatabase) -> ArkDPADBDatabase:
         """
-        Update an existing database
+        Updates a database.
 
         Args:
             update_database (ArkDPADBUpdateDatabase): _description_
@@ -137,7 +137,7 @@ class ArkDPADBWorkspaceService(ArkService):
 
     def list_databases(self) -> ArkDPADBDatabaseInfoList:
         """
-        List all databases
+        Lists all databases.
 
         Raises:
             ArkServiceException: _description_
@@ -150,7 +150,7 @@ class ArkDPADBWorkspaceService(ArkService):
 
     def list_databases_by(self, databases_filter: ArkDPADBDatabasesFilter) -> ArkDPADBDatabaseInfoList:
         """
-        List databases by given filters
+        Lists databases that match the specified filters.
 
         Args:
             databases_filter (ArkDPADBDatabasesFilter): _description_
@@ -182,7 +182,7 @@ class ArkDPADBWorkspaceService(ArkService):
 
     def database(self, get_database: ArkDPADBGetDatabase) -> ArkDPADBDatabase:
         """
-        Get specific database
+        Gets a specific database.
 
         Args:
             get_database (ArkDPADBGetDatabase): _description_
@@ -207,7 +207,7 @@ class ArkDPADBWorkspaceService(ArkService):
 
     def databases_stats(self) -> ArkDPADBDatabasesStats:
         """
-        Calculate stats about the databases of the tenant
+        Calculate statistics about the tenant's databases.
 
         Returns:
             ArkDPADBDatabasesStats: _description_

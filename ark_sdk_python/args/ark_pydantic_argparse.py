@@ -524,7 +524,7 @@ class ArkPydanticArgparse:
         ignored_keys: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
         """
-        Converts the given JSON schema and argparse args into a finalized dictionary.
+        Converts the given JSON schema and argparse args into a finalized dictionary.  
         The conversion is recursive and converts keys according to snake case.  
         
         Returns a finalized args dictionary.
@@ -576,7 +576,7 @@ class ArkPydanticArgparse:
         default_values: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
-        Converts the given schema and args into a finalized dictionary.
+        Converts the given schema and args into a finalized dictionary.  
         The function interacts with the user and requests args that were not provided in the CLI.  
 
         Returns a dict that combines the schema with the user inputs.

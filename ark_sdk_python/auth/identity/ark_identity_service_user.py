@@ -86,12 +86,12 @@ class ArkIdentityServiceUser:
 
     def auth_identity(self, profile: Optional[ArkProfile] = None, force: bool = False) -> None:
         """
-        Authenticates with a service user to identity
-        The authentication creates an identity token and authorizes to the given application
+        Authenticates to Identity with a service user.  
+        This method creates an auth token and authorizes to the service.
 
         Args:
-            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists
-            force (bool): Whether to discard cache, Defaults to False.
+            profile (Optional[ArkProfile]): Profile to be used to load from caching, if available
+            force (bool): Determines whether to discard existing cache, defaults to `False`
 
         Raises:
             ArkAuthException: _description_

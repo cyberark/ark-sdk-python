@@ -39,18 +39,18 @@ class ArkIdentityFQDNResolver:
     @cached(cache=LRUCache(maxsize=1024))
     def resolve_tenant_fqdn_from_tenant_subdomain(tenant_subdomain: str, env: AwsEnv) -> str:
         """
-        Resolve the tenant FQDN url from platform discovery by its tenant subdomain.
-        This is based on the environment that currently being worked on and given as an input
+        Resolves the tenant's FQDN URL from its subdomain.  
+        The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.
 
         Args:
-            tenant_subdomain (str): the tenant subdomain, e.g. 'mytenant'
-            env (AwsEnv): The environment to try and find the tenant on
+            tenant_subdomain (str): The tenant subdomain, for example: `mytenant`
+            env (AwsEnv): The environment for which the the tenant URL is resolved
 
         Raises:
-            ArkException: In case of error, or tenant username prefix was not found in identity environment
+            ArkException: When an error occurs or the tenant username prefix was not found in the Identity environment
 
         Returns:
-            str: result of the platform discovery request to get the tenant FQDN
+            str: The tenant's resolved FQDN
         """
         platform_discovery_url = f'https://{ArkIdentityFQDNResolver.__DISCOVERY_SERVICE_DOMAIN_NAME}.{ROOT_DOMAIN[env]}'
         session = Session()
@@ -71,18 +71,18 @@ class ArkIdentityFQDNResolver:
     @cached(cache=LRUCache(maxsize=1024))
     def resolve_tenant_fqdn_from_tenant_suffix(tenant_suffix: str, identity_env_url: Optional[str] = None) -> str:
         """
-        Resolve the tenant FQDN url in identity. By default it gets identity address according
-        to the current environment mapping (see get_identity_env_url()), but it can get it as argument (identity_env_url)
+        Resolves the tenant's FQDN URL in Identity.  
+        By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.
 
         Args:
-            tenant_suffix (str): the tenant url suffix, e.g. '@tenant-a-527.shell.cyberark.cloud'
-            identity_env_url (str, optional): If specified, used as the identity pod0 url. Defaults to None (use environment mapping).
+            tenant_suffix (str): The tenant's URL suffix, for example: `@tenant-a-527.shell.cyberark.cloud`
+            identity_env_url (str, optional): If specified, used as the Identity pod0 URL; otherwise, defaults to `None` (use environment mapping)
 
         Raises:
             ArkException: In case of error, or tenant username prefix was not found in identity environment
 
         Returns:
-            str: result of the identity request to get the tenant FQDN
+            str: The tenant's FQDN
         """
         identity_env_url = identity_env_url or (
             IDENTITY_ENV_URLS[AwsEnv(os.getenv('DEPLOY_ENV', None))] if os.getenv('DEPLOY_ENV', None) else IDENTITY_ENV_URLS[AwsEnv.PROD]

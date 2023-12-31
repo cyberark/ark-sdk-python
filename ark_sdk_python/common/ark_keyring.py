@@ -158,8 +158,8 @@ class ArkKeyring:
 
     def save_token(self, profile: ArkProfile, token: ArkToken, postfix: str) -> None:
         """
-        Saves a given token for a profile in the keyring
-        Keyring is OS based implementation with fallback to BasicKeyring
+        Saves the specified token for a profile in the keyring.  
+        The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.
 
         Args:
             profile (ArkProfile): _description_
@@ -176,10 +176,10 @@ class ArkKeyring:
 
     def load_token(self, profile: ArkProfile, postfix: str) -> Optional[ArkToken]:
         """
-        Loads a token for a profile in the keyring
-        Keyring is OS based implementation with fallback to BasicKeyring
-        If the token is expired and no refresh token exists, deletes it from the keyring and does not return anything
-        If the token is expired but theres a refresh token, the token will only be deleted if the max token time was passed (48 hours)
+        Loads a token for a profile from the keyring.  
+        The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.
+        When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. 
+        When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).
 
         Args:
             profile (ArkProfile): _description_

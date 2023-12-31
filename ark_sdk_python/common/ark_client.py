@@ -91,7 +91,7 @@ class ArkClient:
 
     def get(self, route: str, **kwargs) -> Response:
         """
-        Performs a GET request with the session details and given headers / tokens
+        Performs a GET request with the session details and given headers and tokens.
 
         Args:
             route (str): _description_
@@ -103,7 +103,7 @@ class ArkClient:
 
     def post(self, route: str, **kwargs) -> Response:
         """
-        Performs a POST request with the session details and given headers / tokens
+        Performs a POST request with the session details and given headers and tokens.
 
         Args:
             route (str): _description_
@@ -115,7 +115,7 @@ class ArkClient:
 
     def put(self, route: str, **kwargs) -> Response:
         """
-        Performs a PUT request with the session details and given headers / tokens
+        Performs a PUT request with the session details and given headers and tokens.
 
         Args:
             route (str): _description_
@@ -127,7 +127,7 @@ class ArkClient:
 
     def delete(self, route: str, **kwargs) -> Response:
         """
-        Performs a DELETE request with the session details and given headers / tokens
+        Performs a DELETE request with the session details and given headers and tokens.
 
         Args:
             route (str): _description_
@@ -139,7 +139,7 @@ class ArkClient:
 
     def patch(self, route: str, **kwargs) -> Response:
         """
-        Performs a PATCH request with the session details and given headers / tokens
+        Performs a PATCH request with the session details and given headers and tokens.
 
         Args:
             route (str): _description_
@@ -151,7 +151,7 @@ class ArkClient:
 
     def options(self, route: str, **kwargs) -> Response:
         """
-        Performs a OPTIONS request with the session details and given headers / tokens
+        Performs a OPTIONS request with the session details and given headers and tokens.
 
         Args:
             route (str): _description_
@@ -163,7 +163,7 @@ class ArkClient:
 
     def update_token(self, token: Optional[str] = None) -> None:
         """
-        Updates session token
+        Updates a session token.
 
         Args:
             token (Optional[str], optional): _description_. Defaults to None.
@@ -181,7 +181,7 @@ class ArkClient:
 
     def update_cookies(self, cookies: Optional[List] = None, cookie_jar: Optional[RequestsCookieJar] = None) -> None:
         """
-        Updates session cookies
+        Updates session cookies.
 
         Args:
             cookies (Optional[List], optional): _description_. Defaults to None.

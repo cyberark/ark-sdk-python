@@ -16,7 +16,7 @@ class ArkAsyncRequest(ABC):
     @abstractmethod
     def is_finished(self) -> bool:
         """
-        Checks whether the current async request is finished or not
+        Checks whether or not the current async request has finished.
 
         Returns:
             bool: _description_
@@ -25,7 +25,7 @@ class ArkAsyncRequest(ABC):
     @abstractmethod
     def task_failed(self) -> bool:
         """
-        Checks whether the current async request failed or not
+        Checks whether or the current async request failed.
 
         Returns:
             bool: _description_
@@ -34,7 +34,7 @@ class ArkAsyncRequest(ABC):
     @abstractmethod
     def task_timeout(self) -> bool:
         """
-        Checks whether the current async request has timed out
+        Checks whether or not the current async request has timed out.
 
         Returns:
             bool: _description_
@@ -43,8 +43,8 @@ class ArkAsyncRequest(ABC):
     @abstractmethod
     def poll(self, timeout_seconds: int, progress_callback: Callable[[ArkAsyncTask, int, ArkAsyncStatus], None]) -> bool:
         """
-        Polls for the async request until it is finished
-        Progress callbacks may also be used to be notified whats the async request status
+        Polls the async request until it has completed.  
+        Progress callbacks can also be used to return the async request's status.
 
         Args:
             timeout_seconds (int): _description_

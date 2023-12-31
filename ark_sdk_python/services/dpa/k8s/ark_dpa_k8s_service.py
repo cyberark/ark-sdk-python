@@ -33,7 +33,7 @@ class ArkDPAK8SService(ArkService):
 
     def generate_kubeconfig(self, generate_kubeconfig: ArkDPAK8SGenerateKubeConfig) -> Optional[str]:
         """
-        Building a kube config file to be used to connect to k8s clusters
+        Builds a Kube config file used to connect to a K8s cluster.
 
         Args:
             generate_kubeconfig (ArkDPAK8SGenerateKubeConfig): _description_

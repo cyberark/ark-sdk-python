@@ -116,7 +116,7 @@ class ArkDPASSOService(ArkService):
 
     def short_lived_password(self, get_short_lived_password: ArkDPASSOGetShortLivedPassword) -> str:
         """
-        Generates a short lived password to be used to connect to dpa infrastructure
+        Generates a short-lived password used to connect to DPA services.
 
         Args:
             get_short_lived_password (ArkDPASSOGetShortLivedPassword): _description_
@@ -149,7 +149,7 @@ class ArkDPASSOService(ArkService):
 
     def short_lived_client_certificate(self, get_short_lived_client_certificate: ArkDPASSOGetShortLivedClientCertificate) -> None:
         """
-        Generates a short lived client certificate to be used to connect to dpa infrastructure
+        Generates a short-lived client certificate used to connect to DPA services.
 
         Args:
             get_short_lived_client_certificate (ArkDPASSOGetShortLivedClientCertificate): _description_
@@ -188,7 +188,7 @@ class ArkDPASSOService(ArkService):
 
     def short_lived_oracle_wallet(self, get_short_lived_oracle_wallet: ArkDPASSOGetShortLivedOracleWallet) -> None:
         """
-        Generates a short lived oracle wallet to be used to connect via dpa infrastructure to oracle databases
+        Generates a short-lived Oracle Wallet used to connect via DPA to Oracle databases.
 
         Args:
             get_short_lived_oracle_wallet (ArkDPASSOGetShortLivedOracleWallet): _description_
@@ -222,7 +222,7 @@ class ArkDPASSOService(ArkService):
 
     def short_lived_rdp_file(self, get_short_lived_rdp_file: ArkDPASSOGetShortLivedRDPFile) -> None:
         """
-        Generates a short lived RDP file to be used to connect via RDP to Windows machines
+        Generates a short-lived RDP file used to connect via RDP to Windows machines.
 
         Args:
             get_short_lived_rdp_file (ArkDPASSOGetShortLivedRDPFile): _description_

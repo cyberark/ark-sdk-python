@@ -38,16 +38,16 @@ class ArkDPACertificatesService(ArkService):
 
     def add_certificate(self, create_certificate: ArkDPACreateCertificate) -> ArkDPACertificate:
         """
-        Adds a new certificate through Access Certificates Service.
+        Adds a new certificate through the Access Certificates Service.
 
         Args:
-            create_certificate (ArkDPACreateCertificate): The certificate to add.
+            create_certificate (ArkDPACreateCertificate): The certificate to add
 
         Raises:
-            ArkServiceException: If the certificate could not be added.
+            ArkServiceException: When the certificate could not be added
 
         Returns:
-            ArkDPACertificate: The certificate that was added.
+            ArkDPACertificate: The added certificate
         """
         self._logger.info("Adding new certificate.")
         cert_body = ''
@@ -71,16 +71,16 @@ class ArkDPACertificatesService(ArkService):
 
     def certificate(self, get_certificate: ArkDPAGetCertificate) -> ArkDPACertificate:
         """
-        Retrieves a certificate from Access Certificates Service by its id.
+        Retrieves a certificate from the Access Certificates Service.
 
         Args:
-            get_certificate (ArkDPAGetCertificate): The id of the certificate to retrieve.
+            get_certificate (ArkDPAGetCertificate): The ID of the certificate to retrieve
 
         Raises:
-            ArkServiceException: If the certificate could not be retrieved.
+            ArkServiceException: When the certificate could not be retrieved
 
         Returns:
-            ArkDPACertificate: The certificate that was retrieved.
+            ArkDPACertificate: The retrieved certificate
         """
         self._logger.info(f'Retrieving certificate [{get_certificate.certificate_id}]')
         resp = self.__client.get(CERTIFICATE_API.format(certificate_id=get_certificate.certificate_id))
@@ -94,10 +94,10 @@ class ArkDPACertificatesService(ArkService):
 
     def delete_certificate(self, cert: ArkDPADeleteCertificate) -> None:
         """
-        Delete an existing certificate.
+        Deletes an existing certificate.
 
         Args:
-            cert (ArkDPADeleteCertificate): The id of the certificate to delete.
+            cert (ArkDPADeleteCertificate): The ID of the certificate to delete
 
         Raises:
             ArkServiceException: _description_
@@ -109,10 +109,10 @@ class ArkDPACertificatesService(ArkService):
 
     def update_certificate(self, update_certificate: ArkDPAUpdateCertificate) -> None:
         """
-        Update an existing certificate.
+        Updates an existing certificate.
 
         Args:
-            update_certificate (ArkDPAUpdateCertificate): The id of the certificate to update.
+            update_certificate (ArkDPAUpdateCertificate): The ID of the certificate to update
 
         Raises:
             ArkServiceException: _description_
@@ -132,7 +132,7 @@ class ArkDPACertificatesService(ArkService):
 
     def list_certificates(self) -> List[ArkDPAShortCertificate]:
         """
-        List all certificates.
+        Lists all certificates.
 
         Raises:
             ArkServiceException: _description_
@@ -152,7 +152,7 @@ class ArkDPACertificatesService(ArkService):
 
     def list_certificates_by(self, certificates_filter: ArkDPACertificatesFilter) -> List[ArkDPAShortCertificate]:
         """
-        List certificates by given filters.
+        Lists certificates matching the specified filters.
 
         Args:
             certificates_filter (ArkDPACertificatesFilter): _description_
