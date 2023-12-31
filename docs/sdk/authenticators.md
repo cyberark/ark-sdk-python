@@ -34,7 +34,7 @@ Currently, ArkISPAuth is the only supported authenticator type, which is derived
 - <b>Default</b> (`default`) - Default authenticator auth method for the authenticator
 - <b>Other</b> (`other`) - For custom implementations
 
-See [ark_auth_method.py](https://github.com/cyberark/ark-sdk-python/blob/main/ark_sdk_python/models/auth/ark_auth_method.py){:target="_blank" rel="noopener"} for more information about auth methods.
+See [ark_auth_method.py](https://github.com/cyberark/ark-sdk-python/blob/feature/1.0.0/ark_sdk_python/models/auth/ark_auth_method.py){:target="_blank" rel="noopener"} for more information about auth methods.
 
 ## SDK authenticate example
 

@@ -3,7 +3,7 @@ Ark SDK Python
 
 **[📜Documentation](https://pages.github.com/cyberark/ark-sdk-python/)**
 
-![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/main/assets/sdk.png)
+![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/feature/1.0.0/assets/sdk.png)
 
 CyberArk's Official SDK and CLI for different services operations
 
@@ -37,10 +37,10 @@ TL;DR
 =====
 
 ## Enduser
-![Ark SDK Enduser Usage](https://github.com/cyberark/ark-sdk-python/blob/main/assets/ark_sdk_enduser_tldr.gif)
+![Ark SDK Enduser Usage](https://github.com/cyberark/ark-sdk-python/blob/feature/1.0.0/assets/ark_sdk_enduser_tldr.gif)
 
 ## Admin
-![Ark SDK Admin Usage](https://github.com/cyberark/ark-sdk-python/blob/main/assets/ark_sdk_admin_tldr.gif)
+![Ark SDK Admin Usage](https://github.com/cyberark/ark-sdk-python/blob/feature/1.0.0/assets/ark_sdk_admin_tldr.gif)
 
 
 

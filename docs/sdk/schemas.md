@@ -35,4 +35,4 @@ class ArkDPAGetPolicy(ArkModel):
 
 ```
 
-All models can be found [here](https://github.com/cyberark/ark-sdk-python/tree/main/ark_sdk_python/models) and are separated to folders based on topic, from auth to services
+All models can be found [here](https://github.com/cyberark/ark-sdk-python/tree/feature/1.0.0/ark_sdk_python/models) and are separated to folders based on topic, from auth to services
