@@ -23,8 +23,8 @@ class ArkLoginAction(ArkAction):
     @overrides
     def define_action(self, subparsers: argparse._SubParsersAction) -> None:
         """
-        Defines the configuration CLI action
-        Adds for each supported authenticator, its username / secret params for login
+        Defines the CLI `login` action.  
+        For each supported authenticator, adds the username/secret params for logging in.
 
         Args:
             subparsers (argparse._SubParsersAction): _description_
@@ -58,8 +58,8 @@ class ArkLoginAction(ArkAction):
     @overrides
     def run_action(self, args: argparse.Namespace) -> None:
         """
-        Perform the actual login for each authenticator
-        Once logged in, store its credentials in the keyring for later use
+        Runs the login action for each authenticator.  
+        After a login completes, credentials are stored in the keyring for future use.
 
         Args:
             args (argparse.Namespace): _description_
@@ -175,7 +175,7 @@ class ArkLoginAction(ArkAction):
     @overrides
     def can_run_action(self, action_name: str, args: argparse.Namespace) -> bool:
         """
-        Asserts the action is login
+        Asserts the action is `login`.
 
         Args:
             action_name (str): _description_

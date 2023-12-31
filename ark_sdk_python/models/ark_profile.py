@@ -35,7 +35,7 @@ class ArkProfileLoader:
     @staticmethod
     def profiles_folder() -> str:
         """
-        Retrieves the profiles folder, optionally from an env var with fallback to the default
+        Retrieves the profiles folder pathname, from the environment variable when set; otherwise, from the default location.
 
         Returns:
             str: _description_
@@ -45,7 +45,7 @@ class ArkProfileLoader:
     @staticmethod
     def default_profile_name() -> str:
         """
-        Getter for the default profile name
+        Getter for the default profile name.
 
         Returns:
             str: _description_
@@ -55,10 +55,10 @@ class ArkProfileLoader:
     @staticmethod
     def deduce_profile_name(profile_name: Optional[str] = None) -> str:
         """
-        Deduces the right profile name from the env
+        Deduces the profile name from the env.
 
         Args:
-            profile_name (Optional[str], optional): Defaults to None.
+            profile_name (Optional[str], optional): Defaults to `None`
 
         Returns:
             str: _description_
@@ -74,7 +74,7 @@ class ArkProfileLoader:
     @staticmethod
     def load_default_profile() -> ArkProfile:
         """
-        Loads the default profile either from OS or a new one
+        Loads the default profile, either from the OS or creates a new one.
 
         Returns:
             ArkProfile: _description_
@@ -89,8 +89,8 @@ class ArkProfileLoader:
     @staticmethod
     def load_profile(profile_name: str) -> Optional[ArkProfile]:
         """
-        Loads the profile from the os profiles folder
-        Will return None if no profile is found for the name
+        Loads the specified profile from the OS.  
+        Returns `None` when a profile is not found with the specified name.
 
         Args:
             profile_name (str): _description_
@@ -107,7 +107,7 @@ class ArkProfileLoader:
     @staticmethod
     def save_profile(profile: ArkProfile) -> None:
         """
-        Saves the profile to the profiles folder on the filesystem
+        Saves the profile to the profiles folder on the filesystem.
 
         Args:
             profile (ArkProfile): _description_
@@ -121,7 +121,7 @@ class ArkProfileLoader:
     @staticmethod
     def load_all_profiles() -> Optional[List[ArkProfile]]:
         """
-        Loads all the profiles that exist on the machine
+        Loads all the profiles that exist on the machine.
 
         Returns:
             Optional[List[ArkProfile]]: _description_
@@ -142,10 +142,10 @@ class ArkProfileLoader:
     @staticmethod
     def delete_profile(profile_name: str) -> None:
         """
-        Deletes the profile by given name
+        Deletes the specified profile.
 
         Args:
-            profile_name (str): _description_
+            profile_name (str): The name of the profile to delete
         """
         folder = ArkProfileLoader.profiles_folder()
         if not os.path.exists(folder):
@@ -156,7 +156,7 @@ class ArkProfileLoader:
     @staticmethod
     def clear_all_profiles() -> None:
         """
-        Clears all profiles
+        Clears all profiles.
         """
         folder = ArkProfileLoader.profiles_folder()
         if not os.path.exists(folder):
@@ -167,7 +167,7 @@ class ArkProfileLoader:
     @staticmethod
     def profile_exists(profile_name: str) -> bool:
         """
-        Checks if a given profile name exists or not
+        Checks if the specified profile exists.
 
         Args:
             profile_name (str): _description_

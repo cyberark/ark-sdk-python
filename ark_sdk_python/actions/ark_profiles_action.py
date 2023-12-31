@@ -16,8 +16,7 @@ class ArkProfilesAction(ArkAction):
     @overrides
     def define_action(self, subparsers: argparse._SubParsersAction) -> None:
         """
-        Defines the profile CLI action
-        Adds actions for managing multiple profiles
+        Defines the CLI `profile` action, and adds actions for managing multiple profiles.
 
         Args:
             subparsers (argparse._SubParsersAction): _description_
@@ -165,7 +164,7 @@ class ArkProfilesAction(ArkAction):
     @overrides
     def run_action(self, args: argparse.Namespace) -> None:
         """
-        Perform the actual profile action
+        Runs the profile action.
 
         Args:
             args (argparse.Namespace): _description_
@@ -194,7 +193,7 @@ class ArkProfilesAction(ArkAction):
     @overrides
     def can_run_action(self, action_name: str, args: argparse.Namespace) -> bool:
         """
-        Asserts the action is profile
+        Asserts the action is `profile`.
 
         Args:
             action_name (str): _description_

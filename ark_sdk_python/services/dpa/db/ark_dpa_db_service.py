@@ -104,7 +104,7 @@ class ArkDPADBService(ArkService):
 
     def psql(self, psql_execution: ArkDPADBPsqlExecution) -> None:
         """
-        Exectues psql command line for postgres via CyberArk's Database Proxy
+        Executes a Postgres psql command via CyberArk's Database Proxy.
 
         Args:
             psql_execution (ArkDPADBPsqlExecution): _description_
@@ -124,7 +124,7 @@ class ArkDPADBService(ArkService):
 
     def mysql(self, mysql_execution: ArkDPADBMysqlExecution) -> None:
         """
-        Exectues mysql command line for mysql via CyberArk's Database Proxy
+        Executes a MySQL command line via CyberArk's Database Proxy.
 
         Args:
             mysql_execution (ArkDPADBMysqlExecution): _description_
@@ -173,7 +173,7 @@ class ArkDPADBService(ArkService):
 
     def generate_oracle_tnsnames(self, generate_oracle_assets: ArkDPADBOracleGenerateAssets) -> None:
         """
-        Generates oracle tns names and optionally oracle wallet if allowed
+        Generates an Oracle `tnsnames` file and, optionally, an Oracle Wallet (if permitted).
 
         Args:
             generate_oracle_assets (ArkDPADBOracleGenerateAssets): _description_

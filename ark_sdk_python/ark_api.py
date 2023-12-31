@@ -34,7 +34,7 @@ class ArkAPI:
 
     def authenticator(self, authenticator_name: str) -> ArkAuth:
         """
-        Returns an authenticator by given name
+        Returns the specified authenticator.
 
         Args:
             authenticator_name (str): _description_
@@ -52,8 +52,7 @@ class ArkAPI:
 
     def service(self, service_type: Type[ArkService]) -> ArkService:
         """
-        Returns a service by its given name
-        Only if the authenticators were given that fit the service, will it be supported
+        Returns the specified service when the appropriate authenticators were provided.
 
         Args:
             service_type (Type[ArkService]): _description_
@@ -84,7 +83,7 @@ class ArkAPI:
     @property
     def dpa_workspaces_db(self) -> "ArkDPADBWorkspaceService":
         """
-        Returns the DPA DB Workspace service if the fitting authenticators were given
+        Returns the DPA DB Workspace service if the appropriate authenticators were provided.
 
         Returns:
             ArkDPADBWorkspaceService: _description_
@@ -96,7 +95,7 @@ class ArkAPI:
     @property
     def dpa_policies_vm(self) -> "ArkDPAVMPoliciesService":
         """
-        Returns the DPA VM Policies service if the fitting authenticators were given
+        Returns the DPA VM Policies service if the appropriate authenticators were provided.
 
         Returns:
             ArkDPAVMPoliciesService: _description_
@@ -108,7 +107,7 @@ class ArkAPI:
     @property
     def dpa_policies_db(self) -> "ArkDPADBPoliciesService":
         """
-        Returns the DPA DB Policies service if the fitting authenticators were given
+        Returns the DPA DB Policies service if the appropriate authenticators were provided.
 
         Returns:
             ArkDPADBPoliciesService: _description_
@@ -120,7 +119,7 @@ class ArkAPI:
     @property
     def dpa_secrets_db(self) -> "ArkDPADBSecretsService":
         """
-        Returns the DPA DB Secrets service if the fitting authenticators were given
+        Returns the DPA DB Secrets service if the appropriate authenticators were provided.
 
         Returns:
             ArkDPADBSecretsService: _description_
@@ -132,7 +131,7 @@ class ArkAPI:
     @property
     def dpa_sso(self) -> "ArkDPASSOService":
         """
-        Returns the DPA sso service if the fitting authenticators were given
+        Returns the DPA sso service if the appropriate authenticators were provided.
 
         Returns:
             ArkDPASSOService: _description_
@@ -144,7 +143,7 @@ class ArkAPI:
     @property
     def dpa_db(self) -> "ArkDPADBService":
         """
-        Returns the DPA DB service if the fitting authenticators were given
+        Returns the DPA DB service if the appropriate authenticators were provided.
 
         Returns:
             ArkDPADBService: _description_
@@ -156,7 +155,7 @@ class ArkAPI:
     @property
     def dpa_certificates(self) -> "ArkDPACertificatesService":
         """
-        Returns the DPA certificates service if the fitting authenticators were given
+        Returns DPA certificates service if the appropriate authenticators were provided.
 
         Returns:
             ArkDPACertificatesService: _description_
@@ -168,7 +167,7 @@ class ArkAPI:
     @property
     def dpa_k8s(self) -> "ArkDPAK8SService":
         """
-        Returns the DPA Policies service if the fitting authenticators were given
+        Returns the DPA Policies service if the appropriate authenticators were provided.
 
         Returns:
             ArkDPAK8SService: _description_

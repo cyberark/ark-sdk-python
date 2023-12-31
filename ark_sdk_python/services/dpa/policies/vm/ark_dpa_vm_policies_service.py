@@ -77,7 +77,7 @@ class ArkDPAVMPoliciesService(ArkService):
 
     def add_policy(self, add_policy: ArkDPAVMAddPolicy) -> ArkDPAVMPolicy:
         """
-        Adds a new vm policy with the given information
+        Adds a new VM policy with the specified information.
 
         Args:
             add_policy (ArkDPVMAAddPolicy): _description_
@@ -104,7 +104,7 @@ class ArkDPAVMPoliciesService(ArkService):
 
     def delete_policy(self, delete_policy: ArkDPADeletePolicy) -> None:
         """
-        Deletes a vm policy by id or name
+        Deletes the specified (ID or name) VM policy.
 
         Args:
             delete_policy (ArkDPADeletePolicy): _description_
@@ -121,7 +121,7 @@ class ArkDPAVMPoliciesService(ArkService):
 
     def update_policy(self, update_policy: ArkDPAVMUpdatePolicy) -> ArkDPAVMPolicy:
         """
-        Updates a vm policy with new information
+        Updates a VM policy.
 
         Args:
             update_policy (ArkDPAVMUpdatePolicy): _description_
@@ -155,7 +155,7 @@ class ArkDPAVMPoliciesService(ArkService):
 
     def update_policy_status(self, update_policy_status: ArkDPAUpdatePolicyStatus) -> ArkDPAVMPolicy:
         """
-        Updates the status of the vm policy by id
+        Updates the status of the specified (by ID) VM policy.
 
         Args:
             update_policy_status (ArkDPAUpdatePolicyStatus): _description_
@@ -179,7 +179,7 @@ class ArkDPAVMPoliciesService(ArkService):
 
     def list_policies(self) -> List[ArkDPAVMPolicyListItem]:
         """
-        Lists all the vm policies of the tenant
+        Lists all of the tenants's VM policies.
 
         Raises:
             ArkServiceException: _description_
@@ -199,7 +199,7 @@ class ArkDPAVMPoliciesService(ArkService):
 
     def list_policies_by(self, policies_filter: ArkDPAVMPoliciesFilter) -> List[ArkDPAVMPolicyListItem]:
         """
-        Lists vm policies by given filters
+        Lists VM policies that match the specified filters.
 
         Args:
             policies_filter (ArkDPAVMPoliciesFilter): _description_
@@ -226,7 +226,7 @@ class ArkDPAVMPoliciesService(ArkService):
 
     def policy(self, get_policy: ArkDPAGetPolicy) -> ArkDPAVMPolicy:
         """
-        Retrieves a vm policy by its id
+        Retrieves a VM policy by ID.
 
         Args:
             get_policy (ArkDPAGetPolicy): _description_
@@ -251,7 +251,7 @@ class ArkDPAVMPoliciesService(ArkService):
 
     def policies_stats(self) -> ArkDPAVMPoliciesStats:
         """
-        Calculates vm policies statistics
+        Calculates VM policy statistics.
 
         Returns:
             ArkDPAVMPoliciesStats: _description_

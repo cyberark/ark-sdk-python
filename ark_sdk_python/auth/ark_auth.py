@@ -86,22 +86,22 @@ class ArkAuth(ABC):
         refresh_auth: bool = False,
     ) -> ArkToken:
         """
-        Authenticates with the specific authenticator implementation
-        The implementation is based on the _perform_authentication method
-        Alongside that, if caching is allowed, will also cache / load from cache the credentials
+        Authenticates with the specified authenticator implementation.  
+        The implementation is based on the `_perform_authentication` method.
+        When caching is allowed, authorization credentials are loaded from the cache.
 
         Args:
-            profile (Optional[ArkProfile]): Profile containing information about the environemnt and authentication profiles
-            auth_profile (Optional[ArkAuthProfile]): Specific auth profile to be used instead of looking at the profile if given
+            profile (Optional[ArkProfile]): Profile containing information about the environment and authentication methods
+            auth_profile (Optional[ArkAuthProfile]): Specific auth profile to use instead of the profile, when provided
             secret (Optional[ArkSecret]): Secret used for authentication
-            force (bool): Whether to force authenticate and discard cache
-            refresh_auth (bool): Tries to refresh an existing cached auth if possible
+            force (bool): Determines whether to force authentication without cached credentials
+            refresh_auth (bool): Attempts to refresh an existing cached auth when it is available
 
         Raises:
             ArkAuthException: _description_
 
         Returns:
-            ArkToken: Token of the authentication to be used, the token is also saved within the class
+            ArkToken: The authentication token to use. The token is also saved in the object.
         """
         if not auth_profile and not profile:
             raise ArkAuthException('Either a profile or a specific auth profile must be supplied')
@@ -158,8 +158,8 @@ class ArkAuth(ABC):
 
     def is_authenticated(self, profile: ArkProfile) -> bool:
         """
-        Checks whether we are authenticated, either from the keyring or in memory
-        If from keyring, will also load it into memory
+        Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.  
+        If the valid token originated from the keyring, it is loaded into memory.
 
         Args:
             profile (ArkProfile): _description_
@@ -182,8 +182,8 @@ class ArkAuth(ABC):
 
     def load_authentication(self, profile: Optional[ArkProfile] = None, refresh_auth: bool = False) -> Optional[ArkToken]:
         """
-        Loads the authentication token from the cache if exists and returns it
-        Can also refresh it if need be
+        Loads and returns the authentication token from the cache, if it exists.  
+        If specified, the method also attempts to refresh the token as needed.
 
         Args:
             profile (Optional[ArkProfile], optional): _description_. Defaults to None.
@@ -245,7 +245,7 @@ class ArkAuth(ABC):
     @abstractmethod
     def authenticator_name() -> str:
         """
-        Name of the authenticator to be used for the auth profiles and services
+        Returns the name of the authenticator used for the auth profile and services.
 
         Returns:
             str: _description_
@@ -255,7 +255,7 @@ class ArkAuth(ABC):
     @abstractmethod
     def authenticator_human_readable_name() -> str:
         """
-        Human readable name of the authenticator to be used for representation to the user
+        Returns the human-readable name of the authenticator.
 
         Returns:
             str: _description_
@@ -265,7 +265,7 @@ class ArkAuth(ABC):
     @abstractmethod
     def supported_auth_methods() -> List[ArkAuthMethod]:
         """
-        Supported authenticaton methods by this authenticator
+        Returns the authenticator's supported authentication methods.
 
         Returns:
             List[ArkAuthMethod]: _description_
@@ -275,7 +275,7 @@ class ArkAuth(ABC):
     @abstractmethod
     def default_auth_method() -> Tuple[ArkAuthMethod, ArkAuthMethodSettings]:
         """
-        Default authentication method used by this authenticator with its default settings
+        Returns the default authentication method and settings.
 
         Returns:
             Tuple[ArkAuthMethod, ArkAuthMethodSettings]: _description_

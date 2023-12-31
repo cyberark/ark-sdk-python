@@ -18,7 +18,7 @@ class ArkService(ABC):
     @property
     def authenticators(self) -> List[ArkAuth]:
         """
-        Returns all the authenticators for this service
+        Returns all the authenticators for the service.
 
         Returns:
             List[ArkAuth]: _description_
@@ -27,7 +27,7 @@ class ArkService(ABC):
 
     def authenticator(self, auth_name: str) -> ArkAuth:
         """
-        For a given authenticator name, finds the fitting ark authenticator class
+        Finds the appropriate Ark authenticator class for the specified authenticator.
 
         Args:
             auth_name (str): _description_
@@ -45,7 +45,7 @@ class ArkService(ABC):
 
     def has_authenticator(self, auth_name: str) -> bool:
         """
-        Checks whether the given authenticator name exists
+        Checks whether the specified authenticator name exists.
 
         Args:
             auth_name (str): _description_
@@ -59,7 +59,7 @@ class ArkService(ABC):
     @abstractmethod
     def service_config() -> ArkServiceConfig:
         """
-        Returns the service config containing the service name, and required / optional authenticators
+        Returns the service configuration, which includes the service name, and its required and optional authenticators.
 
         Returns:
             ArkServiceConfig: _description_

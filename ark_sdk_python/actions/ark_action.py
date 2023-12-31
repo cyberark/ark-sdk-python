@@ -57,7 +57,7 @@ class ArkAction(ABC):
     @abstractmethod
     def define_action(self, subparsers: argparse._SubParsersAction) -> None:
         """
-        Defines the action as part of the subparsers group
+        Defines the action as part of the specified subparsers group.
 
         Args:
             subparsers (argparse._SubParsersAction): _description_
@@ -66,7 +66,7 @@ class ArkAction(ABC):
     @abstractmethod
     def run_action(self, args: argparse.Namespace) -> None:
         """
-        Runs the actual action for the given arguments
+        Runs the actual action with the given arguments.
 
         Args:
             args (argparse.Namespace): _description_
@@ -75,7 +75,7 @@ class ArkAction(ABC):
     @abstractmethod
     def can_run_action(self, action_name: str, args: argparse.Namespace) -> bool:
         """
-        Checks whether the given action can be ran with the name and args
+        Checks whether the given action can be run with the specified arguments.
 
         Args:
             action_name (str): _description_

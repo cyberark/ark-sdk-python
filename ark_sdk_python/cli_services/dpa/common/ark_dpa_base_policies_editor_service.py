@@ -142,9 +142,9 @@ class ArkDPABasePoliciesEditorService(
 
     def load_policies(self, load_policies: ArkDPALoadPolicies) -> ArkDPALoadedPolicies:
         """
-        Loads all the remote policies into the workspace
-        Will ask the user whether to override already existing policies which were changed either locally or remotely
-        If the user supplied to override by default, will not prompt the user for questions
+        Loads all remote policies into the local workspace.  
+        The user is asked whether to overwrite existing policies that were edited either locally or remotely.
+        When default overwrite is enabled, existing policies are overwritten without prompts.
 
         Args:
             load_policies (ArkDPALoadPolicies): _description_
@@ -190,10 +190,8 @@ class ArkDPABasePoliciesEditorService(
 
     def edit_policies(self, edit_policies: ArkDPAEditPolicies) -> None:
         """
-        For given set of policies, either from the cli or from prompt questions
-        Edits the policies one by one using the defined machine editor
-        Each policy can be edited and later on, will be saved to the local workspace
-        Edited policies are not updated remotely until a commit action is executed
+        Edits the set of specified policies one at a time, either via the CLI or the default OS editor.  
+        Edited policies are only saved locally until they are committed.
 
         Args:
             edit_policies (ArkDPAEditPolicies): _description_
@@ -248,11 +246,10 @@ class ArkDPABasePoliciesEditorService(
 
     def remove_policies(self, remove_policies: ArkDPARemovePolicies) -> None:
         """
-        Removes one or more policies from the workspace
-        Removing a remote policy will result in only renaming it to .deleted
-        This will ignore the policy locally on actions performed by the editor
-        Once a commit action is performed, the policy is deleted both locally and remotely
-        For newly generated policies which were not committed yet, they will be just deleted from the machine after the user consents to it
+        Removes one or more policies from the local workspace.  
+        Until changes are committed, removing a remote policy only appends the `.deleted` indication to its name.
+        After committing the changes, the policies are deleted both locally and remotely.
+        New, uncommitted policies are deleted locally after the user consents.
 
         Args:
             remove_policies (ArkDPARemovePolicies): _description_
@@ -306,8 +303,8 @@ class ArkDPABasePoliciesEditorService(
 
     def view_policies(self, view_policies: ArkDPAViewPolicies) -> None:
         """
-        Allows the user to view one or more policies together or seperetly, picked by the cli or by prompt to the user
-        Each policy viewed by the editor of the machine, both for existing policies and newly generated policies
+        Allows the user to view one or more policies either together or individually, as defined in the CLI user prompt.  
+        Policies are viewed in the machine's default editor (both existing policies and newly generated policies).
 
         Args:
             view_policies (ArkDPAViewPolicies): _description_
@@ -356,10 +353,10 @@ class ArkDPABasePoliciesEditorService(
 
     def reset_policies(self, reset_policy: ArkDPAResetPolicies) -> None:
         """
-        Resets the local workspace policies
-        If all policies reset was given, will reload all the policies and override the local policies and delete any already removed policies
-        Newly generated uncommitted policies are not touched
-        If not all policies reset was given, the user can choose which policies he would like to reset
+        Resets local workspace policies.  
+        When all policies are reset, all local policies are overwritten and deleted policies are removed. 
+        Otherwise, the user can select which policies are reset.
+        This function does not alter newly generated uncommitted policies.
 
         Args:
             reset_policy (ArkDPAResetPolicies): _description_
@@ -403,10 +400,10 @@ class ArkDPABasePoliciesEditorService(
 
     def generate_policy(self, generate_policy: GeneratePolicyType) -> None:
         """
-        Generates a new policy from a template and from the users parameters
-        The user will be prompted for the parameters if not supplied by the CLI
-        Once the parameters were decided, generates a policy in memory and lets the user edit it
-        Once the user finishes editing the policy, saves it on the workspace until it is committed
+        Generates a new policy from a template and the user's parameters.  
+        The user is prompted for the parameters when they are not specified in the CLI.
+        After policy's parameters are defined, the policy is generates in memory and can bee edited.
+        The new policy is saved locally until it is committed.
 
         Args:
             generate_policy (GeneratePolicyType): _description_
@@ -440,9 +437,8 @@ class ArkDPABasePoliciesEditorService(
 
     def policies_diff(self, policies_diff: ArkDPAPoliciesDiff) -> None:
         """
-        Calculates the policies diff between the local workspace policies and the remote policies
-        Alongside that, also loads the already removed policies which were not committed
-        Displays the diffs unified or per policy
+        Calculates the diff between the local workspace and remote policies.  
+        This diff includes uncommitted removed policies. A unified or per policy diff can be displayed.
 
         Args:
             policies_diff (ArkDPAPoliciesDiff): _description_
@@ -499,7 +495,7 @@ class ArkDPABasePoliciesEditorService(
 
     def policies_status(self, get_policies_status: ArkDPAGetPoliciesStatus) -> ArkDPAPoliciesStatus:
         """
-        Gets the currently locally altered policies status
+        Gets the status of locally altered policies.
 
         Args:
             get_policies_status (ArkDPAGetPoliciesStatus): _description_
@@ -522,11 +518,12 @@ class ArkDPABasePoliciesEditorService(
 
     def commit_policies(self, commit_policies: ArkDPACommitPolicies) -> None:
         """
-        Committes all the edited policies
-        First calculates the differences between the local and remote policies to find out which policies were edited
-        Alongside that, loads the policies that were chosen to be deleted, and policies that were generated and not committed yet
-        Lets the user choose whether he wants to commit all the edited policies, or only specific names
-        Once all policies were committed, re-organizes the workspace accordingly
+        Commits policies.  
+        The function first calculates the differences between the local and remote policies to find out which policies were edited, including 
+        the policies selected for deletion and new, uncommitted policies. It also
+        allows selecting whether to commit all the edited policies or only specific policies by name.  
+
+        After all policies are committed, the workspace is reorganized accordingly.
 
         Args:
             commit_policies (ArkDPACommitPolicies): _description_

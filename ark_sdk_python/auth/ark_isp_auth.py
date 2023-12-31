@@ -143,7 +143,7 @@ class ArkISPAuth(ArkAuth):
         self, profile: ArkProfile, auth_profile: ArkAuthProfile, secret: Optional[ArkSecret] = None, force: bool = False
     ) -> ArkToken:
         """
-        Peforms authentication to the identity security platform identity tenant
+        Performs authentication to the identity security platform identity tenant
         Authentication can be done with either a service user or a normal user
         Authentication Methods:
         - Identity, Default

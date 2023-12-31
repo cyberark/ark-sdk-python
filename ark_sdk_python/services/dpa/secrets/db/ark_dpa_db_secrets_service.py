@@ -65,7 +65,7 @@ class ArkDPADBSecretsService(ArkService):
 
     def add_secret(self, add_secret: ArkDPADBAddSecret) -> ArkDPADBSecretMetadata:
         """
-        Adds a new db secret to the secret store
+        Adds a new DB secret to the secret store.
 
         Args:
             add_secret (ArkDPADBAddSecret): _description_
@@ -115,7 +115,7 @@ class ArkDPADBSecretsService(ArkService):
 
     def update_secret(self, update_secret: ArkDPADBUpdateSecret) -> ArkDPADBSecretMetadata:
         """
-        Updates an existing db secret
+        Updates a DB secret.
 
         Args:
             update_secret (ArkDPADBUpdateSecret): _description_
@@ -167,7 +167,7 @@ class ArkDPADBSecretsService(ArkService):
 
     def delete_secret(self, delete_secret: ArkDPADBDeleteSecret) -> None:
         """
-        Deletes a db secret if exists
+        Deletes a DB secret.
 
         Args:
             delete_secret (ArkDPADBDeleteSecret): _description_
@@ -190,7 +190,7 @@ class ArkDPADBSecretsService(ArkService):
 
     def list_secrets(self) -> ArkDPADBSecretMetadataList:
         """
-        Lists all tenant db secrets
+        Lists all tenant DB secrets.
 
         Returns:
             ArkDPADBSecretMetadataList: _description_
@@ -200,7 +200,7 @@ class ArkDPADBSecretsService(ArkService):
 
     def list_secrets_by(self, secrets_filter: ArkDPADBSecretsFilter) -> ArkDPADBSecretMetadataList:
         """
-        Lists db secrets by given filters
+        Lists DB secrets that match the specified filters.
 
         Args:
             secrets_filter (ArkDPADBSecretsFilter): _description_
@@ -228,7 +228,7 @@ class ArkDPADBSecretsService(ArkService):
 
     def enable_secret(self, enable_secret: ArkDPADBEnableSecret) -> ArkDPADBSecretMetadata:
         """
-        Enables a db secret
+        Enables a DB secret.
 
         Args:
             enable_secret (ArkDPADBEnableSecret): _description_
@@ -259,7 +259,7 @@ class ArkDPADBSecretsService(ArkService):
 
     def disable_secret(self, disable_secret: ArkDPADBDisableSecret) -> ArkDPADBSecretMetadata:
         """
-        Disables a db secret
+        Disables a DB secret.
 
         Args:
             disable_secret (ArkDPADBDisableSecret): _description_
@@ -290,7 +290,7 @@ class ArkDPADBSecretsService(ArkService):
 
     def secret(self, get_secret: ArkDPADBGetSecret) -> ArkDPADBSecretMetadata:
         """
-        Retrieves a db secret
+        Retrieves a DB secret.
 
         Args:
             get_secret (ArkDPADBGetSecret): _description_
@@ -321,7 +321,7 @@ class ArkDPADBSecretsService(ArkService):
 
     def secrets_stats(self) -> ArkDPADBSecretsStats:
         """
-        Calculates db secrets statistics
+        Calculates DB secrets statistics.
 
         Returns:
             ArkDPADBSecretsStats: _description_

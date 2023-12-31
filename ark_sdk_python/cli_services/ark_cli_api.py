@@ -7,7 +7,7 @@ class ArkCLIAPI(ArkAPI):
     @property
     def dpa_policies_db_editor(self) -> "ArkDPADBPoliciesEditorService":
         """
-        DB Policies Editor CLI Service
+        DB policy editor CLI service
 
         Returns:
             ArkDPADBPoliciesEditorService: _description_

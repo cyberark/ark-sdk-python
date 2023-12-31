@@ -30,8 +30,8 @@ class ArkConfigureAction(ArkAction):
     @overrides
     def define_action(self, subparsers: argparse._SubParsersAction) -> None:
         """
-        Defines the configuration CLI action
-        Adds for each supported authenticator, its fitting parameters and whether to work with it
+        Defines the CLI `configure` action.  
+        For each supported authenticator, sets whether it is used and adds the appropriate parameters.
 
         Args:
             subparsers (argparse._SubParsersAction): _description_
@@ -80,9 +80,9 @@ class ArkConfigureAction(ArkAction):
 
     def __run_interactive_action(self, args: argparse.Namespace) -> ArkProfile:
         """
-        Performs an interactivr configuration
-        Each ark profile setting will be asked by the user, with defaults / supplied cli args
-        Each picked authenticator will also be configured for his auth method and settings
+        Performs an interactive configuration.  
+        The user is prompted for each Ark profile setting, with the default/defined CLI arguments.
+        Selected authenticators are also configured with the user's auth methods and settings.
 
         Args:
             args (argparse.Namespace): _description_
@@ -195,7 +195,7 @@ class ArkConfigureAction(ArkAction):
 
     def __run_silent_action(self, args: argparse.Namespace) -> ArkProfile:
         """
-        Runs the configuration action silently, only from the command line with no user interaction
+        Runs the CLI configure action silently, without user interaction.
 
         Args:
             args (argparse.Namespace): _description_
@@ -277,9 +277,9 @@ class ArkConfigureAction(ArkAction):
     @overrides
     def run_action(self, args: argparse.Namespace) -> None:
         """
-        Executes the configuration action
-        Will ask the user questions if interactive based on the authenticators
-        Will save the configured profile once done
+        Runs the configure action.  
+        Prompts the user when interactive mode is run, based on the associated authenticators,
+        and saves the configured profile when completed.
 
         Args:
             args (argparse.Namespace): _description_
@@ -304,7 +304,7 @@ class ArkConfigureAction(ArkAction):
     @overrides
     def can_run_action(self, action_name: str, args: argparse.Namespace) -> bool:
         """
-        Asserts the action is configure
+        Asserts the action is `configure`.
 
         Args:
             action_name (str): _description_
