@@ -358,7 +358,7 @@ class ArkIdentity:
     @classmethod
     def has_cache_record(cls, profile: ArkProfile, username: str, refresh_auth_allowed: bool) -> bool:
         """
-        Checks if a record exists within the identity cache for profile and username
+        Checks if a cache record exists for the specified profile and username.
 
         Args:
             profile (ArkProfile): _description_
@@ -383,7 +383,7 @@ class ArkIdentity:
     @cached(cache=LRUCache(maxsize=1024))
     def is_idp_user(cls, username: str) -> bool:
         """
-        Checks if a given username is an external id or not
+        Checks whether or not the given username is from an external IDP.
 
         Args:
             username (str): _description_
@@ -399,7 +399,7 @@ class ArkIdentity:
 
     def get_apps(self) -> Dict:
         """
-        Get the applications for the logged in user
+        Returns the applications to which the user is logged in.
 
         Raises:
             ArkException: _description_
@@ -416,14 +416,14 @@ class ArkIdentity:
 
     def auth_identity(self, profile: Optional[ArkProfile] = None, interactive: bool = False, force: bool = False) -> None:
         """
-        Authenticates to identity, based on the given information on the constructor
-        If MFA is needed, will also interact with user if allowed
-        Token and other details are stored in the object for later use
+        Authenticates to Identity using the given information provided in the constructor.  
+        If MFA is configured and `interactive` is enabled, the user is prompted for the MFA secret.
+        The auth token and other details are stored in the object for future use.
 
         Args:
-            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists
-            interactive (bool): Whether interactiveness with the user is allowed or not
-            force (bool): Igonre cache and force authenticate. Defaults to False
+            profile (Optional[ArkProfile]): Profile to use (loaded from cache, if available)
+            interactive (bool): Determines whether interactive user prompts are allowed
+            force (bool): Determines whether to ignore cache and force authentication (defaults to false)
 
         Raises:
             ArkException: _description_
@@ -504,11 +504,11 @@ class ArkIdentity:
     # pylint: disable=unused-argument
     def refresh_auth_identity(self, profile: Optional[ArkProfile] = None, interactive: bool = False, force: bool = False) -> None:
         """
-        Performs refresh platform token with the existing details in the class
+        Performs a token refresh with the existing object details.
 
         Args:
-            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists
-            force (bool): Igonre cache and force authenticate. Defaults to False
+            profile (Optional[ArkProfile]): The profile to load from the cache, if available
+            force (bool): Determines whether to ignore cache and force authentication (defaults to false)
 
         Raises:
             ArkAuthException: _description_
