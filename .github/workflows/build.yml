@@ -1,0 +1,57 @@
+name: Build Pipeline
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        run: |
+          pip3 install poetry
+      - name: Clean Environment
+        run: |
+          make clean
+      - name: Consume Dependencies
+        run: |
+          make venv
+      - name: Linters
+        run: |
+          make linters-diff
+      - name: Tests
+        run: |
+          make test
+      - name: Package
+        run: |
+          make package
+      - name: Publish
+        run: |
+          make publish
+        if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+      - name: Version
+        id: version
+        if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
+        run: |
+          version=$(poetry version -s | awk '{$1=$1};1')
+          echo "Version: $version"
+          echo "::set-output name=version::$version"
+      - name: Tag
+        uses: rickstaa/action-create-tag@v1
+        if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
+        with:
+          tag: v${{ steps.version.outputs.version }}
+          ref: 'refs/heads/main'
+          force: true

@@ -1,0 +1,16 @@
+from enum import Enum
+
+
+class ArkNetworkEntityType(str, Enum):
+    VPC = 'VPC'
+    VNET = 'VNET'
+    AZURE_SUBNET = 'AZURE_SUBNET'
+    AWS_SUBNET = 'AWS_SUBNET'
+    ACCOUNT = 'ACCOUNT'
+    SUBSCRIPTION = 'SUBSCRIPTION'
+    CIDR = 'CIDR'
+    FQDN_PATTERN = 'FQDN_PATTERN'
+    LOGICAL_NAME = 'LOGICAL_NAME'
+    GCP_VPC = 'GCP_VPC'
+    GCP_SUBNET = 'GCP_SUBNET'
+    GCP_PROJECT = 'GCP_PROJECT'
