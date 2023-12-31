@@ -54,3 +54,4 @@ jobs:
         with:
           tag: v${{ steps.version.outputs.version }}
           ref: 'refs/heads/feature/1.0.0'
+          force: true
