@@ -1,7 +1,7 @@
 Ark SDK Python
 =================
 
-**[📜Documentation](https://pages.github.com/cyberark/ark-sdk-python/)**
+**[📜Documentation](https://cyberark.github.io/ark-sdk-python/)**
 
 ![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/main/assets/sdk.png)
 
