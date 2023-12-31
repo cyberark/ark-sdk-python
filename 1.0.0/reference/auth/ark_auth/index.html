@@ -8923,7 +8923,7 @@ You're not viewing the latest version.
         <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkToken</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Authenticates with the specified authenticator implementation.  </span>
+<span class="sd">        Authenticates with the specified authenticator implementation.</span>
 <span class="sd">        The implementation is based on the `_perform_authentication` method.</span>
 <span class="sd">        When caching is allowed, authorization credentials are loaded from the cache.</span>
 
@@ -8995,7 +8995,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">is_authenticated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.  </span>
+<span class="sd">        Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.</span>
 <span class="sd">        If the valid token originated from the keyring, it is loaded into memory.</span>
 
 <span class="sd">        Args:</span>
@@ -9019,7 +9019,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">load_authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads and returns the authentication token from the cache, if it exists.  </span>
+<span class="sd">        Loads and returns the authentication token from the cache, if it exists.</span>
 <span class="sd">        If specified, the method also attempts to refresh the token as needed.</span>
 
 <span class="sd">        Args:</span>
@@ -9146,7 +9146,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Authenticates with the specified authenticator implementation.<br />
+      <p>Authenticates with the specified authenticator implementation.
 The implementation is based on the <code>_perform_authentication</code> method.
 When caching is allowed, authorization credentials are loaded from the cache.</p>
 
@@ -9372,7 +9372,7 @@ When caching is allowed, authorization credentials are loaded from the cache.</p
     <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkToken</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Authenticates with the specified authenticator implementation.  </span>
+<span class="sd">    Authenticates with the specified authenticator implementation.</span>
 <span class="sd">    The implementation is based on the `_perform_authentication` method.</span>
 <span class="sd">    When caching is allowed, authorization credentials are loaded from the cache.</span>
 
@@ -9671,7 +9671,7 @@ When caching is allowed, authorization credentials are loaded from the cache.</p
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.<br />
+      <p>Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.
 If the valid token originated from the keyring, it is loaded into memory.</p>
 
 
@@ -9754,7 +9754,7 @@ If the valid token originated from the keyring, it is loaded into memory.</p>
 <span class="normal">180</span>
 <span class="normal">181</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_authenticated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.  </span>
+<span class="sd">    Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.</span>
 <span class="sd">    If the valid token originated from the keyring, it is loaded into memory.</span>
 
 <span class="sd">    Args:</span>
@@ -9795,7 +9795,7 @@ If the valid token originated from the keyring, it is loaded into memory.</p>
 
   <div class="doc doc-contents ">
   
-      <p>Loads and returns the authentication token from the cache, if it exists.<br />
+      <p>Loads and returns the authentication token from the cache, if it exists.
 If specified, the method also attempts to refresh the token as needed.</p>
 
 
@@ -9917,7 +9917,7 @@ If specified, the method also attempts to refresh the token as needed.</p>
 <span class="normal">229</span>
 <span class="normal">230</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads and returns the authentication token from the cache, if it exists.  </span>
+<span class="sd">    Loads and returns the authentication token from the cache, if it exists.</span>
 <span class="sd">    If specified, the method also attempts to refresh the token as needed.</span>
 
 <span class="sd">    Args:</span>

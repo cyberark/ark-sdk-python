@@ -9355,7 +9355,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Authenticates to Identity with the information specified in the constructor.  </span>
+<span class="sd">        Authenticates to Identity with the information specified in the constructor.</span>
 <span class="sd">        If MFA is configured and `interactive` is enabled, the user is prompted for the MFA secret.</span>
 <span class="sd">        The auth token and other details are stored in the object for future use.</span>
 
@@ -9538,7 +9538,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Authenticates to Identity with the information specified in the constructor.<br />
+      <p>Authenticates to Identity with the information specified in the constructor.
 If MFA is configured and <code>interactive</code> is enabled, the user is prompted for the MFA secret.
 The auth token and other details are stored in the object for future use.</p>
 
@@ -9713,7 +9713,7 @@ The auth token and other details are stored in the object for future use.</p>
 <span class="normal">501</span>
 <span class="normal">502</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Authenticates to Identity with the information specified in the constructor.  </span>
+<span class="sd">    Authenticates to Identity with the information specified in the constructor.</span>
 <span class="sd">    If MFA is configured and `interactive` is enabled, the user is prompted for the MFA secret.</span>
 <span class="sd">    The auth token and other details are stored in the object for future use.</span>
 
@@ -10500,7 +10500,7 @@ The auth token and other details are stored in the object for future use.</p>
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_subdomain</span><span class="p">(</span><span class="n">tenant_subdomain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">AwsEnv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resolves the tenant&#39;s FQDN URL from its subdomain.  </span>
+<span class="sd">        Resolves the tenant&#39;s FQDN URL from its subdomain.</span>
 <span class="sd">        The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.</span>
 
 <span class="sd">        Args:</span>
@@ -10532,7 +10532,7 @@ The auth token and other details are stored in the object for future use.</p>
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resolves the tenant&#39;s FQDN URL in Identity.  </span>
+<span class="sd">        Resolves the tenant&#39;s FQDN URL in Identity.</span>
 <span class="sd">        By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
 
 <span class="sd">        Args:</span>
@@ -10594,7 +10594,7 @@ The auth token and other details are stored in the object for future use.</p>
 
   <div class="doc doc-contents ">
   
-      <p>Resolves the tenant's FQDN URL from its subdomain.<br />
+      <p>Resolves the tenant's FQDN URL from its subdomain.
 The resolved URL is based on the current working environment, which is provided in the <code>tenant_subdomain</code> argument.</p>
 
 
@@ -10725,7 +10725,7 @@ The resolved URL is based on the current working environment, which is provided 
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_subdomain</span><span class="p">(</span><span class="n">tenant_subdomain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">AwsEnv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolves the tenant&#39;s FQDN URL from its subdomain.  </span>
+<span class="sd">    Resolves the tenant&#39;s FQDN URL from its subdomain.</span>
 <span class="sd">    The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.</span>
 
 <span class="sd">    Args:</span>
@@ -10776,7 +10776,7 @@ The resolved URL is based on the current working environment, which is provided 
 
   <div class="doc doc-contents ">
   
-      <p>Resolves the tenant's FQDN URL in Identity.<br />
+      <p>Resolves the tenant's FQDN URL in Identity.
 By default, the Identity address is resolved from the current environment mapping (see <code>get_identity_env_url()</code>), but it can be optionally be resolved from the <code>identity_env_url</code> argument.</p>
 
 
@@ -10909,7 +10909,7 @@ By default, the Identity address is resolved from the current environment mappin
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolves the tenant&#39;s FQDN URL in Identity.  </span>
+<span class="sd">    Resolves the tenant&#39;s FQDN URL in Identity.</span>
 <span class="sd">    By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
 
 <span class="sd">    Args:</span>
@@ -11182,7 +11182,7 @@ By default, the Identity address is resolved from the current environment mappin
 
     <span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Authenticates to Identity with a service user.  </span>
+<span class="sd">        Authenticates to Identity with a service user.</span>
 <span class="sd">        This method creates an auth token and authorizes to the service.</span>
 
 <span class="sd">        Args:</span>
@@ -11285,7 +11285,7 @@ By default, the Identity address is resolved from the current environment mappin
 
   <div class="doc doc-contents ">
   
-      <p>Authenticates to Identity with a service user.<br />
+      <p>Authenticates to Identity with a service user.
 This method creates an auth token and authorizes to the service.</p>
 
 
@@ -11423,7 +11423,7 @@ This method creates an auth token and authorizes to the service.</p>
 <span class="normal">149</span>
 <span class="normal">150</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Authenticates to Identity with a service user.  </span>
+<span class="sd">    Authenticates to Identity with a service user.</span>
 <span class="sd">    This method creates an auth token and authorizes to the service.</span>
 
 <span class="sd">    Args:</span>

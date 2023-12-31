@@ -8677,7 +8677,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">async_request_for</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poll_model</span><span class="p">:</span> <span class="n">ArkPollableModel</span><span class="p">,</span> <span class="n">async_task</span><span class="p">:</span> <span class="n">ArkAsyncTask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkAsyncRequest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates an async request for the specified model and task.  </span>
+<span class="sd">        Creates an async request for the specified model and task.</span>
 <span class="sd">        The request polls for async operations as defined by the poll model&#39;s implementation.</span>
 
 <span class="sd">        Args:</span>
@@ -8744,7 +8744,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Creates an async request for the specified model and task.<br />
+      <p>Creates an async request for the specified model and task.
 The request polls for async operations as defined by the poll model's implementation.</p>
 
 
@@ -8832,7 +8832,7 @@ The request polls for async operations as defined by the poll model's implementa
 <span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">async_request_for</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poll_model</span><span class="p">:</span> <span class="n">ArkPollableModel</span><span class="p">,</span> <span class="n">async_task</span><span class="p">:</span> <span class="n">ArkAsyncTask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkAsyncRequest</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates an async request for the specified model and task.  </span>
+<span class="sd">    Creates an async request for the specified model and task.</span>
 <span class="sd">    The request polls for async operations as defined by the poll model&#39;s implementation.</span>
 
 <span class="sd">    Args:</span>
@@ -9106,7 +9106,7 @@ The request polls for async operations as defined by the poll model's implementa
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">poll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ArkAsyncTask</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ArkAsyncStatus</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Polls the async request until it has completed.  </span>
+<span class="sd">        Polls the async request until it has completed.</span>
 <span class="sd">        Progress callbacks can also be used to return the async request&#39;s status.</span>
 
 <span class="sd">        Args:</span>
@@ -9224,7 +9224,7 @@ The request polls for async operations as defined by the poll model's implementa
 
   <div class="doc doc-contents ">
   
-      <p>Polls the async request until it has completed.<br />
+      <p>Polls the async request until it has completed.
 Progress callbacks can also be used to return the async request's status.</p>
 
 
@@ -9312,7 +9312,7 @@ Progress callbacks can also be used to return the async request's status.</p>
 <span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">poll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ArkAsyncTask</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ArkAsyncStatus</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Polls the async request until it has completed.  </span>
+<span class="sd">    Polls the async request until it has completed.</span>
 <span class="sd">    Progress callbacks can also be used to return the async request&#39;s status.</span>
 
 <span class="sd">    Args:</span>
@@ -10782,7 +10782,7 @@ Progress callbacks can also be used to return the async request's status.</p>
 
     <span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">ArkToken</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Saves the specified token for a profile in the keyring.  </span>
+<span class="sd">        Saves the specified token for a profile in the keyring.</span>
 <span class="sd">        The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
 
 <span class="sd">        Args:</span>
@@ -10800,9 +10800,9 @@ Progress callbacks can also be used to return the async request's status.</p>
 
     <span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads a token for a profile from the keyring.  </span>
+<span class="sd">        Loads a token for a profile from the keyring.</span>
 <span class="sd">        The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
-<span class="sd">        When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. </span>
+<span class="sd">        When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned.</span>
 <span class="sd">        When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).</span>
 
 <span class="sd">        Args:</span>
@@ -10874,9 +10874,9 @@ Progress callbacks can also be used to return the async request's status.</p>
 
   <div class="doc doc-contents ">
   
-      <p>Loads a token for a profile from the keyring.<br />
+      <p>Loads a token for a profile from the keyring.
 The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.
-When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. 
+When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned.
 When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).</p>
 
 
@@ -10997,9 +10997,9 @@ When the token has expired but a refresh token exists, the token is only deleted
 <span class="normal">222</span>
 <span class="normal">223</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads a token for a profile from the keyring.  </span>
+<span class="sd">    Loads a token for a profile from the keyring.</span>
 <span class="sd">    The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
-<span class="sd">    When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. </span>
+<span class="sd">    When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned.</span>
 <span class="sd">    When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).</span>
 
 <span class="sd">    Args:</span>
@@ -11062,7 +11062,7 @@ When the token has expired but a refresh token exists, the token is only deleted
 
   <div class="doc doc-contents ">
   
-      <p>Saves the specified token for a profile in the keyring.<br />
+      <p>Saves the specified token for a profile in the keyring.
 The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</p>
 
 
@@ -11143,7 +11143,7 @@ The keyring is the OS-based implementation or, when unavailable, a fallback to B
 <span class="normal">174</span>
 <span class="normal">175</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">ArkToken</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Saves the specified token for a profile in the keyring.  </span>
+<span class="sd">    Saves the specified token for a profile in the keyring.</span>
 <span class="sd">    The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
 
 <span class="sd">    Args:</span>

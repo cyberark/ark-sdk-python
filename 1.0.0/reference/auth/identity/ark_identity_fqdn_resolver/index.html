@@ -8616,7 +8616,7 @@ You're not viewing the latest version.
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_subdomain</span><span class="p">(</span><span class="n">tenant_subdomain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">AwsEnv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resolves the tenant&#39;s FQDN URL from its subdomain.  </span>
+<span class="sd">        Resolves the tenant&#39;s FQDN URL from its subdomain.</span>
 <span class="sd">        The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.</span>
 
 <span class="sd">        Args:</span>
@@ -8648,7 +8648,7 @@ You're not viewing the latest version.
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resolves the tenant&#39;s FQDN URL in Identity.  </span>
+<span class="sd">        Resolves the tenant&#39;s FQDN URL in Identity.</span>
 <span class="sd">        By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
 
 <span class="sd">        Args:</span>
@@ -8710,7 +8710,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Resolves the tenant's FQDN URL from its subdomain.<br />
+      <p>Resolves the tenant's FQDN URL from its subdomain.
 The resolved URL is based on the current working environment, which is provided in the <code>tenant_subdomain</code> argument.</p>
 
 
@@ -8841,7 +8841,7 @@ The resolved URL is based on the current working environment, which is provided 
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_subdomain</span><span class="p">(</span><span class="n">tenant_subdomain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">AwsEnv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolves the tenant&#39;s FQDN URL from its subdomain.  </span>
+<span class="sd">    Resolves the tenant&#39;s FQDN URL from its subdomain.</span>
 <span class="sd">    The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.</span>
 
 <span class="sd">    Args:</span>
@@ -8892,7 +8892,7 @@ The resolved URL is based on the current working environment, which is provided 
 
   <div class="doc doc-contents ">
   
-      <p>Resolves the tenant's FQDN URL in Identity.<br />
+      <p>Resolves the tenant's FQDN URL in Identity.
 By default, the Identity address is resolved from the current environment mapping (see <code>get_identity_env_url()</code>), but it can be optionally be resolved from the <code>identity_env_url</code> argument.</p>
 
 
@@ -9025,7 +9025,7 @@ By default, the Identity address is resolved from the current environment mappin
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolves the tenant&#39;s FQDN URL in Identity.  </span>
+<span class="sd">    Resolves the tenant&#39;s FQDN URL in Identity.</span>
 <span class="sd">    By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
 
 <span class="sd">    Args:</span>
