@@ -86,7 +86,7 @@ class ArkIdentityServiceUser:
 
     def auth_identity(self, profile: Optional[ArkProfile] = None, force: bool = False) -> None:
         """
-        Authenticates to Identity with a service user.  
+        Authenticates to Identity with a service user.
         This method creates an auth token and authorizes to the service.
 
         Args:

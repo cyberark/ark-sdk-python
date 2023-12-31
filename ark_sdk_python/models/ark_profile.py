@@ -89,7 +89,7 @@ class ArkProfileLoader:
     @staticmethod
     def load_profile(profile_name: str) -> Optional[ArkProfile]:
         """
-        Loads the specified profile from the OS.  
+        Loads the specified profile from the OS.
         Returns `None` when a profile is not found with the specified name.
 
         Args:

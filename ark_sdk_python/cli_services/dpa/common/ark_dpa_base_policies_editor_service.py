@@ -142,7 +142,7 @@ class ArkDPABasePoliciesEditorService(
 
     def load_policies(self, load_policies: ArkDPALoadPolicies) -> ArkDPALoadedPolicies:
         """
-        Loads all remote policies into the local workspace.  
+        Loads all remote policies into the local workspace.
         The user is asked whether to overwrite existing policies that were edited either locally or remotely.
         When default overwrite is enabled, existing policies are overwritten without prompts.
 
@@ -190,7 +190,7 @@ class ArkDPABasePoliciesEditorService(
 
     def edit_policies(self, edit_policies: ArkDPAEditPolicies) -> None:
         """
-        Edits the set of specified policies one at a time, either via the CLI or the default OS editor.  
+        Edits the set of specified policies one at a time, either via the CLI or the default OS editor.
         Edited policies are only saved locally until they are committed.
 
         Args:
@@ -246,7 +246,7 @@ class ArkDPABasePoliciesEditorService(
 
     def remove_policies(self, remove_policies: ArkDPARemovePolicies) -> None:
         """
-        Removes one or more policies from the local workspace.  
+        Removes one or more policies from the local workspace.
         Until changes are committed, removing a remote policy only appends the `.deleted` indication to its name.
         After committing the changes, the policies are deleted both locally and remotely.
         New, uncommitted policies are deleted locally after the user consents.
@@ -303,7 +303,7 @@ class ArkDPABasePoliciesEditorService(
 
     def view_policies(self, view_policies: ArkDPAViewPolicies) -> None:
         """
-        Allows the user to view one or more policies either together or individually, as defined in the CLI user prompt.  
+        Allows the user to view one or more policies either together or individually, as defined in the CLI user prompt.
         Policies are viewed in the machine's default editor (both existing policies and newly generated policies).
 
         Args:
@@ -353,8 +353,8 @@ class ArkDPABasePoliciesEditorService(
 
     def reset_policies(self, reset_policy: ArkDPAResetPolicies) -> None:
         """
-        Resets local workspace policies.  
-        When all policies are reset, all local policies are overwritten and deleted policies are removed. 
+        Resets local workspace policies.
+        When all policies are reset, all local policies are overwritten and deleted policies are removed.
         Otherwise, the user can select which policies are reset.
         This function does not alter newly generated uncommitted policies.
 
@@ -400,7 +400,7 @@ class ArkDPABasePoliciesEditorService(
 
     def generate_policy(self, generate_policy: GeneratePolicyType) -> None:
         """
-        Generates a new policy from a template and the user's parameters.  
+        Generates a new policy from a template and the user's parameters.
         The user is prompted for the parameters when they are not specified in the CLI.
         After policy's parameters are defined, the policy is generates in memory and can bee edited.
         The new policy is saved locally until it is committed.
@@ -437,7 +437,7 @@ class ArkDPABasePoliciesEditorService(
 
     def policies_diff(self, policies_diff: ArkDPAPoliciesDiff) -> None:
         """
-        Calculates the diff between the local workspace and remote policies.  
+        Calculates the diff between the local workspace and remote policies.
         This diff includes uncommitted removed policies. A unified or per policy diff can be displayed.
 
         Args:
@@ -518,10 +518,10 @@ class ArkDPABasePoliciesEditorService(
 
     def commit_policies(self, commit_policies: ArkDPACommitPolicies) -> None:
         """
-        Commits policies.  
-        The function first calculates the differences between the local and remote policies to find out which policies were edited, including 
+        Commits policies.
+        The function first calculates the differences between the local and remote policies to find out which policies were edited, including
         the policies selected for deletion and new, uncommitted policies. It also
-        allows selecting whether to commit all the edited policies or only specific policies by name.  
+        allows selecting whether to commit all the edited policies or only specific policies by name.
 
         After all policies are committed, the workspace is reorganized accordingly.
 

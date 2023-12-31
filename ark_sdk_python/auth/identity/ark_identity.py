@@ -416,7 +416,7 @@ class ArkIdentity:
 
     def auth_identity(self, profile: Optional[ArkProfile] = None, interactive: bool = False, force: bool = False) -> None:
         """
-        Authenticates to Identity with the information specified in the constructor.  
+        Authenticates to Identity with the information specified in the constructor.
         If MFA is configured and `interactive` is enabled, the user is prompted for the MFA secret.
         The auth token and other details are stored in the object for future use.
 

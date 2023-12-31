@@ -39,7 +39,7 @@ class ArkIdentityFQDNResolver:
     @cached(cache=LRUCache(maxsize=1024))
     def resolve_tenant_fqdn_from_tenant_subdomain(tenant_subdomain: str, env: AwsEnv) -> str:
         """
-        Resolves the tenant's FQDN URL from its subdomain.  
+        Resolves the tenant's FQDN URL from its subdomain.
         The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.
 
         Args:
@@ -71,7 +71,7 @@ class ArkIdentityFQDNResolver:
     @cached(cache=LRUCache(maxsize=1024))
     def resolve_tenant_fqdn_from_tenant_suffix(tenant_suffix: str, identity_env_url: Optional[str] = None) -> str:
         """
-        Resolves the tenant's FQDN URL in Identity.  
+        Resolves the tenant's FQDN URL in Identity.
         By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.
 
         Args:

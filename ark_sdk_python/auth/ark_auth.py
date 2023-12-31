@@ -86,7 +86,7 @@ class ArkAuth(ABC):
         refresh_auth: bool = False,
     ) -> ArkToken:
         """
-        Authenticates with the specified authenticator implementation.  
+        Authenticates with the specified authenticator implementation.
         The implementation is based on the `_perform_authentication` method.
         When caching is allowed, authorization credentials are loaded from the cache.
 
@@ -158,7 +158,7 @@ class ArkAuth(ABC):
 
     def is_authenticated(self, profile: ArkProfile) -> bool:
         """
-        Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.  
+        Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.
         If the valid token originated from the keyring, it is loaded into memory.
 
         Args:
@@ -182,7 +182,7 @@ class ArkAuth(ABC):
 
     def load_authentication(self, profile: Optional[ArkProfile] = None, refresh_auth: bool = False) -> Optional[ArkToken]:
         """
-        Loads and returns the authentication token from the cache, if it exists.  
+        Loads and returns the authentication token from the cache, if it exists.
         If specified, the method also attempts to refresh the token as needed.
 
         Args:

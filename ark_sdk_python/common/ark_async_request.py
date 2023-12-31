@@ -43,7 +43,7 @@ class ArkAsyncRequest(ABC):
     @abstractmethod
     def poll(self, timeout_seconds: int, progress_callback: Callable[[ArkAsyncTask, int, ArkAsyncStatus], None]) -> bool:
         """
-        Polls the async request until it has completed.  
+        Polls the async request until it has completed.
         Progress callbacks can also be used to return the async request's status.
 
         Args:

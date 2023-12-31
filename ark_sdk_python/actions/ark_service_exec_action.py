@@ -78,7 +78,7 @@ class ArkServiceExecAction(ArkExecAction):
     @overrides
     def run_exec_action(self, api: ArkCLIAPI, args: argparse.Namespace) -> None:
         """
-        Deduces from the arguments the appropriate service definition and action.  
+        Deduces from the arguments the appropriate service definition and action.
         Finds the appropriate service using the definition and executes the sync or async service action.
 
         Args:

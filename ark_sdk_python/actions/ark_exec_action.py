@@ -200,7 +200,7 @@ class ArkExecAction(ArkAction):
     @overrides
     def run_action(self, args: argparse.Namespace) -> None:
         """
-        Runs the exec action.  
+        Runs the exec action.
         Loads the authenticators from the cache and connects to the API using the loaded authenticators.
         Each service is created from the API, based on the given authenticators, and then
         runs the exec action using the API.

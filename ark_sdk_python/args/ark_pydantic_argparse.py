@@ -320,10 +320,10 @@ class ArkPydanticArgparse:
         key_prefix: str = '',
     ) -> None:
         """
-        Converts the given schema to argparse parameters. 
+        Converts the given schema to argparse parameters.
 
         Recursively iterates over the JSON schema and adds parameters to the parser.
-        The argparse parameters can then be parsed from the CLI and then converted back using argparse_to_schema function. 
+        The argparse parameters can then be parsed from the CLI and then converted back using argparse_to_schema function.
 
         This function does not return anything, but updates the parser itself.
 
@@ -471,7 +471,7 @@ class ArkPydanticArgparse:
         key_prefix: str = '',
     ) -> Dict[str, str]:
         """
-        Converts a schema to only a dictionary containing its aliases (title).  
+        Converts a schema to only a dictionary containing its aliases (title).
         Returns a string to string dictionary with the aliases.
 
         Args:
@@ -524,9 +524,9 @@ class ArkPydanticArgparse:
         ignored_keys: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
         """
-        Converts the given JSON schema and argparse args into a finalized dictionary.  
-        The conversion is recursive and converts keys according to snake case.  
-        
+        Converts the given JSON schema and argparse args into a finalized dictionary.
+        The conversion is recursive and converts keys according to snake case.
+
         Returns a finalized args dictionary.
 
         Args:
@@ -576,8 +576,8 @@ class ArkPydanticArgparse:
         default_values: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
-        Converts the given schema and args into a finalized dictionary.  
-        The function interacts with the user and requests args that were not provided in the CLI.  
+        Converts the given schema and args into a finalized dictionary.
+        The function interacts with the user and requests args that were not provided in the CLI.
 
         Returns a dict that combines the schema with the user inputs.
 
@@ -641,7 +641,7 @@ class ArkPydanticArgparse:
         defaults: Optional[Dict[str, Any]] = None,
     ) -> BaseModel:
         """
-        Merges the given existing model with new values.  
+        Merges the given existing model with new values.
         The new values can be either a base model or dictionary of values.
         When provided, the merging is based on the specified key prefix.
 

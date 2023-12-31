@@ -28,7 +28,7 @@ class ArkAsyncClient(ABC, ArkClient):
     @abstractmethod
     def async_request_for(self, poll_model: ArkPollableModel, async_task: ArkAsyncTask) -> ArkAsyncRequest:
         """
-        Creates an async request for the specified model and task.  
+        Creates an async request for the specified model and task.
         The request polls for async operations as defined by the poll model's implementation.
 
         Args:
