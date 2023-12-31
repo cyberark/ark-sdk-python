@@ -34,3 +34,20 @@ jobs:
       - name: Package
         run: |
           make package
+      - name: Publish
+        run: |
+          make publish-test
+        if: ${{ github.ref == 'refs/heads/feature/1.0.0' && matrix.python-version == '3.8' }}
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+      - name: Version
+        id: version
+        if: ${{ github.ref == 'refs/heads/feature/1.0.0' && matrix.python-version == '3.8' }}
+        run:
+          poetry version -s | awk '{$1=$1};1'
+      - name: Tag
+        uses: rickstaa/action-create-tag@v1
+        if: ${{ github.ref == 'refs/heads/feature/1.0.0' && matrix.python-version == '3.8' }}
+        with:
+          tag: "${{ steps.version.outputs.content }}"

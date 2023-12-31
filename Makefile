@@ -63,3 +63,11 @@ test:
 package:
 	@echo Package sdk
 	poetry build
+
+publish-test:
+	@echo Release to test.pypi.org and create git tag
+	poetry run twine upload -r testpypi --skip-existing dist/*
+
+publish:
+	@echo Release to pypi.org and create git tag
+	poetry run twine upload --skip-existing dist/*
