@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8630,8 +8630,8 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">ArkToken</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Saves a given token for a profile in the keyring</span>
-<span class="sd">        Keyring is OS based implementation with fallback to BasicKeyring</span>
+<span class="sd">        Saves the specified token for a profile in the keyring.  </span>
+<span class="sd">        The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile (ArkProfile): _description_</span>
@@ -8648,10 +8648,10 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads a token for a profile in the keyring</span>
-<span class="sd">        Keyring is OS based implementation with fallback to BasicKeyring</span>
-<span class="sd">        If the token is expired and no refresh token exists, deletes it from the keyring and does not return anything</span>
-<span class="sd">        If the token is expired but theres a refresh token, the token will only be deleted if the max token time was passed (48 hours)</span>
+<span class="sd">        Loads a token for a profile from the keyring.  </span>
+<span class="sd">        The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
+<span class="sd">        When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. </span>
+<span class="sd">        When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile (ArkProfile): _description_</span>
@@ -8722,10 +8722,10 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Loads a token for a profile in the keyring
-Keyring is OS based implementation with fallback to BasicKeyring
-If the token is expired and no refresh token exists, deletes it from the keyring and does not return anything
-If the token is expired but theres a refresh token, the token will only be deleted if the max token time was passed (48 hours)</p>
+      <p>Loads a token for a profile from the keyring.<br />
+The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.
+When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. 
+When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).</p>
 
 
 
@@ -8845,10 +8845,10 @@ If the token is expired but theres a refresh token, the token will only be delet
 <span class="normal">222</span>
 <span class="normal">223</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads a token for a profile in the keyring</span>
-<span class="sd">    Keyring is OS based implementation with fallback to BasicKeyring</span>
-<span class="sd">    If the token is expired and no refresh token exists, deletes it from the keyring and does not return anything</span>
-<span class="sd">    If the token is expired but theres a refresh token, the token will only be deleted if the max token time was passed (48 hours)</span>
+<span class="sd">    Loads a token for a profile from the keyring.  </span>
+<span class="sd">    The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
+<span class="sd">    When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. </span>
+<span class="sd">    When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile (ArkProfile): _description_</span>
@@ -8910,8 +8910,8 @@ If the token is expired but theres a refresh token, the token will only be delet
 
   <div class="doc doc-contents ">
   
-      <p>Saves a given token for a profile in the keyring
-Keyring is OS based implementation with fallback to BasicKeyring</p>
+      <p>Saves the specified token for a profile in the keyring.<br />
+The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</p>
 
 
 
@@ -8991,8 +8991,8 @@ Keyring is OS based implementation with fallback to BasicKeyring</p>
 <span class="normal">174</span>
 <span class="normal">175</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">ArkToken</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Saves a given token for a profile in the keyring</span>
-<span class="sd">    Keyring is OS based implementation with fallback to BasicKeyring</span>
+<span class="sd">    Saves the specified token for a profile in the keyring.  </span>
+<span class="sd">    The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile (ArkProfile): _description_</span>

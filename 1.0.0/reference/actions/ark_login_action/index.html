@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8689,8 +8689,8 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the configuration CLI action</span>
-<span class="sd">        Adds for each supported authenticator, its username / secret params for login</span>
+<span class="sd">        Defines the CLI `login` action.  </span>
+<span class="sd">        For each supported authenticator, adds the username/secret params for logging in.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -8724,8 +8724,8 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Perform the actual login for each authenticator</span>
-<span class="sd">        Once logged in, store its credentials in the keyring for later use</span>
+<span class="sd">        Runs the login action for each authenticator.  </span>
+<span class="sd">        After a login completes, credentials are stored in the keyring for future use.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -8841,7 +8841,7 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Asserts the action is login</span>
+<span class="sd">        Asserts the action is `login`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -8880,7 +8880,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Asserts the action is login</p>
+      <p>Asserts the action is <code>login</code>.</p>
 
 
 
@@ -8967,7 +8967,7 @@ You're not viewing the latest version.
 <span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Asserts the action is login</span>
+<span class="sd">    Asserts the action is `login`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -8997,8 +8997,8 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Defines the configuration CLI action
-Adds for each supported authenticator, its username / secret params for login</p>
+      <p>Defines the CLI <code>login</code> action.<br />
+For each supported authenticator, adds the username/secret params for logging in.</p>
 
 
 
@@ -9068,8 +9068,8 @@ Adds for each supported authenticator, its username / secret params for login</p
 <span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the configuration CLI action</span>
-<span class="sd">    Adds for each supported authenticator, its username / secret params for login</span>
+<span class="sd">    Defines the CLI `login` action.  </span>
+<span class="sd">    For each supported authenticator, adds the username/secret params for logging in.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -9119,8 +9119,8 @@ Adds for each supported authenticator, its username / secret params for login</p
 
   <div class="doc doc-contents ">
   
-      <p>Perform the actual login for each authenticator
-Once logged in, store its credentials in the keyring for later use</p>
+      <p>Runs the login action for each authenticator.<br />
+After a login completes, credentials are stored in the keyring for future use.</p>
 
 
 
@@ -9306,8 +9306,8 @@ Once logged in, store its credentials in the keyring for later use</p>
 <span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform the actual login for each authenticator</span>
-<span class="sd">    Once logged in, store its credentials in the keyring for later use</span>
+<span class="sd">    Runs the login action for each authenticator.  </span>
+<span class="sd">    After a login completes, credentials are stored in the keyring for future use.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>

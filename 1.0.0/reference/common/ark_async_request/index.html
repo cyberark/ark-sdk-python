@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8602,7 +8602,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">is_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the current async request is finished or not</span>
+<span class="sd">        Checks whether or not the current async request has finished.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: _description_</span>
@@ -8611,7 +8611,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">task_failed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the current async request failed or not</span>
+<span class="sd">        Checks whether or the current async request failed.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: _description_</span>
@@ -8620,7 +8620,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">task_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the current async request has timed out</span>
+<span class="sd">        Checks whether or not the current async request has timed out.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: _description_</span>
@@ -8629,8 +8629,8 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">poll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ArkAsyncTask</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ArkAsyncStatus</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Polls for the async request until it is finished</span>
-<span class="sd">        Progress callbacks may also be used to be notified whats the async request status</span>
+<span class="sd">        Polls the async request until it has completed.  </span>
+<span class="sd">        Progress callbacks can also be used to return the async request&#39;s status.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            timeout_seconds (int): _description_</span>
@@ -8680,7 +8680,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the current async request is finished or not</p>
+      <p>Checks whether or not the current async request has finished.</p>
 
 
 
@@ -8718,7 +8718,7 @@ You're not viewing the latest version.
 <span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">is_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the current async request is finished or not</span>
+<span class="sd">    Checks whether or not the current async request has finished.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: _description_</span>
@@ -8747,8 +8747,8 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Polls for the async request until it is finished
-Progress callbacks may also be used to be notified whats the async request status</p>
+      <p>Polls the async request until it has completed.<br />
+Progress callbacks can also be used to return the async request's status.</p>
 
 
 
@@ -8835,8 +8835,8 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">poll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ArkAsyncTask</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ArkAsyncStatus</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Polls for the async request until it is finished</span>
-<span class="sd">    Progress callbacks may also be used to be notified whats the async request status</span>
+<span class="sd">    Polls the async request until it has completed.  </span>
+<span class="sd">    Progress callbacks can also be used to return the async request&#39;s status.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        timeout_seconds (int): _description_</span>
@@ -8869,7 +8869,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the current async request failed or not</p>
+      <p>Checks whether or the current async request failed.</p>
 
 
 
@@ -8907,7 +8907,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">task_failed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the current async request failed or not</span>
+<span class="sd">    Checks whether or the current async request failed.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: _description_</span>
@@ -8936,7 +8936,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the current async request has timed out</p>
+      <p>Checks whether or not the current async request has timed out.</p>
 
 
 
@@ -8974,7 +8974,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">task_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the current async request has timed out</span>
+<span class="sd">    Checks whether or not the current async request has timed out.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: _description_</span>

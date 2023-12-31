@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8858,7 +8858,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the action as part of the subparsers group</span>
+<span class="sd">        Defines the action as part of the specified subparsers group.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -8867,7 +8867,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Runs the actual action for the given arguments</span>
+<span class="sd">        Runs the actual action with the given arguments.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -8876,7 +8876,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the given action can be ran with the name and args</span>
+<span class="sd">        Checks whether the given action can be run with the specified arguments.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -8918,7 +8918,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the given action can be ran with the name and args</p>
+      <p>Checks whether the given action can be run with the specified arguments.</p>
 
 
 
@@ -9004,7 +9004,7 @@ You're not viewing the latest version.
 <span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the given action can be ran with the name and args</span>
+<span class="sd">    Checks whether the given action can be run with the specified arguments.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -9037,7 +9037,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Defines the action as part of the subparsers group</p>
+      <p>Defines the action as part of the specified subparsers group.</p>
 
 
 
@@ -9081,7 +9081,7 @@ You're not viewing the latest version.
 <span class="normal">64</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the action as part of the subparsers group</span>
+<span class="sd">    Defines the action as part of the specified subparsers group.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -9110,7 +9110,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Runs the actual action for the given arguments</p>
+      <p>Runs the actual action with the given arguments.</p>
 
 
 
@@ -9154,7 +9154,7 @@ You're not viewing the latest version.
 <span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Runs the actual action for the given arguments</span>
+<span class="sd">    Runs the actual action with the given arguments.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -9245,14 +9245,11 @@ You're not viewing the latest version.
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkCacheAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkCacheAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the cache CLI action</span>
-<span class="sd">        Adds action for clearing cache</span>
+<span class="sd">        Defines the CLI `cache` action, and adds the clear cache function.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -9276,13 +9273,12 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Perform the actual cache action</span>
+<span class="sd">        Runs the cache action.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            ArkException: _description_</span>
 <span class="sd">            ArkException: _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">cache_cmd</span> <span class="o">==</span> <span class="s1">&#39;clear&#39;</span><span class="p">:</span>
@@ -9293,7 +9289,7 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Asserts the action is profile</span>
+<span class="sd">        Asserts the action is `cache`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -9332,7 +9328,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Asserts the action is profile</p>
+      <p>Asserts the action is <code>cache</code>.</p>
 
 
 
@@ -9404,7 +9400,9 @@ You're not viewing the latest version.
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_cache_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
@@ -9414,12 +9412,10 @@ You're not viewing the latest version.
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Asserts the action is profile</span>
+<span class="sd">    Asserts the action is `cache`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -9449,8 +9445,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Defines the cache CLI action
-Adds action for clearing cache</p>
+      <p>Defines the CLI <code>cache</code> action, and adds the clear cache function.</p>
 
 
 
@@ -9496,12 +9491,10 @@ Adds action for clearing cache</p>
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the cache CLI action</span>
-<span class="sd">    Adds action for clearing cache</span>
+<span class="sd">    Defines the CLI `cache` action, and adds the clear cache function.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -9531,7 +9524,7 @@ Adds action for clearing cache</p>
 
   <div class="doc doc-contents ">
   
-      <p>Perform the actual cache action</p>
+      <p>Runs the cache action.</p>
 
 
 
@@ -9584,22 +9577,13 @@ Adds action for clearing cache</p>
             </div>
           </td>
         </tr>
-        <tr>
-          <td>
-                <code><span title="ark_sdk_python.models.ArkException">ArkException</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p><em>description</em></p>
-            </div>
-          </td>
-        </tr>
     </tbody>
   </table>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_cache_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+<span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
@@ -9612,18 +9596,15 @@ Adds action for clearing cache</p>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform the actual cache action</span>
+<span class="sd">    Runs the cache action.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ArkException: _description_</span>
 <span class="sd">        ArkException: _description_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">cache_cmd</span> <span class="o">==</span> <span class="s1">&#39;clear&#39;</span><span class="p">:</span>
@@ -9954,8 +9935,8 @@ Adds action for clearing cache</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the configuration CLI action</span>
-<span class="sd">        Adds for each supported authenticator, its fitting parameters and whether to work with it</span>
+<span class="sd">        Defines the CLI `configure` action.  </span>
+<span class="sd">        For each supported authenticator, sets whether it is used and adds the appropriate parameters.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -10004,9 +9985,9 @@ Adds action for clearing cache</p>
 
     <span class="k">def</span> <span class="nf">__run_interactive_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs an interactivr configuration</span>
-<span class="sd">        Each ark profile setting will be asked by the user, with defaults / supplied cli args</span>
-<span class="sd">        Each picked authenticator will also be configured for his auth method and settings</span>
+<span class="sd">        Performs an interactive configuration.  </span>
+<span class="sd">        The user is prompted for each Ark profile setting, with the default/defined CLI arguments.</span>
+<span class="sd">        Selected authenticators are also configured with the user&#39;s auth methods and settings.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -10119,7 +10100,7 @@ Adds action for clearing cache</p>
 
     <span class="k">def</span> <span class="nf">__run_silent_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Runs the configuration action silently, only from the command line with no user interaction</span>
+<span class="sd">        Runs the CLI configure action silently, without user interaction.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -10201,9 +10182,9 @@ Adds action for clearing cache</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Executes the configuration action</span>
-<span class="sd">        Will ask the user questions if interactive based on the authenticators</span>
-<span class="sd">        Will save the configured profile once done</span>
+<span class="sd">        Runs the configure action.  </span>
+<span class="sd">        Prompts the user when interactive mode is run, based on the associated authenticators,</span>
+<span class="sd">        and saves the configured profile when completed.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -10228,7 +10209,7 @@ Adds action for clearing cache</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Asserts the action is configure</span>
+<span class="sd">        Asserts the action is `configure`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -10267,9 +10248,9 @@ Adds action for clearing cache</p>
 
   <div class="doc doc-contents ">
   
-      <p>Performs an interactivr configuration
-Each ark profile setting will be asked by the user, with defaults / supplied cli args
-Each picked authenticator will also be configured for his auth method and settings</p>
+      <p>Performs an interactive configuration.<br />
+The user is prompted for each Ark profile setting, with the default/defined CLI arguments.
+Selected authenticators are also configured with the user's auth methods and settings.</p>
 
 
 
@@ -10442,9 +10423,9 @@ Each picked authenticator will also be configured for his auth method and settin
 <span class="normal">193</span>
 <span class="normal">194</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__run_interactive_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs an interactivr configuration</span>
-<span class="sd">    Each ark profile setting will be asked by the user, with defaults / supplied cli args</span>
-<span class="sd">    Each picked authenticator will also be configured for his auth method and settings</span>
+<span class="sd">    Performs an interactive configuration.  </span>
+<span class="sd">    The user is prompted for each Ark profile setting, with the default/defined CLI arguments.</span>
+<span class="sd">    Selected authenticators are also configured with the user&#39;s auth methods and settings.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -10574,7 +10555,7 @@ Each picked authenticator will also be configured for his auth method and settin
 
   <div class="doc doc-contents ">
   
-      <p>Runs the configuration action silently, only from the command line with no user interaction</p>
+      <p>Runs the CLI configure action silently, without user interaction.</p>
 
 
 
@@ -10737,7 +10718,7 @@ Each picked authenticator will also be configured for his auth method and settin
 <span class="normal">274</span>
 <span class="normal">275</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__run_silent_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Runs the configuration action silently, only from the command line with no user interaction</span>
+<span class="sd">    Runs the CLI configure action silently, without user interaction.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -10835,7 +10816,7 @@ Each picked authenticator will also be configured for his auth method and settin
 
   <div class="doc doc-contents ">
   
-      <p>Asserts the action is configure</p>
+      <p>Asserts the action is <code>configure</code>.</p>
 
 
 
@@ -10922,7 +10903,7 @@ Each picked authenticator will also be configured for his auth method and settin
 <span class="normal">316</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Asserts the action is configure</span>
+<span class="sd">    Asserts the action is `configure`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -10952,8 +10933,8 @@ Each picked authenticator will also be configured for his auth method and settin
 
   <div class="doc doc-contents ">
   
-      <p>Defines the configuration CLI action
-Adds for each supported authenticator, its fitting parameters and whether to work with it</p>
+      <p>Defines the CLI <code>configure</code> action.<br />
+For each supported authenticator, sets whether it is used and adds the appropriate parameters.</p>
 
 
 
@@ -11039,8 +11020,8 @@ Adds for each supported authenticator, its fitting parameters and whether to wor
 <span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the configuration CLI action</span>
-<span class="sd">    Adds for each supported authenticator, its fitting parameters and whether to work with it</span>
+<span class="sd">    Defines the CLI `configure` action.  </span>
+<span class="sd">    For each supported authenticator, sets whether it is used and adds the appropriate parameters.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -11106,9 +11087,9 @@ Adds for each supported authenticator, its fitting parameters and whether to wor
 
   <div class="doc doc-contents ">
   
-      <p>Executes the configuration action
-Will ask the user questions if interactive based on the authenticators
-Will save the configured profile once done</p>
+      <p>Runs the configure action.<br />
+Prompts the user when interactive mode is run, based on the associated authenticators,
+and saves the configured profile when completed.</p>
 
 
 
@@ -11170,9 +11151,9 @@ Will save the configured profile once done</p>
 <span class="normal">302</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Executes the configuration action</span>
-<span class="sd">    Will ask the user questions if interactive based on the authenticators</span>
-<span class="sd">    Will save the configured profile once done</span>
+<span class="sd">    Runs the configure action.  </span>
+<span class="sd">    Prompts the user when interactive mode is run, based on the associated authenticators,</span>
+<span class="sd">    and saves the configured profile when completed.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -11640,7 +11621,7 @@ Will save the configured profile once done</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the exec action, with subparsers exec for each service</span>
+<span class="sd">        Defines the CLI `exec` action, with its subparsers (args) for the service.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -11673,10 +11654,10 @@ Will save the configured profile once done</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Runs the action</span>
-<span class="sd">        Loads the authenticators from the cache and creates the API with the authenticators</span>
-<span class="sd">        Each service will be created on the API based on the given authenticators</span>
-<span class="sd">        Runs the actual exec action afterwards with the API</span>
+<span class="sd">        Runs the exec action.  </span>
+<span class="sd">        Loads the authenticators from the cache and connects to the API using the loaded authenticators.</span>
+<span class="sd">        Each service is created from the API, based on the given authenticators, and then</span>
+<span class="sd">        runs the exec action using the API.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -11723,7 +11704,7 @@ Will save the configured profile once done</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Asserts the action is exec</span>
+<span class="sd">        Asserts the action is `exec`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -11737,7 +11718,7 @@ Will save the configured profile once done</p>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">define_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines an exec action for a service with its configurations and args</span>
+<span class="sd">        Defines an exec action, and its specified configurations and args, for a service.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            exec_subparsers (argparse._SubParsersAction): _description_</span>
@@ -11746,7 +11727,7 @@ Will save the configured profile once done</p>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="p">:</span> <span class="n">ArkCLIAPI</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Runs the exec action for a service with its arguments and API</span>
+<span class="sd">        Runs the exec action for a service with the specified arguments and API.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            api (ArkCLIAPI): _description_</span>
@@ -11756,7 +11737,7 @@ Will save the configured profile once done</p>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">can_run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the specific exec service action can be ran</span>
+<span class="sd">        Checks whether the specified exec service action can be run.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            command_name (str): _description_</span>
@@ -11794,7 +11775,7 @@ Will save the configured profile once done</p>
 
   <div class="doc doc-contents ">
   
-      <p>Asserts the action is exec</p>
+      <p>Asserts the action is <code>exec</code>.</p>
 
 
 
@@ -11881,7 +11862,7 @@ Will save the configured profile once done</p>
 <span class="normal">262</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Asserts the action is exec</span>
+<span class="sd">    Asserts the action is `exec`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -11915,7 +11896,7 @@ Will save the configured profile once done</p>
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the specific exec service action can be ran</p>
+      <p>Checks whether the specified exec service action can be run.</p>
 
 
 
@@ -12001,7 +11982,7 @@ Will save the configured profile once done</p>
 <span class="normal">294</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">can_run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the specific exec service action can be ran</span>
+<span class="sd">    Checks whether the specified exec service action can be run.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        command_name (str): _description_</span>
@@ -12030,7 +12011,7 @@ Will save the configured profile once done</p>
 
   <div class="doc doc-contents ">
   
-      <p>Defines the exec action, with subparsers exec for each service</p>
+      <p>Defines the CLI <code>exec</code> action, with its subparsers (args) for the service.</p>
 
 
 
@@ -12098,7 +12079,7 @@ Will save the configured profile once done</p>
 <span class="normal">198</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the exec action, with subparsers exec for each service</span>
+<span class="sd">    Defines the CLI `exec` action, with its subparsers (args) for the service.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -12151,7 +12132,7 @@ Will save the configured profile once done</p>
 
   <div class="doc doc-contents ">
   
-      <p>Defines an exec action for a service with its configurations and args</p>
+      <p>Defines an exec action, and its specified configurations and args, for a service.</p>
 
 
 
@@ -12195,7 +12176,7 @@ Will save the configured profile once done</p>
 <span class="normal">271</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">define_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines an exec action for a service with its configurations and args</span>
+<span class="sd">    Defines an exec action, and its specified configurations and args, for a service.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        exec_subparsers (argparse._SubParsersAction): _description_</span>
@@ -12220,10 +12201,10 @@ Will save the configured profile once done</p>
 
   <div class="doc doc-contents ">
   
-      <p>Runs the action
-Loads the authenticators from the cache and creates the API with the authenticators
-Each service will be created on the API based on the given authenticators
-Runs the actual exec action afterwards with the API</p>
+      <p>Runs the exec action.<br />
+Loads the authenticators from the cache and connects to the API using the loaded authenticators.
+Each service is created from the API, based on the given authenticators, and then
+runs the exec action using the API.</p>
 
 
 
@@ -12342,10 +12323,10 @@ Runs the actual exec action afterwards with the API</p>
 <span class="normal">248</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Runs the action</span>
-<span class="sd">    Loads the authenticators from the cache and creates the API with the authenticators</span>
-<span class="sd">    Each service will be created on the API based on the given authenticators</span>
-<span class="sd">    Runs the actual exec action afterwards with the API</span>
+<span class="sd">    Runs the exec action.  </span>
+<span class="sd">    Loads the authenticators from the cache and connects to the API using the loaded authenticators.</span>
+<span class="sd">    Each service is created from the API, based on the given authenticators, and then</span>
+<span class="sd">    runs the exec action using the API.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -12412,7 +12393,7 @@ Runs the actual exec action afterwards with the API</p>
 
   <div class="doc doc-contents ">
   
-      <p>Runs the exec action for a service with its arguments and API</p>
+      <p>Runs the exec action for a service with the specified arguments and API.</p>
 
 
 
@@ -12471,7 +12452,7 @@ Runs the actual exec action afterwards with the API</p>
 <span class="normal">281</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="p">:</span> <span class="n">ArkCLIAPI</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Runs the exec action for a service with its arguments and API</span>
+<span class="sd">    Runs the exec action for a service with the specified arguments and API.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        api (ArkCLIAPI): _description_</span>
@@ -12679,8 +12660,8 @@ Runs the actual exec action afterwards with the API</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the configuration CLI action</span>
-<span class="sd">        Adds for each supported authenticator, its username / secret params for login</span>
+<span class="sd">        Defines the CLI `login` action.  </span>
+<span class="sd">        For each supported authenticator, adds the username/secret params for logging in.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -12714,8 +12695,8 @@ Runs the actual exec action afterwards with the API</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Perform the actual login for each authenticator</span>
-<span class="sd">        Once logged in, store its credentials in the keyring for later use</span>
+<span class="sd">        Runs the login action for each authenticator.  </span>
+<span class="sd">        After a login completes, credentials are stored in the keyring for future use.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -12831,7 +12812,7 @@ Runs the actual exec action afterwards with the API</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Asserts the action is login</span>
+<span class="sd">        Asserts the action is `login`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -12870,7 +12851,7 @@ Runs the actual exec action afterwards with the API</p>
 
   <div class="doc doc-contents ">
   
-      <p>Asserts the action is login</p>
+      <p>Asserts the action is <code>login</code>.</p>
 
 
 
@@ -12957,7 +12938,7 @@ Runs the actual exec action afterwards with the API</p>
 <span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Asserts the action is login</span>
+<span class="sd">    Asserts the action is `login`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -12987,8 +12968,8 @@ Runs the actual exec action afterwards with the API</p>
 
   <div class="doc doc-contents ">
   
-      <p>Defines the configuration CLI action
-Adds for each supported authenticator, its username / secret params for login</p>
+      <p>Defines the CLI <code>login</code> action.<br />
+For each supported authenticator, adds the username/secret params for logging in.</p>
 
 
 
@@ -13058,8 +13039,8 @@ Adds for each supported authenticator, its username / secret params for login</p
 <span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the configuration CLI action</span>
-<span class="sd">    Adds for each supported authenticator, its username / secret params for login</span>
+<span class="sd">    Defines the CLI `login` action.  </span>
+<span class="sd">    For each supported authenticator, adds the username/secret params for logging in.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -13109,8 +13090,8 @@ Adds for each supported authenticator, its username / secret params for login</p
 
   <div class="doc doc-contents ">
   
-      <p>Perform the actual login for each authenticator
-Once logged in, store its credentials in the keyring for later use</p>
+      <p>Runs the login action for each authenticator.<br />
+After a login completes, credentials are stored in the keyring for future use.</p>
 
 
 
@@ -13296,8 +13277,8 @@ Once logged in, store its credentials in the keyring for later use</p>
 <span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform the actual login for each authenticator</span>
-<span class="sd">    Once logged in, store its credentials in the keyring for later use</span>
+<span class="sd">    Runs the login action for each authenticator.  </span>
+<span class="sd">    After a login completes, credentials are stored in the keyring for future use.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -13632,13 +13613,11 @@ Once logged in, store its credentials in the keyring for later use</p>
 <span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkProfilesAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
+<span class="normal">205</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkProfilesAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the profile CLI action</span>
-<span class="sd">        Adds actions for managing multiple profiles</span>
+<span class="sd">        Defines the CLI `profile` action, and adds actions for managing multiple profiles.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -13786,7 +13765,7 @@ Once logged in, store its credentials in the keyring for later use</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Perform the actual profile action</span>
+<span class="sd">        Runs the profile action.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -13815,7 +13794,7 @@ Once logged in, store its credentials in the keyring for later use</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Asserts the action is profile</span>
+<span class="sd">        Asserts the action is `profile`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -13854,7 +13833,7 @@ Once logged in, store its credentials in the keyring for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Asserts the action is profile</p>
+      <p>Asserts the action is <code>profile</code>.</p>
 
 
 
@@ -13926,7 +13905,8 @@ Once logged in, store its credentials in the keyring for later use</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_profiles_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">194</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">193</span>
+<span class="normal">194</span>
 <span class="normal">195</span>
 <span class="normal">196</span>
 <span class="normal">197</span>
@@ -13937,11 +13917,10 @@ Once logged in, store its credentials in the keyring for later use</p>
 <span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">205</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Asserts the action is profile</span>
+<span class="sd">    Asserts the action is `profile`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -13971,8 +13950,7 @@ Once logged in, store its credentials in the keyring for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Defines the profile CLI action
-Adds actions for managing multiple profiles</p>
+      <p>Defines the CLI <code>profile</code> action, and adds actions for managing multiple profiles.</p>
 
 
 
@@ -14044,12 +14022,10 @@ Adds actions for managing multiple profiles</p>
 <span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the profile CLI action</span>
-<span class="sd">    Adds actions for managing multiple profiles</span>
+<span class="sd">    Defines the CLI `profile` action, and adds actions for managing multiple profiles.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -14105,7 +14081,7 @@ Adds actions for managing multiple profiles</p>
 
   <div class="doc doc-contents ">
   
-      <p>Perform the actual profile action</p>
+      <p>Runs the profile action.</p>
 
 
 
@@ -14173,7 +14149,8 @@ Adds actions for managing multiple profiles</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_profiles_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">165</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
+<span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
 <span class="normal">168</span>
@@ -14199,11 +14176,10 @@ Adds actions for managing multiple profiles</p>
 <span class="normal">188</span>
 <span class="normal">189</span>
 <span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">191</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform the actual profile action</span>
+<span class="sd">    Runs the profile action.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -14418,7 +14394,7 @@ Adds actions for managing multiple profiles</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines all the supported service actions as cli actions / arguments and schemas</span>
+<span class="sd">        Defines all the supported service actions as CLI actions, with its associated arguments and schemas.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            exec_subparsers (argparse._SubParsersAction): _description_</span>
@@ -14429,8 +14405,8 @@ Adds actions for managing multiple profiles</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="p">:</span> <span class="n">ArkCLIAPI</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deduces from the arguments the fitting action definition and action</span>
-<span class="sd">        Finds the fitting service using the defintinion and executes the sync or async service action</span>
+<span class="sd">        Deduces from the arguments the appropriate service definition and action.  </span>
+<span class="sd">        Finds the appropriate service using the definition and executes the sync or async service action.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            api (ArkCLIAPI): _description_</span>
@@ -14450,7 +14426,7 @@ Adds actions for managing multiple profiles</p>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether theres a service definition for the command and actions</span>
+<span class="sd">        Checks whether there is a service definition for the command and its actions.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            command_name (str): _description_</span>
@@ -14489,7 +14465,7 @@ Adds actions for managing multiple profiles</p>
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether theres a service definition for the command and actions</p>
+      <p>Checks whether there is a service definition for the command and its actions.</p>
 
 
 
@@ -14576,7 +14552,7 @@ Adds actions for managing multiple profiles</p>
 <span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether theres a service definition for the command and actions</span>
+<span class="sd">    Checks whether there is a service definition for the command and its actions.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        command_name (str): _description_</span>
@@ -14606,7 +14582,7 @@ Adds actions for managing multiple profiles</p>
 
   <div class="doc doc-contents ">
   
-      <p>Defines all the supported service actions as cli actions / arguments and schemas</p>
+      <p>Defines all the supported service actions as CLI actions, with its associated arguments and schemas.</p>
 
 
 
@@ -14652,7 +14628,7 @@ Adds actions for managing multiple profiles</p>
 <span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines all the supported service actions as cli actions / arguments and schemas</span>
+<span class="sd">    Defines all the supported service actions as CLI actions, with its associated arguments and schemas.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        exec_subparsers (argparse._SubParsersAction): _description_</span>
@@ -14679,8 +14655,8 @@ Adds actions for managing multiple profiles</p>
 
   <div class="doc doc-contents ">
   
-      <p>Deduces from the arguments the fitting action definition and action
-Finds the fitting service using the defintinion and executes the sync or async service action</p>
+      <p>Deduces from the arguments the appropriate service definition and action.<br />
+Finds the appropriate service using the definition and executes the sync or async service action.</p>
 
 
 
@@ -14750,8 +14726,8 @@ Finds the fitting service using the defintinion and executes the sync or async s
 <span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="p">:</span> <span class="n">ArkCLIAPI</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Deduces from the arguments the fitting action definition and action</span>
-<span class="sd">    Finds the fitting service using the defintinion and executes the sync or async service action</span>
+<span class="sd">    Deduces from the arguments the appropriate service definition and action.  </span>
+<span class="sd">    Finds the appropriate service using the definition and executes the sync or async service action.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        api (ArkCLIAPI): _description_</span>

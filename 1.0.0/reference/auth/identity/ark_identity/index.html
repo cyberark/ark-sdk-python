@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -9345,7 +9345,7 @@ You're not viewing the latest version.
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">has_cache_record</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">refresh_auth_allowed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks if a record exists within the identity cache for profile and username</span>
+<span class="sd">        Checks if a cache record exists for the specified profile and username.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile (ArkProfile): _description_</span>
@@ -9370,7 +9370,7 @@ You're not viewing the latest version.
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">is_idp_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks if a given username is an external id or not</span>
+<span class="sd">        Checks whether or not the specified username is from an external IDP.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            username (str): _description_</span>
@@ -9386,7 +9386,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">get_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the applications for the logged in user</span>
+<span class="sd">        Returns the applications to which the user is logged in.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkException: _description_</span>
@@ -9403,14 +9403,14 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Authenticates to identity, based on the given information on the constructor</span>
-<span class="sd">        If MFA is needed, will also interact with user if allowed</span>
-<span class="sd">        Token and other details are stored in the object for later use</span>
+<span class="sd">        Authenticates to Identity with the information specified in the constructor.  </span>
+<span class="sd">        If MFA is configured and `interactive` is enabled, the user is prompted for the MFA secret.</span>
+<span class="sd">        The auth token and other details are stored in the object for future use.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">            interactive (bool): Whether interactiveness with the user is allowed or not</span>
-<span class="sd">            force (bool): Igonre cache and force authenticate. Defaults to False</span>
+<span class="sd">            profile (Optional[ArkProfile]): Profile to use (loaded from cache, if available)</span>
+<span class="sd">            interactive (bool): Determines whether interactive user prompts are allowed</span>
+<span class="sd">            force (bool): Determines whether to ignore cache and force authentication (defaults to false)</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkException: _description_</span>
@@ -9491,11 +9491,11 @@ You're not viewing the latest version.
     <span class="c1"># pylint: disable=unused-argument</span>
     <span class="k">def</span> <span class="nf">refresh_auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs refresh platform token with the existing details in the class</span>
+<span class="sd">        Performs a token refresh with the object&#39;s existing details.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">            force (bool): Igonre cache and force authenticate. Defaults to False</span>
+<span class="sd">            profile (Optional[ArkProfile]): The profile to load from the cache, if available</span>
+<span class="sd">            force (bool): Determines whether to ignore cache and force authentication (defaults to false)</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkAuthException: _description_</span>
@@ -9586,9 +9586,9 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Authenticates to identity, based on the given information on the constructor
-If MFA is needed, will also interact with user if allowed
-Token and other details are stored in the object for later use</p>
+      <p>Authenticates to Identity with the information specified in the constructor.<br />
+If MFA is configured and <code>interactive</code> is enabled, the user is prompted for the MFA secret.
+The auth token and other details are stored in the object for future use.</p>
 
 
 
@@ -9610,7 +9610,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Profile to be used to load from caching if cache exists</p>
+              <p>Profile to use (loaded from cache, if available)</p>
             </div>
           </td>
           <td>
@@ -9624,7 +9624,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Whether interactiveness with the user is allowed or not</p>
+              <p>Determines whether interactive user prompts are allowed</p>
             </div>
           </td>
           <td>
@@ -9638,7 +9638,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Igonre cache and force authenticate. Defaults to False</p>
+              <p>Determines whether to ignore cache and force authentication (defaults to false)</p>
             </div>
           </td>
           <td>
@@ -9761,14 +9761,14 @@ Token and other details are stored in the object for later use</p>
 <span class="normal">501</span>
 <span class="normal">502</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Authenticates to identity, based on the given information on the constructor</span>
-<span class="sd">    If MFA is needed, will also interact with user if allowed</span>
-<span class="sd">    Token and other details are stored in the object for later use</span>
+<span class="sd">    Authenticates to Identity with the information specified in the constructor.  </span>
+<span class="sd">    If MFA is configured and `interactive` is enabled, the user is prompted for the MFA secret.</span>
+<span class="sd">    The auth token and other details are stored in the object for future use.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">        interactive (bool): Whether interactiveness with the user is allowed or not</span>
-<span class="sd">        force (bool): Igonre cache and force authenticate. Defaults to False</span>
+<span class="sd">        profile (Optional[ArkProfile]): Profile to use (loaded from cache, if available)</span>
+<span class="sd">        interactive (bool): Determines whether interactive user prompts are allowed</span>
+<span class="sd">        force (bool): Determines whether to ignore cache and force authentication (defaults to false)</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkException: _description_</span>
@@ -9865,7 +9865,7 @@ Token and other details are stored in the object for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Get the applications for the logged in user</p>
+      <p>Returns the applications to which the user is logged in.</p>
 
 
 
@@ -9934,7 +9934,7 @@ Token and other details are stored in the object for later use</p>
 <span class="normal">414</span>
 <span class="normal">415</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get the applications for the logged in user</span>
+<span class="sd">    Returns the applications to which the user is logged in.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkException: _description_</span>
@@ -9972,7 +9972,7 @@ Token and other details are stored in the object for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Checks if a record exists within the identity cache for profile and username</p>
+      <p>Checks if a cache record exists for the specified profile and username.</p>
 
 
 
@@ -10083,7 +10083,7 @@ Token and other details are stored in the object for later use</p>
 <span class="normal">380</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">has_cache_record</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">refresh_auth_allowed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks if a record exists within the identity cache for profile and username</span>
+<span class="sd">    Checks if a cache record exists for the specified profile and username.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile (ArkProfile): _description_</span>
@@ -10127,7 +10127,7 @@ Token and other details are stored in the object for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Checks if a given username is an external id or not</p>
+      <p>Checks whether or not the specified username is from an external IDP.</p>
 
 
 
@@ -10205,7 +10205,7 @@ Token and other details are stored in the object for later use</p>
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">is_idp_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks if a given username is an external id or not</span>
+<span class="sd">    Checks whether or not the specified username is from an external IDP.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        username (str): _description_</span>
@@ -10238,7 +10238,7 @@ Token and other details are stored in the object for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Performs refresh platform token with the existing details in the class</p>
+      <p>Performs a token refresh with the object's existing details.</p>
 
 
 
@@ -10260,7 +10260,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Profile to be used to load from caching if cache exists</p>
+              <p>The profile to load from the cache, if available</p>
             </div>
           </td>
           <td>
@@ -10274,7 +10274,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Igonre cache and force authenticate. Defaults to False</p>
+              <p>Determines whether to ignore cache and force authentication (defaults to false)</p>
             </div>
           </td>
           <td>
@@ -10358,11 +10358,11 @@ Token and other details are stored in the object for later use</p>
 <span class="normal">550</span>
 <span class="normal">551</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">refresh_auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs refresh platform token with the existing details in the class</span>
+<span class="sd">    Performs a token refresh with the object&#39;s existing details.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">        force (bool): Igonre cache and force authenticate. Defaults to False</span>
+<span class="sd">        profile (Optional[ArkProfile]): The profile to load from the cache, if available</span>
+<span class="sd">        force (bool): Determines whether to ignore cache and force authentication (defaults to false)</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkAuthException: _description_</span>

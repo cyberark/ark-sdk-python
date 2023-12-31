@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -9168,10 +9168,7 @@ You're not viewing the latest version.
 <span class="normal">581</span>
 <span class="normal">582</span>
 <span class="normal">583</span>
-<span class="normal">584</span>
-<span class="normal">585</span>
-<span class="normal">586</span>
-<span class="normal">587</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkDPABasePoliciesEditorService</span><span class="p">(</span>
+<span class="normal">584</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkDPABasePoliciesEditorService</span><span class="p">(</span>
     <span class="n">ArkService</span><span class="p">,</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">PolicyType</span><span class="p">,</span> <span class="n">PolicyListItemType</span><span class="p">,</span> <span class="n">AddPolicyType</span><span class="p">,</span> <span class="n">UpdatePolicyType</span><span class="p">,</span> <span class="n">GeneratePolicyType</span><span class="p">]</span>
 <span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -9268,9 +9265,9 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">load_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_policies</span><span class="p">:</span> <span class="n">ArkDPALoadPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPALoadedPolicies</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads all the remote policies into the workspace</span>
-<span class="sd">        Will ask the user whether to override already existing policies which were changed either locally or remotely</span>
-<span class="sd">        If the user supplied to override by default, will not prompt the user for questions</span>
+<span class="sd">        Loads all remote policies into the local workspace.  </span>
+<span class="sd">        The user is asked whether to overwrite existing policies that were edited either locally or remotely.</span>
+<span class="sd">        When default overwrite is enabled, existing policies are overwritten without prompts.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            load_policies (ArkDPALoadPolicies): _description_</span>
@@ -9316,10 +9313,8 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">edit_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edit_policies</span><span class="p">:</span> <span class="n">ArkDPAEditPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        For given set of policies, either from the cli or from prompt questions</span>
-<span class="sd">        Edits the policies one by one using the defined machine editor</span>
-<span class="sd">        Each policy can be edited and later on, will be saved to the local workspace</span>
-<span class="sd">        Edited policies are not updated remotely until a commit action is executed</span>
+<span class="sd">        Edits the set of specified policies one at a time, either via the CLI or the default OS editor.  </span>
+<span class="sd">        Edited policies are only saved locally until they are committed.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            edit_policies (ArkDPAEditPolicies): _description_</span>
@@ -9374,11 +9369,10 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">remove_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remove_policies</span><span class="p">:</span> <span class="n">ArkDPARemovePolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Removes one or more policies from the workspace</span>
-<span class="sd">        Removing a remote policy will result in only renaming it to .deleted</span>
-<span class="sd">        This will ignore the policy locally on actions performed by the editor</span>
-<span class="sd">        Once a commit action is performed, the policy is deleted both locally and remotely</span>
-<span class="sd">        For newly generated policies which were not committed yet, they will be just deleted from the machine after the user consents to it</span>
+<span class="sd">        Removes one or more policies from the local workspace.  </span>
+<span class="sd">        Until changes are committed, removing a remote policy only appends the `.deleted` indication to its name.</span>
+<span class="sd">        After committing the changes, the policies are deleted both locally and remotely.</span>
+<span class="sd">        New, uncommitted policies are deleted locally after the user consents.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            remove_policies (ArkDPARemovePolicies): _description_</span>
@@ -9432,8 +9426,8 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">view_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_policies</span><span class="p">:</span> <span class="n">ArkDPAViewPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Allows the user to view one or more policies together or seperetly, picked by the cli or by prompt to the user</span>
-<span class="sd">        Each policy viewed by the editor of the machine, both for existing policies and newly generated policies</span>
+<span class="sd">        Allows the user to view one or more policies either together or individually, as defined in the CLI user prompt.  </span>
+<span class="sd">        Policies are viewed in the machine&#39;s default editor (both existing policies and newly generated policies).</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            view_policies (ArkDPAViewPolicies): _description_</span>
@@ -9482,10 +9476,10 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">reset_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reset_policy</span><span class="p">:</span> <span class="n">ArkDPAResetPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resets the local workspace policies</span>
-<span class="sd">        If all policies reset was given, will reload all the policies and override the local policies and delete any already removed policies</span>
-<span class="sd">        Newly generated uncommitted policies are not touched</span>
-<span class="sd">        If not all policies reset was given, the user can choose which policies he would like to reset</span>
+<span class="sd">        Resets local workspace policies.  </span>
+<span class="sd">        When all policies are reset, all local policies are overwritten and deleted policies are removed. </span>
+<span class="sd">        Otherwise, the user can select which policies are reset.</span>
+<span class="sd">        This function does not alter newly generated uncommitted policies.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            reset_policy (ArkDPAResetPolicies): _description_</span>
@@ -9529,10 +9523,10 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">generate_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generate_policy</span><span class="p">:</span> <span class="n">GeneratePolicyType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generates a new policy from a template and from the users parameters</span>
-<span class="sd">        The user will be prompted for the parameters if not supplied by the CLI</span>
-<span class="sd">        Once the parameters were decided, generates a policy in memory and lets the user edit it</span>
-<span class="sd">        Once the user finishes editing the policy, saves it on the workspace until it is committed</span>
+<span class="sd">        Generates a new policy from a template and the user&#39;s parameters.  </span>
+<span class="sd">        The user is prompted for the parameters when they are not specified in the CLI.</span>
+<span class="sd">        After policy&#39;s parameters are defined, the policy is generates in memory and can bee edited.</span>
+<span class="sd">        The new policy is saved locally until it is committed.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            generate_policy (GeneratePolicyType): _description_</span>
@@ -9566,9 +9560,8 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">policies_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policies_diff</span><span class="p">:</span> <span class="n">ArkDPAPoliciesDiff</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculates the policies diff between the local workspace policies and the remote policies</span>
-<span class="sd">        Alongside that, also loads the already removed policies which were not committed</span>
-<span class="sd">        Displays the diffs unified or per policy</span>
+<span class="sd">        Calculates the diff between the local workspace and remote policies.  </span>
+<span class="sd">        This diff includes uncommitted removed policies. A unified or per policy diff can be displayed.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            policies_diff (ArkDPAPoliciesDiff): _description_</span>
@@ -9625,7 +9618,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">policies_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_policies_status</span><span class="p">:</span> <span class="n">ArkDPAGetPoliciesStatus</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPAPoliciesStatus</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the currently locally altered policies status</span>
+<span class="sd">        Gets the status of locally altered policies.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            get_policies_status (ArkDPAGetPoliciesStatus): _description_</span>
@@ -9648,11 +9641,12 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">commit_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commit_policies</span><span class="p">:</span> <span class="n">ArkDPACommitPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Committes all the edited policies</span>
-<span class="sd">        First calculates the differences between the local and remote policies to find out which policies were edited</span>
-<span class="sd">        Alongside that, loads the policies that were chosen to be deleted, and policies that were generated and not committed yet</span>
-<span class="sd">        Lets the user choose whether he wants to commit all the edited policies, or only specific names</span>
-<span class="sd">        Once all policies were committed, re-organizes the workspace accordingly</span>
+<span class="sd">        Commits policies.  </span>
+<span class="sd">        The function first calculates the differences between the local and remote policies to find out which policies were edited, including </span>
+<span class="sd">        the policies selected for deletion and new, uncommitted policies. It also</span>
+<span class="sd">        allows selecting whether to commit all the edited policies or only specific policies by name.  </span>
+
+<span class="sd">        After all policies are committed, the workspace is reorganized accordingly.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            commit_policies (ArkDPACommitPolicies): _description_</span>
@@ -9740,11 +9734,11 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Committes all the edited policies
-First calculates the differences between the local and remote policies to find out which policies were edited
-Alongside that, loads the policies that were chosen to be deleted, and policies that were generated and not committed yet
-Lets the user choose whether he wants to commit all the edited policies, or only specific names
-Once all policies were committed, re-organizes the workspace accordingly</p>
+      <p>Commits policies.<br />
+The function first calculates the differences between the local and remote policies to find out which policies were edited, including 
+the policies selected for deletion and new, uncommitted policies. It also
+allows selecting whether to commit all the edited policies or only specific policies by name.  </p>
+<p>After all policies are committed, the workspace is reorganized accordingly.</p>
 
 
 
@@ -9778,7 +9772,11 @@ Once all policies were committed, re-organizes the workspace accordingly</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/cli_services/dpa/common/ark_dpa_base_policies_editor_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">523</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">519</span>
+<span class="normal">520</span>
+<span class="normal">521</span>
+<span class="normal">522</span>
+<span class="normal">523</span>
 <span class="normal">524</span>
 <span class="normal">525</span>
 <span class="normal">526</span>
@@ -9839,16 +9837,14 @@ Once all policies were committed, re-organizes the workspace accordingly</p>
 <span class="normal">581</span>
 <span class="normal">582</span>
 <span class="normal">583</span>
-<span class="normal">584</span>
-<span class="normal">585</span>
-<span class="normal">586</span>
-<span class="normal">587</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">commit_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commit_policies</span><span class="p">:</span> <span class="n">ArkDPACommitPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">584</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">commit_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commit_policies</span><span class="p">:</span> <span class="n">ArkDPACommitPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Committes all the edited policies</span>
-<span class="sd">    First calculates the differences between the local and remote policies to find out which policies were edited</span>
-<span class="sd">    Alongside that, loads the policies that were chosen to be deleted, and policies that were generated and not committed yet</span>
-<span class="sd">    Lets the user choose whether he wants to commit all the edited policies, or only specific names</span>
-<span class="sd">    Once all policies were committed, re-organizes the workspace accordingly</span>
+<span class="sd">    Commits policies.  </span>
+<span class="sd">    The function first calculates the differences between the local and remote policies to find out which policies were edited, including </span>
+<span class="sd">    the policies selected for deletion and new, uncommitted policies. It also</span>
+<span class="sd">    allows selecting whether to commit all the edited policies or only specific policies by name.  </span>
+
+<span class="sd">    After all policies are committed, the workspace is reorganized accordingly.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        commit_policies (ArkDPACommitPolicies): _description_</span>
@@ -9927,10 +9923,8 @@ Once all policies were committed, re-organizes the workspace accordingly</p>
 
   <div class="doc doc-contents ">
   
-      <p>For given set of policies, either from the cli or from prompt questions
-Edits the policies one by one using the defined machine editor
-Each policy can be edited and later on, will be saved to the local workspace
-Edited policies are not updated remotely until a commit action is executed</p>
+      <p>Edits the set of specified policies one at a time, either via the CLI or the default OS editor.<br />
+Edited policies are only saved locally until they are committed.</p>
 
 
 
@@ -10042,14 +10036,10 @@ Edited policies are not updated remotely until a commit action is executed</p>
 <span class="normal">242</span>
 <span class="normal">243</span>
 <span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">edit_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edit_policies</span><span class="p">:</span> <span class="n">ArkDPAEditPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">245</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">edit_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edit_policies</span><span class="p">:</span> <span class="n">ArkDPAEditPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    For given set of policies, either from the cli or from prompt questions</span>
-<span class="sd">    Edits the policies one by one using the defined machine editor</span>
-<span class="sd">    Each policy can be edited and later on, will be saved to the local workspace</span>
-<span class="sd">    Edited policies are not updated remotely until a commit action is executed</span>
+<span class="sd">    Edits the set of specified policies one at a time, either via the CLI or the default OS editor.  </span>
+<span class="sd">    Edited policies are only saved locally until they are committed.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        edit_policies (ArkDPAEditPolicies): _description_</span>
@@ -10121,10 +10111,10 @@ Edited policies are not updated remotely until a commit action is executed</p>
 
   <div class="doc doc-contents ">
   
-      <p>Generates a new policy from a template and from the users parameters
-The user will be prompted for the parameters if not supplied by the CLI
-Once the parameters were decided, generates a policy in memory and lets the user edit it
-Once the user finishes editing the policy, saves it on the workspace until it is committed</p>
+      <p>Generates a new policy from a template and the user's parameters.<br />
+The user is prompted for the parameters when they are not specified in the CLI.
+After policy's parameters are defined, the policy is generates in memory and can bee edited.
+The new policy is saved locally until it is committed.</p>
 
 
 
@@ -10158,7 +10148,10 @@ Once the user finishes editing the policy, saves it on the workspace until it is
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/cli_services/dpa/common/ark_dpa_base_policies_editor_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">404</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
 <span class="normal">405</span>
 <span class="normal">406</span>
 <span class="normal">407</span>
@@ -10190,15 +10183,12 @@ Once the user finishes editing the policy, saves it on the workspace until it is
 <span class="normal">433</span>
 <span class="normal">434</span>
 <span class="normal">435</span>
-<span class="normal">436</span>
-<span class="normal">437</span>
-<span class="normal">438</span>
-<span class="normal">439</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">generate_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generate_policy</span><span class="p">:</span> <span class="n">GeneratePolicyType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">436</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">generate_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generate_policy</span><span class="p">:</span> <span class="n">GeneratePolicyType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generates a new policy from a template and from the users parameters</span>
-<span class="sd">    The user will be prompted for the parameters if not supplied by the CLI</span>
-<span class="sd">    Once the parameters were decided, generates a policy in memory and lets the user edit it</span>
-<span class="sd">    Once the user finishes editing the policy, saves it on the workspace until it is committed</span>
+<span class="sd">    Generates a new policy from a template and the user&#39;s parameters.  </span>
+<span class="sd">    The user is prompted for the parameters when they are not specified in the CLI.</span>
+<span class="sd">    After policy&#39;s parameters are defined, the policy is generates in memory and can bee edited.</span>
+<span class="sd">    The new policy is saved locally until it is committed.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        generate_policy (GeneratePolicyType): _description_</span>
@@ -10249,9 +10239,9 @@ Once the user finishes editing the policy, saves it on the workspace until it is
 
   <div class="doc doc-contents ">
   
-      <p>Loads all the remote policies into the workspace
-Will ask the user whether to override already existing policies which were changed either locally or remotely
-If the user supplied to override by default, will not prompt the user for questions</p>
+      <p>Loads all remote policies into the local workspace.<br />
+The user is asked whether to overwrite existing policies that were edited either locally or remotely.
+When default overwrite is enabled, existing policies are overwritten without prompts.</p>
 
 
 
@@ -10357,9 +10347,9 @@ If the user supplied to override by default, will not prompt the user for questi
 <span class="normal">188</span>
 <span class="normal">189</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_policies</span><span class="p">:</span> <span class="n">ArkDPALoadPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPALoadedPolicies</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads all the remote policies into the workspace</span>
-<span class="sd">    Will ask the user whether to override already existing policies which were changed either locally or remotely</span>
-<span class="sd">    If the user supplied to override by default, will not prompt the user for questions</span>
+<span class="sd">    Loads all remote policies into the local workspace.  </span>
+<span class="sd">    The user is asked whether to overwrite existing policies that were edited either locally or remotely.</span>
+<span class="sd">    When default overwrite is enabled, existing policies are overwritten without prompts.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        load_policies (ArkDPALoadPolicies): _description_</span>
@@ -10422,9 +10412,8 @@ If the user supplied to override by default, will not prompt the user for questi
 
   <div class="doc doc-contents ">
   
-      <p>Calculates the policies diff between the local workspace policies and the remote policies
-Alongside that, also loads the already removed policies which were not committed
-Displays the diffs unified or per policy</p>
+      <p>Calculates the diff between the local workspace and remote policies.<br />
+This diff includes uncommitted removed policies. A unified or per policy diff can be displayed.</p>
 
 
 
@@ -10458,7 +10447,10 @@ Displays the diffs unified or per policy</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/cli_services/dpa/common/ark_dpa_base_policies_editor_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">441</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
 <span class="normal">442</span>
 <span class="normal">443</span>
 <span class="normal">444</span>
@@ -10511,15 +10503,10 @@ Displays the diffs unified or per policy</p>
 <span class="normal">491</span>
 <span class="normal">492</span>
 <span class="normal">493</span>
-<span class="normal">494</span>
-<span class="normal">495</span>
-<span class="normal">496</span>
-<span class="normal">497</span>
-<span class="normal">498</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">policies_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policies_diff</span><span class="p">:</span> <span class="n">ArkDPAPoliciesDiff</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">494</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">policies_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policies_diff</span><span class="p">:</span> <span class="n">ArkDPAPoliciesDiff</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates the policies diff between the local workspace policies and the remote policies</span>
-<span class="sd">    Alongside that, also loads the already removed policies which were not committed</span>
-<span class="sd">    Displays the diffs unified or per policy</span>
+<span class="sd">    Calculates the diff between the local workspace and remote policies.  </span>
+<span class="sd">    This diff includes uncommitted removed policies. A unified or per policy diff can be displayed.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        policies_diff (ArkDPAPoliciesDiff): _description_</span>
@@ -10593,7 +10580,7 @@ Displays the diffs unified or per policy</p>
 
   <div class="doc doc-contents ">
   
-      <p>Gets the currently locally altered policies status</p>
+      <p>Gets the status of locally altered policies.</p>
 
 
 
@@ -10651,7 +10638,11 @@ Displays the diffs unified or per policy</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/cli_services/dpa/common/ark_dpa_base_policies_editor_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">500</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span>
 <span class="normal">501</span>
 <span class="normal">502</span>
 <span class="normal">503</span>
@@ -10668,13 +10659,9 @@ Displays the diffs unified or per policy</p>
 <span class="normal">514</span>
 <span class="normal">515</span>
 <span class="normal">516</span>
-<span class="normal">517</span>
-<span class="normal">518</span>
-<span class="normal">519</span>
-<span class="normal">520</span>
-<span class="normal">521</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">policies_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_policies_status</span><span class="p">:</span> <span class="n">ArkDPAGetPoliciesStatus</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPAPoliciesStatus</span><span class="p">:</span>
+<span class="normal">517</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">policies_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_policies_status</span><span class="p">:</span> <span class="n">ArkDPAGetPoliciesStatus</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPAPoliciesStatus</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Gets the currently locally altered policies status</span>
+<span class="sd">    Gets the status of locally altered policies.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        get_policies_status (ArkDPAGetPoliciesStatus): _description_</span>
@@ -10714,11 +10701,10 @@ Displays the diffs unified or per policy</p>
 
   <div class="doc doc-contents ">
   
-      <p>Removes one or more policies from the workspace
-Removing a remote policy will result in only renaming it to .deleted
-This will ignore the policy locally on actions performed by the editor
-Once a commit action is performed, the policy is deleted both locally and remotely
-For newly generated policies which were not committed yet, they will be just deleted from the machine after the user consents to it</p>
+      <p>Removes one or more policies from the local workspace.<br />
+Until changes are committed, removing a remote policy only appends the <code>.deleted</code> indication to its name.
+After committing the changes, the policies are deleted both locally and remotely.
+New, uncommitted policies are deleted locally after the user consents.</p>
 
 
 
@@ -10776,7 +10762,9 @@ For newly generated policies which were not committed yet, they will be just del
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/cli_services/dpa/common/ark_dpa_base_policies_editor_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">249</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
 <span class="normal">250</span>
 <span class="normal">251</span>
 <span class="normal">252</span>
@@ -10829,16 +10817,12 @@ For newly generated policies which were not committed yet, they will be just del
 <span class="normal">299</span>
 <span class="normal">300</span>
 <span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">remove_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remove_policies</span><span class="p">:</span> <span class="n">ArkDPARemovePolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">302</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">remove_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remove_policies</span><span class="p">:</span> <span class="n">ArkDPARemovePolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Removes one or more policies from the workspace</span>
-<span class="sd">    Removing a remote policy will result in only renaming it to .deleted</span>
-<span class="sd">    This will ignore the policy locally on actions performed by the editor</span>
-<span class="sd">    Once a commit action is performed, the policy is deleted both locally and remotely</span>
-<span class="sd">    For newly generated policies which were not committed yet, they will be just deleted from the machine after the user consents to it</span>
+<span class="sd">    Removes one or more policies from the local workspace.  </span>
+<span class="sd">    Until changes are committed, removing a remote policy only appends the `.deleted` indication to its name.</span>
+<span class="sd">    After committing the changes, the policies are deleted both locally and remotely.</span>
+<span class="sd">    New, uncommitted policies are deleted locally after the user consents.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        remove_policies (ArkDPARemovePolicies): _description_</span>
@@ -10909,10 +10893,10 @@ For newly generated policies which were not committed yet, they will be just del
 
   <div class="doc doc-contents ">
   
-      <p>Resets the local workspace policies
-If all policies reset was given, will reload all the policies and override the local policies and delete any already removed policies
-Newly generated uncommitted policies are not touched
-If not all policies reset was given, the user can choose which policies he would like to reset</p>
+      <p>Resets local workspace policies.<br />
+When all policies are reset, all local policies are overwritten and deleted policies are removed. 
+Otherwise, the user can select which policies are reset.
+This function does not alter newly generated uncommitted policies.</p>
 
 
 
@@ -10946,7 +10930,10 @@ If not all policies reset was given, the user can choose which policies he would
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/cli_services/dpa/common/ark_dpa_base_policies_editor_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">357</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
 <span class="normal">358</span>
 <span class="normal">359</span>
 <span class="normal">360</span>
@@ -10988,15 +10975,12 @@ If not all policies reset was given, the user can choose which policies he would
 <span class="normal">396</span>
 <span class="normal">397</span>
 <span class="normal">398</span>
-<span class="normal">399</span>
-<span class="normal">400</span>
-<span class="normal">401</span>
-<span class="normal">402</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reset_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reset_policy</span><span class="p">:</span> <span class="n">ArkDPAResetPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">399</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reset_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reset_policy</span><span class="p">:</span> <span class="n">ArkDPAResetPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resets the local workspace policies</span>
-<span class="sd">    If all policies reset was given, will reload all the policies and override the local policies and delete any already removed policies</span>
-<span class="sd">    Newly generated uncommitted policies are not touched</span>
-<span class="sd">    If not all policies reset was given, the user can choose which policies he would like to reset</span>
+<span class="sd">    Resets local workspace policies.  </span>
+<span class="sd">    When all policies are reset, all local policies are overwritten and deleted policies are removed. </span>
+<span class="sd">    Otherwise, the user can select which policies are reset.</span>
+<span class="sd">    This function does not alter newly generated uncommitted policies.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        reset_policy (ArkDPAResetPolicies): _description_</span>
@@ -11057,8 +11041,8 @@ If not all policies reset was given, the user can choose which policies he would
 
   <div class="doc doc-contents ">
   
-      <p>Allows the user to view one or more policies together or seperetly, picked by the cli or by prompt to the user
-Each policy viewed by the editor of the machine, both for existing policies and newly generated policies</p>
+      <p>Allows the user to view one or more policies either together or individually, as defined in the CLI user prompt.<br />
+Policies are viewed in the machine's default editor (both existing policies and newly generated policies).</p>
 
 
 
@@ -11092,7 +11076,10 @@ Each policy viewed by the editor of the machine, both for existing policies and 
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/cli_services/dpa/common/ark_dpa_base_policies_editor_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">307</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
 <span class="normal">308</span>
 <span class="normal">309</span>
 <span class="normal">310</span>
@@ -11137,13 +11124,10 @@ Each policy viewed by the editor of the machine, both for existing policies and 
 <span class="normal">349</span>
 <span class="normal">350</span>
 <span class="normal">351</span>
-<span class="normal">352</span>
-<span class="normal">353</span>
-<span class="normal">354</span>
-<span class="normal">355</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">view_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_policies</span><span class="p">:</span> <span class="n">ArkDPAViewPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">352</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">view_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_policies</span><span class="p">:</span> <span class="n">ArkDPAViewPolicies</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Allows the user to view one or more policies together or seperetly, picked by the cli or by prompt to the user</span>
-<span class="sd">    Each policy viewed by the editor of the machine, both for existing policies and newly generated policies</span>
+<span class="sd">    Allows the user to view one or more policies either together or individually, as defined in the CLI user prompt.  </span>
+<span class="sd">    Policies are viewed in the machine&#39;s default editor (both existing policies and newly generated policies).</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        view_policies (ArkDPAViewPolicies): _description_</span>

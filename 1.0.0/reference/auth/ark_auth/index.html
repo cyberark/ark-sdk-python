@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8923,22 +8923,22 @@ You're not viewing the latest version.
         <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkToken</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Authenticates with the specific authenticator implementation</span>
-<span class="sd">        The implementation is based on the _perform_authentication method</span>
-<span class="sd">        Alongside that, if caching is allowed, will also cache / load from cache the credentials</span>
+<span class="sd">        Authenticates with the specified authenticator implementation.  </span>
+<span class="sd">        The implementation is based on the `_perform_authentication` method.</span>
+<span class="sd">        When caching is allowed, authorization credentials are loaded from the cache.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            profile (Optional[ArkProfile]): Profile containing information about the environemnt and authentication profiles</span>
-<span class="sd">            auth_profile (Optional[ArkAuthProfile]): Specific auth profile to be used instead of looking at the profile if given</span>
+<span class="sd">            profile (Optional[ArkProfile]): Profile containing information about the environment and authentication methods</span>
+<span class="sd">            auth_profile (Optional[ArkAuthProfile]): Specific auth profile to use instead of the profile, when provided</span>
 <span class="sd">            secret (Optional[ArkSecret]): Secret used for authentication</span>
-<span class="sd">            force (bool): Whether to force authenticate and discard cache</span>
-<span class="sd">            refresh_auth (bool): Tries to refresh an existing cached auth if possible</span>
+<span class="sd">            force (bool): Determines whether to force authentication without cached credentials</span>
+<span class="sd">            refresh_auth (bool): Attempts to refresh an existing cached auth when it is available</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkAuthException: _description_</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            ArkToken: Token of the authentication to be used, the token is also saved within the class</span>
+<span class="sd">            ArkToken: The authentication token to use. The token is also saved in the object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">auth_profile</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">profile</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="s1">&#39;Either a profile or a specific auth profile must be supplied&#39;</span><span class="p">)</span>
@@ -8995,8 +8995,8 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">is_authenticated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether we are authenticated, either from the keyring or in memory</span>
-<span class="sd">        If from keyring, will also load it into memory</span>
+<span class="sd">        Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.  </span>
+<span class="sd">        If the valid token originated from the keyring, it is loaded into memory.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile (ArkProfile): _description_</span>
@@ -9019,8 +9019,8 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">load_authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads the authentication token from the cache if exists and returns it</span>
-<span class="sd">        Can also refresh it if need be</span>
+<span class="sd">        Loads and returns the authentication token from the cache, if it exists.  </span>
+<span class="sd">        If specified, the method also attempts to refresh the token as needed.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile (Optional[ArkProfile], optional): _description_. Defaults to None.</span>
@@ -9082,7 +9082,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">authenticator_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Name of the authenticator to be used for the auth profiles and services</span>
+<span class="sd">        Returns the name of the authenticator used for the auth profile and services.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: _description_</span>
@@ -9092,7 +9092,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">authenticator_human_readable_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Human readable name of the authenticator to be used for representation to the user</span>
+<span class="sd">        Returns the human-readable name of the authenticator.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: _description_</span>
@@ -9102,7 +9102,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">supported_auth_methods</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkAuthMethod</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Supported authenticaton methods by this authenticator</span>
+<span class="sd">        Returns the authenticator&#39;s supported authentication methods.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            List[ArkAuthMethod]: _description_</span>
@@ -9112,7 +9112,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">default_auth_method</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ArkAuthMethod</span><span class="p">,</span> <span class="n">ArkAuthMethodSettings</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Default authentication method used by this authenticator with its default settings</span>
+<span class="sd">        Returns the default authentication method and settings.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Tuple[ArkAuthMethod, ArkAuthMethodSettings]: _description_</span>
@@ -9146,9 +9146,9 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Authenticates with the specific authenticator implementation
-The implementation is based on the _perform_authentication method
-Alongside that, if caching is allowed, will also cache / load from cache the credentials</p>
+      <p>Authenticates with the specified authenticator implementation.<br />
+The implementation is based on the <code>_perform_authentication</code> method.
+When caching is allowed, authorization credentials are loaded from the cache.</p>
 
 
 
@@ -9170,7 +9170,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Profile containing information about the environemnt and authentication profiles</p>
+              <p>Profile containing information about the environment and authentication methods</p>
             </div>
           </td>
           <td>
@@ -9184,7 +9184,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Specific auth profile to be used instead of looking at the profile if given</p>
+              <p>Specific auth profile to use instead of the profile, when provided</p>
             </div>
           </td>
           <td>
@@ -9212,7 +9212,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Whether to force authenticate and discard cache</p>
+              <p>Determines whether to force authentication without cached credentials</p>
             </div>
           </td>
           <td>
@@ -9226,7 +9226,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Tries to refresh an existing cached auth if possible</p>
+              <p>Attempts to refresh an existing cached auth when it is available</p>
             </div>
           </td>
           <td>
@@ -9277,7 +9277,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Token of the authentication to be used, the token is also saved within the class</p>
+              <p>The authentication token to use. The token is also saved in the object.</p>
             </div>
           </td>
         </tr>
@@ -9372,22 +9372,22 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
     <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkToken</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Authenticates with the specific authenticator implementation</span>
-<span class="sd">    The implementation is based on the _perform_authentication method</span>
-<span class="sd">    Alongside that, if caching is allowed, will also cache / load from cache the credentials</span>
+<span class="sd">    Authenticates with the specified authenticator implementation.  </span>
+<span class="sd">    The implementation is based on the `_perform_authentication` method.</span>
+<span class="sd">    When caching is allowed, authorization credentials are loaded from the cache.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        profile (Optional[ArkProfile]): Profile containing information about the environemnt and authentication profiles</span>
-<span class="sd">        auth_profile (Optional[ArkAuthProfile]): Specific auth profile to be used instead of looking at the profile if given</span>
+<span class="sd">        profile (Optional[ArkProfile]): Profile containing information about the environment and authentication methods</span>
+<span class="sd">        auth_profile (Optional[ArkAuthProfile]): Specific auth profile to use instead of the profile, when provided</span>
 <span class="sd">        secret (Optional[ArkSecret]): Secret used for authentication</span>
-<span class="sd">        force (bool): Whether to force authenticate and discard cache</span>
-<span class="sd">        refresh_auth (bool): Tries to refresh an existing cached auth if possible</span>
+<span class="sd">        force (bool): Determines whether to force authentication without cached credentials</span>
+<span class="sd">        refresh_auth (bool): Attempts to refresh an existing cached auth when it is available</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkAuthException: _description_</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        ArkToken: Token of the authentication to be used, the token is also saved within the class</span>
+<span class="sd">        ArkToken: The authentication token to use. The token is also saved in the object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">auth_profile</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">profile</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="s1">&#39;Either a profile or a specific auth profile must be supplied&#39;</span><span class="p">)</span>
@@ -9466,7 +9466,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
 
   <div class="doc doc-contents ">
   
-      <p>Human readable name of the authenticator to be used for representation to the user</p>
+      <p>Returns the human-readable name of the authenticator.</p>
 
 
 
@@ -9506,7 +9506,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">authenticator_human_readable_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Human readable name of the authenticator to be used for representation to the user</span>
+<span class="sd">    Returns the human-readable name of the authenticator.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: _description_</span>
@@ -9536,7 +9536,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
 
   <div class="doc doc-contents ">
   
-      <p>Name of the authenticator to be used for the auth profiles and services</p>
+      <p>Returns the name of the authenticator used for the auth profile and services.</p>
 
 
 
@@ -9576,7 +9576,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">authenticator_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Name of the authenticator to be used for the auth profiles and services</span>
+<span class="sd">    Returns the name of the authenticator used for the auth profile and services.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: _description_</span>
@@ -9606,7 +9606,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
 
   <div class="doc doc-contents ">
   
-      <p>Default authentication method used by this authenticator with its default settings</p>
+      <p>Returns the default authentication method and settings.</p>
 
 
 
@@ -9646,7 +9646,7 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">default_auth_method</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ArkAuthMethod</span><span class="p">,</span> <span class="n">ArkAuthMethodSettings</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Default authentication method used by this authenticator with its default settings</span>
+<span class="sd">    Returns the default authentication method and settings.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple[ArkAuthMethod, ArkAuthMethodSettings]: _description_</span>
@@ -9671,8 +9671,8 @@ Alongside that, if caching is allowed, will also cache / load from cache the cre
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether we are authenticated, either from the keyring or in memory
-If from keyring, will also load it into memory</p>
+      <p>Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.<br />
+If the valid token originated from the keyring, it is loaded into memory.</p>
 
 
 
@@ -9754,8 +9754,8 @@ If from keyring, will also load it into memory</p>
 <span class="normal">180</span>
 <span class="normal">181</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_authenticated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether we are authenticated, either from the keyring or in memory</span>
-<span class="sd">    If from keyring, will also load it into memory</span>
+<span class="sd">    Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.  </span>
+<span class="sd">    If the valid token originated from the keyring, it is loaded into memory.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile (ArkProfile): _description_</span>
@@ -9795,8 +9795,8 @@ If from keyring, will also load it into memory</p>
 
   <div class="doc doc-contents ">
   
-      <p>Loads the authentication token from the cache if exists and returns it
-Can also refresh it if need be</p>
+      <p>Loads and returns the authentication token from the cache, if it exists.<br />
+If specified, the method also attempts to refresh the token as needed.</p>
 
 
 
@@ -9917,8 +9917,8 @@ Can also refresh it if need be</p>
 <span class="normal">229</span>
 <span class="normal">230</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads the authentication token from the cache if exists and returns it</span>
-<span class="sd">    Can also refresh it if need be</span>
+<span class="sd">    Loads and returns the authentication token from the cache, if it exists.  </span>
+<span class="sd">    If specified, the method also attempts to refresh the token as needed.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile (Optional[ArkProfile], optional): _description_. Defaults to None.</span>
@@ -9988,7 +9988,7 @@ Can also refresh it if need be</p>
 
   <div class="doc doc-contents ">
   
-      <p>Supported authenticaton methods by this authenticator</p>
+      <p>Returns the authenticator's supported authentication methods.</p>
 
 
 
@@ -10028,7 +10028,7 @@ Can also refresh it if need be</p>
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">supported_auth_methods</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkAuthMethod</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Supported authenticaton methods by this authenticator</span>
+<span class="sd">    Returns the authenticator&#39;s supported authentication methods.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        List[ArkAuthMethod]: _description_</span>

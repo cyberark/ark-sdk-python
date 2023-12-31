@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8730,16 +8730,16 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">add_certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create_certificate</span><span class="p">:</span> <span class="n">ArkDPACreateCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPACertificate</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds a new certificate through Access Certificates Service.</span>
+<span class="sd">        Adds a new certificate through the Access Certificates Service.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            create_certificate (ArkDPACreateCertificate): The certificate to add.</span>
+<span class="sd">            create_certificate (ArkDPACreateCertificate): The certificate to add</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            ArkServiceException: If the certificate could not be added.</span>
+<span class="sd">            ArkServiceException: When the certificate could not be added</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            ArkDPACertificate: The certificate that was added.</span>
+<span class="sd">            ArkDPACertificate: The added certificate</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Adding new certificate.&quot;</span><span class="p">)</span>
         <span class="n">cert_body</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -8763,16 +8763,16 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_certificate</span><span class="p">:</span> <span class="n">ArkDPAGetCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPACertificate</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves a certificate from Access Certificates Service by its id.</span>
+<span class="sd">        Retrieves a certificate from the Access Certificates Service.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            get_certificate (ArkDPAGetCertificate): The id of the certificate to retrieve.</span>
+<span class="sd">            get_certificate (ArkDPAGetCertificate): The ID of the certificate to retrieve</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            ArkServiceException: If the certificate could not be retrieved.</span>
+<span class="sd">            ArkServiceException: When the certificate could not be retrieved</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            ArkDPACertificate: The certificate that was retrieved.</span>
+<span class="sd">            ArkDPACertificate: The retrieved certificate</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Retrieving certificate [</span><span class="si">{</span><span class="n">get_certificate</span><span class="o">.</span><span class="n">certificate_id</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CERTIFICATE_API</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">certificate_id</span><span class="o">=</span><span class="n">get_certificate</span><span class="o">.</span><span class="n">certificate_id</span><span class="p">))</span>
@@ -8786,10 +8786,10 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">delete_certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cert</span><span class="p">:</span> <span class="n">ArkDPADeleteCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Delete an existing certificate.</span>
+<span class="sd">        Deletes an existing certificate.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            cert (ArkDPADeleteCertificate): The id of the certificate to delete.</span>
+<span class="sd">            cert (ArkDPADeleteCertificate): The ID of the certificate to delete</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkServiceException: _description_</span>
@@ -8801,10 +8801,10 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">update_certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_certificate</span><span class="p">:</span> <span class="n">ArkDPAUpdateCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Update an existing certificate.</span>
+<span class="sd">        Updates an existing certificate.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            update_certificate (ArkDPAUpdateCertificate): The id of the certificate to update.</span>
+<span class="sd">            update_certificate (ArkDPAUpdateCertificate): The ID of the certificate to update</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkServiceException: _description_</span>
@@ -8824,7 +8824,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">list_certificates</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkDPAShortCertificate</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        List all certificates.</span>
+<span class="sd">        Lists all certificates.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkServiceException: _description_</span>
@@ -8844,7 +8844,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">list_certificates_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">certificates_filter</span><span class="p">:</span> <span class="n">ArkDPACertificatesFilter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkDPAShortCertificate</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        List certificates by given filters.</span>
+<span class="sd">        Lists certificates matching the specified filters.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            certificates_filter (ArkDPACertificatesFilter): _description_</span>
@@ -8896,7 +8896,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Adds a new certificate through Access Certificates Service.</p>
+      <p>Adds a new certificate through the Access Certificates Service.</p>
 
 
 
@@ -8918,7 +8918,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The certificate to add.</p>
+              <p>The certificate to add</p>
             </div>
           </td>
           <td>
@@ -8945,7 +8945,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p>If the certificate could not be added.</p>
+              <p>When the certificate could not be added</p>
             </div>
           </td>
         </tr>
@@ -8969,7 +8969,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The certificate that was added.</p>
+              <p>The added certificate</p>
             </div>
           </td>
         </tr>
@@ -9011,16 +9011,16 @@ You're not viewing the latest version.
 <span class="normal">69</span>
 <span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create_certificate</span><span class="p">:</span> <span class="n">ArkDPACreateCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPACertificate</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Adds a new certificate through Access Certificates Service.</span>
+<span class="sd">    Adds a new certificate through the Access Certificates Service.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        create_certificate (ArkDPACreateCertificate): The certificate to add.</span>
+<span class="sd">        create_certificate (ArkDPACreateCertificate): The certificate to add</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ArkServiceException: If the certificate could not be added.</span>
+<span class="sd">        ArkServiceException: When the certificate could not be added</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        ArkDPACertificate: The certificate that was added.</span>
+<span class="sd">        ArkDPACertificate: The added certificate</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Adding new certificate.&quot;</span><span class="p">)</span>
     <span class="n">cert_body</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -9061,7 +9061,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Retrieves a certificate from Access Certificates Service by its id.</p>
+      <p>Retrieves a certificate from the Access Certificates Service.</p>
 
 
 
@@ -9083,7 +9083,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The id of the certificate to retrieve.</p>
+              <p>The ID of the certificate to retrieve</p>
             </div>
           </td>
           <td>
@@ -9110,7 +9110,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p>If the certificate could not be retrieved.</p>
+              <p>When the certificate could not be retrieved</p>
             </div>
           </td>
         </tr>
@@ -9134,7 +9134,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The certificate that was retrieved.</p>
+              <p>The retrieved certificate</p>
             </div>
           </td>
         </tr>
@@ -9166,16 +9166,16 @@ You're not viewing the latest version.
 <span class="normal">92</span>
 <span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_certificate</span><span class="p">:</span> <span class="n">ArkDPAGetCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPACertificate</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Retrieves a certificate from Access Certificates Service by its id.</span>
+<span class="sd">    Retrieves a certificate from the Access Certificates Service.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        get_certificate (ArkDPAGetCertificate): The id of the certificate to retrieve.</span>
+<span class="sd">        get_certificate (ArkDPAGetCertificate): The ID of the certificate to retrieve</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ArkServiceException: If the certificate could not be retrieved.</span>
+<span class="sd">        ArkServiceException: When the certificate could not be retrieved</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        ArkDPACertificate: The certificate that was retrieved.</span>
+<span class="sd">        ArkDPACertificate: The retrieved certificate</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Retrieving certificate [</span><span class="si">{</span><span class="n">get_certificate</span><span class="o">.</span><span class="n">certificate_id</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CERTIFICATE_API</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">certificate_id</span><span class="o">=</span><span class="n">get_certificate</span><span class="o">.</span><span class="n">certificate_id</span><span class="p">))</span>
@@ -9206,7 +9206,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Delete an existing certificate.</p>
+      <p>Deletes an existing certificate.</p>
 
 
 
@@ -9228,7 +9228,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The id of the certificate to delete.</p>
+              <p>The ID of the certificate to delete</p>
             </div>
           </td>
           <td>
@@ -9279,10 +9279,10 @@ You're not viewing the latest version.
 <span class="normal">107</span>
 <span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">delete_certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cert</span><span class="p">:</span> <span class="n">ArkDPADeleteCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Delete an existing certificate.</span>
+<span class="sd">    Deletes an existing certificate.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        cert (ArkDPADeleteCertificate): The id of the certificate to delete.</span>
+<span class="sd">        cert (ArkDPADeleteCertificate): The ID of the certificate to delete</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkServiceException: _description_</span>
@@ -9311,7 +9311,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>List all certificates.</p>
+      <p>Lists all certificates.</p>
 
 
 
@@ -9383,7 +9383,7 @@ You're not viewing the latest version.
 <span class="normal">150</span>
 <span class="normal">151</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_certificates</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkDPAShortCertificate</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    List all certificates.</span>
+<span class="sd">    Lists all certificates.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkServiceException: _description_</span>
@@ -9420,7 +9420,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>List certificates by given filters.</p>
+      <p>Lists certificates matching the specified filters.</p>
 
 
 
@@ -9499,7 +9499,7 @@ You're not viewing the latest version.
 <span class="normal">171</span>
 <span class="normal">172</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_certificates_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">certificates_filter</span><span class="p">:</span> <span class="n">ArkDPACertificatesFilter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkDPAShortCertificate</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    List certificates by given filters.</span>
+<span class="sd">    Lists certificates matching the specified filters.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        certificates_filter (ArkDPACertificatesFilter): _description_</span>
@@ -9537,7 +9537,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Update an existing certificate.</p>
+      <p>Updates an existing certificate.</p>
 
 
 
@@ -9559,7 +9559,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The id of the certificate to update.</p>
+              <p>The ID of the certificate to update</p>
             </div>
           </td>
           <td>
@@ -9618,10 +9618,10 @@ You're not viewing the latest version.
 <span class="normal">130</span>
 <span class="normal">131</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">update_certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_certificate</span><span class="p">:</span> <span class="n">ArkDPAUpdateCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Update an existing certificate.</span>
+<span class="sd">    Updates an existing certificate.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        update_certificate (ArkDPAUpdateCertificate): The id of the certificate to update.</span>
+<span class="sd">        update_certificate (ArkDPAUpdateCertificate): The ID of the certificate to update</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkServiceException: _description_</span>

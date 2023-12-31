@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8677,7 +8677,7 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines all the supported service actions as cli actions / arguments and schemas</span>
+<span class="sd">        Defines all the supported service actions as CLI actions, with its associated arguments and schemas.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            exec_subparsers (argparse._SubParsersAction): _description_</span>
@@ -8688,8 +8688,8 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="p">:</span> <span class="n">ArkCLIAPI</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deduces from the arguments the fitting action definition and action</span>
-<span class="sd">        Finds the fitting service using the defintinion and executes the sync or async service action</span>
+<span class="sd">        Deduces from the arguments the appropriate service definition and action.  </span>
+<span class="sd">        Finds the appropriate service using the definition and executes the sync or async service action.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            api (ArkCLIAPI): _description_</span>
@@ -8709,7 +8709,7 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether theres a service definition for the command and actions</span>
+<span class="sd">        Checks whether there is a service definition for the command and its actions.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            command_name (str): _description_</span>
@@ -8748,7 +8748,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether theres a service definition for the command and actions</p>
+      <p>Checks whether there is a service definition for the command and its actions.</p>
 
 
 
@@ -8835,7 +8835,7 @@ You're not viewing the latest version.
 <span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether theres a service definition for the command and actions</span>
+<span class="sd">    Checks whether there is a service definition for the command and its actions.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        command_name (str): _description_</span>
@@ -8865,7 +8865,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Defines all the supported service actions as cli actions / arguments and schemas</p>
+      <p>Defines all the supported service actions as CLI actions, with its associated arguments and schemas.</p>
 
 
 
@@ -8911,7 +8911,7 @@ You're not viewing the latest version.
 <span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines all the supported service actions as cli actions / arguments and schemas</span>
+<span class="sd">    Defines all the supported service actions as CLI actions, with its associated arguments and schemas.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        exec_subparsers (argparse._SubParsersAction): _description_</span>
@@ -8938,8 +8938,8 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Deduces from the arguments the fitting action definition and action
-Finds the fitting service using the defintinion and executes the sync or async service action</p>
+      <p>Deduces from the arguments the appropriate service definition and action.<br />
+Finds the appropriate service using the definition and executes the sync or async service action.</p>
 
 
 
@@ -9009,8 +9009,8 @@ Finds the fitting service using the defintinion and executes the sync or async s
 <span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="p">:</span> <span class="n">ArkCLIAPI</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Deduces from the arguments the fitting action definition and action</span>
-<span class="sd">    Finds the fitting service using the defintinion and executes the sync or async service action</span>
+<span class="sd">    Deduces from the arguments the appropriate service definition and action.  </span>
+<span class="sd">    Finds the appropriate service using the definition and executes the sync or async service action.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        api (ArkCLIAPI): _description_</span>

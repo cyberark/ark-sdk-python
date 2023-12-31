@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8648,7 +8648,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the action as part of the subparsers group</span>
+<span class="sd">        Defines the action as part of the specified subparsers group.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -8657,7 +8657,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Runs the actual action for the given arguments</span>
+<span class="sd">        Runs the actual action with the given arguments.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -8666,7 +8666,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the given action can be ran with the name and args</span>
+<span class="sd">        Checks whether the given action can be run with the specified arguments.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -8708,7 +8708,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the given action can be ran with the name and args</p>
+      <p>Checks whether the given action can be run with the specified arguments.</p>
 
 
 
@@ -8794,7 +8794,7 @@ You're not viewing the latest version.
 <span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the given action can be ran with the name and args</span>
+<span class="sd">    Checks whether the given action can be run with the specified arguments.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -8827,7 +8827,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Defines the action as part of the subparsers group</p>
+      <p>Defines the action as part of the specified subparsers group.</p>
 
 
 
@@ -8871,7 +8871,7 @@ You're not viewing the latest version.
 <span class="normal">64</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the action as part of the subparsers group</span>
+<span class="sd">    Defines the action as part of the specified subparsers group.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -8900,7 +8900,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Runs the actual action for the given arguments</p>
+      <p>Runs the actual action with the given arguments.</p>
 
 
 
@@ -8944,7 +8944,7 @@ You're not viewing the latest version.
 <span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Runs the actual action for the given arguments</span>
+<span class="sd">    Runs the actual action with the given arguments.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>

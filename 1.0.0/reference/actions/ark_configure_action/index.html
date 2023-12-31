@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8847,8 +8847,8 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the configuration CLI action</span>
-<span class="sd">        Adds for each supported authenticator, its fitting parameters and whether to work with it</span>
+<span class="sd">        Defines the CLI `configure` action.  </span>
+<span class="sd">        For each supported authenticator, sets whether it is used and adds the appropriate parameters.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -8897,9 +8897,9 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">__run_interactive_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs an interactivr configuration</span>
-<span class="sd">        Each ark profile setting will be asked by the user, with defaults / supplied cli args</span>
-<span class="sd">        Each picked authenticator will also be configured for his auth method and settings</span>
+<span class="sd">        Performs an interactive configuration.  </span>
+<span class="sd">        The user is prompted for each Ark profile setting, with the default/defined CLI arguments.</span>
+<span class="sd">        Selected authenticators are also configured with the user&#39;s auth methods and settings.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -9012,7 +9012,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">__run_silent_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Runs the configuration action silently, only from the command line with no user interaction</span>
+<span class="sd">        Runs the CLI configure action silently, without user interaction.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -9094,9 +9094,9 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Executes the configuration action</span>
-<span class="sd">        Will ask the user questions if interactive based on the authenticators</span>
-<span class="sd">        Will save the configured profile once done</span>
+<span class="sd">        Runs the configure action.  </span>
+<span class="sd">        Prompts the user when interactive mode is run, based on the associated authenticators,</span>
+<span class="sd">        and saves the configured profile when completed.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -9121,7 +9121,7 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Asserts the action is configure</span>
+<span class="sd">        Asserts the action is `configure`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -9160,9 +9160,9 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Performs an interactivr configuration
-Each ark profile setting will be asked by the user, with defaults / supplied cli args
-Each picked authenticator will also be configured for his auth method and settings</p>
+      <p>Performs an interactive configuration.<br />
+The user is prompted for each Ark profile setting, with the default/defined CLI arguments.
+Selected authenticators are also configured with the user's auth methods and settings.</p>
 
 
 
@@ -9335,9 +9335,9 @@ Each picked authenticator will also be configured for his auth method and settin
 <span class="normal">193</span>
 <span class="normal">194</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__run_interactive_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs an interactivr configuration</span>
-<span class="sd">    Each ark profile setting will be asked by the user, with defaults / supplied cli args</span>
-<span class="sd">    Each picked authenticator will also be configured for his auth method and settings</span>
+<span class="sd">    Performs an interactive configuration.  </span>
+<span class="sd">    The user is prompted for each Ark profile setting, with the default/defined CLI arguments.</span>
+<span class="sd">    Selected authenticators are also configured with the user&#39;s auth methods and settings.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -9467,7 +9467,7 @@ Each picked authenticator will also be configured for his auth method and settin
 
   <div class="doc doc-contents ">
   
-      <p>Runs the configuration action silently, only from the command line with no user interaction</p>
+      <p>Runs the CLI configure action silently, without user interaction.</p>
 
 
 
@@ -9630,7 +9630,7 @@ Each picked authenticator will also be configured for his auth method and settin
 <span class="normal">274</span>
 <span class="normal">275</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__run_silent_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Runs the configuration action silently, only from the command line with no user interaction</span>
+<span class="sd">    Runs the CLI configure action silently, without user interaction.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -9728,7 +9728,7 @@ Each picked authenticator will also be configured for his auth method and settin
 
   <div class="doc doc-contents ">
   
-      <p>Asserts the action is configure</p>
+      <p>Asserts the action is <code>configure</code>.</p>
 
 
 
@@ -9815,7 +9815,7 @@ Each picked authenticator will also be configured for his auth method and settin
 <span class="normal">316</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Asserts the action is configure</span>
+<span class="sd">    Asserts the action is `configure`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -9845,8 +9845,8 @@ Each picked authenticator will also be configured for his auth method and settin
 
   <div class="doc doc-contents ">
   
-      <p>Defines the configuration CLI action
-Adds for each supported authenticator, its fitting parameters and whether to work with it</p>
+      <p>Defines the CLI <code>configure</code> action.<br />
+For each supported authenticator, sets whether it is used and adds the appropriate parameters.</p>
 
 
 
@@ -9932,8 +9932,8 @@ Adds for each supported authenticator, its fitting parameters and whether to wor
 <span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the configuration CLI action</span>
-<span class="sd">    Adds for each supported authenticator, its fitting parameters and whether to work with it</span>
+<span class="sd">    Defines the CLI `configure` action.  </span>
+<span class="sd">    For each supported authenticator, sets whether it is used and adds the appropriate parameters.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -9999,9 +9999,9 @@ Adds for each supported authenticator, its fitting parameters and whether to wor
 
   <div class="doc doc-contents ">
   
-      <p>Executes the configuration action
-Will ask the user questions if interactive based on the authenticators
-Will save the configured profile once done</p>
+      <p>Runs the configure action.<br />
+Prompts the user when interactive mode is run, based on the associated authenticators,
+and saves the configured profile when completed.</p>
 
 
 
@@ -10063,9 +10063,9 @@ Will save the configured profile once done</p>
 <span class="normal">302</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Executes the configuration action</span>
-<span class="sd">    Will ask the user questions if interactive based on the authenticators</span>
-<span class="sd">    Will save the configured profile once done</span>
+<span class="sd">    Runs the configure action.  </span>
+<span class="sd">    Prompts the user when interactive mode is run, based on the associated authenticators,</span>
+<span class="sd">    and saves the configured profile when completed.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>

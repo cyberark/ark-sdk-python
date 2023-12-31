@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8847,7 +8847,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">add_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_policy</span><span class="p">:</span> <span class="n">ArkDPADBAddPolicy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPolicy</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds a new db policy with the given information</span>
+<span class="sd">        Adds a new DB policy with the specified information.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            add_policy (ArkDPADBAddPolicy): _description_</span>
@@ -8872,7 +8872,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">delete_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_policy</span><span class="p">:</span> <span class="n">ArkDPADeletePolicy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deletes a db policy by id or name</span>
+<span class="sd">        Deletes the specified (ID or name) DB policy.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            delete_policy (ArkDPADeletePolicy): _description_</span>
@@ -8889,7 +8889,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">update_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_policy</span><span class="p">:</span> <span class="n">ArkDPADBUpdatePolicy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPolicy</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates a db policy with new information</span>
+<span class="sd">        Updates a DB policy.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            update_policy (ArkDPADBUpdatePolicy): _description_</span>
@@ -8919,7 +8919,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">update_policy_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_policy_status</span><span class="p">:</span> <span class="n">ArkDPAUpdatePolicyStatus</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPolicy</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the status of the db policy by id</span>
+<span class="sd">        Updates the status of the specified (by ID) DB policy.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            update_policy_status (ArkDPAUpdatePolicyStatus): _description_</span>
@@ -8943,7 +8943,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">list_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkDPADBPolicyListItem</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Lists all the db policies of the tenant</span>
+<span class="sd">        Lists all of the tenants&#39;s DB policies.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkServiceException: _description_</span>
@@ -8963,7 +8963,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">list_policies_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policies_filter</span><span class="p">:</span> <span class="n">ArkDPADBPoliciesFilter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkDPADBPolicyListItem</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Lists db policies by given filters</span>
+<span class="sd">        Lists DB policies that match the specified filters.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            policies_filter (ArkDPADBPoliciesFilter): _description_</span>
@@ -8990,7 +8990,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_policy</span><span class="p">:</span> <span class="n">ArkDPAGetPolicy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPolicy</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves a db policy by its id</span>
+<span class="sd">        Retrieves a DB policy by ID.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            get_policy (ArkDPAGetPolicy): _description_</span>
@@ -9015,7 +9015,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">policies_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPoliciesStats</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculates policies statistics</span>
+<span class="sd">        Calculates policy statistics.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPADBPoliciesStats: _description_</span>
@@ -9072,7 +9072,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Adds a new db policy with the given information</p>
+      <p>Adds a new DB policy with the specified information.</p>
 
 
 
@@ -9179,7 +9179,7 @@ You're not viewing the latest version.
 <span class="normal">78</span>
 <span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_policy</span><span class="p">:</span> <span class="n">ArkDPADBAddPolicy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPolicy</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Adds a new db policy with the given information</span>
+<span class="sd">    Adds a new DB policy with the specified information.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        add_policy (ArkDPADBAddPolicy): _description_</span>
@@ -9221,7 +9221,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Deletes a db policy by id or name</p>
+      <p>Deletes the specified (ID or name) DB policy.</p>
 
 
 
@@ -9296,7 +9296,7 @@ You're not viewing the latest version.
 <span class="normal">95</span>
 <span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">delete_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_policy</span><span class="p">:</span> <span class="n">ArkDPADeletePolicy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Deletes a db policy by id or name</span>
+<span class="sd">    Deletes the specified (ID or name) DB policy.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        delete_policy (ArkDPADeletePolicy): _description_</span>
@@ -9330,7 +9330,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Lists all the db policies of the tenant</p>
+      <p>Lists all of the tenants's DB policies.</p>
 
 
 
@@ -9402,7 +9402,7 @@ You're not viewing the latest version.
 <span class="normal">169</span>
 <span class="normal">170</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkDPADBPolicyListItem</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lists all the db policies of the tenant</span>
+<span class="sd">    Lists all of the tenants&#39;s DB policies.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkServiceException: _description_</span>
@@ -9439,7 +9439,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Lists db policies by given filters</p>
+      <p>Lists DB policies that match the specified filters.</p>
 
 
 
@@ -9524,7 +9524,7 @@ You're not viewing the latest version.
 <span class="normal">196</span>
 <span class="normal">197</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_policies_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policies_filter</span><span class="p">:</span> <span class="n">ArkDPADBPoliciesFilter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkDPADBPolicyListItem</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lists db policies by given filters</span>
+<span class="sd">    Lists DB policies that match the specified filters.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        policies_filter (ArkDPADBPoliciesFilter): _description_</span>
@@ -9568,7 +9568,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Calculates policies statistics</p>
+      <p>Calculates policy statistics.</p>
 
 
 
@@ -9622,7 +9622,7 @@ You're not viewing the latest version.
 <span class="normal">247</span>
 <span class="normal">248</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">policies_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPoliciesStats</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates policies statistics</span>
+<span class="sd">    Calculates policy statistics.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        ArkDPADBPoliciesStats: _description_</span>
@@ -9665,7 +9665,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Retrieves a db policy by its id</p>
+      <p>Retrieves a DB policy by ID.</p>
 
 
 
@@ -9772,7 +9772,7 @@ You're not viewing the latest version.
 <span class="normal">221</span>
 <span class="normal">222</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_policy</span><span class="p">:</span> <span class="n">ArkDPAGetPolicy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPolicy</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Retrieves a db policy by its id</span>
+<span class="sd">    Retrieves a DB policy by ID.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        get_policy (ArkDPAGetPolicy): _description_</span>
@@ -9814,7 +9814,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Updates a db policy with new information</p>
+      <p>Updates a DB policy.</p>
 
 
 
@@ -9926,7 +9926,7 @@ You're not viewing the latest version.
 <span class="normal">125</span>
 <span class="normal">126</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">update_policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_policy</span><span class="p">:</span> <span class="n">ArkDPADBUpdatePolicy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPolicy</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Updates a db policy with new information</span>
+<span class="sd">    Updates a DB policy.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        update_policy (ArkDPADBUpdatePolicy): _description_</span>
@@ -9973,7 +9973,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Updates the status of the db policy by id</p>
+      <p>Updates the status of the specified (by ID) DB policy.</p>
 
 
 
@@ -10079,7 +10079,7 @@ You're not viewing the latest version.
 <span class="normal">149</span>
 <span class="normal">150</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">update_policy_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_policy_status</span><span class="p">:</span> <span class="n">ArkDPAUpdatePolicyStatus</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBPolicy</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Updates the status of the db policy by id</span>
+<span class="sd">    Updates the status of the specified (by ID) DB policy.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        update_policy_status (ArkDPAUpdatePolicyStatus): _description_</span>

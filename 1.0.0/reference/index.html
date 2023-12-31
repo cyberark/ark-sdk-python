@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8667,8 +8667,7 @@ You're not viewing the latest version.
 <span class="normal">174</span>
 <span class="normal">175</span>
 <span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkAPI</span><span class="p">:</span>
+<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkAPI</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authenticators</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkAuth</span><span class="p">],</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__authenticators</span> <span class="o">=</span> <span class="n">authenticators</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__lazy_loaded_services</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ArkService</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -8694,7 +8693,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">authenticator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authenticator_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkAuth</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns an authenticator by given name</span>
+<span class="sd">        Returns the specified authenticator.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            authenticator_name (str): _description_</span>
@@ -8712,8 +8711,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ArkService</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ArkService</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a service by its given name</span>
-<span class="sd">        Only if the authenticators were given that fit the service, will it be supported</span>
+<span class="sd">        Returns the specified service when the appropriate authenticators were provided.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            service_type (Type[ArkService]): _description_</span>
@@ -8744,7 +8742,7 @@ You're not viewing the latest version.
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dpa_workspaces_db</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPADBWorkspaceService&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the DPA DB Workspace service if the fitting authenticators were given</span>
+<span class="sd">        Returns the DPA DB Workspace service if the appropriate authenticators were provided.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPADBWorkspaceService: _description_</span>
@@ -8756,7 +8754,7 @@ You're not viewing the latest version.
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dpa_policies_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPAVMPoliciesService&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the DPA VM Policies service if the fitting authenticators were given</span>
+<span class="sd">        Returns the DPA VM Policies service if the appropriate authenticators were provided.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPAVMPoliciesService: _description_</span>
@@ -8768,7 +8766,7 @@ You're not viewing the latest version.
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dpa_policies_db</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPADBPoliciesService&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the DPA DB Policies service if the fitting authenticators were given</span>
+<span class="sd">        Returns the DPA DB Policies service if the appropriate authenticators were provided.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPADBPoliciesService: _description_</span>
@@ -8780,7 +8778,7 @@ You're not viewing the latest version.
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dpa_secrets_db</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPADBSecretsService&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the DPA DB Secrets service if the fitting authenticators were given</span>
+<span class="sd">        Returns the DPA DB Secrets service if the appropriate authenticators were provided.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPADBSecretsService: _description_</span>
@@ -8792,7 +8790,7 @@ You're not viewing the latest version.
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dpa_sso</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPASSOService&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the DPA sso service if the fitting authenticators were given</span>
+<span class="sd">        Returns the DPA sso service if the appropriate authenticators were provided.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPASSOService: _description_</span>
@@ -8804,7 +8802,7 @@ You're not viewing the latest version.
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dpa_db</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPADBService&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the DPA DB service if the fitting authenticators were given</span>
+<span class="sd">        Returns the DPA DB service if the appropriate authenticators were provided.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPADBService: _description_</span>
@@ -8816,7 +8814,7 @@ You're not viewing the latest version.
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dpa_certificates</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPACertificatesService&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the DPA certificates service if the fitting authenticators were given</span>
+<span class="sd">        Returns DPA certificates service if the appropriate authenticators were provided.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPACertificatesService: _description_</span>
@@ -8828,7 +8826,7 @@ You're not viewing the latest version.
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dpa_k8s</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPAK8SService&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the DPA Policies service if the fitting authenticators were given</span>
+<span class="sd">        Returns the DPA Policies service if the appropriate authenticators were provided.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPAK8SService: _description_</span>
@@ -8866,7 +8864,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns the DPA certificates service if the fitting authenticators were given</p>
+      <p>Returns DPA certificates service if the appropriate authenticators were provided.</p>
 
 
 
@@ -8912,7 +8910,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns the DPA DB service if the fitting authenticators were given</p>
+      <p>Returns the DPA DB service if the appropriate authenticators were provided.</p>
 
 
 
@@ -8958,7 +8956,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns the DPA Policies service if the fitting authenticators were given</p>
+      <p>Returns the DPA Policies service if the appropriate authenticators were provided.</p>
 
 
 
@@ -9004,7 +9002,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns the DPA DB Policies service if the fitting authenticators were given</p>
+      <p>Returns the DPA DB Policies service if the appropriate authenticators were provided.</p>
 
 
 
@@ -9050,7 +9048,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns the DPA VM Policies service if the fitting authenticators were given</p>
+      <p>Returns the DPA VM Policies service if the appropriate authenticators were provided.</p>
 
 
 
@@ -9096,7 +9094,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns the DPA DB Secrets service if the fitting authenticators were given</p>
+      <p>Returns the DPA DB Secrets service if the appropriate authenticators were provided.</p>
 
 
 
@@ -9142,7 +9140,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns the DPA sso service if the fitting authenticators were given</p>
+      <p>Returns the DPA sso service if the appropriate authenticators were provided.</p>
 
 
 
@@ -9188,7 +9186,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns the DPA DB Workspace service if the fitting authenticators were given</p>
+      <p>Returns the DPA DB Workspace service if the appropriate authenticators were provided.</p>
 
 
 
@@ -9279,7 +9277,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns an authenticator by given name</p>
+      <p>Returns the specified authenticator.</p>
 
 
 
@@ -9379,7 +9377,7 @@ You're not viewing the latest version.
 <span class="normal">50</span>
 <span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">authenticator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authenticator_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkAuth</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns an authenticator by given name</span>
+<span class="sd">    Returns the specified authenticator.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        authenticator_name (str): _description_</span>
@@ -9414,8 +9412,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns a service by its given name
-Only if the authenticators were given that fit the service, will it be supported</p>
+      <p>Returns the specified service when the appropriate authenticators were provided.</p>
 
 
 
@@ -9515,11 +9512,9 @@ Only if the authenticators were given that fit the service, will it be supported
 <span class="normal">68</span>
 <span class="normal">69</span>
 <span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ArkService</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ArkService</span><span class="p">:</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ArkService</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ArkService</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns a service by its given name</span>
-<span class="sd">    Only if the authenticators were given that fit the service, will it be supported</span>
+<span class="sd">    Returns the specified service when the appropriate authenticators were provided.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        service_type (Type[ArkService]): _description_</span>

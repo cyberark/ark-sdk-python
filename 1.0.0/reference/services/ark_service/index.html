@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8605,7 +8605,7 @@ You're not viewing the latest version.
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">authenticators</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkAuth</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns all the authenticators for this service</span>
+<span class="sd">        Returns all the authenticators for the service.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            List[ArkAuth]: _description_</span>
@@ -8614,7 +8614,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">authenticator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkAuth</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        For a given authenticator name, finds the fitting ark authenticator class</span>
+<span class="sd">        Finds the appropriate Ark authenticator class for the specified authenticator.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            auth_name (str): _description_</span>
@@ -8632,7 +8632,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">has_authenticator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the given authenticator name exists</span>
+<span class="sd">        Checks whether the specified authenticator name exists.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            auth_name (str): _description_</span>
@@ -8646,7 +8646,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">service_config</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ArkServiceConfig</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the service config containing the service name, and required / optional authenticators</span>
+<span class="sd">        Returns the service configuration, which includes the service name, and its required and optional authenticators.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkServiceConfig: _description_</span>
@@ -8681,7 +8681,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns all the authenticators for this service</p>
+      <p>Returns all the authenticators for the service.</p>
 
 
 
@@ -8726,7 +8726,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>For a given authenticator name, finds the fitting ark authenticator class</p>
+      <p>Finds the appropriate Ark authenticator class for the specified authenticator.</p>
 
 
 
@@ -8826,7 +8826,7 @@ You're not viewing the latest version.
 <span class="normal">43</span>
 <span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">authenticator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkAuth</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    For a given authenticator name, finds the fitting ark authenticator class</span>
+<span class="sd">    Finds the appropriate Ark authenticator class for the specified authenticator.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        auth_name (str): _description_</span>
@@ -8861,7 +8861,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the given authenticator name exists</p>
+      <p>Checks whether the specified authenticator name exists.</p>
 
 
 
@@ -8931,7 +8931,7 @@ You're not viewing the latest version.
 <span class="normal">55</span>
 <span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">has_authenticator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the given authenticator name exists</span>
+<span class="sd">    Checks whether the specified authenticator name exists.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        auth_name (str): _description_</span>
@@ -8965,7 +8965,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Returns the service config containing the service name, and required / optional authenticators</p>
+      <p>Returns the service configuration, which includes the service name, and its required and optional authenticators.</p>
 
 
 
@@ -9005,7 +9005,7 @@ You're not viewing the latest version.
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">service_config</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ArkServiceConfig</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the service config containing the service name, and required / optional authenticators</span>
+<span class="sd">    Returns the service configuration, which includes the service name, and its required and optional authenticators.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        ArkServiceConfig: _description_</span>

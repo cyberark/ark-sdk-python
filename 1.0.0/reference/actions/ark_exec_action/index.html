@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8988,7 +8988,7 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines the exec action, with subparsers exec for each service</span>
+<span class="sd">        Defines the CLI `exec` action, with its subparsers (args) for the service.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            subparsers (argparse._SubParsersAction): _description_</span>
@@ -9021,10 +9021,10 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Runs the action</span>
-<span class="sd">        Loads the authenticators from the cache and creates the API with the authenticators</span>
-<span class="sd">        Each service will be created on the API based on the given authenticators</span>
-<span class="sd">        Runs the actual exec action afterwards with the API</span>
+<span class="sd">        Runs the exec action.  </span>
+<span class="sd">        Loads the authenticators from the cache and connects to the API using the loaded authenticators.</span>
+<span class="sd">        Each service is created from the API, based on the given authenticators, and then</span>
+<span class="sd">        runs the exec action using the API.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            args (argparse.Namespace): _description_</span>
@@ -9071,7 +9071,7 @@ You're not viewing the latest version.
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Asserts the action is exec</span>
+<span class="sd">        Asserts the action is `exec`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            action_name (str): _description_</span>
@@ -9085,7 +9085,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">define_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Defines an exec action for a service with its configurations and args</span>
+<span class="sd">        Defines an exec action, and its specified configurations and args, for a service.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            exec_subparsers (argparse._SubParsersAction): _description_</span>
@@ -9094,7 +9094,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="p">:</span> <span class="n">ArkCLIAPI</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Runs the exec action for a service with its arguments and API</span>
+<span class="sd">        Runs the exec action for a service with the specified arguments and API.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            api (ArkCLIAPI): _description_</span>
@@ -9104,7 +9104,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">can_run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the specific exec service action can be ran</span>
+<span class="sd">        Checks whether the specified exec service action can be run.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            command_name (str): _description_</span>
@@ -9142,7 +9142,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Asserts the action is exec</p>
+      <p>Asserts the action is <code>exec</code>.</p>
 
 
 
@@ -9229,7 +9229,7 @@ You're not viewing the latest version.
 <span class="normal">262</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Asserts the action is exec</span>
+<span class="sd">    Asserts the action is `exec`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        action_name (str): _description_</span>
@@ -9263,7 +9263,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the specific exec service action can be ran</p>
+      <p>Checks whether the specified exec service action can be run.</p>
 
 
 
@@ -9349,7 +9349,7 @@ You're not viewing the latest version.
 <span class="normal">294</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">can_run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the specific exec service action can be ran</span>
+<span class="sd">    Checks whether the specified exec service action can be run.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        command_name (str): _description_</span>
@@ -9378,7 +9378,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Defines the exec action, with subparsers exec for each service</p>
+      <p>Defines the CLI <code>exec</code> action, with its subparsers (args) for the service.</p>
 
 
 
@@ -9446,7 +9446,7 @@ You're not viewing the latest version.
 <span class="normal">198</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines the exec action, with subparsers exec for each service</span>
+<span class="sd">    Defines the CLI `exec` action, with its subparsers (args) for the service.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        subparsers (argparse._SubParsersAction): _description_</span>
@@ -9499,7 +9499,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Defines an exec action for a service with its configurations and args</p>
+      <p>Defines an exec action, and its specified configurations and args, for a service.</p>
 
 
 
@@ -9543,7 +9543,7 @@ You're not viewing the latest version.
 <span class="normal">271</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">define_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exec_subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Defines an exec action for a service with its configurations and args</span>
+<span class="sd">    Defines an exec action, and its specified configurations and args, for a service.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        exec_subparsers (argparse._SubParsersAction): _description_</span>
@@ -9568,10 +9568,10 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Runs the action
-Loads the authenticators from the cache and creates the API with the authenticators
-Each service will be created on the API based on the given authenticators
-Runs the actual exec action afterwards with the API</p>
+      <p>Runs the exec action.<br />
+Loads the authenticators from the cache and connects to the API using the loaded authenticators.
+Each service is created from the API, based on the given authenticators, and then
+runs the exec action using the API.</p>
 
 
 
@@ -9690,10 +9690,10 @@ Runs the actual exec action afterwards with the API</p>
 <span class="normal">248</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Runs the action</span>
-<span class="sd">    Loads the authenticators from the cache and creates the API with the authenticators</span>
-<span class="sd">    Each service will be created on the API based on the given authenticators</span>
-<span class="sd">    Runs the actual exec action afterwards with the API</span>
+<span class="sd">    Runs the exec action.  </span>
+<span class="sd">    Loads the authenticators from the cache and connects to the API using the loaded authenticators.</span>
+<span class="sd">    Each service is created from the API, based on the given authenticators, and then</span>
+<span class="sd">    runs the exec action using the API.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        args (argparse.Namespace): _description_</span>
@@ -9760,7 +9760,7 @@ Runs the actual exec action afterwards with the API</p>
 
   <div class="doc doc-contents ">
   
-      <p>Runs the exec action for a service with its arguments and API</p>
+      <p>Runs the exec action for a service with the specified arguments and API.</p>
 
 
 
@@ -9819,7 +9819,7 @@ Runs the actual exec action afterwards with the API</p>
 <span class="normal">281</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">run_exec_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="p">:</span> <span class="n">ArkCLIAPI</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Runs the exec action for a service with its arguments and API</span>
+<span class="sd">    Runs the exec action for a service with the specified arguments and API.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        api (ArkCLIAPI): _description_</span>

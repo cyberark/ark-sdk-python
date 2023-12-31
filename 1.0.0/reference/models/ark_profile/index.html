@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8795,7 +8795,7 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">profiles_folder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the profiles folder, optionally from an env var with fallback to the default</span>
+<span class="sd">        Retrieves the profiles folder pathname, from the environment variable when set; otherwise, from the default location.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: _description_</span>
@@ -8805,7 +8805,7 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">default_profile_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Getter for the default profile name</span>
+<span class="sd">        Getter for the default profile name.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: _description_</span>
@@ -8815,10 +8815,10 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">deduce_profile_name</span><span class="p">(</span><span class="n">profile_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deduces the right profile name from the env</span>
+<span class="sd">        Deduces the profile name from the env.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            profile_name (Optional[str], optional): Defaults to None.</span>
+<span class="sd">            profile_name (Optional[str], optional): Defaults to `None`</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: _description_</span>
@@ -8834,7 +8834,7 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">load_default_profile</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads the default profile either from OS or a new one</span>
+<span class="sd">        Loads the default profile, either from the OS or creates a new one.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkProfile: _description_</span>
@@ -8849,8 +8849,8 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">load_profile</span><span class="p">(</span><span class="n">profile_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads the profile from the os profiles folder</span>
-<span class="sd">        Will return None if no profile is found for the name</span>
+<span class="sd">        Loads the specified profile from the OS.  </span>
+<span class="sd">        Returns `None` when a profile is not found with the specified name.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile_name (str): _description_</span>
@@ -8867,7 +8867,7 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">save_profile</span><span class="p">(</span><span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Saves the profile to the profiles folder on the filesystem</span>
+<span class="sd">        Saves the profile to the profiles folder on the filesystem.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile (ArkProfile): _description_</span>
@@ -8881,7 +8881,7 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">load_all_profiles</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads all the profiles that exist on the machine</span>
+<span class="sd">        Loads all the profiles that exist on the machine.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Optional[List[ArkProfile]]: _description_</span>
@@ -8902,10 +8902,10 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">delete_profile</span><span class="p">(</span><span class="n">profile_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deletes the profile by given name</span>
+<span class="sd">        Deletes the specified profile.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            profile_name (str): _description_</span>
+<span class="sd">            profile_name (str): The name of the profile to delete</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">folder</span> <span class="o">=</span> <span class="n">ArkProfileLoader</span><span class="o">.</span><span class="n">profiles_folder</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
@@ -8916,7 +8916,7 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">clear_all_profiles</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Clears all profiles</span>
+<span class="sd">        Clears all profiles.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">folder</span> <span class="o">=</span> <span class="n">ArkProfileLoader</span><span class="o">.</span><span class="n">profiles_folder</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
@@ -8927,7 +8927,7 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">profile_exists</span><span class="p">(</span><span class="n">profile_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks if a given profile name exists or not</span>
+<span class="sd">        Checks if the specified profile exists.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile_name (str): _description_</span>
@@ -8972,7 +8972,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Clears all profiles</p>
+      <p>Clears all profiles.</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/models/ark_profile.py</code></summary>
@@ -8988,7 +8988,7 @@ You're not viewing the latest version.
 <span class="normal">165</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">clear_all_profiles</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Clears all profiles</span>
+<span class="sd">    Clears all profiles.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">folder</span> <span class="o">=</span> <span class="n">ArkProfileLoader</span><span class="o">.</span><span class="n">profiles_folder</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
@@ -9019,7 +9019,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Deduces the right profile name from the env</p>
+      <p>Deduces the profile name from the env.</p>
 
 
 
@@ -9041,7 +9041,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Defaults to None.</p>
+              <p>Defaults to <code>None</code></p>
             </div>
           </td>
           <td>
@@ -9097,10 +9097,10 @@ You're not viewing the latest version.
 <span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">deduce_profile_name</span><span class="p">(</span><span class="n">profile_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Deduces the right profile name from the env</span>
+<span class="sd">    Deduces the profile name from the env.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        profile_name (Optional[str], optional): Defaults to None.</span>
+<span class="sd">        profile_name (Optional[str], optional): Defaults to `None`</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: _description_</span>
@@ -9136,7 +9136,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Getter for the default profile name</p>
+      <p>Getter for the default profile name.</p>
 
 
 
@@ -9175,7 +9175,7 @@ You're not viewing the latest version.
 <span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">default_profile_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Getter for the default profile name</span>
+<span class="sd">    Getter for the default profile name.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: _description_</span>
@@ -9205,7 +9205,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Deletes the profile by given name</p>
+      <p>Deletes the specified profile.</p>
 
 
 
@@ -9227,7 +9227,7 @@ You're not viewing the latest version.
           </td>
           <td>
             <div class="doc-md-description">
-              <p><em>description</em></p>
+              <p>The name of the profile to delete</p>
             </div>
           </td>
           <td>
@@ -9254,10 +9254,10 @@ You're not viewing the latest version.
 <span class="normal">154</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">delete_profile</span><span class="p">(</span><span class="n">profile_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Deletes the profile by given name</span>
+<span class="sd">    Deletes the specified profile.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        profile_name (str): _description_</span>
+<span class="sd">        profile_name (str): The name of the profile to delete</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">folder</span> <span class="o">=</span> <span class="n">ArkProfileLoader</span><span class="o">.</span><span class="n">profiles_folder</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
@@ -9288,7 +9288,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Loads all the profiles that exist on the machine</p>
+      <p>Loads all the profiles that exist on the machine.</p>
 
 
 
@@ -9338,7 +9338,7 @@ You're not viewing the latest version.
 <span class="normal">140</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">load_all_profiles</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads all the profiles that exist on the machine</span>
+<span class="sd">    Loads all the profiles that exist on the machine.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Optional[List[ArkProfile]]: _description_</span>
@@ -9379,7 +9379,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Loads the default profile either from OS or a new one</p>
+      <p>Loads the default profile, either from the OS or creates a new one.</p>
 
 
 
@@ -9423,7 +9423,7 @@ You're not viewing the latest version.
 <span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">load_default_profile</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads the default profile either from OS or a new one</span>
+<span class="sd">    Loads the default profile, either from the OS or creates a new one.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        ArkProfile: _description_</span>
@@ -9458,8 +9458,8 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Loads the profile from the os profiles folder
-Will return None if no profile is found for the name</p>
+      <p>Loads the specified profile from the OS.<br />
+Returns <code>None</code> when a profile is not found with the specified name.</p>
 
 
 
@@ -9536,8 +9536,8 @@ Will return None if no profile is found for the name</p>
 <span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">load_profile</span><span class="p">(</span><span class="n">profile_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads the profile from the os profiles folder</span>
-<span class="sd">    Will return None if no profile is found for the name</span>
+<span class="sd">    Loads the specified profile from the OS.  </span>
+<span class="sd">    Returns `None` when a profile is not found with the specified name.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile_name (str): _description_</span>
@@ -9574,7 +9574,7 @@ Will return None if no profile is found for the name</p>
 
   <div class="doc doc-contents ">
   
-      <p>Checks if a given profile name exists or not</p>
+      <p>Checks if the specified profile exists.</p>
 
 
 
@@ -9649,7 +9649,7 @@ Will return None if no profile is found for the name</p>
 <span class="normal">181</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">profile_exists</span><span class="p">(</span><span class="n">profile_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks if a given profile name exists or not</span>
+<span class="sd">    Checks if the specified profile exists.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile_name (str): _description_</span>
@@ -9685,7 +9685,7 @@ Will return None if no profile is found for the name</p>
 
   <div class="doc doc-contents ">
   
-      <p>Retrieves the profiles folder, optionally from an env var with fallback to the default</p>
+      <p>Retrieves the profiles folder pathname, from the environment variable when set; otherwise, from the default location.</p>
 
 
 
@@ -9724,7 +9724,7 @@ Will return None if no profile is found for the name</p>
 <span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">profiles_folder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Retrieves the profiles folder, optionally from an env var with fallback to the default</span>
+<span class="sd">    Retrieves the profiles folder pathname, from the environment variable when set; otherwise, from the default location.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: _description_</span>
@@ -9754,7 +9754,7 @@ Will return None if no profile is found for the name</p>
 
   <div class="doc doc-contents ">
   
-      <p>Saves the profile to the profiles folder on the filesystem</p>
+      <p>Saves the profile to the profiles folder on the filesystem.</p>
 
 
 
@@ -9803,7 +9803,7 @@ Will return None if no profile is found for the name</p>
 <span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">save_profile</span><span class="p">(</span><span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Saves the profile to the profiles folder on the filesystem</span>
+<span class="sd">    Saves the profile to the profiles folder on the filesystem.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile (ArkProfile): _description_</span>

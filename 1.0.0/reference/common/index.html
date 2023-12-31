@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8677,8 +8677,8 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">async_request_for</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poll_model</span><span class="p">:</span> <span class="n">ArkPollableModel</span><span class="p">,</span> <span class="n">async_task</span><span class="p">:</span> <span class="n">ArkAsyncTask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkAsyncRequest</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates an async request for the given model and task</span>
-<span class="sd">        The request will poll for async operations based on the implementation</span>
+<span class="sd">        Creates an async request for the specified model and task.  </span>
+<span class="sd">        The request polls for async operations as defined by the poll model&#39;s implementation.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            poll_model (ArkPollableModel): _description_</span>
@@ -8692,7 +8692,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">async_task_type</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">ArkAsyncTask</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the type of async task used in the client</span>
+<span class="sd">        Returns the client&#39;s async task type.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Type[ArkAsyncTask]: _description_</span>
@@ -8702,7 +8702,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">async_request_type</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">ArkAsyncRequest</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the type of async request used in the client</span>
+<span class="sd">        Returns the client&#39;s async request type.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Type[ArkAsyncTask]: _description_</span>
@@ -8744,8 +8744,8 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Creates an async request for the given model and task
-The request will poll for async operations based on the implementation</p>
+      <p>Creates an async request for the specified model and task.<br />
+The request polls for async operations as defined by the poll model's implementation.</p>
 
 
 
@@ -8832,8 +8832,8 @@ The request will poll for async operations based on the implementation</p>
 <span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">async_request_for</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poll_model</span><span class="p">:</span> <span class="n">ArkPollableModel</span><span class="p">,</span> <span class="n">async_task</span><span class="p">:</span> <span class="n">ArkAsyncTask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkAsyncRequest</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Creates an async request for the given model and task</span>
-<span class="sd">    The request will poll for async operations based on the implementation</span>
+<span class="sd">    Creates an async request for the specified model and task.  </span>
+<span class="sd">    The request polls for async operations as defined by the poll model&#39;s implementation.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        poll_model (ArkPollableModel): _description_</span>
@@ -8867,7 +8867,7 @@ The request will poll for async operations based on the implementation</p>
 
   <div class="doc doc-contents ">
   
-      <p>Returns the type of async request used in the client</p>
+      <p>Returns the client's async request type.</p>
 
 
 
@@ -8907,7 +8907,7 @@ The request will poll for async operations based on the implementation</p>
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">async_request_type</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">ArkAsyncRequest</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the type of async request used in the client</span>
+<span class="sd">    Returns the client&#39;s async request type.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Type[ArkAsyncTask]: _description_</span>
@@ -8937,7 +8937,7 @@ The request will poll for async operations based on the implementation</p>
 
   <div class="doc doc-contents ">
   
-      <p>Returns the type of async task used in the client</p>
+      <p>Returns the client's async task type.</p>
 
 
 
@@ -8977,7 +8977,7 @@ The request will poll for async operations based on the implementation</p>
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">async_task_type</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">ArkAsyncTask</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the type of async task used in the client</span>
+<span class="sd">    Returns the client&#39;s async task type.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Type[ArkAsyncTask]: _description_</span>
@@ -9079,7 +9079,7 @@ The request will poll for async operations based on the implementation</p>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">is_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the current async request is finished or not</span>
+<span class="sd">        Checks whether or not the current async request has finished.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: _description_</span>
@@ -9088,7 +9088,7 @@ The request will poll for async operations based on the implementation</p>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">task_failed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the current async request failed or not</span>
+<span class="sd">        Checks whether or the current async request failed.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: _description_</span>
@@ -9097,7 +9097,7 @@ The request will poll for async operations based on the implementation</p>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">task_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks whether the current async request has timed out</span>
+<span class="sd">        Checks whether or not the current async request has timed out.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: _description_</span>
@@ -9106,8 +9106,8 @@ The request will poll for async operations based on the implementation</p>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">poll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ArkAsyncTask</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ArkAsyncStatus</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Polls for the async request until it is finished</span>
-<span class="sd">        Progress callbacks may also be used to be notified whats the async request status</span>
+<span class="sd">        Polls the async request until it has completed.  </span>
+<span class="sd">        Progress callbacks can also be used to return the async request&#39;s status.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            timeout_seconds (int): _description_</span>
@@ -9157,7 +9157,7 @@ The request will poll for async operations based on the implementation</p>
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the current async request is finished or not</p>
+      <p>Checks whether or not the current async request has finished.</p>
 
 
 
@@ -9195,7 +9195,7 @@ The request will poll for async operations based on the implementation</p>
 <span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">is_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the current async request is finished or not</span>
+<span class="sd">    Checks whether or not the current async request has finished.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: _description_</span>
@@ -9224,8 +9224,8 @@ The request will poll for async operations based on the implementation</p>
 
   <div class="doc doc-contents ">
   
-      <p>Polls for the async request until it is finished
-Progress callbacks may also be used to be notified whats the async request status</p>
+      <p>Polls the async request until it has completed.<br />
+Progress callbacks can also be used to return the async request's status.</p>
 
 
 
@@ -9312,8 +9312,8 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">poll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ArkAsyncTask</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ArkAsyncStatus</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Polls for the async request until it is finished</span>
-<span class="sd">    Progress callbacks may also be used to be notified whats the async request status</span>
+<span class="sd">    Polls the async request until it has completed.  </span>
+<span class="sd">    Progress callbacks can also be used to return the async request&#39;s status.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        timeout_seconds (int): _description_</span>
@@ -9346,7 +9346,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the current async request failed or not</p>
+      <p>Checks whether or the current async request failed.</p>
 
 
 
@@ -9384,7 +9384,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">task_failed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the current async request failed or not</span>
+<span class="sd">    Checks whether or the current async request failed.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: _description_</span>
@@ -9413,7 +9413,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Checks whether the current async request has timed out</p>
+      <p>Checks whether or not the current async request has timed out.</p>
 
 
 
@@ -9451,7 +9451,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">task_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks whether the current async request has timed out</span>
+<span class="sd">    Checks whether or not the current async request has timed out.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        bool: _description_</span>
@@ -9737,7 +9737,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs a GET request with the session details and given headers / tokens</span>
+<span class="sd">        Performs a GET request with the session details and given headers and tokens.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            route (str): _description_</span>
@@ -9749,7 +9749,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs a POST request with the session details and given headers / tokens</span>
+<span class="sd">        Performs a POST request with the session details and given headers and tokens.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            route (str): _description_</span>
@@ -9761,7 +9761,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs a PUT request with the session details and given headers / tokens</span>
+<span class="sd">        Performs a PUT request with the session details and given headers and tokens.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            route (str): _description_</span>
@@ -9773,7 +9773,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs a DELETE request with the session details and given headers / tokens</span>
+<span class="sd">        Performs a DELETE request with the session details and given headers and tokens.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            route (str): _description_</span>
@@ -9785,7 +9785,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs a PATCH request with the session details and given headers / tokens</span>
+<span class="sd">        Performs a PATCH request with the session details and given headers and tokens.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            route (str): _description_</span>
@@ -9797,7 +9797,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs a OPTIONS request with the session details and given headers / tokens</span>
+<span class="sd">        Performs a OPTIONS request with the session details and given headers and tokens.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            route (str): _description_</span>
@@ -9809,7 +9809,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">update_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates session token</span>
+<span class="sd">        Updates a session token.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            token (Optional[str], optional): _description_. Defaults to None.</span>
@@ -9827,7 +9827,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">update_cookies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cookies</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cookie_jar</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RequestsCookieJar</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates session cookies</span>
+<span class="sd">        Updates session cookies.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            cookies (Optional[List], optional): _description_. Defaults to None.</span>
@@ -9867,7 +9867,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Performs a DELETE request with the session details and given headers / tokens</p>
+      <p>Performs a DELETE request with the session details and given headers and tokens.</p>
 
 
 
@@ -9937,7 +9937,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">137</span>
 <span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs a DELETE request with the session details and given headers / tokens</span>
+<span class="sd">    Performs a DELETE request with the session details and given headers and tokens.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        route (str): _description_</span>
@@ -9966,7 +9966,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Performs a GET request with the session details and given headers / tokens</p>
+      <p>Performs a GET request with the session details and given headers and tokens.</p>
 
 
 
@@ -10036,7 +10036,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">101</span>
 <span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs a GET request with the session details and given headers / tokens</span>
+<span class="sd">    Performs a GET request with the session details and given headers and tokens.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        route (str): _description_</span>
@@ -10065,7 +10065,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Performs a OPTIONS request with the session details and given headers / tokens</p>
+      <p>Performs a OPTIONS request with the session details and given headers and tokens.</p>
 
 
 
@@ -10135,7 +10135,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">161</span>
 <span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs a OPTIONS request with the session details and given headers / tokens</span>
+<span class="sd">    Performs a OPTIONS request with the session details and given headers and tokens.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        route (str): _description_</span>
@@ -10164,7 +10164,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Performs a PATCH request with the session details and given headers / tokens</p>
+      <p>Performs a PATCH request with the session details and given headers and tokens.</p>
 
 
 
@@ -10234,7 +10234,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">149</span>
 <span class="normal">150</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs a PATCH request with the session details and given headers / tokens</span>
+<span class="sd">    Performs a PATCH request with the session details and given headers and tokens.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        route (str): _description_</span>
@@ -10263,7 +10263,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Performs a POST request with the session details and given headers / tokens</p>
+      <p>Performs a POST request with the session details and given headers and tokens.</p>
 
 
 
@@ -10333,7 +10333,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">113</span>
 <span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs a POST request with the session details and given headers / tokens</span>
+<span class="sd">    Performs a POST request with the session details and given headers and tokens.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        route (str): _description_</span>
@@ -10362,7 +10362,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Performs a PUT request with the session details and given headers / tokens</p>
+      <p>Performs a PUT request with the session details and given headers and tokens.</p>
 
 
 
@@ -10432,7 +10432,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">125</span>
 <span class="normal">126</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs a PUT request with the session details and given headers / tokens</span>
+<span class="sd">    Performs a PUT request with the session details and given headers and tokens.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        route (str): _description_</span>
@@ -10461,7 +10461,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Updates session cookies</p>
+      <p>Updates session cookies.</p>
 
 
 
@@ -10523,7 +10523,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">193</span>
 <span class="normal">194</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">update_cookies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cookies</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cookie_jar</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RequestsCookieJar</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Updates session cookies</span>
+<span class="sd">    Updates session cookies.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        cookies (Optional[List], optional): _description_. Defaults to None.</span>
@@ -10554,7 +10554,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Updates session token</p>
+      <p>Updates a session token.</p>
 
 
 
@@ -10606,7 +10606,7 @@ Progress callbacks may also be used to be notified whats the async request statu
 <span class="normal">179</span>
 <span class="normal">180</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">update_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Updates session token</span>
+<span class="sd">    Updates a session token.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        token (Optional[str], optional): _description_. Defaults to None.</span>
@@ -10782,8 +10782,8 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">ArkToken</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Saves a given token for a profile in the keyring</span>
-<span class="sd">        Keyring is OS based implementation with fallback to BasicKeyring</span>
+<span class="sd">        Saves the specified token for a profile in the keyring.  </span>
+<span class="sd">        The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile (ArkProfile): _description_</span>
@@ -10800,10 +10800,10 @@ Progress callbacks may also be used to be notified whats the async request statu
 
     <span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads a token for a profile in the keyring</span>
-<span class="sd">        Keyring is OS based implementation with fallback to BasicKeyring</span>
-<span class="sd">        If the token is expired and no refresh token exists, deletes it from the keyring and does not return anything</span>
-<span class="sd">        If the token is expired but theres a refresh token, the token will only be deleted if the max token time was passed (48 hours)</span>
+<span class="sd">        Loads a token for a profile from the keyring.  </span>
+<span class="sd">        The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
+<span class="sd">        When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. </span>
+<span class="sd">        When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile (ArkProfile): _description_</span>
@@ -10874,10 +10874,10 @@ Progress callbacks may also be used to be notified whats the async request statu
 
   <div class="doc doc-contents ">
   
-      <p>Loads a token for a profile in the keyring
-Keyring is OS based implementation with fallback to BasicKeyring
-If the token is expired and no refresh token exists, deletes it from the keyring and does not return anything
-If the token is expired but theres a refresh token, the token will only be deleted if the max token time was passed (48 hours)</p>
+      <p>Loads a token for a profile from the keyring.<br />
+The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.
+When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. 
+When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).</p>
 
 
 
@@ -10997,10 +10997,10 @@ If the token is expired but theres a refresh token, the token will only be delet
 <span class="normal">222</span>
 <span class="normal">223</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads a token for a profile in the keyring</span>
-<span class="sd">    Keyring is OS based implementation with fallback to BasicKeyring</span>
-<span class="sd">    If the token is expired and no refresh token exists, deletes it from the keyring and does not return anything</span>
-<span class="sd">    If the token is expired but theres a refresh token, the token will only be deleted if the max token time was passed (48 hours)</span>
+<span class="sd">    Loads a token for a profile from the keyring.  </span>
+<span class="sd">    The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
+<span class="sd">    When the token has expired and no refresh token exists, the token is deleted from the keyring and nothing is returned. </span>
+<span class="sd">    When the token has expired but a refresh token exists, the token is only deleted if the max token time has passed (48 hours).</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile (ArkProfile): _description_</span>
@@ -11062,8 +11062,8 @@ If the token is expired but theres a refresh token, the token will only be delet
 
   <div class="doc doc-contents ">
   
-      <p>Saves a given token for a profile in the keyring
-Keyring is OS based implementation with fallback to BasicKeyring</p>
+      <p>Saves the specified token for a profile in the keyring.<br />
+The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</p>
 
 
 
@@ -11143,8 +11143,8 @@ Keyring is OS based implementation with fallback to BasicKeyring</p>
 <span class="normal">174</span>
 <span class="normal">175</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">ArkToken</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Saves a given token for a profile in the keyring</span>
-<span class="sd">    Keyring is OS based implementation with fallback to BasicKeyring</span>
+<span class="sd">    Saves the specified token for a profile in the keyring.  </span>
+<span class="sd">    The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile (ArkProfile): _description_</span>

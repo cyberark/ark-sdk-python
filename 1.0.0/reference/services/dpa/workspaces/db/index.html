@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8709,7 +8709,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">add_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_database</span><span class="p">:</span> <span class="n">ArkDPADBAddDatabase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabase</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add a new database</span>
+<span class="sd">        Adds a new database.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            add_database (ArkDPADBAddDatabase): _description_</span>
@@ -8737,7 +8737,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">delete_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_database</span><span class="p">:</span> <span class="n">ArkDPADBDeleteDatabase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Delete an existing database</span>
+<span class="sd">        Deletes a database.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            delete_database (ArkDPADBDeleteDatabase): _description_</span>
@@ -8754,7 +8754,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">update_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_database</span><span class="p">:</span> <span class="n">ArkDPADBUpdateDatabase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabase</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Update an existing database</span>
+<span class="sd">        Updates a database.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            update_database (ArkDPADBUpdateDatabase): _description_</span>
@@ -8782,7 +8782,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">list_databases</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabaseInfoList</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        List all databases</span>
+<span class="sd">        Lists all databases.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkServiceException: _description_</span>
@@ -8795,7 +8795,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">list_databases_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">databases_filter</span><span class="p">:</span> <span class="n">ArkDPADBDatabasesFilter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabaseInfoList</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        List databases by given filters</span>
+<span class="sd">        Lists databases that match the specified filters.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            databases_filter (ArkDPADBDatabasesFilter): _description_</span>
@@ -8827,7 +8827,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_database</span><span class="p">:</span> <span class="n">ArkDPADBGetDatabase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabase</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get specific database</span>
+<span class="sd">        Gets a specific database.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            get_database (ArkDPADBGetDatabase): _description_</span>
@@ -8852,7 +8852,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">databases_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabasesStats</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculate stats about the databases of the tenant</span>
+<span class="sd">        Calculate statistics about the tenant&#39;s databases.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            ArkDPADBDatabasesStats: _description_</span>
@@ -8921,7 +8921,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Add a new database</p>
+      <p>Adds a new database.</p>
 
 
 
@@ -9031,7 +9031,7 @@ You're not viewing the latest version.
 <span class="normal">90</span>
 <span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_database</span><span class="p">:</span> <span class="n">ArkDPADBAddDatabase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabase</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add a new database</span>
+<span class="sd">    Adds a new database.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        add_database (ArkDPADBAddDatabase): _description_</span>
@@ -9076,7 +9076,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Get specific database</p>
+      <p>Gets a specific database.</p>
 
 
 
@@ -9183,7 +9183,7 @@ You're not viewing the latest version.
 <span class="normal">205</span>
 <span class="normal">206</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_database</span><span class="p">:</span> <span class="n">ArkDPADBGetDatabase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabase</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get specific database</span>
+<span class="sd">    Gets a specific database.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        get_database (ArkDPADBGetDatabase): _description_</span>
@@ -9225,7 +9225,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Calculate stats about the databases of the tenant</p>
+      <p>Calculate statistics about the tenant's databases.</p>
 
 
 
@@ -9291,7 +9291,7 @@ You're not viewing the latest version.
 <span class="normal">243</span>
 <span class="normal">244</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">databases_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabasesStats</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculate stats about the databases of the tenant</span>
+<span class="sd">    Calculate statistics about the tenant&#39;s databases.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        ArkDPADBDatabasesStats: _description_</span>
@@ -9346,7 +9346,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Delete an existing database</p>
+      <p>Deletes a database.</p>
 
 
 
@@ -9421,7 +9421,7 @@ You're not viewing the latest version.
 <span class="normal">107</span>
 <span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">delete_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_database</span><span class="p">:</span> <span class="n">ArkDPADBDeleteDatabase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Delete an existing database</span>
+<span class="sd">    Deletes a database.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        delete_database (ArkDPADBDeleteDatabase): _description_</span>
@@ -9455,7 +9455,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>List all databases</p>
+      <p>Lists all databases.</p>
 
 
 
@@ -9520,7 +9520,7 @@ You're not viewing the latest version.
 <span class="normal">148</span>
 <span class="normal">149</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_databases</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabaseInfoList</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    List all databases</span>
+<span class="sd">    Lists all databases.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkServiceException: _description_</span>
@@ -9550,7 +9550,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>List databases by given filters</p>
+      <p>Lists databases that match the specified filters.</p>
 
 
 
@@ -9640,7 +9640,7 @@ You're not viewing the latest version.
 <span class="normal">180</span>
 <span class="normal">181</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_databases_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">databases_filter</span><span class="p">:</span> <span class="n">ArkDPADBDatabasesFilter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabaseInfoList</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    List databases by given filters</span>
+<span class="sd">    Lists databases that match the specified filters.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        databases_filter (ArkDPADBDatabasesFilter): _description_</span>
@@ -9689,7 +9689,7 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Update an existing database</p>
+      <p>Updates a database.</p>
 
 
 
@@ -9799,7 +9799,7 @@ You're not viewing the latest version.
 <span class="normal">135</span>
 <span class="normal">136</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">update_database</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_database</span><span class="p">:</span> <span class="n">ArkDPADBUpdateDatabase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkDPADBDatabase</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Update an existing database</span>
+<span class="sd">    Updates a database.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        update_database (ArkDPADBUpdateDatabase): _description_</span>

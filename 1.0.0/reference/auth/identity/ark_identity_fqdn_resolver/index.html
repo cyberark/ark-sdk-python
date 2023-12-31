@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -8616,18 +8616,18 @@ You're not viewing the latest version.
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_subdomain</span><span class="p">(</span><span class="n">tenant_subdomain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">AwsEnv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resolve the tenant FQDN url from platform discovery by its tenant subdomain.</span>
-<span class="sd">        This is based on the environment that currently being worked on and given as an input</span>
+<span class="sd">        Resolves the tenant&#39;s FQDN URL from its subdomain.  </span>
+<span class="sd">        The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            tenant_subdomain (str): the tenant subdomain, e.g. &#39;mytenant&#39;</span>
-<span class="sd">            env (AwsEnv): The environment to try and find the tenant on</span>
+<span class="sd">            tenant_subdomain (str): The tenant subdomain, for example: `mytenant`</span>
+<span class="sd">            env (AwsEnv): The environment for which the the tenant URL is resolved</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            ArkException: In case of error, or tenant username prefix was not found in identity environment</span>
+<span class="sd">            ArkException: When an error occurs or the tenant username prefix was not found in the Identity environment</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: result of the platform discovery request to get the tenant FQDN</span>
+<span class="sd">            str: The tenant&#39;s resolved FQDN</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">platform_discovery_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">__DISCOVERY_SERVICE_DOMAIN_NAME</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">ROOT_DOMAIN</span><span class="p">[</span><span class="n">env</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
@@ -8648,18 +8648,18 @@ You're not viewing the latest version.
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resolve the tenant FQDN url in identity. By default it gets identity address according</span>
-<span class="sd">        to the current environment mapping (see get_identity_env_url()), but it can get it as argument (identity_env_url)</span>
+<span class="sd">        Resolves the tenant&#39;s FQDN URL in Identity.  </span>
+<span class="sd">        By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            tenant_suffix (str): the tenant url suffix, e.g. &#39;@tenant-a-527.shell.cyberark.cloud&#39;</span>
-<span class="sd">            identity_env_url (str, optional): If specified, used as the identity pod0 url. Defaults to None (use environment mapping).</span>
+<span class="sd">            tenant_suffix (str): The tenant&#39;s URL suffix, for example: `@tenant-a-527.shell.cyberark.cloud`</span>
+<span class="sd">            identity_env_url (str, optional): If specified, used as the Identity pod0 URL; otherwise, defaults to `None` (use environment mapping)</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkException: In case of error, or tenant username prefix was not found in identity environment</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: result of the identity request to get the tenant FQDN</span>
+<span class="sd">            str: The tenant&#39;s FQDN</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">identity_env_url</span> <span class="o">=</span> <span class="n">identity_env_url</span> <span class="ow">or</span> <span class="p">(</span>
             <span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="n">AwsEnv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DEPLOY_ENV&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))]</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DEPLOY_ENV&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="n">AwsEnv</span><span class="o">.</span><span class="n">PROD</span><span class="p">]</span>
@@ -8710,8 +8710,8 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Resolve the tenant FQDN url from platform discovery by its tenant subdomain.
-This is based on the environment that currently being worked on and given as an input</p>
+      <p>Resolves the tenant's FQDN URL from its subdomain.<br />
+The resolved URL is based on the current working environment, which is provided in the <code>tenant_subdomain</code> argument.</p>
 
 
 
@@ -8733,7 +8733,7 @@ This is based on the environment that currently being worked on and given as an 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the tenant subdomain, e.g. 'mytenant'</p>
+              <p>The tenant subdomain, for example: <code>mytenant</code></p>
             </div>
           </td>
           <td>
@@ -8747,7 +8747,7 @@ This is based on the environment that currently being worked on and given as an 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The environment to try and find the tenant on</p>
+              <p>The environment for which the the tenant URL is resolved</p>
             </div>
           </td>
           <td>
@@ -8774,7 +8774,7 @@ This is based on the environment that currently being worked on and given as an 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>In case of error, or tenant username prefix was not found in identity environment</p>
+              <p>When an error occurs or the tenant username prefix was not found in the Identity environment</p>
             </div>
           </td>
         </tr>
@@ -8798,7 +8798,7 @@ This is based on the environment that currently being worked on and given as an 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>result of the platform discovery request to get the tenant FQDN</p>
+              <p>The tenant's resolved FQDN</p>
             </div>
           </td>
         </tr>
@@ -8841,18 +8841,18 @@ This is based on the environment that currently being worked on and given as an 
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_subdomain</span><span class="p">(</span><span class="n">tenant_subdomain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">AwsEnv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolve the tenant FQDN url from platform discovery by its tenant subdomain.</span>
-<span class="sd">    This is based on the environment that currently being worked on and given as an input</span>
+<span class="sd">    Resolves the tenant&#39;s FQDN URL from its subdomain.  </span>
+<span class="sd">    The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tenant_subdomain (str): the tenant subdomain, e.g. &#39;mytenant&#39;</span>
-<span class="sd">        env (AwsEnv): The environment to try and find the tenant on</span>
+<span class="sd">        tenant_subdomain (str): The tenant subdomain, for example: `mytenant`</span>
+<span class="sd">        env (AwsEnv): The environment for which the the tenant URL is resolved</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ArkException: In case of error, or tenant username prefix was not found in identity environment</span>
+<span class="sd">        ArkException: When an error occurs or the tenant username prefix was not found in the Identity environment</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: result of the platform discovery request to get the tenant FQDN</span>
+<span class="sd">        str: The tenant&#39;s resolved FQDN</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">platform_discovery_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">__DISCOVERY_SERVICE_DOMAIN_NAME</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">ROOT_DOMAIN</span><span class="p">[</span><span class="n">env</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
@@ -8892,8 +8892,8 @@ This is based on the environment that currently being worked on and given as an 
 
   <div class="doc doc-contents ">
   
-      <p>Resolve the tenant FQDN url in identity. By default it gets identity address according
-to the current environment mapping (see get_identity_env_url()), but it can get it as argument (identity_env_url)</p>
+      <p>Resolves the tenant's FQDN URL in Identity.<br />
+By default, the Identity address is resolved from the current environment mapping (see <code>get_identity_env_url()</code>), but it can be optionally be resolved from the <code>identity_env_url</code> argument.</p>
 
 
 
@@ -8915,7 +8915,7 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the tenant url suffix, e.g. '@tenant-a-527.shell.cyberark.cloud'</p>
+              <p>The tenant's URL suffix, for example: <code>@tenant-a-527.shell.cyberark.cloud</code></p>
             </div>
           </td>
           <td>
@@ -8929,7 +8929,7 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>If specified, used as the identity pod0 url. Defaults to None (use environment mapping).</p>
+              <p>If specified, used as the Identity pod0 URL; otherwise, defaults to <code>None</code> (use environment mapping)</p>
             </div>
           </td>
           <td>
@@ -8980,7 +8980,7 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>result of the identity request to get the tenant FQDN</p>
+              <p>The tenant's FQDN</p>
             </div>
           </td>
         </tr>
@@ -9025,18 +9025,18 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolve the tenant FQDN url in identity. By default it gets identity address according</span>
-<span class="sd">    to the current environment mapping (see get_identity_env_url()), but it can get it as argument (identity_env_url)</span>
+<span class="sd">    Resolves the tenant&#39;s FQDN URL in Identity.  </span>
+<span class="sd">    By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tenant_suffix (str): the tenant url suffix, e.g. &#39;@tenant-a-527.shell.cyberark.cloud&#39;</span>
-<span class="sd">        identity_env_url (str, optional): If specified, used as the identity pod0 url. Defaults to None (use environment mapping).</span>
+<span class="sd">        tenant_suffix (str): The tenant&#39;s URL suffix, for example: `@tenant-a-527.shell.cyberark.cloud`</span>
+<span class="sd">        identity_env_url (str, optional): If specified, used as the Identity pod0 URL; otherwise, defaults to `None` (use environment mapping)</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkException: In case of error, or tenant username prefix was not found in identity environment</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: result of the identity request to get the tenant FQDN</span>
+<span class="sd">        str: The tenant&#39;s FQDN</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">identity_env_url</span> <span class="o">=</span> <span class="n">identity_env_url</span> <span class="ow">or</span> <span class="p">(</span>
         <span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="n">AwsEnv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DEPLOY_ENV&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))]</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DEPLOY_ENV&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="n">AwsEnv</span><span class="o">.</span><span class="n">PROD</span><span class="p">]</span>

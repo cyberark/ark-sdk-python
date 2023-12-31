@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -9297,7 +9297,7 @@ You're not viewing the latest version.
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">has_cache_record</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">refresh_auth_allowed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks if a record exists within the identity cache for profile and username</span>
+<span class="sd">        Checks if a cache record exists for the specified profile and username.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            profile (ArkProfile): _description_</span>
@@ -9322,7 +9322,7 @@ You're not viewing the latest version.
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">is_idp_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks if a given username is an external id or not</span>
+<span class="sd">        Checks whether or not the specified username is from an external IDP.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            username (str): _description_</span>
@@ -9338,7 +9338,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">get_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the applications for the logged in user</span>
+<span class="sd">        Returns the applications to which the user is logged in.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkException: _description_</span>
@@ -9355,14 +9355,14 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Authenticates to identity, based on the given information on the constructor</span>
-<span class="sd">        If MFA is needed, will also interact with user if allowed</span>
-<span class="sd">        Token and other details are stored in the object for later use</span>
+<span class="sd">        Authenticates to Identity with the information specified in the constructor.  </span>
+<span class="sd">        If MFA is configured and `interactive` is enabled, the user is prompted for the MFA secret.</span>
+<span class="sd">        The auth token and other details are stored in the object for future use.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">            interactive (bool): Whether interactiveness with the user is allowed or not</span>
-<span class="sd">            force (bool): Igonre cache and force authenticate. Defaults to False</span>
+<span class="sd">            profile (Optional[ArkProfile]): Profile to use (loaded from cache, if available)</span>
+<span class="sd">            interactive (bool): Determines whether interactive user prompts are allowed</span>
+<span class="sd">            force (bool): Determines whether to ignore cache and force authentication (defaults to false)</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkException: _description_</span>
@@ -9443,11 +9443,11 @@ You're not viewing the latest version.
     <span class="c1"># pylint: disable=unused-argument</span>
     <span class="k">def</span> <span class="nf">refresh_auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs refresh platform token with the existing details in the class</span>
+<span class="sd">        Performs a token refresh with the object&#39;s existing details.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">            force (bool): Igonre cache and force authenticate. Defaults to False</span>
+<span class="sd">            profile (Optional[ArkProfile]): The profile to load from the cache, if available</span>
+<span class="sd">            force (bool): Determines whether to ignore cache and force authentication (defaults to false)</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkAuthException: _description_</span>
@@ -9538,9 +9538,9 @@ You're not viewing the latest version.
 
   <div class="doc doc-contents ">
   
-      <p>Authenticates to identity, based on the given information on the constructor
-If MFA is needed, will also interact with user if allowed
-Token and other details are stored in the object for later use</p>
+      <p>Authenticates to Identity with the information specified in the constructor.<br />
+If MFA is configured and <code>interactive</code> is enabled, the user is prompted for the MFA secret.
+The auth token and other details are stored in the object for future use.</p>
 
 
 
@@ -9562,7 +9562,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Profile to be used to load from caching if cache exists</p>
+              <p>Profile to use (loaded from cache, if available)</p>
             </div>
           </td>
           <td>
@@ -9576,7 +9576,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Whether interactiveness with the user is allowed or not</p>
+              <p>Determines whether interactive user prompts are allowed</p>
             </div>
           </td>
           <td>
@@ -9590,7 +9590,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Igonre cache and force authenticate. Defaults to False</p>
+              <p>Determines whether to ignore cache and force authentication (defaults to false)</p>
             </div>
           </td>
           <td>
@@ -9713,14 +9713,14 @@ Token and other details are stored in the object for later use</p>
 <span class="normal">501</span>
 <span class="normal">502</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Authenticates to identity, based on the given information on the constructor</span>
-<span class="sd">    If MFA is needed, will also interact with user if allowed</span>
-<span class="sd">    Token and other details are stored in the object for later use</span>
+<span class="sd">    Authenticates to Identity with the information specified in the constructor.  </span>
+<span class="sd">    If MFA is configured and `interactive` is enabled, the user is prompted for the MFA secret.</span>
+<span class="sd">    The auth token and other details are stored in the object for future use.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">        interactive (bool): Whether interactiveness with the user is allowed or not</span>
-<span class="sd">        force (bool): Igonre cache and force authenticate. Defaults to False</span>
+<span class="sd">        profile (Optional[ArkProfile]): Profile to use (loaded from cache, if available)</span>
+<span class="sd">        interactive (bool): Determines whether interactive user prompts are allowed</span>
+<span class="sd">        force (bool): Determines whether to ignore cache and force authentication (defaults to false)</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkException: _description_</span>
@@ -9817,7 +9817,7 @@ Token and other details are stored in the object for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Get the applications for the logged in user</p>
+      <p>Returns the applications to which the user is logged in.</p>
 
 
 
@@ -9886,7 +9886,7 @@ Token and other details are stored in the object for later use</p>
 <span class="normal">414</span>
 <span class="normal">415</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get the applications for the logged in user</span>
+<span class="sd">    Returns the applications to which the user is logged in.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkException: _description_</span>
@@ -9924,7 +9924,7 @@ Token and other details are stored in the object for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Checks if a record exists within the identity cache for profile and username</p>
+      <p>Checks if a cache record exists for the specified profile and username.</p>
 
 
 
@@ -10035,7 +10035,7 @@ Token and other details are stored in the object for later use</p>
 <span class="normal">380</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">has_cache_record</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">refresh_auth_allowed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks if a record exists within the identity cache for profile and username</span>
+<span class="sd">    Checks if a cache record exists for the specified profile and username.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profile (ArkProfile): _description_</span>
@@ -10079,7 +10079,7 @@ Token and other details are stored in the object for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Checks if a given username is an external id or not</p>
+      <p>Checks whether or not the specified username is from an external IDP.</p>
 
 
 
@@ -10157,7 +10157,7 @@ Token and other details are stored in the object for later use</p>
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">is_idp_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks if a given username is an external id or not</span>
+<span class="sd">    Checks whether or not the specified username is from an external IDP.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        username (str): _description_</span>
@@ -10190,7 +10190,7 @@ Token and other details are stored in the object for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Performs refresh platform token with the existing details in the class</p>
+      <p>Performs a token refresh with the object's existing details.</p>
 
 
 
@@ -10212,7 +10212,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Profile to be used to load from caching if cache exists</p>
+              <p>The profile to load from the cache, if available</p>
             </div>
           </td>
           <td>
@@ -10226,7 +10226,7 @@ Token and other details are stored in the object for later use</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Igonre cache and force authenticate. Defaults to False</p>
+              <p>Determines whether to ignore cache and force authentication (defaults to false)</p>
             </div>
           </td>
           <td>
@@ -10310,11 +10310,11 @@ Token and other details are stored in the object for later use</p>
 <span class="normal">550</span>
 <span class="normal">551</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">refresh_auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs refresh platform token with the existing details in the class</span>
+<span class="sd">    Performs a token refresh with the object&#39;s existing details.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">        force (bool): Igonre cache and force authenticate. Defaults to False</span>
+<span class="sd">        profile (Optional[ArkProfile]): The profile to load from the cache, if available</span>
+<span class="sd">        force (bool): Determines whether to ignore cache and force authentication (defaults to false)</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkAuthException: _description_</span>
@@ -10500,18 +10500,18 @@ Token and other details are stored in the object for later use</p>
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_subdomain</span><span class="p">(</span><span class="n">tenant_subdomain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">AwsEnv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resolve the tenant FQDN url from platform discovery by its tenant subdomain.</span>
-<span class="sd">        This is based on the environment that currently being worked on and given as an input</span>
+<span class="sd">        Resolves the tenant&#39;s FQDN URL from its subdomain.  </span>
+<span class="sd">        The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            tenant_subdomain (str): the tenant subdomain, e.g. &#39;mytenant&#39;</span>
-<span class="sd">            env (AwsEnv): The environment to try and find the tenant on</span>
+<span class="sd">            tenant_subdomain (str): The tenant subdomain, for example: `mytenant`</span>
+<span class="sd">            env (AwsEnv): The environment for which the the tenant URL is resolved</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            ArkException: In case of error, or tenant username prefix was not found in identity environment</span>
+<span class="sd">            ArkException: When an error occurs or the tenant username prefix was not found in the Identity environment</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: result of the platform discovery request to get the tenant FQDN</span>
+<span class="sd">            str: The tenant&#39;s resolved FQDN</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">platform_discovery_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">__DISCOVERY_SERVICE_DOMAIN_NAME</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">ROOT_DOMAIN</span><span class="p">[</span><span class="n">env</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
@@ -10532,18 +10532,18 @@ Token and other details are stored in the object for later use</p>
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resolve the tenant FQDN url in identity. By default it gets identity address according</span>
-<span class="sd">        to the current environment mapping (see get_identity_env_url()), but it can get it as argument (identity_env_url)</span>
+<span class="sd">        Resolves the tenant&#39;s FQDN URL in Identity.  </span>
+<span class="sd">        By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            tenant_suffix (str): the tenant url suffix, e.g. &#39;@tenant-a-527.shell.cyberark.cloud&#39;</span>
-<span class="sd">            identity_env_url (str, optional): If specified, used as the identity pod0 url. Defaults to None (use environment mapping).</span>
+<span class="sd">            tenant_suffix (str): The tenant&#39;s URL suffix, for example: `@tenant-a-527.shell.cyberark.cloud`</span>
+<span class="sd">            identity_env_url (str, optional): If specified, used as the Identity pod0 URL; otherwise, defaults to `None` (use environment mapping)</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkException: In case of error, or tenant username prefix was not found in identity environment</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: result of the identity request to get the tenant FQDN</span>
+<span class="sd">            str: The tenant&#39;s FQDN</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">identity_env_url</span> <span class="o">=</span> <span class="n">identity_env_url</span> <span class="ow">or</span> <span class="p">(</span>
             <span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="n">AwsEnv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DEPLOY_ENV&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))]</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DEPLOY_ENV&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="n">AwsEnv</span><span class="o">.</span><span class="n">PROD</span><span class="p">]</span>
@@ -10594,8 +10594,8 @@ Token and other details are stored in the object for later use</p>
 
   <div class="doc doc-contents ">
   
-      <p>Resolve the tenant FQDN url from platform discovery by its tenant subdomain.
-This is based on the environment that currently being worked on and given as an input</p>
+      <p>Resolves the tenant's FQDN URL from its subdomain.<br />
+The resolved URL is based on the current working environment, which is provided in the <code>tenant_subdomain</code> argument.</p>
 
 
 
@@ -10617,7 +10617,7 @@ This is based on the environment that currently being worked on and given as an 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the tenant subdomain, e.g. 'mytenant'</p>
+              <p>The tenant subdomain, for example: <code>mytenant</code></p>
             </div>
           </td>
           <td>
@@ -10631,7 +10631,7 @@ This is based on the environment that currently being worked on and given as an 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The environment to try and find the tenant on</p>
+              <p>The environment for which the the tenant URL is resolved</p>
             </div>
           </td>
           <td>
@@ -10658,7 +10658,7 @@ This is based on the environment that currently being worked on and given as an 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>In case of error, or tenant username prefix was not found in identity environment</p>
+              <p>When an error occurs or the tenant username prefix was not found in the Identity environment</p>
             </div>
           </td>
         </tr>
@@ -10682,7 +10682,7 @@ This is based on the environment that currently being worked on and given as an 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>result of the platform discovery request to get the tenant FQDN</p>
+              <p>The tenant's resolved FQDN</p>
             </div>
           </td>
         </tr>
@@ -10725,18 +10725,18 @@ This is based on the environment that currently being worked on and given as an 
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_subdomain</span><span class="p">(</span><span class="n">tenant_subdomain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">AwsEnv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolve the tenant FQDN url from platform discovery by its tenant subdomain.</span>
-<span class="sd">    This is based on the environment that currently being worked on and given as an input</span>
+<span class="sd">    Resolves the tenant&#39;s FQDN URL from its subdomain.  </span>
+<span class="sd">    The resolved URL is based on the current working environment, which is provided in the `tenant_subdomain` argument.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tenant_subdomain (str): the tenant subdomain, e.g. &#39;mytenant&#39;</span>
-<span class="sd">        env (AwsEnv): The environment to try and find the tenant on</span>
+<span class="sd">        tenant_subdomain (str): The tenant subdomain, for example: `mytenant`</span>
+<span class="sd">        env (AwsEnv): The environment for which the the tenant URL is resolved</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ArkException: In case of error, or tenant username prefix was not found in identity environment</span>
+<span class="sd">        ArkException: When an error occurs or the tenant username prefix was not found in the Identity environment</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: result of the platform discovery request to get the tenant FQDN</span>
+<span class="sd">        str: The tenant&#39;s resolved FQDN</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">platform_discovery_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">__DISCOVERY_SERVICE_DOMAIN_NAME</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">ROOT_DOMAIN</span><span class="p">[</span><span class="n">env</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
@@ -10776,8 +10776,8 @@ This is based on the environment that currently being worked on and given as an 
 
   <div class="doc doc-contents ">
   
-      <p>Resolve the tenant FQDN url in identity. By default it gets identity address according
-to the current environment mapping (see get_identity_env_url()), but it can get it as argument (identity_env_url)</p>
+      <p>Resolves the tenant's FQDN URL in Identity.<br />
+By default, the Identity address is resolved from the current environment mapping (see <code>get_identity_env_url()</code>), but it can be optionally be resolved from the <code>identity_env_url</code> argument.</p>
 
 
 
@@ -10799,7 +10799,7 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the tenant url suffix, e.g. '@tenant-a-527.shell.cyberark.cloud'</p>
+              <p>The tenant's URL suffix, for example: <code>@tenant-a-527.shell.cyberark.cloud</code></p>
             </div>
           </td>
           <td>
@@ -10813,7 +10813,7 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>If specified, used as the identity pod0 url. Defaults to None (use environment mapping).</p>
+              <p>If specified, used as the Identity pod0 URL; otherwise, defaults to <code>None</code> (use environment mapping)</p>
             </div>
           </td>
           <td>
@@ -10864,7 +10864,7 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
           </td>
           <td>
             <div class="doc-md-description">
-              <p>result of the identity request to get the tenant FQDN</p>
+              <p>The tenant's FQDN</p>
             </div>
           </td>
         </tr>
@@ -10909,18 +10909,18 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resolve the tenant FQDN url in identity. By default it gets identity address according</span>
-<span class="sd">    to the current environment mapping (see get_identity_env_url()), but it can get it as argument (identity_env_url)</span>
+<span class="sd">    Resolves the tenant&#39;s FQDN URL in Identity.  </span>
+<span class="sd">    By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tenant_suffix (str): the tenant url suffix, e.g. &#39;@tenant-a-527.shell.cyberark.cloud&#39;</span>
-<span class="sd">        identity_env_url (str, optional): If specified, used as the identity pod0 url. Defaults to None (use environment mapping).</span>
+<span class="sd">        tenant_suffix (str): The tenant&#39;s URL suffix, for example: `@tenant-a-527.shell.cyberark.cloud`</span>
+<span class="sd">        identity_env_url (str, optional): If specified, used as the Identity pod0 URL; otherwise, defaults to `None` (use environment mapping)</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkException: In case of error, or tenant username prefix was not found in identity environment</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: result of the identity request to get the tenant FQDN</span>
+<span class="sd">        str: The tenant&#39;s FQDN</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">identity_env_url</span> <span class="o">=</span> <span class="n">identity_env_url</span> <span class="ow">or</span> <span class="p">(</span>
         <span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="n">AwsEnv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DEPLOY_ENV&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))]</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DEPLOY_ENV&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="n">AwsEnv</span><span class="o">.</span><span class="n">PROD</span><span class="p">]</span>
@@ -11182,12 +11182,12 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
 
     <span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Authenticates with a service user to identity</span>
-<span class="sd">        The authentication creates an identity token and authorizes to the given application</span>
+<span class="sd">        Authenticates to Identity with a service user.  </span>
+<span class="sd">        This method creates an auth token and authorizes to the service.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">            force (bool): Whether to discard cache, Defaults to False.</span>
+<span class="sd">            profile (Optional[ArkProfile]): Profile to be used to load from caching, if available</span>
+<span class="sd">            force (bool): Determines whether to discard existing cache, defaults to `False`</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkAuthException: _description_</span>
@@ -11285,8 +11285,8 @@ to the current environment mapping (see get_identity_env_url()), but it can get 
 
   <div class="doc doc-contents ">
   
-      <p>Authenticates with a service user to identity
-The authentication creates an identity token and authorizes to the given application</p>
+      <p>Authenticates to Identity with a service user.<br />
+This method creates an auth token and authorizes to the service.</p>
 
 
 
@@ -11308,7 +11308,7 @@ The authentication creates an identity token and authorizes to the given applica
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Profile to be used to load from caching if cache exists</p>
+              <p>Profile to be used to load from caching, if available</p>
             </div>
           </td>
           <td>
@@ -11322,7 +11322,7 @@ The authentication creates an identity token and authorizes to the given applica
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Whether to discard cache, Defaults to False.</p>
+              <p>Determines whether to discard existing cache, defaults to <code>False</code></p>
             </div>
           </td>
           <td>
@@ -11423,12 +11423,12 @@ The authentication creates an identity token and authorizes to the given applica
 <span class="normal">149</span>
 <span class="normal">150</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Authenticates with a service user to identity</span>
-<span class="sd">    The authentication creates an identity token and authorizes to the given application</span>
+<span class="sd">    Authenticates to Identity with a service user.  </span>
+<span class="sd">    This method creates an auth token and authorizes to the service.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
-<span class="sd">        force (bool): Whether to discard cache, Defaults to False.</span>
+<span class="sd">        profile (Optional[ArkProfile]): Profile to be used to load from caching, if available</span>
+<span class="sd">        force (bool): Determines whether to discard existing cache, defaults to `False`</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkAuthException: _description_</span>
