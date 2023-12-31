@@ -36,22 +36,22 @@ jobs:
           make package
       - name: Publish
         run: |
-          make publish-test
-        if: ${{ github.ref == 'refs/heads/feature/1.0.0' && matrix.python-version == '3.8' }}
+          make publish
+        if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
         env:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
       - name: Version
         id: version
-        if: ${{ github.ref == 'refs/heads/feature/1.0.0' && matrix.python-version == '3.8' }}
+        if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
         run: |
           version=$(poetry version -s | awk '{$1=$1};1')
           echo "Version: $version"
           echo "::set-output name=version::$version"
       - name: Tag
         uses: rickstaa/action-create-tag@v1
-        if: ${{ github.ref == 'refs/heads/feature/1.0.0' && matrix.python-version == '3.8' }}
+        if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
         with:
           tag: v${{ steps.version.outputs.version }}
-          ref: 'refs/heads/feature/1.0.0'
+          ref: 'refs/heads/main'
           force: true

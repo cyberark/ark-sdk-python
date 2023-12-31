@@ -56,7 +56,7 @@ Async requests also inherits the ArkPollableModel type, which contains informati
 
 ## Predefined pollers
 
-These predefined pollers can be used (see [ark_pollers.py](https://github.com/cyberark/ark-sdk-python/blob/feature/1.0.0/ark_sdk_python/common/ark_pollers.py){:target="_blank" rel="noopener"}):
+These predefined pollers can be used (see [ark_pollers.py](https://github.com/cyberark/ark-sdk-python/blob/main/ark_sdk_python/common/ark_pollers.py){:target="_blank" rel="noopener"}):
 
 - default_poller (default console logger polling)
 - line_spinner_poller
