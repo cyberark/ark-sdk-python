@@ -135,13 +135,18 @@ class ArkKeyring:
         return os.path.exists('/.dockerenv') or os.path.isfile(path) and any('docker' in line for line in open(path, encoding='utf-8'))
 
     @staticmethod
-    def get_keyring():
+    def get_keyring(enforce_basic_keyring: bool = False):
         try:
             from keyring.backends import SecretService, macOS  # pylint: disable=unused-import
             from keyrings.cryptfile.cryptfile import CryptFileKeyring  # pylint: disable=import-error
 
             # Docker or WSL
-            if ArkKeyring.__is_docker() or 'Microsoft' in uname().release or ARK_BASIC_KEYRING_OVERRIDE_ENV_VAR in os.environ:
+            if (
+                ArkKeyring.__is_docker()
+                or 'Microsoft' in uname().release
+                or ARK_BASIC_KEYRING_OVERRIDE_ENV_VAR in os.environ
+                or enforce_basic_keyring
+            ):
                 return BasicKeyring()
             if sys.platform == 'win32':
                 kr = CryptFileKeyring()
@@ -156,7 +161,7 @@ class ArkKeyring:
         except Exception:
             return BasicKeyring()
 
-    def save_token(self, profile: ArkProfile, token: ArkToken, postfix: str) -> None:
+    def save_token(self, profile: ArkProfile, token: ArkToken, postfix: str, enforce_basic_keyring: bool = False) -> None:
         """
         Saves the specified token for a profile in the keyring.
         The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.
@@ -165,16 +170,21 @@ class ArkKeyring:
             profile (ArkProfile): _description_
             token (ArkToken): _description_
             postfix (str): _description_
+            enforce_basic_keyring (bool): _description_
         """
         try:
             self.__logger.info(f'Trying to save token [{self.__service_name}-{postfix}] of profile [{profile.profile_name}]')
-            kr = self.get_keyring()
+            kr = self.get_keyring(enforce_basic_keyring)
             kr.set_password(f'{self.__service_name}-{postfix}', profile.profile_name, token.json())
             self.__logger.info('Saved token successfully')
         except Exception as ex:
+            # Last resort fallback to basic keyring
+            if not isinstance(kr, BasicKeyring) or not enforce_basic_keyring:
+                self.__logger.warning(f'Falling back to basic keyring as we failed to save token with keyring [{str(kr)}]')
+                return self.save_token(profile, token, postfix, True)
             self.__logger.warning(f'Failed to save token [{str(ex)}]')
 
-    def load_token(self, profile: ArkProfile, postfix: str) -> Optional[ArkToken]:
+    def load_token(self, profile: ArkProfile, postfix: str, enforce_basic_keyring: bool = False) -> Optional[ArkToken]:
         """
         Loads a token for a profile from the keyring.
         The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.
@@ -184,12 +194,13 @@ class ArkKeyring:
         Args:
             profile (ArkProfile): _description_
             postfix (str): _description_
+            enforce_basic_keyring (bool): _description_
 
         Returns:
             Optional[ArkToken]: _description_
         """
         try:
-            kr = self.get_keyring()
+            kr = self.get_keyring(enforce_basic_keyring)
             self.__logger.info(f'Trying to load token [{self.__service_name}-{postfix}] of profile [{profile.profile_name}]')
             token_val = kr.get_password(f'{self.__service_name}-{postfix}', profile.profile_name)
             if not token_val:
@@ -215,6 +226,10 @@ class ArkKeyring:
             self.__logger.info('Loaded token successfully')
             return token
         except Exception as ex:
+            # Last resort fallback to basic keyring
+            if not isinstance(kr, BasicKeyring) or not enforce_basic_keyring:
+                self.__logger.warning(f'Falling back to basic keyring as we failed to load token with keyring [{str(kr)}]')
+                return self.load_token(profile, postfix, True)
             self.__logger.warning(f'Failed to load cached token [{str(ex)}]')
             try:
                 kr.delete_password(f'{self.__service_name}-{postfix}', profile.profile_name)
