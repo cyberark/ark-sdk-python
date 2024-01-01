@@ -1831,6 +1831,15 @@ You're not viewing the latest version.
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ark_sdk_python.cli_services.ark_cli_api.ArkCLIAPI.dpa_policies_vm_editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      dpa_policies_vm_editor
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8422,6 +8431,15 @@ You're not viewing the latest version.
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ark_sdk_python.cli_services.ark_cli_api.ArkCLIAPI.dpa_policies_vm_editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      dpa_policies_vm_editor
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8495,7 +8513,31 @@ You're not viewing the latest version.
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkCLIAPI</span><span class="p">(</span><span class="n">ArkAPI</span><span class="p">):</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkCLIAPI</span><span class="p">(</span><span class="n">ArkAPI</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dpa_policies_vm_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPAVMPoliciesEditorService&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        VM policy editor CLI service</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ArkDPAVMPoliciesEditorService: _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">ark_sdk_python.cli_services.dpa.vm</span> <span class="kn">import</span> <span class="n">ArkDPAVMPoliciesEditorService</span>
+
+        <span class="k">return</span> <span class="n">ArkDPAVMPoliciesEditorService</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator</span><span class="p">(</span><span class="s1">&#39;isp&#39;</span><span class="p">),</span> <span class="n">profile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dpa_policies_db_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArkDPADBPoliciesEditorService&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -8553,6 +8595,52 @@ You're not viewing the latest version.
         <tr>
 <td><code>ArkDPADBPoliciesEditorService</code></td>          <td>
                 <code>&#39;ArkDPADBPoliciesEditorService&#39;</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p><em>description</em></p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+
+<h3 id="ark_sdk_python.cli_services.ark_cli_api.ArkCLIAPI.dpa_policies_vm_editor" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">dpa_policies_vm_editor</span><span class="p">:</span> <span class="s1">&#39;ArkDPAVMPoliciesEditorService&#39;</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#ark_sdk_python.cli_services.ark_cli_api.ArkCLIAPI.dpa_policies_vm_editor" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>VM policy editor CLI service</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>ArkDPAVMPoliciesEditorService</code></td>          <td>
+                <code>&#39;ArkDPAVMPoliciesEditorService&#39;</code>
           </td>
           <td>
             <div class="doc-md-description">
