@@ -62,7 +62,8 @@ test:
 
 package:
 	@echo Package sdk
-	poetry build
+	poetry build --format wheel
+	poetry run scripts/wheel_editor.sh dist/ark_sdk_python*x86_64.whl
 
 publish-test:
 	@echo Release to test.pypi.org and create git tag
