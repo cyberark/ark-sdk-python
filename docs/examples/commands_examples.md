@@ -109,3 +109,58 @@ ark exec dpa k8s generate-kubeconfig
 ```shell linenums="0"
 ark exec dpa k8s generate-kubeconfig --folder=/Users/My.User/.kube
 ```
+
+### List All Session Monitoring sessions from the last 24 hours
+```shell
+ark exec sm list-sessions
+```
+
+### Count All Session Monitoring sessions from the last 24 hours
+```shell
+ark exec sm count-sessions
+```
+
+### List All Session Monitoring sessions matching Search Query
+```shell
+ark exec sm list-sessions-by --search 'startTime ge 2023-12-03T08:55:29Z AND sessionDuration GE 00:00:01 AND protocol IN SSH,RDP,Database'
+```
+
+### Count All Session Monitoring sessions matching Search Query
+```shell
+ark exec sm count-sessions-by --search 'startTime ge 2023-12-03T08:55:29Z AND sessionDuration GE 00:00:01 AND protocol IN SSH,RDP,Database'
+```
+
+### Count All Session Monitoring sessions from the last 24 hours
+```shell
+ark exec sm count-sessions
+```
+
+### Retrieve a session by id
+```shell
+ark exec sm session --session-id 5e62bdb8-cd81-42b8-ac72-1e06bf9c496d
+```
+
+### List all session activities
+```shell
+ark exec sm list-session-activities --session-id 5e62bdb8-cd81-42b8-ac72-1e06bf9c496d
+```
+
+### Count all session activities
+```shell
+ark exec sm count-session-activities --session-id 5e62bdb8-cd81-42b8-ac72-1e06bf9c496d
+```
+
+### List all session activities with specific command
+```shell
+ark exec sm list-session-activities-by --session-id 5e62bdb8-cd81-42b8-ac72-1e06bf9c496d --command-contains 'ls'
+```
+
+### Count all session activities with specific command
+```shell
+ark exec sm count-session-activities-by --session-id 5e62bdb8-cd81-42b8-ac72-1e06bf9c496d --command-contains 'ls'
+```
+
+### Display general sessions statistics from the last 30 days
+```shell
+ark exec sm sessions-stats
+```

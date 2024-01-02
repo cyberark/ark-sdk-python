@@ -21,6 +21,7 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] DPA SSO Service
     - [x] DPA K8S Service
     - [x] DPA DB Service
+    - [x] Session Monitoring Service
 - [x] All services contains CRUD and Statistics per respective service
 - [x] Ready to use SDK in Python
 - [x] CLI and SDK Examples

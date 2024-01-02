@@ -9,3 +9,5 @@ class ArkProtocolType(str, MultiValueEnum):
     CLI = 'cli', 'CLI'
     CONSOLE = 'console', 'Console'
     HTTPS = 'https', 'HTTPS'
+    K8S = 'K8S', 'k8s'
+    DB = 'Database', 'database', 'DATABASE'
