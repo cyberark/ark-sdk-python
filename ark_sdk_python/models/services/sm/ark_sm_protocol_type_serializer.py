@@ -15,4 +15,8 @@ def serialize_sm_protocol_type(protocol_type: ArkProtocolType) -> str:
         return 'Console'
     elif protocol_type == ArkProtocolType.HTTPS:
         return 'HTTPS'
+    elif protocol_type == ArkProtocolType.K8S:
+        return 'K8S'
+    elif protocol_type == ArkProtocolType.DB:
+        return 'Database'
     raise ArkException('Invalid SM Protocol Type')

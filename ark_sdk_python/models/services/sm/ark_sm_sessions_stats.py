@@ -39,6 +39,8 @@ class ArkSMSessionsStats(ArkModel):
                 ArkProtocolType.CLI,
                 ArkProtocolType.CONSOLE,
                 ArkProtocolType.HTTPS,
+                ArkProtocolType.K8S,
+                ArkProtocolType.DB,
             ]:
                 raise ValueError('Invalid Protocol Type')
         return val
