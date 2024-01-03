@@ -18,7 +18,8 @@
 </p>
 
 <p align="center">
-    <a href="https://cyberark.github.io/ark-sdk-python" alt="📜 Documentation">
+    <a href="https://cyberark.github.io/ark-sdk-python">
+        📜 Documentation
     </a>
 </p>
 
