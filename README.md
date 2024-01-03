@@ -1,6 +1,21 @@
 Ark SDK Python
 =================
 
+|Build| |Version| |Python| |License|
+
+.. |Build| image:: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fcyberark%2Fark-sdk-python%2Fbadge%3Fref%3Dmain&style=flat
+    :target: https://actions-badge.atrox.dev/cyberark/ark-sdk-python/goto?ref=main
+    :alt: Build
+.. |Python| image:: https://img.shields.io/pypi/pyversions/ark-sdk-python.svg?style=flat
+    :target: https://pypi.python.org/pypi/ark-sdk-python/
+    :alt: Python Versions
+.. |Version| image:: http://img.shields.io/pypi/v/ark-sdk-python.svg?style=flat
+    :target: https://pypi.python.org/pypi/ark-sdk-python/
+    :alt: Package Version
+.. |License| image:: http://img.shields.io/pypi/l/ark-sdk-python.svg?style=flat
+    :target: https://github.com/cyberark/ark-sdk-python/blob/main/LICENSE.txt
+    :alt: License
+
 **[📜Documentation](https://cyberark.github.io/ark-sdk-python/)**
 
 ![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/main/assets/sdk.png)
