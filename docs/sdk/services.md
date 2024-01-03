@@ -51,3 +51,9 @@ The Dynamic Privilege Access (DPA) service requires the ArkISPAuth authenticator
     - <b>ArkDPADBSecretsService (db)</b> - DPA DB secrets services
 - <b>ArkDPAWorkspacesService (workspaces)</b> - DPA workspaces management
     - <b>ArkDPADBWorkspaceService (db)</b> - DPA DB workspace management
+
+
+## Session monitoring service
+
+The Session Monitoring (SM) service requires ArkISPAuth authenticator, and exposes these service classes:
+- <b>ArkSMService (sm)</b> - Session Monitoring Service

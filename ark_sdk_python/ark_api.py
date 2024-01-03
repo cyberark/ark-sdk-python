@@ -175,3 +175,15 @@ class ArkAPI:
         from ark_sdk_python.services.dpa.k8s import ArkDPAK8SService
 
         return cast(ArkDPAK8SService, self.service(ArkDPAK8SService))
+
+    @property
+    def sm(self) -> "ArkSMService":
+        """
+        Returns the SM service if the appropriate authenticators were given
+
+        Returns:
+            ArkSMService: _description_
+        """
+        from ark_sdk_python.services.sm import ArkSMService
+
+        return cast(ArkSMService, self.service(ArkSMService))
