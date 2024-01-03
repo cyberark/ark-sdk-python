@@ -147,6 +147,7 @@ class ArkKeyring:
                 return BasicKeyring()
             if sys.platform == 'win32':
                 from keyrings.cryptfile.cryptfile import CryptFileKeyring  # pylint: disable=import-error
+
                 kr = CryptFileKeyring()
                 kr.keyring_key = socket.gethostname()
                 return kr
@@ -156,6 +157,7 @@ class ArkKeyring:
                 if DBUS_SESSION_ENV_VAR not in os.environ:
                     return BasicKeyring()
                 from keyring.backends import SecretService  # pylint: disable=unused-import
+
                 return SecretService.Keyring()
         except Exception:
             return BasicKeyring()

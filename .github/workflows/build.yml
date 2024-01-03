@@ -39,8 +39,8 @@ jobs:
           make publish
         if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
         env:
-          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+          TWINE_USERNAME: ${{ secrets.TWINE_PROD_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PROD_PASSWORD }}
       - name: Version
         id: version
         if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
