@@ -1,5 +1,7 @@
+<p align="center">
 Ark SDK Python
 =================
+</p>
 
 <p align="center">
     <a href="https://actions-badge.atrox.dev/cyberark/ark-sdk-python/goto?ref=main" alt="Build">
@@ -16,7 +18,9 @@ Ark SDK Python
     </a>
 </p>
 
+<p align="center">
 **[📜Documentation](https://cyberark.github.io/ark-sdk-python/)**
+</p>
 
 ![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/main/assets/sdk.png)
 
