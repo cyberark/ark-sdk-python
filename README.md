@@ -1,5 +1,5 @@
 <p align="center">
-    <h1>Ark SDK Python</h1>
+    <h1 align="center">Ark SDK Python</h1>
 </p>
 
 <p align="center">
@@ -18,7 +18,8 @@
 </p>
 
 <p align="center">
-    **[📜Documentation](https://cyberark.github.io/ark-sdk-python/)**
+    <a href="https://cyberark.github.io/ark-sdk-python" alt="📜 Documentation">
+    </a>
 </p>
 
 ![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/main/assets/sdk.png)
