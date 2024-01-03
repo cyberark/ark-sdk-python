@@ -21,8 +21,10 @@
     </a>
 </p>
 
-Ark SDK Python **[📜Documentation](https://pages.github.cyberng.com/pas/ark-sdk-python/)**
-==========================================================================================
+Ark SDK Python 
+==============
+
+**[📜Documentation](https://pages.github.cyberng.com/pas/ark-sdk-python/)**
 
 CyberArk's Official SDK and CLI for different services operations
 
