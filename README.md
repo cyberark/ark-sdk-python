@@ -15,16 +15,10 @@
     </a>
 </p>
 
-<p align="center">
-    <a href="https://cyberark.github.io/ark-sdk-python">
-        📜 Documentation
-    </a>
-</p>
-
 Ark SDK Python 
 ==============
 
-**[📜Documentation](https://pages.github.cyberng.com/pas/ark-sdk-python/)**
+[📜**Documentation**](https://pages.github.cyberng.com/pas/ark-sdk-python/)
 
 CyberArk's Official SDK and CLI for different services operations
 
