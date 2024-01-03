@@ -1,6 +1,4 @@
-<p align="center">
-    <h1 align="center">Ark SDK Python</h1>
-</p>
+![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/main/assets/sdk.png)
 
 <p align="center">
     <a href="https://actions-badge.atrox.dev/cyberark/ark-sdk-python/goto?ref=main" alt="Build">
@@ -23,7 +21,8 @@
     </a>
 </p>
 
-![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/main/assets/sdk.png)
+Ark SDK Python
+==============
 
 CyberArk's Official SDK and CLI for different services operations
 
