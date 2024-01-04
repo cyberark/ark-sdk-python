@@ -1,9 +1,24 @@
-Ark SDK Python
-=================
-
-**[📜Documentation](https://cyberark.github.io/ark-sdk-python/)**
-
 ![Ark SDK Python](https://github.com/cyberark/ark-sdk-python/blob/main/assets/sdk.png)
+
+<p align="center">
+    <a href="https://actions-badge.atrox.dev/cyberark/ark-sdk-python/goto?ref=main" alt="Build">
+        <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fcyberark%2Fark-sdk-python%2Fbadge%3Fref%3Dmain&style=flat" />
+    </a>
+    <a href="https://pypi.python.org/pypi/ark-sdk-python/" alt="Python Versions">
+        <img src="https://img.shields.io/pypi/pyversions/ark-sdk-python.svg?style=flat" />
+    </a>
+    <a href="https://pypi.python.org/pypi/ark-sdk-python/" alt="Package Version">
+        <img src="http://img.shields.io/pypi/v/ark-sdk-python.svg?style=flat" />
+    </a>
+    <a href="https://github.com/cyberark/ark-sdk-python/blob/main/LICENSE.txt" alt="License">
+        <img src="http://img.shields.io/pypi/l/ark-sdk-python.svg?style=flat" />
+    </a>
+</p>
+
+Ark SDK Python 
+==============
+
+📜[**Documentation**](https://pages.github.cyberng.com/pas/ark-sdk-python/)
 
 CyberArk's Official SDK and CLI for different services operations
 

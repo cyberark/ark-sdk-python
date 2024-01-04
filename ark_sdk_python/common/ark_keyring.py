@@ -137,9 +137,6 @@ class ArkKeyring:
     @staticmethod
     def get_keyring(enforce_basic_keyring: bool = False):
         try:
-            from keyring.backends import SecretService, macOS  # pylint: disable=unused-import
-            from keyrings.cryptfile.cryptfile import CryptFileKeyring  # pylint: disable=import-error
-
             # Docker or WSL
             if (
                 ArkKeyring.__is_docker()
@@ -149,6 +146,8 @@ class ArkKeyring:
             ):
                 return BasicKeyring()
             if sys.platform == 'win32':
+                from keyrings.cryptfile.cryptfile import CryptFileKeyring  # pylint: disable=import-error
+
                 kr = CryptFileKeyring()
                 kr.keyring_key = socket.gethostname()
                 return kr
@@ -157,6 +156,8 @@ class ArkKeyring:
             else:
                 if DBUS_SESSION_ENV_VAR not in os.environ:
                     return BasicKeyring()
+                from keyring.backends import SecretService  # pylint: disable=unused-import
+
                 return SecretService.Keyring()
         except Exception:
             return BasicKeyring()
