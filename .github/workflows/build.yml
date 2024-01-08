@@ -47,7 +47,7 @@ jobs:
         run: |
           version=$(poetry version -s | awk '{$1=$1};1')
           echo "Version: $version"
-          echo "version=$version" >> $GITHUB_OUTPUT"
+          echo "version=$version" >> $GITHUB_OUTPUT
       - name: Tag
         id: "tag_create"
         uses: rickstaa/action-create-tag@v1
