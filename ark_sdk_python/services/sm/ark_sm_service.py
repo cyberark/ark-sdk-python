@@ -212,7 +212,7 @@ class ArkSMService(ArkService):
         self._logger.info(f'Retrieving session activities by id [{session_activities_filter.session_id}]')
         for page in self.__list_activities(session_id=session_activities_filter.session_id):
             yield ArkSMActivitiesPage(
-                items=[activity for activity in page.items if session_activities_filter.command_contain in activity.command]
+                items=[activity for activity in page.items if session_activities_filter.command_contains in activity.command]
             )
 
     def count_session_activities_by(self, session_activities_filter: ArkSMSessionActivitiesFilter) -> int:
