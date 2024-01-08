@@ -47,11 +47,11 @@ jobs:
         run: |
           version=$(poetry version -s | awk '{$1=$1};1')
           echo "Version: $version"
-          echo "::set-output name=version::$version"
+          echo "version=$version" >> $GITHUB_OUTPUT"
       - name: Tag
+        id: "tag_create"
         uses: rickstaa/action-create-tag@v1
         if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
         with:
           tag: v${{ steps.version.outputs.version }}
-          ref: 'refs/heads/main'
           tag_exists_error: false
