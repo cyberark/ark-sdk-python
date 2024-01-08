@@ -54,4 +54,4 @@ jobs:
         with:
           tag: v${{ steps.version.outputs.version }}
           ref: 'refs/heads/main'
-          force: true
+          tag_exists_error: false
