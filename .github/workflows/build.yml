@@ -50,6 +50,7 @@ jobs:
           echo "version=$version" >> $GITHUB_OUTPUT
       - name: Tag
         id: "tag_create"
+        continue-on-error: true
         uses: rickstaa/action-create-tag@v1
         if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' }}
         with:
