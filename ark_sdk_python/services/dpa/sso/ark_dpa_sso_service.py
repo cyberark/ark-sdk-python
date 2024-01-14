@@ -4,7 +4,7 @@ import zipfile
 from datetime import datetime
 from http import HTTPStatus
 from io import BytesIO
-from typing import Final, Optional
+from typing import Any, Dict, Final, Optional
 
 from dateutil.parser import parse
 from jose.jwt import get_unverified_claims
@@ -89,6 +89,17 @@ class ArkDPASSOService(ArkService):
             with open(f'{folder}{os.path.sep}{claims["unique_name"]}client_cert.crt', 'w', encoding='utf-8') as file_handle:
                 file_handle.write(client_certificate)
             with open(f'{folder}{os.path.sep}{claims["unique_name"]}client_key.pem', 'w', encoding='utf-8') as file_handle:
+                file_handle.write(private_key)
+        elif output_format == ArkDPASSOShortLiveClientCertificateFormat.SINGLE_FILE:
+            if not folder:
+                raise ArkServiceException(
+                    f'Folder parameter is required if format is {ArkDPASSOShortLiveClientCertificateFormat.FILE.value}'
+                )
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+            with open(f'{folder}{os.path.sep}{claims["unique_name"]}client_cert.pem', 'w', encoding='utf-8') as file_handle:
+                file_handle.write(client_certificate)
+                file_handle.write('\n')
                 file_handle.write(private_key)
         else:
             raise ArkServiceException(f'Unknown format {output_format}')
@@ -238,15 +249,18 @@ class ArkDPASSOService(ArkService):
             result = self.__load_from_cache('rdp_file')
             if result:
                 self.__save_rdp_file(get_short_lived_rdp_file, result)
+        token_parameters: Dict[str, Any] = {
+            'targetAddress': get_short_lived_rdp_file.target_address,
+            'targetDomain': get_short_lived_rdp_file.target_domain,
+            'targetUser': get_short_lived_rdp_file.target_user,
+            'elevatedPrivileges': get_short_lived_rdp_file.elevated_privileges,
+        }
         response: Response = self.__client.post(
             ACQUIRE_SSO_TOKEN_URL,
             json={
                 'token_type': 'rdp_file',
                 'service': 'DPA-RDP',
-                'token_parameters': {
-                    'targetAddress': f'{get_short_lived_rdp_file.target_address}',
-                    'targetDomain': f'{get_short_lived_rdp_file.target_domain}',
-                },
+                'token_parameters': {k: v for k, v in token_parameters.items() if v is not None},
                 'token_response_format': 'extended',
             },
         )
