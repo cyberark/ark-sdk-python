@@ -90,6 +90,17 @@ class ArkDPASSOService(ArkService):
                 file_handle.write(client_certificate)
             with open(f'{folder}{os.path.sep}{claims["unique_name"]}client_key.pem', 'w', encoding='utf-8') as file_handle:
                 file_handle.write(private_key)
+        elif output_format == ArkDPASSOShortLiveClientCertificateFormat.SINGLE_FILE:
+            if not folder:
+                raise ArkServiceException(
+                    f'Folder parameter is required if format is {ArkDPASSOShortLiveClientCertificateFormat.FILE.value}'
+                )
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+            with open(f'{folder}{os.path.sep}{claims["unique_name"]}client_cert.pem', 'w', encoding='utf-8') as file_handle:
+                file_handle.write(client_certificate)
+                file_handle.write('\n')
+                file_handle.write(private_key)
         else:
             raise ArkServiceException(f'Unknown format {output_format}')
 

@@ -9,6 +9,7 @@ from ark_sdk_python.models import ArkModel
 # ArkDPAConnectorModeCodes
 class ArkDPASSOShortLiveClientCertificateFormat(str, Enum):
     FILE = 'file'
+    SINGLE_FILE = 'single_file'
     RAW = 'raw'
     BASE64 = 'base64'
 
