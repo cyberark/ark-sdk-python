@@ -4,7 +4,7 @@ import zipfile
 from datetime import datetime
 from http import HTTPStatus
 from io import BytesIO
-from typing import Final, Optional
+from typing import Any, Dict, Final, Optional
 
 from dateutil.parser import parse
 from jose.jwt import get_unverified_claims
@@ -219,7 +219,6 @@ class ArkDPASSOService(ArkService):
             self.__save_oracle_wallet(get_short_lived_oracle_wallet.folder, get_short_lived_oracle_wallet.unzip_wallet, result)
             return
         raise ArkServiceException(f'Failed to generate short lived password - [{response.status_code}] - [{response.text}]')
-
 
     def short_lived_rdp_file(self, get_short_lived_rdp_file: ArkDPASSOGetShortLivedRDPFile) -> None:
         """
