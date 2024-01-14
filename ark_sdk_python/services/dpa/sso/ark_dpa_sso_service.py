@@ -220,6 +220,7 @@ class ArkDPASSOService(ArkService):
             return
         raise ArkServiceException(f'Failed to generate short lived password - [{response.status_code}] - [{response.text}]')
 
+
     def short_lived_rdp_file(self, get_short_lived_rdp_file: ArkDPASSOGetShortLivedRDPFile) -> None:
         """
         Generates a short-lived RDP file used to connect via RDP to Windows machines.
@@ -238,15 +239,18 @@ class ArkDPASSOService(ArkService):
             result = self.__load_from_cache('rdp_file')
             if result:
                 self.__save_rdp_file(get_short_lived_rdp_file, result)
+        token_parameters: Dict[str, Any] = {
+            'targetAddress': get_short_lived_rdp_file.target_address,
+            'targetDomain': get_short_lived_rdp_file.target_domain,
+            'targetUser': get_short_lived_rdp_file.target_user,
+            'elevatedPrivileges': get_short_lived_rdp_file.elevated_privileges,
+        }
         response: Response = self.__client.post(
             ACQUIRE_SSO_TOKEN_URL,
             json={
                 'token_type': 'rdp_file',
                 'service': 'DPA-RDP',
-                'token_parameters': {
-                    'targetAddress': f'{get_short_lived_rdp_file.target_address}',
-                    'targetDomain': f'{get_short_lived_rdp_file.target_domain}',
-                },
+                'token_parameters': {k: v for k, v in token_parameters.items() if v is not None},
                 'token_response_format': 'extended',
             },
         )
