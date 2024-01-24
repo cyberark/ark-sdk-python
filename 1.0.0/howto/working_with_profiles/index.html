@@ -8764,6 +8764,11 @@ You're not viewing the latest version.
 <p>Profiles define authentication methods for users. They are used with the CLI and, to a lesser extent, the SDK. Different profiles can be created and configured via the Ark <code>configure</code> command.</p>
 <p>You can specify which profile a command uses with the <code>--profile-name</code> flag or setting the <code>ARK_PROFILE</code> environment variable.</p>
 <p>Profiles are stored as JSON files in the <code>$HOME/.ark_profiles</code> folder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When There are multiple profiles configured, if profile is not specified explicitly in the command via<br>
+<strong>--profile-name</strong> or <strong>ARK_PROFILE</strong> environment variable not set, the default profile called <strong>"ark"</strong> will be used.</p>
+</div>
 <p>Here is an example profile file:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
