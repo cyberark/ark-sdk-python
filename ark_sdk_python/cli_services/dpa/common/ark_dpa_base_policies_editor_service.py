@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import Dict, Final, Generic, List, Optional, Tuple, TypeVar
 
 import inquirer
-from editor import EditorError
 
 from ark_sdk_python.args.ark_args_formatter import ArkInquirerRender
 from ark_sdk_python.auth.ark_isp_auth import ArkISPAuth
@@ -238,7 +237,7 @@ class ArkDPABasePoliciesEditorService(
                     if path.exists():
                         path.write_text(policy.json(indent=4))
                         break
-        except EditorError as ex:
+        except Exception as ex:
             self._logger.error(
                 f'An error occurred while trying to edit {self._policies_family} policies, '
                 f'you can edit the policies at [{self.__policies_cache_dir}] [{str(ex)}]'
@@ -345,7 +344,7 @@ class ArkDPABasePoliciesEditorService(
                     render=ArkInquirerRender(),
                     answers={f'{policy_name}_view': workspace_policies[policy_name].json(indent=4) for policy_name in policy_names},
                 )
-        except EditorError as ex:
+        except Exception as ex:
             self._logger.error(
                 f'An error occurred while trying to view the {self._policies_family} policies, '
                 f'you can view the policies at [{self.__policies_cache_dir}] [{str(ex)}]'
@@ -428,7 +427,7 @@ class ArkDPABasePoliciesEditorService(
                 if not answers:
                     return
                 policy = self.__policy_type.parse_raw(answers['policy_editor'])
-            except EditorError as ex:
+            except Exception as ex:
                 self._logger.error(
                     f'An error occurred while trying to edit the {self._policies_family} policy, '
                     f'the policy will be saved to [{policy_path}] and can be edited manually [{str(ex)}]'
@@ -487,7 +486,7 @@ class ArkDPABasePoliciesEditorService(
                     render=ArkInquirerRender(),
                     answers={f'{policy_name}_diff': ''.join(policy_diffs) for policy_name, policy_diffs in diffs.items()},
                 )
-        except EditorError as ex:
+        except Exception as ex:
             self._logger.error(
                 f'An error occurred while trying to show {self._policies_family} policies diff, '
                 f'you can view the policies at [{self.__policies_cache_dir}] [{str(ex)}]'
