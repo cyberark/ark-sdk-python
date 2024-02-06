@@ -598,13 +598,11 @@ class ArkPydanticArgparse:
         if key_prefix:
             existing_values = {f'{key_prefix}_{k}': v for k, v in existing_values.items()}
         args_map = {
-            k: existing_values[k]
-            if existing_values and k in existing_values and existing_values[k] != None
-            else v
-            if v
-            else default_values[k]
-            if default_values and k in default_values
-            else None
+            k: (
+                existing_values[k]
+                if existing_values and k in existing_values and existing_values[k] != None
+                else v if v else default_values[k] if default_values and k in default_values else None
+            )
             for k, v in ArkPydanticArgparse.argparse_to_schema(schema, args, True, key_prefix, ignored_keys).items()
         }
         aliases_map = {

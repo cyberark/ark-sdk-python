@@ -130,9 +130,11 @@ class ArkConfigureAction(ArkAction):
                         f'{authenticator.authenticator_name().replace("-", "_")}_auth_method',
                         'Authentication Method',
                         [ArkAuthMethodsDescriptionMap[m] for m in authenticator.supported_auth_methods()],
-                        ArkAuthMethodsDescriptionMap[auth_profile.auth_method]
-                        if authenticator.authenticator_name() in profile.auth_profiles
-                        else ArkAuthMethodsDescriptionMap[authenticator.default_auth_method()[0]],
+                        (
+                            ArkAuthMethodsDescriptionMap[auth_profile.auth_method]
+                            if authenticator.authenticator_name() in profile.auth_profiles
+                            else ArkAuthMethodsDescriptionMap[authenticator.default_auth_method()[0]]
+                        ),
                         prioritize_existing_val=True,
                     )
                     auth_method = next(

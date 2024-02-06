@@ -115,9 +115,11 @@ class ArkISPServiceClient(ArkClient):
             tenant_env=tenant_env,
             token=isp_auth.token.token.get_secret_value(),
             seperator=seperator,
-            cookie_jar=pickle.loads(codecs.decode(isp_auth.token.metadata['cookies'].encode(), "base64"))
-            if 'cookies' in isp_auth.token.metadata
-            else None,
+            cookie_jar=(
+                pickle.loads(codecs.decode(isp_auth.token.metadata['cookies'].encode(), "base64"))
+                if 'cookies' in isp_auth.token.metadata
+                else None
+            ),
             refresh_connection_callback=ArkISPServiceClient.refresh_client,
         )
 
@@ -127,9 +129,9 @@ class ArkISPServiceClient(ArkClient):
         if token:
             client.update_token(token.token.get_secret_value())
             client.update_cookies(
-                cookie_jar=pickle.loads(codecs.decode(token.metadata['cookies'].encode(), "base64"))
-                if 'cookies' in token.metadata
-                else None
+                cookie_jar=(
+                    pickle.loads(codecs.decode(token.metadata['cookies'].encode(), "base64")) if 'cookies' in token.metadata else None
+                )
             )
 
     @property
