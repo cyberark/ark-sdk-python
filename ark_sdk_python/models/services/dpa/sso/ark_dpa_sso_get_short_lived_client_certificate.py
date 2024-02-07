@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import Field
 
@@ -21,3 +21,4 @@ class ArkDPASSOGetShortLivedClientCertificate(ArkModel):
         description='The output format of the key / ' 'certificate. i.e. File, Raw, Base64',
         default=ArkDPASSOShortLiveClientCertificateFormat.FILE,
     )
+    service: Literal['DPA-DB', 'DPA-K8S'] = Field(description='Which service to generate the short lived certificate for')

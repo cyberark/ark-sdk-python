@@ -15,6 +15,7 @@ class ArkDPADBAddDatabase(ArkCamelizedModel):
         description='Platform of the database, as in, where it resides, defaulted to on premises', default=ArkWorkspaceType.ONPREM
     )
     services: Optional[List[str]] = Field(description='Services related to the database, most commonly used with oracle')
+    domain: Optional[str] = Field(description='The domain the DB resides in')
     domain_controller_name: Optional[str] = Field(description='Domain controller name associated to this database')
     domain_controller_netbios: Optional[str] = Field(description='Domain controller netbios associated to this database')
     provider_engine: ArkDPADBDatabaseEngineType = Field(

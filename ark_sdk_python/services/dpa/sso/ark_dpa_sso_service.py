@@ -1,3 +1,4 @@
+# pylint: disable=too-many-function-args
 import base64
 import os
 import zipfile
@@ -24,6 +25,7 @@ from ark_sdk_python.models.services.dpa.sso import (
     ArkDPASSOGetShortLivedOracleWallet,
     ArkDPASSOGetShortLivedPassword,
     ArkDPASSOGetShortLivedRDPFile,
+    ArkDPASSOShortLivedOracleWalletType,
 )
 from ark_sdk_python.models.services.dpa.sso.ark_dpa_sso_get_short_lived_client_certificate import ArkDPASSOShortLiveClientCertificateFormat
 from ark_sdk_python.services.ark_service import ArkService
@@ -104,7 +106,7 @@ class ArkDPASSOService(ArkService):
         else:
             raise ArkServiceException(f'Unknown format {output_format}')
 
-    def __save_oracle_wallet(self, folder: str, unzip_wallet: bool, result: ArkDPASSOAcquireTokenResponse) -> None:
+    def __save_oracle_sso_wallet(self, folder: str, unzip_wallet: bool, result: ArkDPASSOAcquireTokenResponse) -> None:
         result.token['wallet'] = base64.b64decode(result.token['wallet'])
         if not os.path.exists(folder):
             os.makedirs(folder)
@@ -115,6 +117,14 @@ class ArkDPASSOService(ArkService):
             wallet_bytes = BytesIO(result.token['wallet'])
             with zipfile.ZipFile(wallet_bytes, 'r') as zipf:
                 zipf.extractall(folder)
+
+    def __save_oracle_pem_wallet(self, folder: str, result: ArkDPASSOAcquireTokenResponse) -> None:
+        claims = get_unverified_claims(self.__client.session_token)
+        pem_wallet = base64.b64decode(result.token['pem_wallet']).decode('utf-8')
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        with open(f'{folder}{os.path.sep}{claims["unique_name"]}ewallet.pem', 'w', encoding='utf-8') as file_handle:
+            file_handle.write(pem_wallet)
 
     def __save_rdp_file(self, get_short_lived_rdp_file: ArkDPASSOGetShortLivedRDPFile, result: ArkDPASSOAcquireTokenResponse) -> None:
         if not os.path.exists(get_short_lived_rdp_file.folder):
@@ -147,6 +157,7 @@ class ArkDPASSOService(ArkService):
             ACQUIRE_SSO_TOKEN_URL,
             json={
                 'token_type': 'password',
+                'service': 'DPA-DB',
             },
         )
         if response.status_code != HTTPStatus.CREATED:
@@ -183,6 +194,7 @@ class ArkDPASSOService(ArkService):
             ACQUIRE_SSO_TOKEN_URL,
             json={
                 'token_type': 'client_certificate',
+                'service': get_short_lived_client_certificate.service,
             },
         )
         if response.status_code != HTTPStatus.CREATED:
@@ -214,20 +226,33 @@ class ArkDPASSOService(ArkService):
         if get_short_lived_oracle_wallet.allow_caching:
             result = self.__load_from_cache('oracle_wallet')
             if result:
-                self.__save_oracle_wallet(get_short_lived_oracle_wallet.folder, get_short_lived_oracle_wallet.unzip_wallet, result)
+                if get_short_lived_oracle_wallet.wallet_type == ArkDPASSOShortLivedOracleWalletType.SSO:
+                    self.__save_oracle_sso_wallet(get_short_lived_oracle_wallet.folder, get_short_lived_oracle_wallet.unzip_wallet, result)
+                if get_short_lived_oracle_wallet.wallet_type == ArkDPASSOShortLivedOracleWalletType.PEM:
+                    self.__save_oracle_pem_wallet(get_short_lived_oracle_wallet.folder, get_short_lived_oracle_wallet.unzip_wallet, result)
+                return
         response: Response = self.__client.post(
             ACQUIRE_SSO_TOKEN_URL,
             json={
                 'token_type': 'oracle_wallet',
+                'service': 'DPA-DB',
+                'token_parameters': {
+                    'walletType': get_short_lived_oracle_wallet.wallet_type.value,
+                },
             },
         )
         if response.status_code != HTTPStatus.CREATED:
             raise ArkServiceException(f'Failed to generate short lived oracle wallet - [{response.status_code}] - [{response.text}]')
         result: ArkDPASSOAcquireTokenResponse = ArkDPASSOAcquireTokenResponse.parse_obj(response.json())
-        if 'wallet' in result.token:
+        if 'wallet' in result.token and get_short_lived_oracle_wallet.wallet_type == ArkDPASSOShortLivedOracleWalletType.SSO:
             if get_short_lived_oracle_wallet.allow_caching:
                 self.__save_to_cache(result, 'oracle_wallet')
-            self.__save_oracle_wallet(get_short_lived_oracle_wallet.folder, get_short_lived_oracle_wallet.unzip_wallet, result)
+            self.__save_oracle_sso_wallet(get_short_lived_oracle_wallet.folder, get_short_lived_oracle_wallet.unzip_wallet, result)
+            return
+        elif 'pem_wallet' in result.token and get_short_lived_oracle_wallet.wallet_type == ArkDPASSOShortLivedOracleWalletType.PEM:
+            if get_short_lived_oracle_wallet.allow_caching:
+                self.__save_to_cache(result, 'oracle_wallet')
+            self.__save_oracle_pem_wallet(get_short_lived_oracle_wallet.folder, result)
             return
         raise ArkServiceException(f'Failed to generate short lived password - [{response.status_code}] - [{response.text}]')
 
