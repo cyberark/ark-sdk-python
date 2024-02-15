@@ -39,12 +39,12 @@ class ArkDPADBOracleDBAuth(ArkDPADBBaseAuth):
 
 
 class ArkDPADBConnectAs(ArkCamelizedModel):
-    ldap_auth: Optional[Union[ArkDPADBLDAPAuth, List[ArkDPADBLDAPAuth]]] = Field(
+    ldap_auth: Optional[List[ArkDPADBLDAPAuth]] = Field(
         description='LDAP related authentication, only applies to MSSQL DB'
     )
-    db_auth: Optional[Union[ArkDPADBLocalDBAuth, List[ArkDPADBLocalDBAuth]]] = Field(
+    db_auth: Optional[List[ArkDPADBLocalDBAuth]] = Field(
         description='Local DB related authentication, only applies to MySQL / MariaDB / Postgres'
     )
-    oracle_auth: Optional[Union[ArkDPADBOracleDBAuth, List[ArkDPADBOracleDBAuth]]] = Field(
+    oracle_auth: Optional[List[ArkDPADBOracleDBAuth]] = Field(
         description='Oracle DB related authentication, only applies to Oracle'
     )
