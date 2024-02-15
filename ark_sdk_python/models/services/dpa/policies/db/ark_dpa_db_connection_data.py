@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from pydantic import Field
 
@@ -39,12 +39,8 @@ class ArkDPADBOracleDBAuth(ArkDPADBBaseAuth):
 
 
 class ArkDPADBConnectAs(ArkCamelizedModel):
-    ldap_auth: Optional[List[ArkDPADBLDAPAuth]] = Field(
-        description='LDAP related authentication, only applies to MSSQL DB'
-    )
+    ldap_auth: Optional[List[ArkDPADBLDAPAuth]] = Field(description='LDAP related authentication, only applies to MSSQL DB')
     db_auth: Optional[List[ArkDPADBLocalDBAuth]] = Field(
         description='Local DB related authentication, only applies to MySQL / MariaDB / Postgres'
     )
-    oracle_auth: Optional[List[ArkDPADBOracleDBAuth]] = Field(
-        description='Oracle DB related authentication, only applies to Oracle'
-    )
+    oracle_auth: Optional[List[ArkDPADBOracleDBAuth]] = Field(description='Oracle DB related authentication, only applies to Oracle')
