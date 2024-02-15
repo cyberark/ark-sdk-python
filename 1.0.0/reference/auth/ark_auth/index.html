@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f2e4d321.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -9008,8 +9008,7 @@ You're not viewing the latest version.
 
             <details class="quote">
               <summary>Source code in <code>ark_sdk_python/auth/ark_auth.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 20</span>
-<span class="normal"> 21</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 21</span>
 <span class="normal"> 22</span>
 <span class="normal"> 23</span>
 <span class="normal"> 24</span>
@@ -9270,14 +9269,22 @@ You're not viewing the latest version.
 <span class="normal">279</span>
 <span class="normal">280</span>
 <span class="normal">281</span>
-<span class="normal">282</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkAuth</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkAuth</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache_authentication</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span> <span class="o">=</span> <span class="n">cache_authentication</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">cache_authentication</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span> <span class="o">=</span> <span class="n">ArkKeyring</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_active_profile</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_active_auth_profile</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -9296,6 +9303,13 @@ You're not viewing the latest version.
             <span class="n">direct_method_settings</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">DirectArkAuthMethodSettings</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method_settings</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">direct_method_settings</span><span class="o">.</span><span class="n">endpoint</span><span class="p">:</span>
                 <span class="n">postfix</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">postfix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">urlparse</span><span class="p">(</span><span class="n">direct_method_settings</span><span class="o">.</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="n">netloc</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">elif</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span> <span class="o">==</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">IdentityPodSSM</span> <span class="ow">and</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method_settings</span><span class="p">:</span>
+            <span class="n">pod_ssm_method_settings</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">IdentityPodSSMArkAuthMethodSettings</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method_settings</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pod_ssm_method_settings</span><span class="o">.</span><span class="n">identity_tenant_id</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">postfix</span><span class="p">:</span>
+                    <span class="n">postfix</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">postfix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">pod_ssm_method_settings</span><span class="o">.</span><span class="n">identity_tenant_id</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">postfix</span> <span class="o">=</span> <span class="n">pod_ssm_method_settings</span><span class="o">.</span><span class="n">identity_tenant_id</span>
         <span class="k">return</span> <span class="n">postfix</span>
 
     <span class="nd">@abstractmethod</span>
@@ -9404,7 +9418,7 @@ You're not viewing the latest version.
                 <span class="n">ark_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_authentication</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="p">,</span> <span class="n">secret</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">save_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">ark_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="n">ark_token</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">ark_token</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_active_profile</span> <span class="o">=</span> <span class="n">profile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_active_auth_profile</span> <span class="o">=</span> <span class="n">auth_profile</span>
         <span class="k">return</span> <span class="n">ark_token</span>
@@ -9421,16 +9435,16 @@ You're not viewing the latest version.
 <span class="sd">            bool: _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Checking if [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()</span><span class="si">}</span><span class="s1">] is authenticated&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Token is already loaded&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()</span> <span class="ow">in</span> <span class="n">profile</span><span class="o">.</span><span class="n">auth_profiles</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">profile</span><span class="o">.</span><span class="n">auth_profiles</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()]</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">profile</span><span class="o">.</span><span class="n">auth_profiles</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()]</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loaded token from cache successfully&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">!=</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">!=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">load_authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
@@ -9459,32 +9473,32 @@ You're not viewing the latest version.
                 <span class="sa">f</span><span class="s1">&#39;Loading authentication for profile [</span><span class="si">{</span><span class="n">profile</span><span class="o">.</span><span class="n">profile_name</span><span class="si">}</span><span class="s1">] and auth profile [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()</span><span class="si">}</span><span class="s1">] of type [</span><span class="si">{</span><span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">]&#39;</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">refresh_auth</span><span class="p">:</span>
                 <span class="k">if</span> <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__token</span>
-                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_token</span>
+                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS</span><span class="p">)</span>
                     <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
                 <span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Token did not pass grace expiration, no need to refresh&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Trying to refresh token authentication&#39;</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_refresh_authentication</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_refresh_authentication</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Token refreshed&#39;</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">save_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">save_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_active_profile</span> <span class="o">=</span> <span class="n">profile</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_active_auth_profile</span> <span class="o">=</span> <span class="n">auth_profile</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">token</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">active_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]:</span>
@@ -9528,7 +9542,7 @@ You're not viewing the latest version.
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">default_auth_method</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ArkAuthMethod</span><span class="p">,</span> <span class="n">ArkAuthMethodSettings</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the default authentication method and settings.</span>
+<span class="sd">        Returns the default authentication method and settings</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Tuple[ArkAuthMethod, ArkAuthMethodSettings]: _description_</span>
@@ -9701,15 +9715,7 @@ When caching is allowed, authorization credentials are loaded from the cache.</p
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/auth/ark_auth.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 88</span>
 <span class="normal"> 89</span>
 <span class="normal"> 90</span>
 <span class="normal"> 91</span>
@@ -9778,7 +9784,15 @@ When caching is allowed, authorization credentials are loaded from the cache.</p
 <span class="normal">154</span>
 <span class="normal">155</span>
 <span class="normal">156</span>
-<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">auth_profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkAuthProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -9852,7 +9866,7 @@ When caching is allowed, authorization credentials are loaded from the cache.</p
             <span class="n">ark_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_authentication</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="p">,</span> <span class="n">secret</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">save_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">ark_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="n">ark_token</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">ark_token</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_active_profile</span> <span class="o">=</span> <span class="n">profile</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_active_auth_profile</span> <span class="o">=</span> <span class="n">auth_profile</span>
     <span class="k">return</span> <span class="n">ark_token</span>
@@ -9908,15 +9922,15 @@ When caching is allowed, authorization credentials are loaded from the cache.</p
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/auth/ark_auth.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">authenticator_human_readable_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -9977,15 +9991,15 @@ When caching is allowed, authorization credentials are loaded from the cache.</p
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/auth/ark_auth.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">authenticator_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -10018,7 +10032,7 @@ When caching is allowed, authorization credentials are loaded from the cache.</p
 
   <div class="doc doc-contents ">
   
-      <p>Returns the default authentication method and settings.</p>
+      <p>Returns the default authentication method and settings</p>
 
 
 
@@ -10046,19 +10060,19 @@ When caching is allowed, authorization credentials are loaded from the cache.</p
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/auth/ark_auth.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">default_auth_method</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ArkAuthMethod</span><span class="p">,</span> <span class="n">ArkAuthMethodSettings</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the default authentication method and settings.</span>
+<span class="sd">    Returns the default authentication method and settings</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple[ArkAuthMethod, ArkAuthMethodSettings]: _description_</span>
@@ -10141,15 +10155,7 @@ If the valid token originated from the keyring, it is loaded into memory.</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/auth/ark_auth.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">167</span>
 <span class="normal">168</span>
 <span class="normal">169</span>
 <span class="normal">170</span>
@@ -10163,7 +10169,15 @@ If the valid token originated from the keyring, it is loaded into memory.</p>
 <span class="normal">178</span>
 <span class="normal">179</span>
 <span class="normal">180</span>
-<span class="normal">181</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_authenticated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_authenticated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Checks whether the specified profile is authenticated (has a valid token), either from the keyring or in memory.</span>
 <span class="sd">    If the valid token originated from the keyring, it is loaded into memory.</span>
@@ -10175,16 +10189,16 @@ If the valid token originated from the keyring, it is loaded into memory.</p>
 <span class="sd">        bool: _description_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Checking if [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()</span><span class="si">}</span><span class="s1">] is authenticated&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Token is already loaded&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()</span> <span class="ow">in</span> <span class="n">profile</span><span class="o">.</span><span class="n">auth_profiles</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">profile</span><span class="o">.</span><span class="n">auth_profiles</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()]</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">profile</span><span class="o">.</span><span class="n">auth_profiles</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()]</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loaded token from cache successfully&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">!=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">!=</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div></td></tr></table></div>
           </details>
@@ -10278,15 +10292,7 @@ If specified, the method also attempts to refresh the token as needed.</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/auth/ark_auth.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">191</span>
 <span class="normal">192</span>
 <span class="normal">193</span>
 <span class="normal">194</span>
@@ -10325,7 +10331,15 @@ If specified, the method also attempts to refresh the token as needed.</p>
 <span class="normal">227</span>
 <span class="normal">228</span>
 <span class="normal">229</span>
-<span class="normal">230</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">refresh_auth</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads and returns the authentication token from the cache, if it exists.</span>
 <span class="sd">    If specified, the method also attempts to refresh the token as needed.</span>
@@ -10351,27 +10365,27 @@ If specified, the method also attempts to refresh the token as needed.</p>
             <span class="sa">f</span><span class="s1">&#39;Loading authentication for profile [</span><span class="si">{</span><span class="n">profile</span><span class="o">.</span><span class="n">profile_name</span><span class="si">}</span><span class="s1">] and auth profile [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">()</span><span class="si">}</span><span class="s1">] of type [</span><span class="si">{</span><span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">]&#39;</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">refresh_auth</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__token</span>
-                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_token</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS</span><span class="p">)</span>
                 <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
             <span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Token did not pass grace expiration, no need to refresh&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Trying to refresh token authentication&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_refresh_authentication</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_refresh_authentication</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Token refreshed&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">save_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_cache_keyring</span><span class="o">.</span><span class="n">save_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_cache_postfix</span><span class="p">(</span><span class="n">auth_profile</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="o">.</span><span class="n">expires_in</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_active_profile</span> <span class="o">=</span> <span class="n">profile</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_active_auth_profile</span> <span class="o">=</span> <span class="n">auth_profile</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token</span>
     <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
           </details>
@@ -10425,15 +10439,15 @@ If specified, the method also attempts to refresh the token as needed.</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/auth/ark_auth.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">supported_auth_methods</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ArkAuthMethod</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -10521,10 +10535,10 @@ If specified, the method also attempts to refresh the token as needed.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.caa56a14.min.js"></script>
       
     
   </body>

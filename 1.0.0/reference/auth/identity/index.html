@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f2e4d321.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -8847,6 +8847,39 @@ You're not viewing the latest version.
 </li>
       
         <li class="md-nav__item">
+  <a href="#ark_sdk_python.auth.identity.ArkIdentityPodSSM" class="md-nav__link">
+    <span class="md-ellipsis">
+      ArkIdentityPodSSM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ArkIdentityPodSSM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ark_sdk_python.auth.identity.ArkIdentityPodSSM.auth_identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth_identity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ark_sdk_python.auth.identity.ArkIdentityPodSSM.refresh_auth_identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      refresh_auth_identity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ark_sdk_python.auth.identity.ArkIdentityServiceUser" class="md-nav__link">
     <span class="md-ellipsis">
       ArkIdentityServiceUser
@@ -8858,6 +8891,30 @@ You're not viewing the latest version.
         
           <li class="md-nav__item">
   <a href="#ark_sdk_python.auth.identity.ArkIdentityServiceUser.auth_identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth_identity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ark_sdk_python.auth.identity.ArkIdentitySystemServiceUser" class="md-nav__link">
+    <span class="md-ellipsis">
+      ArkIdentitySystemServiceUser
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ArkIdentitySystemServiceUser">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ark_sdk_python.auth.identity.ArkIdentitySystemServiceUser.auth_identity" class="md-nav__link">
     <span class="md-ellipsis">
       auth_identity
     </span>
@@ -9754,7 +9811,7 @@ You're not viewing the latest version.
 
     <span class="k">def</span> <span class="nf">get_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the applications to which the user is logged in.</span>
+<span class="sd">        Returns the applications to which the user is logged in</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkException: _description_</span>
@@ -10231,7 +10288,7 @@ The auth token and other details are stored in the object for future use.</p>
 
   <div class="doc doc-contents ">
   
-      <p>Returns the applications to which the user is logged in.</p>
+      <p>Returns the applications to which the user is logged in</p>
 
 
 
@@ -10300,7 +10357,7 @@ The auth token and other details are stored in the object for future use.</p>
 <span class="normal">414</span>
 <span class="normal">415</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the applications to which the user is logged in.</span>
+<span class="sd">    Returns the applications to which the user is logged in</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ArkException: _description_</span>
@@ -10884,7 +10941,17 @@ The auth token and other details are stored in the object for future use.</p>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
-<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkIdentityFQDNResolver</span><span class="p">:</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkIdentityFQDNResolver</span><span class="p">:</span>
     <span class="n">__DISCOVERY_SERVICE_DOMAIN_NAME</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;platform-discovery&#39;</span>
     <span class="n">__DISCOVERY_TIMEOUT</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">30</span>
 
@@ -10941,7 +11008,7 @@ The auth token and other details are stored in the object for future use.</p>
 
     <span class="nd">@staticmethod</span>
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
-    <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">loop_retries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resolves the tenant&#39;s FQDN URL in Identity.</span>
 <span class="sd">        By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
@@ -10968,6 +11035,16 @@ The auth token and other details are stored in the object for future use.</p>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">parsed_res</span><span class="p">:</span> <span class="n">TenantFqdnResponse</span> <span class="o">=</span> <span class="n">TenantFqdnResponse</span><span class="o">.</span><span class="n">parse_raw</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="n">ValidationError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">loop_retries</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">loop_retries</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.app&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;dev&#39;</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span>
+                        <span class="n">tenant_suffix</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;dev.</span><span class="si">{</span><span class="n">identity_env_url</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">loop_retries</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span>
+                        <span class="n">tenant_suffix</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.app&#39;</span><span class="p">,</span> <span class="s1">&#39;.qa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;dev.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">loop_retries</span>
+                    <span class="p">)</span>
             <span class="k">raise</span> <span class="n">ArkException</span><span class="p">(</span><span class="s1">&#39;Getting tenant FQDN failed to be parsed / validated&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">ex</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">):</span>
             <span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -11174,7 +11251,7 @@ The resolved URL is based on the current working environment, which is provided 
 
 
 <h3 id="ark_sdk_python.auth.identity.ArkIdentityFQDNResolver.resolve_tenant_fqdn_from_tenant_suffix" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">loop_retries</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
@@ -11314,9 +11391,19 @@ By default, the Identity address is resolved from the current environment mappin
 <span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
-<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">loop_retries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resolves the tenant&#39;s FQDN URL in Identity.</span>
 <span class="sd">    By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
@@ -11343,10 +11430,705 @@ By default, the Identity address is resolved from the current environment mappin
     <span class="k">try</span><span class="p">:</span>
         <span class="n">parsed_res</span><span class="p">:</span> <span class="n">TenantFqdnResponse</span> <span class="o">=</span> <span class="n">TenantFqdnResponse</span><span class="o">.</span><span class="n">parse_raw</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
     <span class="k">except</span> <span class="p">(</span><span class="n">ValidationError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+        <span class="n">loop_retries</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">loop_retries</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.app&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;dev&#39;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span>
+                    <span class="n">tenant_suffix</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;dev.</span><span class="si">{</span><span class="n">identity_env_url</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">loop_retries</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span>
+                    <span class="n">tenant_suffix</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.app&#39;</span><span class="p">,</span> <span class="s1">&#39;.qa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;dev.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">loop_retries</span>
+                <span class="p">)</span>
         <span class="k">raise</span> <span class="n">ArkException</span><span class="p">(</span><span class="s1">&#39;Getting tenant FQDN failed to be parsed / validated&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">ex</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">):</span>
         <span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="ark_sdk_python.auth.identity.ArkIdentityPodSSM" class="doc doc-heading">
+          <code>ArkIdentityPodSSM</code>
+
+
+<a href="#ark_sdk_python.auth.identity.ArkIdentityPodSSM" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="ark_sdk_python.auth.ssm.ark_ssm.ArkSSM">ArkSSM</span></code></p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>ark_sdk_python/auth/identity/ark_identity_pod_ssm.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkIdentityPodSSM</span><span class="p">(</span><span class="n">ArkSSM</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">client_id_param_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">client_secret_param_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">env</span><span class="p">:</span> <span class="n">AwsEnv</span><span class="p">,</span>
+        <span class="n">identity_tenant_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">identity_application_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">account_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">trusted_role_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">region</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkRegion</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">local_role_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">external_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cache_authentication</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">load_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">cache_profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">boto3.session</span> <span class="kn">import</span> <span class="n">Session</span> <span class="k">as</span> <span class="n">BotoSession</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">trusted_role_name</span><span class="p">,</span> <span class="n">local_role_name</span><span class="p">,</span> <span class="n">external_id</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">cache_authentication</span><span class="p">,</span> <span class="n">load_cache</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__region</span> <span class="o">=</span> <span class="n">region</span> <span class="ow">or</span> <span class="n">BotoSession</span><span class="p">()</span><span class="o">.</span><span class="n">region_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__client_id_param_name</span> <span class="o">=</span> <span class="n">client_id_param_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__client_secret_param_name</span> <span class="o">=</span> <span class="n">client_secret_param_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__env</span> <span class="o">=</span> <span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__identity_tenant_id</span> <span class="o">=</span> <span class="n">identity_tenant_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__identity_application_id</span> <span class="o">=</span> <span class="n">identity_application_id</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span> <span class="s1">&#39;X-IDAP-NATIVE-CLIENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">load_cache</span> <span class="ow">and</span> <span class="n">cache_authentication</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__load_pod_cache</span><span class="p">(</span><span class="n">cache_profile</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__load_pod_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keyring</span> <span class="ow">and</span> <span class="n">profile</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_tenant_id</span><span class="si">}</span><span class="s1">_identity_pod_ssm&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">token</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__identity_tenant_id</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">username</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">get_secret_value</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">expires_in</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">[</span><span class="s2">&quot;Token&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">})</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">__save_pod_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keyring</span> <span class="ow">and</span> <span class="n">profile</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">[</span><span class="s1">&#39;ExpiresIn&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_keyring</span><span class="o">.</span><span class="n">save_token</span><span class="p">(</span>
+                <span class="n">profile</span><span class="p">,</span>
+                <span class="n">ArkToken</span><span class="p">(</span>
+                    <span class="n">token</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">),</span>
+                    <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_tenant_id</span><span class="p">,</span>
+                    <span class="n">endpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">identity_url</span><span class="p">,</span>
+                    <span class="n">token_type</span><span class="o">=</span><span class="n">ArkTokenType</span><span class="o">.</span><span class="n">Internal</span><span class="p">,</span>
+                    <span class="n">auth_method</span><span class="o">=</span><span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Other</span><span class="p">,</span>
+                    <span class="n">expires_in</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_tenant_id</span><span class="si">}</span><span class="s1">_identity_service_user&#39;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to get a tenant token from the pod for the given application</span>
+<span class="sd">        Will retrieve SSM client id and secret using the assumed role</span>
+<span class="sd">        And will login to the pod, and from there, generate a tenant token</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
+<span class="sd">            force (bool): Whether to discard cache, Defaults to False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ArkAuthException: _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">boto3</span>
+
+        <span class="c1"># Perform the role assumption first</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">auth_ssm</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__load_pod_cache</span><span class="p">(</span><span class="n">profile</span><span class="p">):</span>
+            <span class="c1"># Check if expired</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loaded identity pod ssm details from cache&#39;</span><span class="p">)</span>
+                <span class="k">return</span>
+
+        <span class="c1"># Create SSM client</span>
+        <span class="n">ssm_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span>
+            <span class="s1">&#39;ssm&#39;</span><span class="p">,</span>
+            <span class="n">region_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__region</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="n">aws_access_key_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trust_details</span><span class="p">[</span><span class="s1">&#39;Credentials&#39;</span><span class="p">][</span><span class="s1">&#39;AccessKeyId&#39;</span><span class="p">],</span>
+            <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trust_details</span><span class="p">[</span><span class="s1">&#39;Credentials&#39;</span><span class="p">][</span><span class="s1">&#39;SecretAccessKey&#39;</span><span class="p">],</span>
+            <span class="n">aws_session_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trust_details</span><span class="p">[</span><span class="s1">&#39;Credentials&#39;</span><span class="p">][</span><span class="s1">&#39;SessionToken&#39;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Get the parameters</span>
+        <span class="n">client_id_response</span> <span class="o">=</span> <span class="n">ssm_client</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="n">Name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__client_id_param_name</span><span class="p">)</span>
+        <span class="n">client_secret_response</span> <span class="o">=</span> <span class="n">ssm_client</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="n">Name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__client_secret_param_name</span><span class="p">,</span> <span class="n">WithDecryption</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Get the pod access token</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+        <span class="n">pod_base_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">IDENTITY_TENANT_NAME</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__env</span><span class="p">]</span><span class="si">}</span><span class="s1">.my.</span><span class="si">{</span><span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__env</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">pod_auth_response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">pod_base_url</span><span class="si">}</span><span class="s1">/oauth2/token/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_application_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">auth</span><span class="o">=</span><span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="n">client_id_response</span><span class="p">[</span><span class="s1">&#39;Parameter&#39;</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">],</span> <span class="n">client_secret_response</span><span class="p">[</span><span class="s1">&#39;Parameter&#39;</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">]),</span>
+            <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;client_credentials&#39;</span><span class="p">,</span> <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39;all&#39;</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">pod_auth_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate auth token for pod [</span><span class="si">{</span><span class="n">pod_auth_response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">] - [</span><span class="si">{</span><span class="n">pod_auth_response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        <span class="n">pod_access_token</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pod_auth_response</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Create a tenant access token from the pod</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+        <span class="n">tenant_auth_response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">pod_base_url</span><span class="si">}</span><span class="s1">/cybr/GetTenantAccessToken&#39;</span><span class="p">,</span>
+            <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tenantId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__identity_tenant_id</span><span class="p">},</span>
+            <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="n">pod_access_token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;X-IDAP-NATIVE-CLIENT&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate auth token for tenant [</span><span class="si">{</span><span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        <span class="n">parsed_response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed_response</span><span class="p">[</span><span class="s1">&#39;success&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate auth token for tenant [</span><span class="si">{</span><span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span> <span class="o">=</span> <span class="n">parsed_response</span><span class="p">[</span><span class="s1">&#39;Result&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">cookies</span> <span class="o">=</span> <span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">cookies</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="n">parsed_response</span><span class="p">[</span><span class="s2">&quot;Result&quot;</span><span class="p">][</span><span class="s2">&quot;Token&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">[</span><span class="s1">&#39;ExpiresIn&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__save_pod_cache</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">refresh_auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calls the auth identity via pod full flow</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
+<span class="sd">            force (bool): Whether to discard cache, Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auth_identity</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Session</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">[</span><span class="s1">&#39;Token&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">identity_url</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">[</span><span class="s1">&#39;Hostname&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_tenant_id</span><span class="si">}</span><span class="s1">.my.</span><span class="si">{</span><span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__env</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ark_sdk_python.auth.identity.ArkIdentityPodSSM.auth_identity" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">auth_identity</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#ark_sdk_python.auth.identity.ArkIdentityPodSSM.auth_identity" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Tries to get a tenant token from the pod for the given application
+Will retrieve SSM client id and secret using the assumed role
+And will login to the pod, and from there, generate a tenant token</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>profile</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[<span title="ark_sdk_python.models.ark_profile.ArkProfile">ArkProfile</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Profile to be used to load from caching if cache exists</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>force</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether to discard cache, Defaults to False.</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="ark_sdk_python.models.ark_exceptions.ArkAuthException">ArkAuthException</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p><em>description</em></p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>ark_sdk_python/auth/identity/ark_identity_pod_ssm.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tries to get a tenant token from the pod for the given application</span>
+<span class="sd">    Will retrieve SSM client id and secret using the assumed role</span>
+<span class="sd">    And will login to the pod, and from there, generate a tenant token</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
+<span class="sd">        force (bool): Whether to discard cache, Defaults to False.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ArkAuthException: _description_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">boto3</span>
+
+    <span class="c1"># Perform the role assumption first</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">auth_ssm</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__load_pod_cache</span><span class="p">(</span><span class="n">profile</span><span class="p">):</span>
+        <span class="c1"># Check if expired</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loaded identity pod ssm details from cache&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+    <span class="c1"># Create SSM client</span>
+    <span class="n">ssm_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span>
+        <span class="s1">&#39;ssm&#39;</span><span class="p">,</span>
+        <span class="n">region_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__region</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="n">aws_access_key_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trust_details</span><span class="p">[</span><span class="s1">&#39;Credentials&#39;</span><span class="p">][</span><span class="s1">&#39;AccessKeyId&#39;</span><span class="p">],</span>
+        <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trust_details</span><span class="p">[</span><span class="s1">&#39;Credentials&#39;</span><span class="p">][</span><span class="s1">&#39;SecretAccessKey&#39;</span><span class="p">],</span>
+        <span class="n">aws_session_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trust_details</span><span class="p">[</span><span class="s1">&#39;Credentials&#39;</span><span class="p">][</span><span class="s1">&#39;SessionToken&#39;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Get the parameters</span>
+    <span class="n">client_id_response</span> <span class="o">=</span> <span class="n">ssm_client</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="n">Name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__client_id_param_name</span><span class="p">)</span>
+    <span class="n">client_secret_response</span> <span class="o">=</span> <span class="n">ssm_client</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="n">Name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__client_secret_param_name</span><span class="p">,</span> <span class="n">WithDecryption</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Get the pod access token</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+    <span class="n">pod_base_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">IDENTITY_TENANT_NAME</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__env</span><span class="p">]</span><span class="si">}</span><span class="s1">.my.</span><span class="si">{</span><span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__env</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">pod_auth_response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">pod_base_url</span><span class="si">}</span><span class="s1">/oauth2/token/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_application_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="n">client_id_response</span><span class="p">[</span><span class="s1">&#39;Parameter&#39;</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">],</span> <span class="n">client_secret_response</span><span class="p">[</span><span class="s1">&#39;Parameter&#39;</span><span class="p">][</span><span class="s1">&#39;Value&#39;</span><span class="p">]),</span>
+        <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;client_credentials&#39;</span><span class="p">,</span> <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39;all&#39;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">pod_auth_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate auth token for pod [</span><span class="si">{</span><span class="n">pod_auth_response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">] - [</span><span class="si">{</span><span class="n">pod_auth_response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+    <span class="n">pod_access_token</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pod_auth_response</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Create a tenant access token from the pod</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+    <span class="n">tenant_auth_response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">pod_base_url</span><span class="si">}</span><span class="s1">/cybr/GetTenantAccessToken&#39;</span><span class="p">,</span>
+        <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tenantId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__identity_tenant_id</span><span class="p">},</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="n">pod_access_token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;X-IDAP-NATIVE-CLIENT&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate auth token for tenant [</span><span class="si">{</span><span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+    <span class="n">parsed_response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed_response</span><span class="p">[</span><span class="s1">&#39;success&#39;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate auth token for tenant [</span><span class="si">{</span><span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span> <span class="o">=</span> <span class="n">parsed_response</span><span class="p">[</span><span class="s1">&#39;Result&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">cookies</span> <span class="o">=</span> <span class="n">tenant_auth_response</span><span class="o">.</span><span class="n">cookies</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="n">parsed_response</span><span class="p">[</span><span class="s2">&quot;Result&quot;</span><span class="p">][</span><span class="s2">&quot;Token&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">})</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_details</span><span class="p">[</span><span class="s1">&#39;ExpiresIn&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_authentication</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__save_pod_cache</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ark_sdk_python.auth.identity.ArkIdentityPodSSM.refresh_auth_identity" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">refresh_auth_identity</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#ark_sdk_python.auth.identity.ArkIdentityPodSSM.refresh_auth_identity" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Calls the auth identity via pod full flow</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>profile</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[<span title="ark_sdk_python.models.ark_profile.ArkProfile">ArkProfile</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Profile to be used to load from caching if cache exists</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>force</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether to discard cache, Defaults to False.</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>ark_sdk_python/auth/identity/ark_identity_pod_ssm.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">refresh_auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calls the auth identity via pod full flow</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
+<span class="sd">        force (bool): Whether to discard cache, Defaults to False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">auth_identity</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
           </details>
   </div>
@@ -11908,6 +12690,464 @@ This method creates an auth token and authorizes to the service.</p>
 
 </div>
 
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="ark_sdk_python.auth.identity.ArkIdentitySystemServiceUser" class="doc doc-heading">
+          <code>ArkIdentitySystemServiceUser</code>
+
+
+<a href="#ark_sdk_python.auth.identity.ArkIdentitySystemServiceUser" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+
+
+            <details class="quote">
+              <summary>Source code in <code>ark_sdk_python/auth/identity/ark_identity_system_service_user.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkIdentitySystemServiceUser</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">tenant_subdomain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">identity_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">env</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AwsEnv</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cache_authentication</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">verify</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">load_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">cache_profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__token</span> <span class="o">=</span> <span class="n">token</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tenant_subdomain</span> <span class="o">=</span> <span class="n">tenant_subdomain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__env</span> <span class="o">=</span> <span class="n">env</span> <span class="ow">or</span> <span class="n">AwsEnv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">DEPLOY_ENV</span><span class="p">,</span> <span class="n">AwsEnv</span><span class="o">.</span><span class="n">PROD</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__identity_url</span> <span class="o">=</span> <span class="n">identity_url</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__resolve_fqdn_from_username</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="n">logger</span> <span class="ow">or</span> <span class="n">get_logger</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__keyring</span> <span class="o">=</span> <span class="n">ArkKeyring</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">if</span> <span class="n">cache_authentication</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cache_authentication</span> <span class="o">=</span> <span class="n">cache_authentication</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">default_system_headers</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ArkSystemConfig</span><span class="o">.</span><span class="n">trusted_certificate</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">verify</span> <span class="o">=</span> <span class="n">ArkSystemConfig</span><span class="o">.</span><span class="n">trusted_certificate</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">verify</span> <span class="o">=</span> <span class="n">ArkSystemConfig</span><span class="o">.</span><span class="n">is_verifiying_certificates</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="n">verify</span>
+        <span class="k">if</span> <span class="n">load_cache</span> <span class="ow">and</span> <span class="n">cache_authentication</span> <span class="ow">and</span> <span class="n">cache_profile</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__load_cache</span><span class="p">(</span><span class="n">cache_profile</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__load_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keyring</span> <span class="ow">and</span> <span class="n">profile</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keyring</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="si">}</span><span class="s1">_identity_system_service_user&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="ow">and</span> <span class="n">token</span><span class="o">.</span><span class="n">username</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">get_secret_value</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">expires_in</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">})</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">__save_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keyring</span> <span class="ow">and</span> <span class="n">profile</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__keyring</span><span class="o">.</span><span class="n">save_token</span><span class="p">(</span>
+                <span class="n">profile</span><span class="p">,</span>
+                <span class="n">ArkToken</span><span class="p">(</span>
+                    <span class="n">token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span><span class="p">,</span>
+                    <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">,</span>
+                    <span class="n">endpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_url</span><span class="p">,</span>
+                    <span class="n">token_type</span><span class="o">=</span><span class="n">ArkTokenType</span><span class="o">.</span><span class="n">Internal</span><span class="p">,</span>
+                    <span class="n">auth_method</span><span class="o">=</span><span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Other</span><span class="p">,</span>
+                    <span class="n">expires_in</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="si">}</span><span class="s1">_identity_system_service_user&#39;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__resolve_fqdn_from_username</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tenant_subdomain</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_subdomain</span><span class="p">(</span>
+                <span class="n">tenant_subdomain</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__tenant_subdomain</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__env</span>
+            <span class="p">)</span>
+        <span class="n">tenant_suffix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)</span> <span class="p">:]</span>
+        <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span>
+            <span class="n">tenant_suffix</span><span class="o">=</span><span class="n">tenant_suffix</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="o">=</span><span class="n">IDENTITY_ENV_URLS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__env</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Authenticates with a system service user to identity</span>
+<span class="sd">        The authentication creates an identity token and authorizes to the given application</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
+<span class="sd">            force (bool): Whether to discard cache, Defaults to False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ArkAuthException: _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Login to identity with the system service service user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Authenticating to system service user via endpoint [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_url</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cache_authentication</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__load_cache</span><span class="p">(</span><span class="n">profile</span><span class="p">):</span>
+            <span class="c1"># Check if expired</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loaded identity system service user details from cache&#39;</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="n">token_response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_url</span><span class="si">}</span><span class="s1">/oauth2/platformtoken&#39;</span><span class="p">,</span>
+            <span class="n">auth</span><span class="o">=</span><span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">),</span>
+            <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;client_credentials&#39;</span><span class="p">,</span> <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39;api&#39;</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">token_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="s1">&#39;Failed logging in to identity system service user&#39;</span><span class="p">)</span>
+        <span class="n">auth_result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">token_response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;access_token&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">auth_result</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="s1">&#39;Failed logging in to identity system service user, access token not found&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span> <span class="o">=</span> <span class="n">auth_result</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">default_headers</span><span class="p">()})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Created a system service user session via endpoint [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_url</span><span class="si">}</span><span class="s1">] &#39;</span> <span class="sa">f</span><span class="s1">&#39;with user [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="si">}</span><span class="s1">] to platform&#39;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cache_authentication</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__save_cache</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Session</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">identity_url</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__identity_url</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tenant_subdomain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tenant_subdomain</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ark_sdk_python.auth.identity.ArkIdentitySystemServiceUser.auth_identity" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">auth_identity</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#ark_sdk_python.auth.identity.ArkIdentitySystemServiceUser.auth_identity" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Authenticates with a system service user to identity
+The authentication creates an identity token and authorizes to the given application</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>profile</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[<span title="ark_sdk_python.models.ArkProfile">ArkProfile</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Profile to be used to load from caching if cache exists</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>force</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether to discard cache, Defaults to False.</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="ark_sdk_python.models.ArkAuthException">ArkAuthException</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p><em>description</em></p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>ark_sdk_python/auth/identity/ark_identity_system_service_user.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">auth_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkProfile</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Authenticates with a system service user to identity</span>
+<span class="sd">    The authentication creates an identity token and authorizes to the given application</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        profile (Optional[ArkProfile]): Profile to be used to load from caching if cache exists</span>
+<span class="sd">        force (bool): Whether to discard cache, Defaults to False.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ArkAuthException: _description_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Login to identity with the system service service user</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Authenticating to system service user via endpoint [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_url</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cache_authentication</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__load_cache</span><span class="p">(</span><span class="n">profile</span><span class="p">):</span>
+        <span class="c1"># Check if expired</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loaded identity system service user details from cache&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+    <span class="n">token_response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_url</span><span class="si">}</span><span class="s1">/oauth2/platformtoken&#39;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__token</span><span class="p">),</span>
+        <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;client_credentials&#39;</span><span class="p">,</span> <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39;api&#39;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">token_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="s1">&#39;Failed logging in to identity system service user&#39;</span><span class="p">)</span>
+    <span class="n">auth_result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">token_response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;access_token&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">auth_result</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="n">ArkAuthException</span><span class="p">(</span><span class="s1">&#39;Failed logging in to identity system service user, access token not found&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span> <span class="o">=</span> <span class="n">auth_result</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__session_token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">default_headers</span><span class="p">()})</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__session_exp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">&#39;Created a system service user session via endpoint [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__identity_url</span><span class="si">}</span><span class="s1">] &#39;</span> <span class="sa">f</span><span class="s1">&#39;with user [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="si">}</span><span class="s1">] to platform&#39;</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cache_authentication</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__save_cache</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
 
 
 
@@ -11972,10 +13212,10 @@ This method creates an auth token and authorizes to the service.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.caa56a14.min.js"></script>
       
     
   </body>

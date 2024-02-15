@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f2e4d321.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -9658,7 +9658,8 @@ You're not viewing the latest version.
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
-<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkCacheAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
+<span class="normal">65</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkCacheAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -9692,6 +9693,7 @@ You're not viewing the latest version.
 <span class="sd">            args (argparse.Namespace): _description_</span>
 
 <span class="sd">        Raises:</span>
+<span class="sd">            ArkException: _description_</span>
 <span class="sd">            ArkException: _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">cache_cmd</span> <span class="o">==</span> <span class="s1">&#39;clear&#39;</span><span class="p">:</span>
@@ -9812,8 +9814,7 @@ You're not viewing the latest version.
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_cache_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
-<span class="normal">54</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
@@ -9824,7 +9825,8 @@ You're not viewing the latest version.
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
-<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">65</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Asserts the action is `cache`.</span>
@@ -9987,6 +9989,16 @@ You're not viewing the latest version.
             </div>
           </td>
         </tr>
+        <tr>
+          <td>
+                <code><span title="ark_sdk_python.models.ArkException">ArkException</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p><em>description</em></p>
+            </div>
+          </td>
+        </tr>
     </tbody>
   </table>
 
@@ -10006,7 +10018,8 @@ You're not viewing the latest version.
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
-<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Runs the cache action.</span>
@@ -10015,6 +10028,7 @@ You're not viewing the latest version.
 <span class="sd">        args (argparse.Namespace): _description_</span>
 
 <span class="sd">    Raises:</span>
+<span class="sd">        ArkException: _description_</span>
 <span class="sd">        ArkException: _description_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">cache_cmd</span> <span class="o">==</span> <span class="s1">&#39;clear&#39;</span><span class="p">:</span>
@@ -10341,7 +10355,9 @@ You're not viewing the latest version.
 <span class="normal">313</span>
 <span class="normal">314</span>
 <span class="normal">315</span>
-<span class="normal">316</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkConfigureAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkConfigureAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -10461,6 +10477,8 @@ You're not viewing the latest version.
                 <span class="n">ignored_keys</span> <span class="o">=</span> <span class="n">CONFIGURATION_IGNORED_INTERACTIVE_KEYS</span> <span class="o">+</span> <span class="n">CONFIGURATION_AUTHENTICATOR_IGNORED_INTERACTIVE_KEYS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                     <span class="n">authenticator</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">(),</span> <span class="p">[]</span>
                 <span class="p">)</span>
+                <span class="k">if</span> <span class="n">auth_method</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">CognitoAppSSM</span><span class="p">,</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">CognitoUserPassSSM</span><span class="p">,</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">IdentityPodSSM</span><span class="p">]:</span>
+                    <span class="n">ignored_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
                 <span class="c1"># Get the auth profile general settings</span>
                 <span class="n">auth_profile_vals</span> <span class="o">=</span> <span class="n">ArkPydanticArgparse</span><span class="o">.</span><span class="n">argparse_to_schema_interactive</span><span class="p">(</span>
                     <span class="n">ArkAuthProfile</span><span class="o">.</span><span class="n">schema</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
@@ -10830,7 +10848,9 @@ Selected authenticators are also configured with the user's auth methods and set
 <span class="normal">191</span>
 <span class="normal">192</span>
 <span class="normal">193</span>
-<span class="normal">194</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__run_interactive_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__run_interactive_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Performs an interactive configuration.</span>
 <span class="sd">    The user is prompted for each Ark profile setting, with the default/defined CLI arguments.</span>
@@ -10898,6 +10918,8 @@ Selected authenticators are also configured with the user's auth methods and set
             <span class="n">ignored_keys</span> <span class="o">=</span> <span class="n">CONFIGURATION_IGNORED_INTERACTIVE_KEYS</span> <span class="o">+</span> <span class="n">CONFIGURATION_AUTHENTICATOR_IGNORED_INTERACTIVE_KEYS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                 <span class="n">authenticator</span><span class="o">.</span><span class="n">authenticator_name</span><span class="p">(),</span> <span class="p">[]</span>
             <span class="p">)</span>
+            <span class="k">if</span> <span class="n">auth_method</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">CognitoAppSSM</span><span class="p">,</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">CognitoUserPassSSM</span><span class="p">,</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">IdentityPodSSM</span><span class="p">]:</span>
+                <span class="n">ignored_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
             <span class="c1"># Get the auth profile general settings</span>
             <span class="n">auth_profile_vals</span> <span class="o">=</span> <span class="n">ArkPydanticArgparse</span><span class="o">.</span><span class="n">argparse_to_schema_interactive</span><span class="p">(</span>
                 <span class="n">ArkAuthProfile</span><span class="o">.</span><span class="n">schema</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
@@ -11045,9 +11067,7 @@ Selected authenticators are also configured with the user's auth methods and set
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_configure_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">198</span>
 <span class="normal">199</span>
 <span class="normal">200</span>
 <span class="normal">201</span>
@@ -11124,7 +11144,9 @@ Selected authenticators are also configured with the user's auth methods and set
 <span class="normal">272</span>
 <span class="normal">273</span>
 <span class="normal">274</span>
-<span class="normal">275</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__run_silent_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__run_silent_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArkProfile</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Runs the CLI configure action silently, without user interaction.</span>
 
@@ -11295,9 +11317,7 @@ Selected authenticators are also configured with the user's auth methods and set
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_configure_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">306</span>
 <span class="normal">307</span>
 <span class="normal">308</span>
 <span class="normal">309</span>
@@ -11307,7 +11327,9 @@ Selected authenticators are also configured with the user's auth methods and set
 <span class="normal">313</span>
 <span class="normal">314</span>
 <span class="normal">315</span>
-<span class="normal">316</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Asserts the action is `configure`.</span>
@@ -11528,9 +11550,7 @@ and saves the configured profile when completed.</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_configure_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">279</span>
 <span class="normal">280</span>
 <span class="normal">281</span>
 <span class="normal">282</span>
@@ -11553,7 +11573,9 @@ and saves the configured profile when completed.</p>
 <span class="normal">299</span>
 <span class="normal">300</span>
 <span class="normal">301</span>
-<span class="normal">302</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Runs the configure action.</span>
@@ -12890,8 +12912,7 @@ runs the exec action using the API.</p>
 
             <details class="quote">
               <summary>Source code in <code>ark_sdk_python/actions/ark_login_action.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 22</span>
-<span class="normal"> 23</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 23</span>
 <span class="normal"> 24</span>
 <span class="normal"> 25</span>
 <span class="normal"> 26</span>
@@ -13055,7 +13076,10 @@ runs the exec action using the API.</p>
 <span class="normal">184</span>
 <span class="normal">185</span>
 <span class="normal">186</span>
-<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkLoginAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkLoginAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -13095,6 +13119,7 @@ runs the exec action using the API.</p>
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Runs the login action for each authenticator.</span>
+<span class="sd">        Once logged in, store its credentials in the keyring for later use</span>
 <span class="sd">        After a login completes, credentials are stored in the keyring for future use.</span>
 
 <span class="sd">        Args:</span>
@@ -13166,6 +13191,7 @@ runs the exec action using the API.</p>
                             <span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span> <span class="o">==</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Identity</span>
                             <span class="ow">and</span> <span class="n">ArkIdentity</span><span class="o">.</span><span class="n">has_cache_record</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">refresh_auth</span><span class="p">)</span>
                         <span class="p">)</span>
+                        <span class="ow">or</span> <span class="p">(</span><span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span> <span class="o">==</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Okta</span> <span class="ow">and</span> <span class="n">ArkOkta</span><span class="o">.</span><span class="n">has_cache_record</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">username</span><span class="p">))</span>
                     <span class="p">):</span>
                         <span class="c1"># Check if there is a secret already cached, if there is, no need to ask for password</span>
                         <span class="n">secret</span> <span class="o">=</span> <span class="n">ArkSecret</span><span class="p">(</span><span class="n">secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -13321,10 +13347,7 @@ runs the exec action using the API.</p>
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_login_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">178</span>
 <span class="normal">179</span>
 <span class="normal">180</span>
 <span class="normal">181</span>
@@ -13333,7 +13356,10 @@ runs the exec action using the API.</p>
 <span class="normal">184</span>
 <span class="normal">185</span>
 <span class="normal">186</span>
-<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Asserts the action is `login`.</span>
@@ -13400,8 +13426,7 @@ For each supported authenticator, adds the username/secret params for logging in
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_login_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">23</span>
-<span class="normal">24</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
@@ -13433,7 +13458,8 @@ For each supported authenticator, adds the username/secret params for logging in
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
-<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Defines the CLI `login` action.</span>
@@ -13487,6 +13513,7 @@ For each supported authenticator, adds the username/secret params for logging in
   <div class="doc doc-contents ">
   
       <p>Runs the login action for each authenticator.
+Once logged in, store its credentials in the keyring for later use
 After a login completes, credentials are stored in the keyring for future use.</p>
 
 
@@ -13555,8 +13582,7 @@ After a login completes, credentials are stored in the keyring for future use.</
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_login_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 58</span>
-<span class="normal"> 59</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 59</span>
 <span class="normal"> 60</span>
 <span class="normal"> 61</span>
 <span class="normal"> 62</span>
@@ -13670,10 +13696,14 @@ After a login completes, credentials are stored in the keyring for future use.</
 <span class="normal">170</span>
 <span class="normal">171</span>
 <span class="normal">172</span>
-<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Runs the login action for each authenticator.</span>
+<span class="sd">    Once logged in, store its credentials in the keyring for later use</span>
 <span class="sd">    After a login completes, credentials are stored in the keyring for future use.</span>
 
 <span class="sd">    Args:</span>
@@ -13745,6 +13775,7 @@ After a login completes, credentials are stored in the keyring for future use.</
                         <span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span> <span class="o">==</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Identity</span>
                         <span class="ow">and</span> <span class="n">ArkIdentity</span><span class="o">.</span><span class="n">has_cache_record</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">refresh_auth</span><span class="p">)</span>
                     <span class="p">)</span>
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span> <span class="o">==</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Okta</span> <span class="ow">and</span> <span class="n">ArkOkta</span><span class="o">.</span><span class="n">has_cache_record</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">username</span><span class="p">))</span>
                 <span class="p">):</span>
                     <span class="c1"># Check if there is a secret already cached, if there is, no need to ask for password</span>
                     <span class="n">secret</span> <span class="o">=</span> <span class="n">ArkSecret</span><span class="p">(</span><span class="n">secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -14008,8 +14039,7 @@ After a login completes, credentials are stored in the keyring for future use.</
 <span class="normal">201</span>
 <span class="normal">202</span>
 <span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkProfilesAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
+<span class="normal">204</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkProfilesAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -14168,7 +14198,6 @@ After a login completes, credentials are stored in the keyring for future use.</
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ArkException: _description_</span>
-<span class="sd">            ArkException: _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">profile_cmd</span> <span class="o">==</span> <span class="s1">&#39;list&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__run_list_action</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
@@ -14300,7 +14329,8 @@ After a login completes, credentials are stored in the keyring for future use.</
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_profiles_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">193</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">192</span>
+<span class="normal">193</span>
 <span class="normal">194</span>
 <span class="normal">195</span>
 <span class="normal">196</span>
@@ -14311,8 +14341,7 @@ After a login completes, credentials are stored in the keyring for future use.</
 <span class="normal">201</span>
 <span class="normal">202</span>
 <span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">204</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Asserts the action is `profile`.</span>
@@ -14527,16 +14556,6 @@ After a login completes, credentials are stored in the keyring for future use.</
             </div>
           </td>
         </tr>
-        <tr>
-          <td>
-                <code><span title="ark_sdk_python.models.ArkException">ArkException</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p><em>description</em></p>
-            </div>
-          </td>
-        </tr>
     </tbody>
   </table>
 
@@ -14568,8 +14587,7 @@ After a login completes, credentials are stored in the keyring for future use.</
 <span class="normal">187</span>
 <span class="normal">188</span>
 <span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">190</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Runs the profile action.</span>
@@ -14578,7 +14596,6 @@ After a login completes, credentials are stored in the keyring for future use.</
 <span class="sd">        args (argparse.Namespace): _description_</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ArkException: _description_</span>
 <span class="sd">        ArkException: _description_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">profile_cmd</span> <span class="o">==</span> <span class="s1">&#39;list&#39;</span><span class="p">:</span>
@@ -15212,10 +15229,10 @@ Finds the appropriate service using the definition and executes the sync or asyn
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.caa56a14.min.js"></script>
       
     
   </body>

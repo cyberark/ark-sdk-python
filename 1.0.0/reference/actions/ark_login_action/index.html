@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f2e4d321.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -8936,8 +8936,7 @@ You're not viewing the latest version.
 
             <details class="quote">
               <summary>Source code in <code>ark_sdk_python/actions/ark_login_action.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 22</span>
-<span class="normal"> 23</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 23</span>
 <span class="normal"> 24</span>
 <span class="normal"> 25</span>
 <span class="normal"> 26</span>
@@ -9101,7 +9100,10 @@ You're not viewing the latest version.
 <span class="normal">184</span>
 <span class="normal">185</span>
 <span class="normal">186</span>
-<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkLoginAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkLoginAction</span><span class="p">(</span><span class="n">ArkAction</span><span class="p">):</span>
     <span class="nd">@overrides</span>
     <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -9141,6 +9143,7 @@ You're not viewing the latest version.
     <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Runs the login action for each authenticator.</span>
+<span class="sd">        Once logged in, store its credentials in the keyring for later use</span>
 <span class="sd">        After a login completes, credentials are stored in the keyring for future use.</span>
 
 <span class="sd">        Args:</span>
@@ -9212,6 +9215,7 @@ You're not viewing the latest version.
                             <span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span> <span class="o">==</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Identity</span>
                             <span class="ow">and</span> <span class="n">ArkIdentity</span><span class="o">.</span><span class="n">has_cache_record</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">refresh_auth</span><span class="p">)</span>
                         <span class="p">)</span>
+                        <span class="ow">or</span> <span class="p">(</span><span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span> <span class="o">==</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Okta</span> <span class="ow">and</span> <span class="n">ArkOkta</span><span class="o">.</span><span class="n">has_cache_record</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">username</span><span class="p">))</span>
                     <span class="p">):</span>
                         <span class="c1"># Check if there is a secret already cached, if there is, no need to ask for password</span>
                         <span class="n">secret</span> <span class="o">=</span> <span class="n">ArkSecret</span><span class="p">(</span><span class="n">secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -9367,10 +9371,7 @@ You're not viewing the latest version.
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_login_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">178</span>
 <span class="normal">179</span>
 <span class="normal">180</span>
 <span class="normal">181</span>
@@ -9379,7 +9380,10 @@ You're not viewing the latest version.
 <span class="normal">184</span>
 <span class="normal">185</span>
 <span class="normal">186</span>
-<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">can_run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Asserts the action is `login`.</span>
@@ -9446,8 +9450,7 @@ For each supported authenticator, adds the username/secret params for logging in
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_login_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">23</span>
-<span class="normal">24</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
@@ -9479,7 +9482,8 @@ For each supported authenticator, adds the username/secret params for logging in
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
-<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">define_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subparsers</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Defines the CLI `login` action.</span>
@@ -9533,6 +9537,7 @@ For each supported authenticator, adds the username/secret params for logging in
   <div class="doc doc-contents ">
   
       <p>Runs the login action for each authenticator.
+Once logged in, store its credentials in the keyring for later use
 After a login completes, credentials are stored in the keyring for future use.</p>
 
 
@@ -9601,8 +9606,7 @@ After a login completes, credentials are stored in the keyring for future use.</
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/actions/ark_login_action.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 58</span>
-<span class="normal"> 59</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 59</span>
 <span class="normal"> 60</span>
 <span class="normal"> 61</span>
 <span class="normal"> 62</span>
@@ -9716,10 +9720,14 @@ After a login completes, credentials are stored in the keyring for future use.</
 <span class="normal">170</span>
 <span class="normal">171</span>
 <span class="normal">172</span>
-<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@overrides</span>
 <span class="k">def</span> <span class="nf">run_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Runs the login action for each authenticator.</span>
+<span class="sd">    Once logged in, store its credentials in the keyring for later use</span>
 <span class="sd">    After a login completes, credentials are stored in the keyring for future use.</span>
 
 <span class="sd">    Args:</span>
@@ -9791,6 +9799,7 @@ After a login completes, credentials are stored in the keyring for future use.</
                         <span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span> <span class="o">==</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Identity</span>
                         <span class="ow">and</span> <span class="n">ArkIdentity</span><span class="o">.</span><span class="n">has_cache_record</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">refresh_auth</span><span class="p">)</span>
                     <span class="p">)</span>
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">auth_profile</span><span class="o">.</span><span class="n">auth_method</span> <span class="o">==</span> <span class="n">ArkAuthMethod</span><span class="o">.</span><span class="n">Okta</span> <span class="ow">and</span> <span class="n">ArkOkta</span><span class="o">.</span><span class="n">has_cache_record</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">auth_profile</span><span class="o">.</span><span class="n">username</span><span class="p">))</span>
                 <span class="p">):</span>
                     <span class="c1"># Check if there is a secret already cached, if there is, no need to ask for password</span>
                     <span class="n">secret</span> <span class="o">=</span> <span class="n">ArkSecret</span><span class="p">(</span><span class="n">secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -9911,10 +9920,10 @@ After a login completes, credentials are stored in the keyring for future use.</
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.caa56a14.min.js"></script>
       
     
   </body>

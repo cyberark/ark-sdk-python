@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.f2e4d321.min.css">
       
         
         <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -8958,9 +8958,7 @@ You're not viewing the latest version.
 
             <details class="quote">
               <summary>Source code in <code>ark_sdk_python/services/dpa/sso/ark_dpa_sso_service.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 37</span>
-<span class="normal"> 38</span>
-<span class="normal"> 39</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 39</span>
 <span class="normal"> 40</span>
 <span class="normal"> 41</span>
 <span class="normal"> 42</span>
@@ -9201,11 +9199,37 @@ You're not viewing the latest version.
 <span class="normal">277</span>
 <span class="normal">278</span>
 <span class="normal">279</span>
-<span class="normal">280</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkDPASSOService</span><span class="p">(</span><span class="n">ArkService</span><span class="p">):</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkDPASSOService</span><span class="p">(</span><span class="n">ArkService</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">isp_auth</span><span class="p">:</span> <span class="n">ArkISPAuth</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">isp_auth</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__isp_auth</span> <span class="o">=</span> <span class="n">isp_auth</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="p">:</span> <span class="n">ArkISPServiceClient</span> <span class="o">=</span> <span class="n">ArkISPServiceClient</span><span class="o">.</span><span class="n">from_isp_auth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__isp_auth</span><span class="p">,</span> <span class="s1">&#39;dpa&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__client</span> <span class="o">=</span> <span class="n">ArkClient</span><span class="p">(</span><span class="s1">&#39;https://tpnz2xg082.execute-api.us-east-1.amazonaws.com/prod&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__isp_auth</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">token</span><span class="o">.</span><span class="n">get_secret_value</span><span class="p">())</span>
+        <span class="c1"># self.__client: ArkISPServiceClient = ArkISPServiceClient.from_isp_auth(self.__isp_auth, &#39;dpa&#39;)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__cache_keyring</span> <span class="o">=</span> <span class="n">ArkKeyring</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">service_config</span><span class="p">()</span><span class="o">.</span><span class="n">service_name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__load_from_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkDPASSOAcquireTokenResponse</span><span class="p">]:</span>
@@ -9271,7 +9295,7 @@ You're not viewing the latest version.
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ArkServiceException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown format </span><span class="si">{</span><span class="n">output_format</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__save_oracle_wallet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unzip_wallet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">ArkDPASSOAcquireTokenResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__save_oracle_sso_wallet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unzip_wallet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">ArkDPASSOAcquireTokenResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">result</span><span class="o">.</span><span class="n">token</span><span class="p">[</span><span class="s1">&#39;wallet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">token</span><span class="p">[</span><span class="s1">&#39;wallet&#39;</span><span class="p">])</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
@@ -9282,6 +9306,13 @@ You're not viewing the latest version.
             <span class="n">wallet_bytes</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">token</span><span class="p">[</span><span class="s1">&#39;wallet&#39;</span><span class="p">])</span>
             <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">wallet_bytes</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zipf</span><span class="p">:</span>
                 <span class="n">zipf</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__save_oracle_pem_wallet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">ArkDPASSOAcquireTokenResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pem_wallet</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">token</span><span class="p">[</span><span class="s1">&#39;pem_wallet&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">folder</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="si">}</span><span class="s1">ewallet.pem&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_handle</span><span class="p">:</span>
+            <span class="n">file_handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pem_wallet</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__save_rdp_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_short_lived_rdp_file</span><span class="p">:</span> <span class="n">ArkDPASSOGetShortLivedRDPFile</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">ArkDPASSOAcquireTokenResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">get_short_lived_rdp_file</span><span class="o">.</span><span class="n">folder</span><span class="p">):</span>
@@ -9314,6 +9345,7 @@ You're not viewing the latest version.
             <span class="n">ACQUIRE_SSO_TOKEN_URL</span><span class="p">,</span>
             <span class="n">json</span><span class="o">=</span><span class="p">{</span>
                 <span class="s1">&#39;token_type&#39;</span><span class="p">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="s1">&#39;DPA-DB&#39;</span><span class="p">,</span>
             <span class="p">},</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CREATED</span><span class="p">:</span>
@@ -9350,6 +9382,7 @@ You're not viewing the latest version.
             <span class="n">ACQUIRE_SSO_TOKEN_URL</span><span class="p">,</span>
             <span class="n">json</span><span class="o">=</span><span class="p">{</span>
                 <span class="s1">&#39;token_type&#39;</span><span class="p">:</span> <span class="s1">&#39;client_certificate&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="n">get_short_lived_client_certificate</span><span class="o">.</span><span class="n">service</span><span class="p">,</span>
             <span class="p">},</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CREATED</span><span class="p">:</span>
@@ -9381,20 +9414,33 @@ You're not viewing the latest version.
         <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">allow_caching</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__load_from_cache</span><span class="p">(</span><span class="s1">&#39;oracle_wallet&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span> <span class="o">==</span> <span class="n">ArkDPASSOShortLivedOracleWalletType</span><span class="o">.</span><span class="n">SSO</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_sso_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span> <span class="o">==</span> <span class="n">ArkDPASSOShortLivedOracleWalletType</span><span class="o">.</span><span class="n">PEM</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_pem_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+                <span class="k">return</span>
         <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
             <span class="n">ACQUIRE_SSO_TOKEN_URL</span><span class="p">,</span>
             <span class="n">json</span><span class="o">=</span><span class="p">{</span>
                 <span class="s1">&#39;token_type&#39;</span><span class="p">:</span> <span class="s1">&#39;oracle_wallet&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="s1">&#39;DPA-DB&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;token_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;walletType&#39;</span><span class="p">:</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="p">},</span>
             <span class="p">},</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CREATED</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ArkServiceException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate short lived oracle wallet - [</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s1">] - [</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
         <span class="n">result</span><span class="p">:</span> <span class="n">ArkDPASSOAcquireTokenResponse</span> <span class="o">=</span> <span class="n">ArkDPASSOAcquireTokenResponse</span><span class="o">.</span><span class="n">parse_obj</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-        <span class="k">if</span> <span class="s1">&#39;wallet&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;wallet&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">token</span> <span class="ow">and</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span> <span class="o">==</span> <span class="n">ArkDPASSOShortLivedOracleWalletType</span><span class="o">.</span><span class="n">SSO</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">allow_caching</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__save_to_cache</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;oracle_wallet&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_sso_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="s1">&#39;pem_wallet&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">token</span> <span class="ow">and</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span> <span class="o">==</span> <span class="n">ArkDPASSOShortLivedOracleWalletType</span><span class="o">.</span><span class="n">PEM</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">allow_caching</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__save_to_cache</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;oracle_wallet&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_pem_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="k">raise</span> <span class="n">ArkServiceException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate short lived password - [</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s1">] - [</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
 
@@ -9555,18 +9601,7 @@ You're not viewing the latest version.
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/services/dpa/sso/ark_dpa_sso_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
 <span class="normal">173</span>
 <span class="normal">174</span>
 <span class="normal">175</span>
@@ -9592,7 +9627,19 @@ You're not viewing the latest version.
 <span class="normal">195</span>
 <span class="normal">196</span>
 <span class="normal">197</span>
-<span class="normal">198</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">short_lived_client_certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_short_lived_client_certificate</span><span class="p">:</span> <span class="n">ArkDPASSOGetShortLivedClientCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">short_lived_client_certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_short_lived_client_certificate</span><span class="p">:</span> <span class="n">ArkDPASSOGetShortLivedClientCertificate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates a short-lived client certificate used to connect to DPA services.</span>
 
@@ -9617,6 +9664,7 @@ You're not viewing the latest version.
         <span class="n">ACQUIRE_SSO_TOKEN_URL</span><span class="p">,</span>
         <span class="n">json</span><span class="o">=</span><span class="p">{</span>
             <span class="s1">&#39;token_type&#39;</span><span class="p">:</span> <span class="s1">&#39;client_certificate&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="n">get_short_lived_client_certificate</span><span class="o">.</span><span class="n">service</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CREATED</span><span class="p">:</span>
@@ -9731,19 +9779,7 @@ You're not viewing the latest version.
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/services/dpa/sso/ark_dpa_sso_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
 <span class="normal">213</span>
 <span class="normal">214</span>
 <span class="normal">215</span>
@@ -9763,7 +9799,32 @@ You're not viewing the latest version.
 <span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span>
-<span class="normal">232</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">short_lived_oracle_wallet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="p">:</span> <span class="n">ArkDPASSOGetShortLivedOracleWallet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">short_lived_oracle_wallet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="p">:</span> <span class="n">ArkDPASSOGetShortLivedOracleWallet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates a short-lived Oracle Wallet used to connect via DPA to Oracle databases.</span>
 
@@ -9780,20 +9841,33 @@ You're not viewing the latest version.
     <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">allow_caching</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__load_from_cache</span><span class="p">(</span><span class="s1">&#39;oracle_wallet&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span> <span class="o">==</span> <span class="n">ArkDPASSOShortLivedOracleWalletType</span><span class="o">.</span><span class="n">SSO</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_sso_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span> <span class="o">==</span> <span class="n">ArkDPASSOShortLivedOracleWalletType</span><span class="o">.</span><span class="n">PEM</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_pem_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="k">return</span>
     <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
         <span class="n">ACQUIRE_SSO_TOKEN_URL</span><span class="p">,</span>
         <span class="n">json</span><span class="o">=</span><span class="p">{</span>
             <span class="s1">&#39;token_type&#39;</span><span class="p">:</span> <span class="s1">&#39;oracle_wallet&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="s1">&#39;DPA-DB&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;token_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;walletType&#39;</span><span class="p">:</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="p">},</span>
         <span class="p">},</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CREATED</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">ArkServiceException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate short lived oracle wallet - [</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s1">] - [</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
     <span class="n">result</span><span class="p">:</span> <span class="n">ArkDPASSOAcquireTokenResponse</span> <span class="o">=</span> <span class="n">ArkDPASSOAcquireTokenResponse</span><span class="o">.</span><span class="n">parse_obj</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-    <span class="k">if</span> <span class="s1">&#39;wallet&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;wallet&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">token</span> <span class="ow">and</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span> <span class="o">==</span> <span class="n">ArkDPASSOShortLivedOracleWalletType</span><span class="o">.</span><span class="n">SSO</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">allow_caching</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__save_to_cache</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;oracle_wallet&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_sso_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">unzip_wallet</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="k">elif</span> <span class="s1">&#39;pem_wallet&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">token</span> <span class="ow">and</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">wallet_type</span> <span class="o">==</span> <span class="n">ArkDPASSOShortLivedOracleWalletType</span><span class="o">.</span><span class="n">PEM</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">allow_caching</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__save_to_cache</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;oracle_wallet&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__save_oracle_pem_wallet</span><span class="p">(</span><span class="n">get_short_lived_oracle_wallet</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
         <span class="k">return</span>
     <span class="k">raise</span> <span class="n">ArkServiceException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to generate short lived password - [</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s1">] - [</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -9897,17 +9971,7 @@ You're not viewing the latest version.
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/services/dpa/sso/ark_dpa_sso_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
 <span class="normal">141</span>
@@ -9928,7 +9992,18 @@ You're not viewing the latest version.
 <span class="normal">156</span>
 <span class="normal">157</span>
 <span class="normal">158</span>
-<span class="normal">159</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">short_lived_password</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_short_lived_password</span><span class="p">:</span> <span class="n">ArkDPASSOGetShortLivedPassword</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">short_lived_password</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_short_lived_password</span><span class="p">:</span> <span class="n">ArkDPASSOGetShortLivedPassword</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates a short-lived password used to connect to DPA services.</span>
 
@@ -9950,6 +10025,7 @@ You're not viewing the latest version.
         <span class="n">ACQUIRE_SSO_TOKEN_URL</span><span class="p">,</span>
         <span class="n">json</span><span class="o">=</span><span class="p">{</span>
             <span class="s1">&#39;token_type&#39;</span><span class="p">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="s1">&#39;DPA-DB&#39;</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CREATED</span><span class="p">:</span>
@@ -10061,32 +10137,7 @@ You're not viewing the latest version.
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/services/dpa/sso/ark_dpa_sso_service.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">259</span>
 <span class="normal">260</span>
 <span class="normal">261</span>
 <span class="normal">262</span>
@@ -10102,7 +10153,32 @@ You're not viewing the latest version.
 <span class="normal">272</span>
 <span class="normal">273</span>
 <span class="normal">274</span>
-<span class="normal">275</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">short_lived_rdp_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_short_lived_rdp_file</span><span class="p">:</span> <span class="n">ArkDPASSOGetShortLivedRDPFile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">short_lived_rdp_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_short_lived_rdp_file</span><span class="p">:</span> <span class="n">ArkDPASSOGetShortLivedRDPFile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates a short-lived RDP file used to connect via RDP to Windows machines.</span>
 
@@ -10223,10 +10299,10 @@ You're not viewing the latest version.
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.caa56a14.min.js"></script>
       
     
   </body>

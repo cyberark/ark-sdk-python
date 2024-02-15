@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f2e4d321.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -9027,8 +9027,7 @@ You're not viewing the latest version.
 <span class="normal">235</span>
 <span class="normal">236</span>
 <span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkKeyring</span><span class="p">:</span>
+<span class="normal">238</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkKeyring</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__service_name</span> <span class="o">=</span> <span class="n">service_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
@@ -9041,6 +9040,9 @@ You're not viewing the latest version.
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_keyring</span><span class="p">(</span><span class="n">enforce_basic_keyring</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">keyring.backends</span> <span class="kn">import</span> <span class="n">SecretService</span><span class="p">,</span> <span class="n">macOS</span>  <span class="c1"># pylint: disable=unused-import</span>
+            <span class="kn">from</span> <span class="nn">keyrings.cryptfile.cryptfile</span> <span class="kn">import</span> <span class="n">CryptFileKeyring</span>  <span class="c1"># pylint: disable=import-error</span>
+
             <span class="c1"># Docker or WSL</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">ArkKeyring</span><span class="o">.</span><span class="n">__is_docker</span><span class="p">()</span>
@@ -9050,8 +9052,6 @@ You're not viewing the latest version.
             <span class="p">):</span>
                 <span class="k">return</span> <span class="n">BasicKeyring</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
-                <span class="kn">from</span> <span class="nn">keyrings.cryptfile.cryptfile</span> <span class="kn">import</span> <span class="n">CryptFileKeyring</span>  <span class="c1"># pylint: disable=import-error</span>
-
                 <span class="n">kr</span> <span class="o">=</span> <span class="n">CryptFileKeyring</span><span class="p">()</span>
                 <span class="n">kr</span><span class="o">.</span><span class="n">keyring_key</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
                 <span class="k">return</span> <span class="n">kr</span>
@@ -9060,8 +9060,6 @@ You're not viewing the latest version.
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">DBUS_SESSION_ENV_VAR</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">BasicKeyring</span><span class="p">()</span>
-                <span class="kn">from</span> <span class="nn">keyring.backends</span> <span class="kn">import</span> <span class="n">SecretService</span>  <span class="c1"># pylint: disable=unused-import</span>
-
                 <span class="k">return</span> <span class="n">SecretService</span><span class="o">.</span><span class="n">Keyring</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">BasicKeyring</span><span class="p">()</span>
@@ -9258,7 +9256,8 @@ When the token has expired but a refresh token exists, the token is only deleted
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/common/ark_keyring.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">188</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">187</span>
+<span class="normal">188</span>
 <span class="normal">189</span>
 <span class="normal">190</span>
 <span class="normal">191</span>
@@ -9308,8 +9307,7 @@ When the token has expired but a refresh token exists, the token is only deleted
 <span class="normal">235</span>
 <span class="normal">236</span>
 <span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">enforce_basic_keyring</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
+<span class="normal">238</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">enforce_basic_keyring</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArkToken</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a token for a profile from the keyring.</span>
 <span class="sd">    The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
@@ -9457,7 +9455,8 @@ The keyring is the OS-based implementation or, when unavailable, a fallback to B
 
           <details class="quote">
             <summary>Source code in <code>ark_sdk_python/common/ark_keyring.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">165</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
+<span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
 <span class="normal">168</span>
@@ -9477,8 +9476,7 @@ The keyring is the OS-based implementation or, when unavailable, a fallback to B
 <span class="normal">182</span>
 <span class="normal">183</span>
 <span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">ArkToken</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">enforce_basic_keyring</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">185</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="n">ArkProfile</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="n">ArkToken</span><span class="p">,</span> <span class="n">postfix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">enforce_basic_keyring</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Saves the specified token for a profile in the keyring.</span>
 <span class="sd">    The keyring is the OS-based implementation or, when unavailable, a fallback to BasicKeyring is used.</span>
@@ -9579,10 +9577,10 @@ The keyring is the OS-based implementation or, when unavailable, a fallback to B
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.caa56a14.min.js"></script>
       
     
   </body>

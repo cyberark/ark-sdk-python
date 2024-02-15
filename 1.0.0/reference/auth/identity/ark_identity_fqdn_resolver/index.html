@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../media/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.f2e4d321.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -9005,7 +9005,17 @@ You're not viewing the latest version.
 <span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
-<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkIdentityFQDNResolver</span><span class="p">:</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ArkIdentityFQDNResolver</span><span class="p">:</span>
     <span class="n">__DISCOVERY_SERVICE_DOMAIN_NAME</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;platform-discovery&#39;</span>
     <span class="n">__DISCOVERY_TIMEOUT</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">30</span>
 
@@ -9062,7 +9072,7 @@ You're not viewing the latest version.
 
     <span class="nd">@staticmethod</span>
     <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
-    <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">loop_retries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resolves the tenant&#39;s FQDN URL in Identity.</span>
 <span class="sd">        By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
@@ -9089,6 +9099,16 @@ You're not viewing the latest version.
         <span class="k">try</span><span class="p">:</span>
             <span class="n">parsed_res</span><span class="p">:</span> <span class="n">TenantFqdnResponse</span> <span class="o">=</span> <span class="n">TenantFqdnResponse</span><span class="o">.</span><span class="n">parse_raw</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="n">ValidationError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">loop_retries</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">loop_retries</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.app&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;dev&#39;</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span>
+                        <span class="n">tenant_suffix</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;dev.</span><span class="si">{</span><span class="n">identity_env_url</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">loop_retries</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span>
+                        <span class="n">tenant_suffix</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.app&#39;</span><span class="p">,</span> <span class="s1">&#39;.qa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;dev.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">loop_retries</span>
+                    <span class="p">)</span>
             <span class="k">raise</span> <span class="n">ArkException</span><span class="p">(</span><span class="s1">&#39;Getting tenant FQDN failed to be parsed / validated&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">ex</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">):</span>
             <span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -9295,7 +9315,7 @@ The resolved URL is based on the current working environment, which is provided 
 
 
 <h3 id="ark_sdk_python.auth.identity.ark_identity_fqdn_resolver.ArkIdentityFQDNResolver.resolve_tenant_fqdn_from_tenant_suffix" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">loop_retries</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
@@ -9435,9 +9455,19 @@ By default, the Identity address is resolved from the current environment mappin
 <span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
-<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">LRUCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span><span class="n">tenant_suffix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">loop_retries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resolves the tenant&#39;s FQDN URL in Identity.</span>
 <span class="sd">    By default, the Identity address is resolved from the current environment mapping (see `get_identity_env_url()`), but it can be optionally be resolved from the `identity_env_url` argument.</span>
@@ -9464,6 +9494,16 @@ By default, the Identity address is resolved from the current environment mappin
     <span class="k">try</span><span class="p">:</span>
         <span class="n">parsed_res</span><span class="p">:</span> <span class="n">TenantFqdnResponse</span> <span class="o">=</span> <span class="n">TenantFqdnResponse</span><span class="o">.</span><span class="n">parse_raw</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
     <span class="k">except</span> <span class="p">(</span><span class="n">ValidationError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+        <span class="n">loop_retries</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">loop_retries</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.app&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;dev&#39;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span>
+                    <span class="n">tenant_suffix</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;dev.</span><span class="si">{</span><span class="n">identity_env_url</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">loop_retries</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">ArkIdentityFQDNResolver</span><span class="o">.</span><span class="n">resolve_tenant_fqdn_from_tenant_suffix</span><span class="p">(</span>
+                    <span class="n">tenant_suffix</span><span class="p">,</span> <span class="n">identity_env_url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.app&#39;</span><span class="p">,</span> <span class="s1">&#39;.qa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;dev.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">loop_retries</span>
+                <span class="p">)</span>
         <span class="k">raise</span> <span class="n">ArkException</span><span class="p">(</span><span class="s1">&#39;Getting tenant FQDN failed to be parsed / validated&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">ex</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">):</span>
         <span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">parsed_res</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">pod_fqdn</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -9547,10 +9587,10 @@ By default, the Identity address is resolved from the current environment mappin
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "navigation.indexes", "navigation.tracking", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.caa56a14.min.js"></script>
       
     
   </body>
