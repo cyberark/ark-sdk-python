@@ -15,17 +15,20 @@ class ArkDPADBDatabaseEngineType(str, Enum):
     OracleEECDB = 'oracle-ee-cdb'
     OracleSE2 = 'oracle-se2'
     OracleSE2CDB = 'oracle-se2-cdb'
-    SqlServer = 'sql-server'
+    SqlServer = 'sqlserver'
     Oracle = 'oracle'
     MSSQL = 'mssql'
     MariaDB = 'mariadb'
     MySQL = 'mysql'
     Postgres = 'postgres'
     SqlServerSH = 'sqlserver-sh'
+    MSSQLSH = 'mssql-sh'
     MySQLSH = 'mysql-sh'
     MariaDBSH = 'mariadb-sh'
     PostgresSH = 'postgres-sh'
     OracleSH = 'oracle-sh'
+    DB2 = 'db2'
+    DB2SH = 'db2-sh'
 
 
 class ArkDPADBDatabaseFamilyType(str, Enum):
@@ -34,6 +37,7 @@ class ArkDPADBDatabaseFamilyType(str, Enum):
     MSSQL = 'MSSQL'
     MySQL = 'MySQL'
     MariaDB = 'MariaDB'
+    DB2 = 'DB2'
     Unknown = 'Unknown'
 
 
@@ -58,6 +62,7 @@ DATABASES_ENGINES_TO_FAMILY: Final[Dict[ArkDPADBDatabaseEngineType, ArkDPADBData
     ArkDPADBDatabaseEngineType.MariaDB: ArkDPADBDatabaseFamilyType.MariaDB,
     ArkDPADBDatabaseEngineType.MariaDBSH: ArkDPADBDatabaseFamilyType.MariaDB,
     ArkDPADBDatabaseEngineType.MSSQL: ArkDPADBDatabaseFamilyType.MSSQL,
+    ArkDPADBDatabaseEngineType.MSSQLSH: ArkDPADBDatabaseFamilyType.MSSQL,
     ArkDPADBDatabaseEngineType.MySQL: ArkDPADBDatabaseFamilyType.MySQL,
     ArkDPADBDatabaseEngineType.MySQLSH: ArkDPADBDatabaseFamilyType.MySQL,
     ArkDPADBDatabaseEngineType.Oracle: ArkDPADBDatabaseFamilyType.Oracle,
@@ -70,6 +75,8 @@ DATABASES_ENGINES_TO_FAMILY: Final[Dict[ArkDPADBDatabaseEngineType, ArkDPADBData
     ArkDPADBDatabaseEngineType.PostgresSH: ArkDPADBDatabaseFamilyType.Postgres,
     ArkDPADBDatabaseEngineType.SqlServer: ArkDPADBDatabaseFamilyType.MSSQL,
     ArkDPADBDatabaseEngineType.SqlServerSH: ArkDPADBDatabaseFamilyType.MSSQL,
+    ArkDPADBDatabaseEngineType.DB2: ArkDPADBDatabaseFamilyType.DB2,
+    ArkDPADBDatabaseEngineType.DB2SH: ArkDPADBDatabaseFamilyType.DB2,
 }
 
 
@@ -79,4 +86,5 @@ DATABASE_FAMILIES_DEFAULT_PORTS: Final[Dict[ArkDPADBDatabaseFamilyType, int]] = 
     ArkDPADBDatabaseFamilyType.MSSQL: 1433,
     ArkDPADBDatabaseFamilyType.MySQL: 3306,
     ArkDPADBDatabaseFamilyType.MariaDB: 3306,
+    ArkDPADBDatabaseFamilyType.DB2: 50002,
 }
