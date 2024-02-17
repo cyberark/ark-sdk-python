@@ -1,6 +1,7 @@
 import codecs
 import json
 import logging
+import os
 import re
 import sys
 import time
@@ -19,6 +20,7 @@ from requests import Session
 from ark_sdk_python.args import ArkArgsFormatter, ArkInquirerRender
 from ark_sdk_python.auth.identity.ark_identity_fqdn_resolver import ArkIdentityFQDNResolver
 from ark_sdk_python.common import ArkKeyring, ArkSystemConfig, get_logger
+from ark_sdk_python.common.env import AwsEnv
 from ark_sdk_python.models import ArkException, ArkNonInteractiveException
 from ark_sdk_python.models.ark_exceptions import ArkAuthException
 from ark_sdk_python.models.ark_profile import ArkProfile
@@ -75,6 +77,7 @@ class ArkIdentity:
         username: str,
         password: Optional[str],
         identity_url: Optional[str] = None,
+        identity_tenant_subdomain: Optional[str] = None,
         mfa_type: Optional[str] = None,
         logger: Optional[logging.Logger] = None,
         cache_authentication: bool = True,
@@ -84,7 +87,7 @@ class ArkIdentity:
     ) -> None:
         self.__username = username
         self.__password = password
-        self.__identity_url = identity_url or self.__resolve_fqdn_from_username()
+        self.__identity_url = self.__resolve_fqdn_from_username_or_subdomain(identity_url, identity_tenant_subdomain)
         if not self.__identity_url.startswith('https://'):
             self.__identity_url = f'https://{self.__identity_url}'
         self.__mfa_type = mfa_type
@@ -158,7 +161,16 @@ class ArkIdentity:
                 f'{self.__username}_identity_session',
             )
 
-    def __resolve_fqdn_from_username(self) -> str:
+    def __resolve_fqdn_from_username_or_subdomain(self, identity_url: Optional[str], identity_tenant_subdomain: Optional[str]) -> str:
+        if identity_tenant_subdomain and not identity_url:
+            try:
+                identity_url = ArkIdentityFQDNResolver.resolve_tenant_fqdn_from_tenant_subdomain(
+                    identity_tenant_subdomain, AwsEnv(os.environ.get('DEPLOY_ENV', AwsEnv.PROD.value))
+                )
+            except Exception as ex:
+                self.__logger.warning(f'Failed to resolve url from tenant subdomain, falling back to user [{str(ex)}]')
+        if identity_url:
+            return identity_url
         tenant_suffix = self.__username[self.__username.index('@') :]
         return ArkIdentityFQDNResolver.resolve_tenant_fqdn_from_tenant_suffix(tenant_suffix=tenant_suffix)
 
@@ -166,7 +178,7 @@ class ArkIdentity:
         self.__logger.info(f'Starting authentication with user {self.__username} and fqdn {self.__identity_url}')
         response = self.__session.post(
             url=f'{self.__identity_url}/Security/StartAuthentication',
-            json={'User': self.__username, 'Version': '1.0', 'PlatformTokenResponse': True},
+            json={'User': self.__username, 'Version': '1.0', 'PlatformTokenResponse': True, 'MfaRequestor': 'DeviceAgent'},
         )
         try:
             parsed_res: StartAuthResponse = StartAuthResponse.parse_raw(response.text)
@@ -381,19 +393,26 @@ class ArkIdentity:
 
     @classmethod
     @cached(cache=LRUCache(maxsize=1024))
-    def is_idp_user(cls, username: str) -> bool:
+    def is_idp_user(cls, username: str, identity_url: Optional[str], identity_tenant_subdomain: Optional[str]) -> bool:
         """
         Checks whether or not the specified username is from an external IDP.
 
         Args:
             username (str): _description_
+            identity_url (Optional[str]): _description_
+            identity_tenant_subdomain (Optional[str]): _description_
 
         Returns:
             bool: _description_
         """
         if re.match('.*@cyberark\\.cloud\\.(\\d)+', username) is not None:
             return False
-        identity = ArkIdentity(username=username, password='')
+        identity = ArkIdentity(
+            username=username,
+            password='',
+            identity_url=identity_url,
+            identity_tenant_subdomain=identity_tenant_subdomain,
+        )
         resp = identity.__start_authentication()
         return resp.result.idp_redirect_url != None
 

@@ -16,6 +16,7 @@ from ark_sdk_python.models.auth import (
     ArkAuthMethodsRequireCredentials,
     ArkSecret,
     ArkToken,
+    IdentityArkAuthMethodSettings,
 )
 
 
@@ -138,7 +139,19 @@ class ArkLoginAction(ArkAction):
                         if (
                             authenticator_name == 'isp'
                             and auth_profile.auth_method == ArkAuthMethod.Identity
-                            and ArkIdentity.is_idp_user(auth_profile.username)
+                            and ArkIdentity.is_idp_user(
+                                auth_profile.username,
+                                (
+                                    auth_profile.auth_method_settings.identity_url
+                                    if isinstance(auth_profile.auth_method_settings, IdentityArkAuthMethodSettings)
+                                    else None
+                                ),
+                                (
+                                    auth_profile.auth_method_settings.identity_tenant_subdomain
+                                    if isinstance(auth_profile.auth_method_settings, IdentityArkAuthMethodSettings)
+                                    else None
+                                ),
+                            )
                         ):
                             secret = ArkSecret(secret='')
                         else:
