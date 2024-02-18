@@ -31,6 +31,7 @@ CONFIGURATION_AUTHENTICATOR_IGNORED_INTERACTIVE_KEYS: Final[Dict[str, List[str]]
 }
 CONFIGURATION_ALLOWED_EMPTY_VALUES: Final[List[str]] = {
     'isp_identity_url',
+    'isp_identity_tenant_subdomain',
 }
 CONFIGURATION_AUTHENTICATORS_DEFAULTS: Final[Dict[str, str]] = {}
 CONFIGURATION_OVERRIDE_ALIASES: Final[Dict[str, str]] = {'region': 'Region', 'env': 'Environment'}

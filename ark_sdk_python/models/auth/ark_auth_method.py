@@ -28,6 +28,12 @@ class IdentityArkAuthMethodSettings(ArkAuthMethodSettings):
     identity_url: Optional[str] = Field(
         description='Identity url to use for authentication instead of fqdn resolving', alias='Identity Url'
     )
+    identity_tenant_subdomain: Optional[str] = Field(
+        description='Identity security platform tenant subdomain, '
+        'for exmaple mytenant.cyberark.cloud would be subdomained to mytenant. '
+        'this will be used instead of fqdn resolving from the username',
+        alias='Identity Tenant Subdomain',
+    )
 
 
 class IdentityServiceUserArkAuthMethodSettings(ArkAuthMethodSettings):

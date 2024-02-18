@@ -46,6 +46,7 @@ class ArkISPAuth(ArkAuth):
                 username=auth_profile.username,
                 password=secret.secret.get_secret_value() if secret else None,
                 identity_url=method_settings.identity_url,
+                identity_tenant_subdomain=method_settings.identity_tenant_subdomain,
                 mfa_type=method_settings.identity_mfa_method,
                 logger=self._logger,
                 cache_authentication=self._cache_authentication,

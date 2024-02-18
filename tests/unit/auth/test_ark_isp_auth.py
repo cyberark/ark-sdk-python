@@ -48,7 +48,7 @@ class TestArkISPAuth:
         tenant_fqdn_mock.assert_called_once()
         session_mock.return_value.post.assert_any_call(
             url='https://url.com/Security/StartAuthentication',
-            json={'User': 'user@user.com', 'Version': '1.0', 'PlatformTokenResponse': True},
+            json={'User': 'user@user.com', 'Version': '1.0', 'PlatformTokenResponse': True, 'MfaRequestor': 'DeviceAgent'},
         )
         session_mock.return_value.post.assert_any_call(
             url='https://url.com/Security/AdvanceAuthentication',
@@ -129,7 +129,7 @@ class TestArkISPAuth:
         pickle_dumps_mock.assert_called()
         session_mock.return_value.post.assert_any_call(
             url='https://url.com/Security/StartAuthentication',
-            json={'User': 'user@user.com', 'Version': '1.0', 'PlatformTokenResponse': True},
+            json={'User': 'user@user.com', 'Version': '1.0', 'PlatformTokenResponse': True, 'MfaRequestor': 'DeviceAgent'},
         )
         session_mock.return_value.post.assert_any_call(
             url='https://url.com/Security/AdvanceAuthentication',
