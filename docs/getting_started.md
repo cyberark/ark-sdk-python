@@ -12,6 +12,11 @@ You can install the SDK via [PyPI](https://pypi.org/) with the following command
 pip3 install ark-sdk-python
 ```
 
+You may also upgrade the SDK via [PyPI](https://pypi.org/) to the latest version with the following command:
+```shell linenums="0"
+pip3 install -U ark-sdk-python
+```
+
 ## CLI Usage
 
 Both the SDK and the CLI support [profiles](howto/working_with_profiles.md), which can be configured as needed and used for consecutive actions.
