@@ -30,7 +30,9 @@ class ArkRegion(str, Enum):
     USEastPerf = 'us-east-perf'
     USEastPod = 'us-east-pod'
     Jakarta = 'ap-southeast-3'
+    Indonesia = 'ap-southeast-3'
     Melbourne = 'ap-southeast-4'
+    UAE = 'me-central-1'
 
 
 regions_full_names = {
@@ -62,7 +64,9 @@ regions_full_names = {
     ArkRegion.USEastPerf: 'us-east-perf (US-East-Perf)',
     ArkRegion.USEastPod: 'us-east-pod (US-East-Pod)',
     ArkRegion.Jakarta: 'ap-southeast-3 (Jakarta)',
+    ArkRegion.Indonesia: 'ap-southeast-3 (Indonesia)',
     ArkRegion.Melbourne: 'ap-southeast-4 (Melbourne)',
+    ArkRegion.UAE: 'me-central-1 (UAE)',
 }
 
 platform_region_dict = {
@@ -94,7 +98,9 @@ platform_region_dict = {
     'us-east-pod': 'US-East-Pod',
     'ISP-PcloudPerf-US East': 'isp-pcloudperf-us east',
     'Jakarta': 'ap-southeast-3',
+    'Indonesia': 'ap-southeast-3',
     'Melbourne': 'ap-southeast-4',
+    'UAE': 'me-central-1',
 }
 
 

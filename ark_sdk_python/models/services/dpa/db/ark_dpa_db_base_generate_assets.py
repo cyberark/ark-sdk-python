@@ -18,4 +18,4 @@ class ArkDPADBBaseGenerateAssets(ArkModel):
     response_format: ArkDPADBAssetsResponseFormat = Field(
         description='In which format to return the assets', default=ArkDPADBAssetsResponseFormat.RAW
     )
-    include_sso: bool = Field(description='Whether to generate the asset with SSO details', default=True)
+    folder: str = Field(description='Where to output the assets')

@@ -21,7 +21,6 @@ from ark_sdk_python.models.services.dpa.policies.vm import (
     ArkDPAVMConnectionInformation,
     ArkDPAVMFQDNOperator,
     ArkDPAVMFQDNRule,
-    ArkDPAVMFQDNRulesConjunction,
     ArkDPAVMGCPProviderData,
     ArkDPAVMLocalEphemeralUserConnectionMethodData,
     ArkDPAVMOnPremProviderData,
@@ -66,7 +65,6 @@ DEFAULT_GENERATED_PROVIDERS: Final[Dict[ArkWorkspaceType, ArkDPAVMProvider]] = {
     ),
     ArkWorkspaceType.GCP: ArkDPAVMGCPProviderData(regions=[], tags=[{'key': 'value'}], network_ids=[], projects=[]),
     ArkWorkspaceType.ONPREM: ArkDPAVMOnPremProviderData(
-        fqdn_rules_conjunction=ArkDPAVMFQDNRulesConjunction.OR,
         fqdn_rules=[ArkDPAVMFQDNRule(operator=ArkDPAVMFQDNOperator.WILDCARD, computername_pattern='*', domain='default.com')],
     ),
 }

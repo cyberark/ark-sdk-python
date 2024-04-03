@@ -9,9 +9,11 @@ from ark_sdk_python.models.services.dpa.policies.db.ark_dpa_db_connection_data i
     ArkDPADBConnectAs,
     ArkDPADBLDAPAuth,
     ArkDPADBLocalDBAuth,
+    ArkDPADBMongoDBAuth,
     ArkDPADBOracleDBAuth,
     ArkDPADBResourceIdentifierType,
 )
+from ark_sdk_python.models.services.dpa.policies.db.ark_dpa_db_enums import ArkDPADBMongoDatabaseBuiltinRole, ArkDPADBMongoGlobalBuiltinRole
 from ark_sdk_python.models.services.dpa.policies.db.ark_dpa_db_policies_filter import ArkDPADBPoliciesFilter
 from ark_sdk_python.models.services.dpa.policies.db.ark_dpa_db_policies_stats import ArkDPADBPoliciesStats
 from ark_sdk_python.models.services.dpa.policies.db.ark_dpa_db_policies_workspace_type_serializer import (
@@ -21,8 +23,10 @@ from ark_sdk_python.models.services.dpa.policies.db.ark_dpa_db_policy import Ark
 from ark_sdk_python.models.services.dpa.policies.db.ark_dpa_db_policy_list_item import ArkDPADBPolicyListItem
 from ark_sdk_python.models.services.dpa.policies.db.ark_dpa_db_providers import (
     ArkDPADB,
+    ArkDPADBDb2,
     ArkDPADBIdentifiers,
     ArkDPADBMariaDB,
+    ArkDPADBMongo,
     ArkDPADBMSSQL,
     ArkDPADBMySQL,
     ArkDPADBOracle,
@@ -42,6 +46,7 @@ __all__ = [
     'ArkDPADBLDAPAuth',
     'ArkDPADBLocalDBAuth',
     'ArkDPADBOracleDBAuth',
+    'ArkDPADBMongoDBAuth',
     'ArkDPADBResourceIdentifierType',
     'ArkDPADBPoliciesFilter',
     'ArkDPADBPoliciesStats',
@@ -56,6 +61,10 @@ __all__ = [
     'ArkDPADBOracleResource',
     'ArkDPADBPostgres',
     'ArkDPADBOracle',
+    'ArkDPADBMongo',
     'ArkDPADBProvidersData',
     'ArkDPADBUpdatePolicy',
+    'ArkDPADBMongoDatabaseBuiltinRole',
+    'ArkDPADBMongoGlobalBuiltinRole',
+    'ArkDPADBDb2',
 ]

@@ -20,7 +20,10 @@ class ArkDPAVMPolicy(ArkDPABasePolicy):
     def validate_providers_data(cls, val):
         if val is not None:
             for k in val.keys():
-                val[k]['providerName'] = serialize_dpa_vm_policies_workspace_type(ArkWorkspaceType(k))
+                if isinstance(val[k], dict):
+                    val[k]['providerName'] = serialize_dpa_vm_policies_workspace_type(ArkWorkspaceType(k))
+                else:
+                    val[k].provider_name = serialize_dpa_vm_policies_workspace_type(ArkWorkspaceType(k))
                 if ArkWorkspaceType(k) not in [ArkWorkspaceType.AWS, ArkWorkspaceType.AZURE, ArkWorkspaceType.GCP, ArkWorkspaceType.ONPREM]:
                     raise ValueError('Invalid Platform / Workspace Type')
         return val

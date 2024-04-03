@@ -15,4 +15,8 @@ def serialize_dpa_db_policies_workspace_type(ws_type: ArkWorkspaceType) -> str:
         return 'Postgres'
     elif ws_type == ArkWorkspaceType.ORACLE:
         return 'Oracle'
+    elif ws_type == ArkWorkspaceType.MONGO:
+        return 'Mongo'
+    elif ws_type == ArkWorkspaceType.DB2:
+        return 'Db2'
     raise ArkException('Invalid DB Policies Workspace Type')

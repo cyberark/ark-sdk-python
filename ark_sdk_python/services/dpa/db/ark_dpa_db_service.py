@@ -21,9 +21,11 @@ from ark_sdk_python.models.common.ark_connection_method import ArkConnectionMeth
 from ark_sdk_python.models.services import ArkServiceConfig
 from ark_sdk_python.models.services.dpa.db import (
     ArkDPADBAssetsResponseFormat,
+    ArkDPADBAssetsType,
     ArkDPADBGeneratedAssets,
     ArkDPADBMysqlExecution,
     ArkDPADBOracleGenerateAssets,
+    ArkDPADBProxyFullchainGenerateAssets,
     ArkDPADBPsqlExecution,
 )
 from ark_sdk_python.models.services.dpa.sso import ArkDPASSOGetShortLivedPassword
@@ -144,22 +146,28 @@ class ArkDPADBService(ArkService):
 
     def __generate_assets(
         self,
-        resource_type: ArkDPADBDatabaseFamilyType,
+        asset_type: ArkDPADBAssetsType,
         connection_method: ArkConnectionMethod,
         response_format: ArkDPADBAssetsResponseFormat,
-        include_sso: bool,
-        generation_hints: Dict[str, Any],
+        generation_hints: Optional[Dict[str, Any]] = None,
+        include_sso: Optional[bool] = None,
+        resource_type: Optional[ArkDPADBDatabaseFamilyType] = None,
     ) -> ArkDPADBGeneratedAssets:
+        body = {
+            'asset_type': asset_type,
+            'os_type': running_os().value,
+            'connection_method': connection_method.value,
+            'response_format': response_format.value,
+        }
+        if generation_hints:
+            body['generation_hints'] = generation_hints
+        if include_sso is not None:
+            body['include_sso'] = include_sso
+        if resource_type:
+            body['resource_type'] = resource_type.value
         resp: Response = self.__client.post(
             ASSETS_API,
-            json={
-                'resource_type': resource_type.value,
-                'os_type': running_os().value,
-                'connection_method': connection_method.value,
-                'response_format': response_format.value,
-                'include_sso': include_sso,
-                'generation_hints': generation_hints,
-            },
+            json=body,
         )
         if resp.status_code == HTTPStatus.OK:
             try:
@@ -183,11 +191,12 @@ class ArkDPADBService(ArkService):
         """
         self._logger.info('Generating oracle tns names')
         assets_data = self.__generate_assets(
-            ArkDPADBDatabaseFamilyType.Oracle,
-            generate_oracle_assets.connection_method,
-            generate_oracle_assets.response_format,
-            generate_oracle_assets.include_sso,
-            {'folder': generate_oracle_assets.folder},
+            asset_type=ArkDPADBAssetsType.OracleTNSAssets,
+            connection_method=generate_oracle_assets.connection_method,
+            response_format=generate_oracle_assets.response_format,
+            generation_hints={'folder': generate_oracle_assets.folder},
+            include_sso=generate_oracle_assets.include_sso,
+            resource_type=ArkDPADBDatabaseFamilyType.Oracle,
         )
         if isinstance(assets_data, ArkDPADBGeneratedAssets):
             assets_data = assets_data.assets['generated_assets']
@@ -201,6 +210,29 @@ class ArkDPADBService(ArkService):
             assets_bytes = BytesIO(assets_data)
             with zipfile.ZipFile(assets_bytes, 'r') as zipf:
                 zipf.extractall(generate_oracle_assets.folder)
+
+    def generate_proxy_fullchain(self, generate_proxy_fullchain: ArkDPADBProxyFullchainGenerateAssets) -> None:
+        """
+        Generates the proxy fullchain certificates for full certificate validation.
+
+        Args:
+            generate_proxy_fullchain (ArkDPADBProxyFullchainGenerateAssets): _description_
+
+        Raises:
+            ArkServiceException: _description_
+        """
+        self._logger.info('Generating proxy fullchain')
+        assets_data = self.__generate_assets(
+            asset_type=ArkDPADBAssetsType.ProxyFullChain,
+            connection_method=generate_proxy_fullchain.connection_method,
+            response_format=generate_proxy_fullchain.response_format,
+        )
+        if isinstance(assets_data, ArkDPADBGeneratedAssets):
+            assets_data = assets_data.assets['generated_assets']
+        if not os.path.exists(generate_proxy_fullchain.folder):
+            os.makedirs(generate_proxy_fullchain.folder)
+        with open(f'{generate_proxy_fullchain.folder}{os.path.sep}proxy_fullchain.pem', 'w', encoding='utf-8') as file_handle:
+            file_handle.write(assets_data)
 
     @staticmethod
     @overrides

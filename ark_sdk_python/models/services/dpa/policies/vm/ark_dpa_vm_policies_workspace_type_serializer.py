@@ -9,6 +9,8 @@ def serialize_dpa_vm_policies_workspace_type(ws_type: ArkWorkspaceType) -> str:
         return 'AWS'
     elif ws_type == ArkWorkspaceType.AZURE:
         return 'Azure'
+    elif ws_type == ArkWorkspaceType.GCP:
+        return 'GCP'
     elif ws_type == ArkWorkspaceType.ONPREM:
         return 'OnPrem'
     raise ArkException('Invalid VM Policies Workspace Type')

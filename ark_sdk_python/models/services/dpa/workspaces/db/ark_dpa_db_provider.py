@@ -29,6 +29,8 @@ class ArkDPADBDatabaseEngineType(str, Enum):
     OracleSH = 'oracle-sh'
     DB2 = 'db2'
     DB2SH = 'db2-sh'
+    Mongo = 'mongo'
+    MongoSH = 'mongo-sh'
 
 
 class ArkDPADBDatabaseFamilyType(str, Enum):
@@ -38,6 +40,7 @@ class ArkDPADBDatabaseFamilyType(str, Enum):
     MySQL = 'MySQL'
     MariaDB = 'MariaDB'
     DB2 = 'DB2'
+    Mongo = 'Mongo'
     Unknown = 'Unknown'
 
 
@@ -77,6 +80,8 @@ DATABASES_ENGINES_TO_FAMILY: Final[Dict[ArkDPADBDatabaseEngineType, ArkDPADBData
     ArkDPADBDatabaseEngineType.SqlServerSH: ArkDPADBDatabaseFamilyType.MSSQL,
     ArkDPADBDatabaseEngineType.DB2: ArkDPADBDatabaseFamilyType.DB2,
     ArkDPADBDatabaseEngineType.DB2SH: ArkDPADBDatabaseFamilyType.DB2,
+    ArkDPADBDatabaseEngineType.Mongo: ArkDPADBDatabaseFamilyType.Mongo,
+    ArkDPADBDatabaseEngineType.MongoSH: ArkDPADBDatabaseFamilyType.Mongo,
 }
 
 
@@ -87,4 +92,5 @@ DATABASE_FAMILIES_DEFAULT_PORTS: Final[Dict[ArkDPADBDatabaseFamilyType, int]] = 
     ArkDPADBDatabaseFamilyType.MySQL: 3306,
     ArkDPADBDatabaseFamilyType.MariaDB: 3306,
     ArkDPADBDatabaseFamilyType.DB2: 50002,
+    ArkDPADBDatabaseFamilyType.Mongo: 27017,
 }

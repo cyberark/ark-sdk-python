@@ -18,6 +18,11 @@ class ArkDPADBUpdateDatabase(ArkCamelizedModel):
     domain: Optional[str] = Field(description='The domain the DB resides in')
     domain_controller_name: Optional[str] = Field(description='Domain controller name associated to this database')
     domain_controller_netbios: Optional[str] = Field(description='Domain controller netbios associated to this database')
+    domain_controller_use_ldaps: bool = Field(description='Whether to work with LDAP secure or not', default=False)
+    domain_controller_enable_certificate_validation: bool = Field(
+        description='Whether to enforce certificate validation on TLS comm to the DC', default=True
+    )
+    domain_controller_ldaps_certificate: Optional[str] = Field(description='Certificate id to use for the domain controller TLS comm')
     provider_engine: Optional[ArkDPADBDatabaseEngineType] = Field(
         description='Provider engine, will be later deduced to the identifer of the provider'
     )

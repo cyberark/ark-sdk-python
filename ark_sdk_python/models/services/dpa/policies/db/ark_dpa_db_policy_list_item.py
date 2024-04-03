@@ -21,6 +21,8 @@ class ArkDPADBPolicyListItem(ArkDPABasePolicyListItem):
                     ArkWorkspaceType.POSTGRES,
                     ArkWorkspaceType.MSSQL,
                     ArkWorkspaceType.ORACLE,
+                    ArkWorkspaceType.MONGO,
+                    ArkWorkspaceType.DB2,
                 ]:
                     raise ValueError('Invalid Database Type')
         return val
