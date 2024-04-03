@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ark-sdk-python"
-version = "1.0.6"
+version = "1.0.7"
 description='Official Ark SDK / CLI for CyberArk Identity Security Platform'
 authors = ["CyberArk <cyberark@cyberark.com>", "Ofir Iluz <ofir.iluz@cyberark.com"]
 readme = "README.md"
@@ -46,7 +46,7 @@ keyring = "*"
 colorama = "*"
 pydantic = "1.10.*"
 argcomplete = "*"
-humps = "*"
+pyhumps = "*"
 overrides = "*"
 packaging = "*"
 deepdiff = "*"

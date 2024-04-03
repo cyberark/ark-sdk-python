@@ -1,6 +1,6 @@
 from typing import Any, Callable, Optional
 
-from humps import camel
+from humps import camelize
 from pydantic import BaseModel, Field, validator
 from pydantic.generics import GenericModel
 
@@ -21,7 +21,7 @@ class ArkPresentableModel(ArkModel):
 
 class ArkCamelizedModel(ArkPresentableModel):
     class Config:
-        alias_generator = camel.case
+        alias_generator = camelize
 
 
 class ArkTitleizedModel(ArkPresentableModel):

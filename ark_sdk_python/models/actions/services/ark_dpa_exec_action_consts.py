@@ -21,7 +21,12 @@ from ark_sdk_python.models.services.dpa.certificates import (
     ArkDPAGetCertificate,
     ArkDPAUpdateCertificate,
 )
-from ark_sdk_python.models.services.dpa.db import ArkDPADBMysqlExecution, ArkDPADBOracleGenerateAssets, ArkDPADBPsqlExecution
+from ark_sdk_python.models.services.dpa.db import (
+    ArkDPADBMysqlExecution,
+    ArkDPADBOracleGenerateAssets,
+    ArkDPADBProxyFullchainGenerateAssets,
+    ArkDPADBPsqlExecution,
+)
 from ark_sdk_python.models.services.dpa.k8s.ark_dpa_k8s_generate_kubeconfig import ArkDPAK8SGenerateKubeConfig
 from ark_sdk_python.models.services.dpa.policies.common import ArkDPADeletePolicy, ArkDPAGetPolicy, ArkDPAUpdatePolicyStatus
 from ark_sdk_python.models.services.dpa.policies.db import ArkDPADBAddPolicy, ArkDPADBPoliciesFilter, ArkDPADBUpdatePolicy
@@ -154,6 +159,7 @@ DB_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
     'psql': ArkDPADBPsqlExecution,
     'mysql': ArkDPADBMysqlExecution,
     'generate-oracle-tnsnames': ArkDPADBOracleGenerateAssets,
+    'generate-proxy-fullchain': ArkDPADBProxyFullchainGenerateAssets,
 }
 DB_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(action_name='db', schemas=DB_ACTION_TO_SCHEMA_MAP)
 K8S_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {'generate-kubeconfig': ArkDPAK8SGenerateKubeConfig}

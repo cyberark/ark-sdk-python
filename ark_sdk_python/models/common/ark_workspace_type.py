@@ -12,5 +12,7 @@ class ArkWorkspaceType(str, MultiValueEnum):
     MSSQL = 'mssql', 'MSSQL'
     ORACLE = 'oracle', 'Oracle'
     POSTGRES = 'postgres', 'Postgres'
+    MONGO = 'mongo', 'Mongo'
+    DB2 = 'db2', 'Db2'
     FAULT = 'fault', 'FAULT'
     UNKNOWN = 'unknown', 'UNKNOWN', 'Unknown'

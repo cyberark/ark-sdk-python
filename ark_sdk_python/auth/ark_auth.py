@@ -180,7 +180,9 @@ class ArkAuth(ABC):
             return self.__token != None
         return False
 
-    def load_authentication(self, profile: Optional[ArkProfile] = None, refresh_auth: bool = False) -> Optional[ArkToken]:
+    def load_authentication(
+        self, profile: Optional[ArkProfile] = None, refresh_auth: bool = False, grace_seconds: Optional[int] = None
+    ) -> Optional[ArkToken]:
         """
         Loads and returns the authentication token from the cache, if it exists.
         If specified, the method also attempts to refresh the token as needed.
@@ -188,6 +190,7 @@ class ArkAuth(ABC):
         Args:
             profile (Optional[ArkProfile], optional): _description_. Defaults to None.
             refresh_auth (bool, optional): _description_. Defaults to False.
+            grace_seconds (Optional[int], optional): try to refresh in case there is less than grace_seconds until expired. Defaults to None.
 
         Returns:
             Optional[ArkToken]: _description_
@@ -208,11 +211,8 @@ class ArkAuth(ABC):
             if self._cache_keyring:
                 self.__token = self._cache_keyring.load_token(profile, self._resolve_cache_postfix(auth_profile))
             if refresh_auth:
-                if (
-                    self.__token
-                    and self.__token.expires_in.replace(tzinfo=None) - timedelta(seconds=DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS)
-                    > datetime.now()
-                ):
+                grace_seconds = grace_seconds if grace_seconds is not None else DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS
+                if self.__token and self.__token.expires_in.replace(tzinfo=None) - timedelta(seconds=grace_seconds) > datetime.now():
                     self._logger.info('Token did not pass grace expiration, no need to refresh')
                 else:
                     self._logger.info('Trying to refresh token authentication')

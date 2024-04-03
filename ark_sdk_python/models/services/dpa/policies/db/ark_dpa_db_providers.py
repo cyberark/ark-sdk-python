@@ -29,6 +29,14 @@ class ArkDPADBPostgres(ArkDPADBIdentifiers):
     pass
 
 
+class ArkDPADBMongo(ArkDPADBIdentifiers):
+    pass
+
+
+class ArkDPADBDb2(ArkDPADBIdentifiers):
+    pass
+
+
 class ArkDPADBOracleResource(ArkCamelizedModel):
     name: str = Field(description='Name of the oracle db resource / asset')
     services: Optional[List[str]] = Field(description='Oracle services in the database')
@@ -44,6 +52,8 @@ class ArkDPADBProvidersData(ArkCamelizedModel):
     mariadb: Optional[ArkDPADBMariaDB] = Field(description='MariaDB related resources')
     postgres: Optional[ArkDPADBPostgres] = Field(description='PostgreSQL related resources')
     oracle: Optional[ArkDPADBOracle] = Field(description='Oracle related resources')
+    mongo: Optional[ArkDPADBMongo] = Field(description='Mongo related resources')
+    db2: Optional[ArkDPADBDb2] = Field(description='Db2 related resources')
 
     @root_validator
     @classmethod
