@@ -40,8 +40,12 @@ class ArkDPADBOracleDBAuth(ArkDPADBBaseAuth):
 
 
 class ArkDPADBMongoDBAuth(ArkDPADBBaseAuth):
-    global_builtin_roles: List[ArkDPADBMongoGlobalBuiltinRole] = Field(description='Global builtin roles across all databases', default_factory=list)
-    database_builtin_roles: Dict[str, List[ArkDPADBMongoDatabaseBuiltinRole]] = Field(description='Per database builtin roles', default_factory=dict)
+    global_builtin_roles: List[ArkDPADBMongoGlobalBuiltinRole] = Field(
+        description='Global builtin roles across all databases', default_factory=list
+    )
+    database_builtin_roles: Dict[str, List[ArkDPADBMongoDatabaseBuiltinRole]] = Field(
+        description='Per database builtin roles', default_factory=dict
+    )
     database_custom_roles: Dict[str, List[str]] = Field(description='Custom per database roles', default_factory=dict)
     applied_to: Optional[List[ArkDPADBAppliedTo]] = Field(description='Which resources to apply to')
 
