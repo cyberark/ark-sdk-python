@@ -164,3 +164,43 @@ ark exec sm count-session-activities-by --session-id 5e62bdb8-cd81-42b8-ac72-1e0
 ```shell
 ark exec sm sessions-stats
 ```
+
+### List all identity entities, including roles users and groups
+```shell
+ark exec identity directories list-directories-entities
+```
+
+### List only identity roles
+```shell
+ark exec identity directories list-directories-entities --entity-types ROLE
+```
+
+### Create a role with DPA show tile admin right
+```shell
+ark exec identity roles create-role --role-name RoleName --admin-rights "ServiceRight/dpaShowTile"
+```
+
+### Delete a role by name
+```shell
+ark exec identity roles delete-role --role-name RoleName
+```
+
+### Create a new user
+```shell
+ark exec identity users create-user --username myname --email email@email.com --password MyPassword
+```
+
+### Delete a user by name
+```shell
+ark exec identity users delete-user --username myname
+```
+
+### Add an authentication profile
+```shell
+ark exec identity policies add-authentication-profile --auth-profile-name myprofile --first-challenges UP --second-challenges EMAIL
+```
+
+### Add a policy
+```shell
+ark exec identity policies add-policy --policy-name mypolicy --role-names RoleName --auth-profile-name myprofile
+```

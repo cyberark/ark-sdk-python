@@ -11,7 +11,7 @@ You use the `exec` command is used to run commands on available services (the av
 
 The following DPA commands are supported:
 
-- `ark exec dpa`: Root command for the DBA service
+- `ark exec dpa`: Root command for the DPA service
     - `policies` - Policy management
         - `db` - DB policies
             - `editor` - DB policies interactive editor
@@ -25,6 +25,12 @@ The following DPA commands are supported:
     - `workspaces` - Workspaces management
         - `db` - DB workspace management
     - `k8s` - Kubernetes service
+- `ark exec sm`: Root command for Session Monitoring service
+- `ark exec identity`: Root command for Identity service
+    - `roles` - Roles management
+    - `users` - Users management
+    - `policies` - Policies management
+    - `directories` - Directories reading
 
 All commands have their own subcommands and respective arguments.
 
@@ -38,10 +44,10 @@ ark exec
 usage: ark exec [-h] [-r] [-s] [-ao] [-v] [-ls {default}] [-ll {DEBUG,INFO,WARN,ERROR,CRITICAL}]
                 [-dcv] [-tc TRUSTED_CERT] [-pn PROFILE_NAME] [-op OUTPUT_PATH] [-rf REQUEST_FILE]
                 [-rc RETRY_COUNT] [-ra]
-                {dpa} ...
+                {identity,dpa,sm} ...
 
 positional arguments:
-  {dpa}
+  {identity,dpa,sm}
 
 optional arguments:
   -h, --help            show this help message and exit
