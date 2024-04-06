@@ -152,6 +152,7 @@ from ark_sdk_python.models.ark_profile import ArkProfileLoader
 from ark_sdk_python.models.common import ArkProtocolType
 from ark_sdk_python.auth import ArkISPAuth
 from datetime import datetime, timedelta
+
 if __name__ == "__main__":
     isp_auth = ArkISPAuth()
     isp_auth.authenticate(
@@ -192,4 +193,35 @@ if __name__ == "__main__":
     print(identity_api.identity_directories.tenant_default_suffix())
     for page in identity_api.identity_directories.list_directories_entities(ArkIdentityListDirectoriesEntities()):
         print([i.name for i in page.items])
+```
+
+
+## Add identity role and user
+
+```python
+from ark_sdk_python.models.auth import (
+    ArkAuthMethod,
+    ArkAuthProfile,
+    ArkSecret,
+    IdentityArkAuthMethodSettings,
+)
+from ark_sdk_python.auth import ArkISPAuth
+from ark_sdk_python.services.identity import ArkIdentityAPI
+from ark_sdk_python.models.services.identity.roles import ArkIdentityCreateRole
+from ark_sdk_python.models.services.identity.users import ArkIdentityCreateUser
+
+if __name__ == "__main__":
+    isp_auth = ArkISPAuth()
+    isp_auth.authenticate(
+        auth_profile=ArkAuthProfile(
+            username='CoolUser', auth_method=ArkAuthMethod.Identity, auth_method_settings=IdentityArkAuthMethodSettings()
+        ),
+        secret=ArkSecret(secret='CoolPassword'),
+    )
+
+    # Create an identity service to create some users and roles
+    print('Creating identity roles and users')
+    identity_api = ArkIdentityAPI(isp_auth)
+    identity_api.identity_roles.create_role(ArkIdentityCreateRole(role_name='IT'))
+    identity_api.identity_users.create_user(ArkIdentityCreateUser(username='it_user', password='CoolPassword', roles=['IT']))
 ```
