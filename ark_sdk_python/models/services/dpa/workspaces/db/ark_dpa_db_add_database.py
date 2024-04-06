@@ -14,6 +14,7 @@ class ArkDPADBAddDatabase(ArkCamelizedModel):
     platform: ArkWorkspaceType = Field(
         description='Platform of the database, as in, where it resides, defaulted to on premises', default=ArkWorkspaceType.ONPREM
     )
+    auth_database: str = Field(description='Authentication database used, most commonly used with mongodb', default='admin')
     services: Optional[List[str]] = Field(description='Services related to the database, most commonly used with oracle')
     domain: Optional[str] = Field(description='The domain the DB resides in')
     domain_controller_name: Optional[str] = Field(description='Domain controller name associated to this database')

@@ -14,6 +14,7 @@ class ArkDPADBUpdateDatabase(ArkCamelizedModel):
     new_name: Optional[str] = Field(description='New name for the database')
     network_name: Optional[str] = Field(description='Name of the network the database resides in', default='ON-PREMISE')
     platform: Optional[ArkWorkspaceType] = Field(description='Platform of the database, as in, where it resides')
+    auth_database: str = Field(description='Authentication database used, most commonly used with mongodb', default='admin')
     services: Optional[List[str]] = Field(description='Services related to the database, most commonly used with oracle')
     domain: Optional[str] = Field(description='The domain the DB resides in')
     domain_controller_name: Optional[str] = Field(description='Domain controller name associated to this database')

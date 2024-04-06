@@ -13,6 +13,7 @@ class ArkDPADBDatabase(ArkCamelizedModel):
     name: str = Field(description='Name of the database, often referenced in policies and other APIs')
     network_name: str = Field(description='Name of the network the database resides in', default='OnPrem')
     platform: Optional[ArkWorkspaceType] = Field(description='Platform of the database, as in, where it resides')
+    auth_database: str = Field(description='Authentication database used, most commonly used with mongodb', default='admin')
     services: List[str] = Field(description='Services related to the database, most commonly used with oracle', default_factory=list)
     domain: Optional[str] = Field(description='The domain the DB resides in')
     domain_controller_name: Optional[str] = Field(description='Domain controller name associated to this database')
