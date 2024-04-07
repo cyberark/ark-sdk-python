@@ -81,6 +81,54 @@ class ArkAPI:
         return self.__profile
 
     @property
+    def identity_directories(self) -> "ArkIdentityDirectoriesService":
+        """
+        Returns the Identity Directories Service if the appropriate authenticators were given
+
+        Returns:
+            ArkIdentityDirectoriesService: _description_
+        """
+        from ark_sdk_python.services.identity.directories import ArkIdentityDirectoriesService
+
+        return cast(ArkIdentityDirectoriesService, self.service(ArkIdentityDirectoriesService))
+
+    @property
+    def identity_policies(self) -> "ArkIdentityPoliciesService":
+        """
+        Returns the Identity Policies Service if the appropriate authenticators were given
+
+        Returns:
+            ArkIdentityPoliciesService: _description_
+        """
+        from ark_sdk_python.services.identity.policies import ArkIdentityPoliciesService
+
+        return cast(ArkIdentityPoliciesService, self.service(ArkIdentityPoliciesService))
+
+    @property
+    def identity_roles(self) -> "ArkIdentityRolesService":
+        """
+        Returns the Identity Roles Service if the appropriate authenticators were given
+
+        Returns:
+            ArkIdentityRolesService: _description_
+        """
+        from ark_sdk_python.services.identity.roles import ArkIdentityRolesService
+
+        return cast(ArkIdentityRolesService, self.service(ArkIdentityRolesService))
+
+    @property
+    def identity_users(self) -> "ArkIdentityUsersService":
+        """
+        Returns the Identity Users Service if the appropriate authenticators were given
+
+        Returns:
+            ArkIdentityUsersService: _description_
+        """
+        from ark_sdk_python.services.identity.users import ArkIdentityUsersService
+
+        return cast(ArkIdentityUsersService, self.service(ArkIdentityUsersService))
+
+    @property
     def dpa_workspaces_db(self) -> "ArkDPADBWorkspaceService":
         """
         Returns the DPA DB Workspace service if the appropriate authenticators were provided.

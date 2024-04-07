@@ -94,6 +94,7 @@ class RoleRow(ArkModel):
     id: str = Field(alias='_ID')
     admin_rights: Optional[List[RoleAdminRight]] = Field(alias='AdministrativeRights')
     is_hidden: Optional[bool] = Field(alias='IsHidden')
+    description: Optional[str] = Field(alias='Description')
 
 
 class RoleResult(ArkModel):
@@ -113,6 +114,7 @@ class UserRow(ArkModel):
     directory_service_type: DirectoryService = Field(alias='ServiceType')
     email: Optional[str] = Field(alias='EMail')
     internal_id: Optional[str] = Field(alias='InternalName')
+    description: Optional[str] = Field(alias='Description')
 
 
 class UserResult(ArkModel):

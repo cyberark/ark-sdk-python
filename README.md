@@ -37,6 +37,10 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] DPA K8S Service
     - [x] DPA DB Service
     - [x] Session Monitoring Service
+    - [x] Identity Users Service
+    - [x] Identity Roles Service
+    - [x] Identity Policies Service
+    - [x] Identity Directories Service
 - [x] All services contains CRUD and Statistics per respective service
 - [x] Ready to use SDK in Python
 - [x] CLI and SDK Examples
@@ -211,6 +215,12 @@ The following services and commands are supported:
     - <b>db</b> - DPA DB Enduser Operations
     - <b>sso</b> - DPA SSO Enduser Operations
     - <b>k8s</b> - DPA kubernetes service
+- <b>sm</b> - Session Monitoring Service
+- <b>identity</b> - Identity Service
+    - <b>users</b> - Identity Users Management
+    - <b>roles</b> - Identity Roles Management
+    - <b>policies</b> - Identity Policies Management
+    - <b>directories</b> - Identity Directories Reading
 
 Any command has its own subcommands, with respective arguments
 

@@ -77,6 +77,7 @@ class ArkDPASSOService(ArkService):
     ) -> None:
         folder_path = self.__expand_folder(folder)
         claims = get_unverified_claims(self.__client.session_token)
+        base_name = claims["unique_name"].split('@')[0]
         client_certificate = result.token['client_certificate']
         private_key = result.token['private_key']
 
@@ -95,9 +96,9 @@ class ArkDPASSOService(ArkService):
                 )
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
-            with open(f'{folder_path}{os.path.sep}{claims["unique_name"]}client_cert.crt', 'w', encoding='utf-8') as file_handle:
+            with open(f'{folder_path}{os.path.sep}{base_name}_client_cert.crt', 'w', encoding='utf-8') as file_handle:
                 file_handle.write(client_certificate)
-            with open(f'{folder_path}{os.path.sep}{claims["unique_name"]}client_key.pem', 'w', encoding='utf-8') as file_handle:
+            with open(f'{folder_path}{os.path.sep}{base_name}_client_key.pem', 'w', encoding='utf-8') as file_handle:
                 file_handle.write(private_key)
         elif output_format == ArkDPASSOShortLiveClientCertificateFormat.SINGLE_FILE:
             if not folder:
@@ -106,7 +107,7 @@ class ArkDPASSOService(ArkService):
                 )
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
-            with open(f'{folder_path}{os.path.sep}{claims["unique_name"]}client_cert.pem', 'w', encoding='utf-8') as file_handle:
+            with open(f'{folder_path}{os.path.sep}{base_name}_client_cert.pem', 'w', encoding='utf-8') as file_handle:
                 file_handle.write(client_certificate)
                 file_handle.write('\n')
                 file_handle.write(private_key)
@@ -119,7 +120,9 @@ class ArkDPASSOService(ArkService):
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
         if not unzip_wallet:
-            with open(f'{folder_path}{os.path.sep}wallet.zip', 'wb') as file_handle:
+            claims = get_unverified_claims(self.__client.session_token)
+            base_name = claims["unique_name"].split('@')[0]
+            with open(f'{folder_path}{os.path.sep}{base_name}_wallet.zip', 'wb') as file_handle:
                 file_handle.write(result.token['wallet'])
         else:
             wallet_bytes = BytesIO(result.token['wallet'])
@@ -129,10 +132,11 @@ class ArkDPASSOService(ArkService):
     def __save_oracle_pem_wallet(self, folder: str, result: ArkDPASSOAcquireTokenResponse) -> None:
         folder_path = self.__expand_folder(folder)
         claims = get_unverified_claims(self.__client.session_token)
+        base_name = claims["unique_name"].split('@')[0]
         pem_wallet = base64.b64decode(result.token['pem_wallet']).decode('utf-8')
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
-        with open(f'{folder_path}{os.path.sep}{claims["unique_name"]}ewallet.pem', 'w', encoding='utf-8') as file_handle:
+        with open(f'{folder_path}{os.path.sep}{base_name}_ewallet.pem', 'w', encoding='utf-8') as file_handle:
             file_handle.write(pem_wallet)
 
     def __save_rdp_file(self, get_short_lived_rdp_file: ArkDPASSOGetShortLivedRDPFile, result: ArkDPASSOAcquireTokenResponse) -> None:
