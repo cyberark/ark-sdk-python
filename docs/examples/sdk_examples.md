@@ -102,45 +102,46 @@ if __name__ == '__main__':
 ## Authenticate and provision DPA VM policies
 
 ```python
-isp_auth = ArkISPAuth()
-isp_auth.authenticate(
-    auth_profile=ArkAuthProfile(
-        username=username, auth_method=ArkAuthMethod.Identity, auth_method_settings=IdentityArkAuthMethodSettings()
-    ),
-    secret=ArkSecret(secret='CoolPassword'),
-)
-print('Adding DPA Policy')
-dpa_service.policies.add_policy(
-    ArkDPAVMAddPolicy(
-        policy_name='IT Policy',
-        description='IT Policy',
-        status=ArkDPARuleStatus.Enabled,
-        providers_data={
-            ArkWorkspaceType.AWS: ArkDPAVMAWSProviderData(
-                account_ids=['965428623928'], tags=[{'key': 'team', 'value': 'IT'}], regions=[], vpc_ids=[]
-            )
-        },
-        user_access_rules=[
-            ArkDPAVMAuthorizationRule(
-                rule_name='IT Rule',
-                user_data=ArkDPAUserData(roles=['IT']),
-                connection_information=ArkDPAVMConnectionInformation(
-                    full_days=True,
-                    days_of_week=[],
-                    time_zone='Asia/Jerusalem',
-                    connect_as={
-                        ArkWorkspaceType.AWS: {
-                            ArkProtocolType.SSH: 'root',
-                            ArkProtocolType.RDP: ArkDPAVMRDPLocalEphemeralUserConnectionData(
-                                local_ephemeral_user=ArkDPAVMLocalEphemeralUserConnectionMethodData(assign_groups={'Administrators'})
-                            ),
-                        }
-                    },
-                ),
-            )
-        ],
+if __name__ == '__main__':
+    isp_auth = ArkISPAuth()
+    isp_auth.authenticate(
+        auth_profile=ArkAuthProfile(
+            username=username, auth_method=ArkAuthMethod.Identity, auth_method_settings=IdentityArkAuthMethodSettings()
+        ),
+        secret=ArkSecret(secret='CoolPassword'),
     )
-)
+    print('Adding DPA Policy')
+    dpa_service.policies.add_policy(
+        ArkDPAVMAddPolicy(
+            policy_name='IT Policy',
+            description='IT Policy',
+            status=ArkDPARuleStatus.Enabled,
+            providers_data={
+                ArkWorkspaceType.AWS: ArkDPAVMAWSProviderData(
+                    account_ids=['965428623928'], tags=[{'key': 'team', 'value': 'IT'}], regions=[], vpc_ids=[]
+                )
+            },
+            user_access_rules=[
+                ArkDPAVMAuthorizationRule(
+                    rule_name='IT Rule',
+                    user_data=ArkDPAUserData(roles=['IT']),
+                    connection_information=ArkDPAVMConnectionInformation(
+                        full_days=True,
+                        days_of_week=[],
+                        time_zone='Asia/Jerusalem',
+                        connect_as={
+                            ArkWorkspaceType.AWS: {
+                                ArkProtocolType.SSH: 'root',
+                                ArkProtocolType.RDP: ArkDPAVMRDPLocalEphemeralUserConnectionData(
+                                    local_ephemeral_user=ArkDPAVMLocalEphemeralUserConnectionMethodData(assign_groups={'Administrators'})
+                                ),
+                            }
+                        },
+                    ),
+                )
+            ],
+        )
+    )
 ```
 
 ## View Session Monitoring Sessions And Activities Per Session
