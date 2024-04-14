@@ -4,6 +4,7 @@ from pydantic import Field, validator
 
 from ark_sdk_python.models.ark_model import ArkCamelizedModel
 from ark_sdk_python.models.common.ark_workspace_type import ArkWorkspaceType
+from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_auth_method import ArkDPADBAuthMethodType
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_provider import ArkDPADBDatabaseEngineType
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_tag import ArkDPADBTag
 
@@ -34,6 +35,7 @@ class ArkDPADBAddDatabase(ArkCamelizedModel):
     port: Optional[int] = Field(description='Port of the database, if not given, the default one will be used')
     secret_id: Optional[str] = Field(description='Secret identifier stored in the secret service related to this database')
     tags: Optional[List[ArkDPADBTag]] = Field(description='Tags for the database')
+    configured_auth_method_type: Optional[ArkDPADBAuthMethodType] = Field(description='The target configured auth method type')
 
     # pylint: disable=no-self-use,no-self-argument
     @validator('platform')

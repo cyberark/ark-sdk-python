@@ -4,6 +4,7 @@ from pydantic import Field, validator
 
 from ark_sdk_python.models.ark_model import ArkModel
 from ark_sdk_python.models.common.ark_workspace_type import ArkWorkspaceType
+from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_auth_method import ArkDPADBAuthMethodType
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_provider import ArkDPADBDatabaseProvider
 
 
@@ -16,6 +17,7 @@ class ArkDPADBDatabaseInfo(ArkModel):
     secret_id: Optional[str] = Field(description='Secret identifier stored in the secret service related to this database')
     platform: Optional[ArkWorkspaceType] = Field(description='Platform of the database, as in, where it resides')
     provider_info: ArkDPADBDatabaseProvider = Field(description='Provider details')
+    configured_auth_method_type: Optional[ArkDPADBAuthMethodType] = Field(description='The target configured auth method type')
 
     # pylint: disable=no-self-use,no-self-argument
     @validator('platform')

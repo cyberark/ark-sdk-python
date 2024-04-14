@@ -15,6 +15,7 @@ from ark_sdk_python.models.services.dpa.workspaces.db import (
     DATABASE_FAMILIES_DEFAULT_PORTS,
     DATABASES_ENGINES_TO_FAMILY,
     ArkDPADBAddDatabase,
+    ArkDPADBAuthMethodType,
     ArkDPADBDatabase,
     ArkDPADBDatabaseEngineType,
     ArkDPADBDatabaseFamilyType,
@@ -166,6 +167,8 @@ class ArkDPADBWorkspaceService(ArkService):
             databases.items = [d for d in databases.items if d.provider_info.engine == databases_filter.provider_engine]
         if databases_filter.provider_workspace:
             databases.items = [d for d in databases.items if d.provider_info.workspace == databases_filter.provider_workspace]
+        if databases_filter.auth_methods:
+            databases.items = [d for d in databases.items if d.configured_auth_method_type in databases_filter.auth_methods]
         if databases_filter.db_warnings_filter:
             if databases_filter.db_warnings_filter in (
                 ArkDPADBWarning.AnyError,
@@ -233,6 +236,12 @@ class ArkDPADBWorkspaceService(ArkService):
         family_types: Set[ArkDPADBDatabaseFamilyType] = {d.provider_info.family for d in databases.items}
         databases_stats.databases_count_by_family = {
             ft: len([d for d in databases.items if d.provider_info.family == ft]) for ft in family_types
+        }
+
+        # Get databases per auth method
+        auth_method_types: Set[ArkDPADBAuthMethodType] = {d.configured_auth_method_type for d in databases.items}
+        databases_stats.databases_count_by_auth_method = {
+            am: len([d for d in databases.items if d.configured_auth_method_type == am]) for am in auth_method_types
         }
 
         # Get databases per db warning

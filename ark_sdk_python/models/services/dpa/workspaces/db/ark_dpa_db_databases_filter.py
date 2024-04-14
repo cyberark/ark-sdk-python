@@ -3,6 +3,7 @@ from typing import List, Optional
 from pydantic import Field
 
 from ark_sdk_python.models.ark_model import ArkModel
+from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_auth_method import ArkDPADBAuthMethodType
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_provider import (
     ArkDPADBDatabaseEngineType,
     ArkDPADBDatabaseFamilyType,
@@ -17,5 +18,6 @@ class ArkDPADBDatabasesFilter(ArkModel):
     provider_family: Optional[ArkDPADBDatabaseFamilyType] = Field(description='List filter by family')
     provider_engine: Optional[ArkDPADBDatabaseEngineType] = Field(description='List filter by engine')
     provider_workspace: Optional[ArkDPADBDatabaseWorkspaceType] = Field(description='List filter by workspace')
+    auth_methods: Optional[List[ArkDPADBAuthMethodType]] = Field(description='Auth method types to filter on')
     tags: Optional[List[ArkDPADBTag]] = Field(description='List filter by tags')
     db_warnings_filter: Optional[ArkDPADBWarning] = Field(description='Filter by databases who are with warnings / incomplete')

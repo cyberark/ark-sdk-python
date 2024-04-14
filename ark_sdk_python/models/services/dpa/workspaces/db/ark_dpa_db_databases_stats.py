@@ -3,6 +3,7 @@ from typing import Dict
 from pydantic import Field
 
 from ark_sdk_python.models.ark_model import ArkModel
+from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_auth_method import ArkDPADBAuthMethodType
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_provider import (
     ArkDPADBDatabaseEngineType,
     ArkDPADBDatabaseFamilyType,
@@ -18,4 +19,5 @@ class ArkDPADBDatabasesStats(ArkModel):
     databases_count_by_engine: Dict[ArkDPADBDatabaseEngineType, int] = Field(description='Databases count per engine type')
     databases_count_by_family: Dict[ArkDPADBDatabaseFamilyType, int] = Field(description='Databases count per family type')
     databases_count_by_workspace: Dict[ArkDPADBDatabaseWorkspaceType, int] = Field(description='Databases count per workspace type')
+    databases_count_by_auth_method: Dict[ArkDPADBAuthMethodType, int] = Field(description='Databases count per auth type')
     databases_count_by_warning: Dict[ArkDPADBWarning, int] = Field(description='Databases count per warning type')
