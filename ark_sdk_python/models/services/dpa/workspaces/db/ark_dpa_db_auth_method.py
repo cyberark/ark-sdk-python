@@ -11,9 +11,7 @@ from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_provider import
 
 class ArkDPADBAuthMethodType(str, Enum):
     ADEphemeralUser = 'ad_ephemeral_user'
-    ADGroupAssociation = 'ad_group_association'
     LocalEphemeralUser = 'local_ephemeral_user'
-    SnowflakeEphemeralUser = 'snowflake_ephemeral_user'
     RDSIAMAuthentication = 'rds_iam_authentication'
 
 
@@ -26,7 +24,7 @@ class ArkDPADBAuthMethod(ArkCamelizedModel):
 
 class ArkDPADBDatabaseAuthMethod(ArkCamelizedModel):
     id: int = Field(description='ID of the relation between the authentication method and the database type')
-    provider_family: str = Field(description='Name of the database family this authentication method is used for')
+    provider_family: ArkDPADBDatabaseFamilyType = Field(description='Name of the database family this authentication method is used for')
     auth_method: ArkDPADBAuthMethodType = Field(description='The actual authentication method')
     method_enabled: bool = Field(description='Whether this authentication method is enabled or not')
 
