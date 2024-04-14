@@ -50,6 +50,11 @@ class ArkDPADBMongoDBAuth(ArkDPADBBaseAuth):
     applied_to: Optional[List[ArkDPADBAppliedTo]] = Field(description='Which resources to apply to')
 
 
+class ArkDPADBRDSIAMUserAuth(ArkDPADBBaseAuth):
+    db_user: str = Field(description='The RDS DB User to use for the connection')
+    applied_to: Optional[List[ArkDPADBAppliedTo]] = Field(description='Which resources to apply to')
+
+
 class ArkDPADBConnectAs(ArkCamelizedModel):
     ldap_auth: Optional[List[ArkDPADBLDAPAuth]] = Field(description='LDAP related authentication, only applies to MSSQL DB')
     db_auth: Optional[List[ArkDPADBLocalDBAuth]] = Field(
@@ -57,3 +62,6 @@ class ArkDPADBConnectAs(ArkCamelizedModel):
     )
     oracle_auth: Optional[List[ArkDPADBOracleDBAuth]] = Field(description='Oracle DB related authentication, only applies to Oracle')
     mongo_auth: Optional[List[ArkDPADBMongoDBAuth]] = Field(description='Mongo DB related authentication, only applies to Mongo')
+    rds_iam_user_auth: Optional[List[ArkDPADBRDSIAMUserAuth]] = Field(
+        description='RDS IAM Related Authentication, only applies to RDS related DBs who support IAM Auth'
+    )
