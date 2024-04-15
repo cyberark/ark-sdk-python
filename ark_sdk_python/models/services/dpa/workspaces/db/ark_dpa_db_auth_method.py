@@ -25,7 +25,7 @@ class ArkDPADBAuthMethod(ArkCamelizedModel):
 class ArkDPADBDatabaseAuthMethod(ArkCamelizedModel):
     id: int = Field(description='ID of the relation between the authentication method and the database type')
     provider_family: ArkDPADBDatabaseFamilyType = Field(description='Name of the database family this authentication method is used for')
-    auth_method: ArkDPADBAuthMethodType = Field(description='The actual authentication method')
+    auth_method: ArkDPADBAuthMethod = Field(description='The actual authentication method')
     method_enabled: bool = Field(description='Whether this authentication method is enabled or not')
 
 
