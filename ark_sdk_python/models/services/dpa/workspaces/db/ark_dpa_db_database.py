@@ -4,6 +4,7 @@ from pydantic import Field, validator
 
 from ark_sdk_python.models.ark_model import ArkCamelizedModel
 from ark_sdk_python.models.common.ark_workspace_type import ArkWorkspaceType
+from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_auth_method import ArkDPADBDatabaseTargetConfiguredAuthMethod
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_provider import ArkDPADBDatabaseProvider
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_tag import ArkDPADBTag
 
@@ -18,6 +19,11 @@ class ArkDPADBDatabase(ArkCamelizedModel):
     domain: Optional[str] = Field(description='The domain the DB resides in')
     domain_controller_name: Optional[str] = Field(description='Domain controller name associated to this database')
     domain_controller_netbios: Optional[str] = Field(description='Domain controller netbios associated to this database')
+    domain_controller_use_ldaps: bool = Field(description='Whether to work with LDAP secure or not', default=False)
+    domain_controller_enable_certificate_validation: bool = Field(
+        description='Whether to enforce certificate validation on TLS comm to the DC', default=True
+    )
+    domain_controller_ldaps_certificate: Optional[str] = Field(description='Certificate id to use for the domain controller TLS comm')
     provider_details: Optional[ArkDPADBDatabaseProvider] = Field(description='Provider details related to the database')
     enable_certificate_validation: bool = Field(description='Whether to enable and enforce certificate validation', default=True)
     certificate: Optional[str] = Field(description='Certificate id used for this database that resides in the certificates service')
@@ -26,6 +32,7 @@ class ArkDPADBDatabase(ArkCamelizedModel):
     port: Optional[int] = Field(description='Port of the database, if not given, the default one will be used')
     secret_id: Optional[str] = Field(description='Secret identifier stored in the secret service related to this database')
     tags: Optional[List[ArkDPADBTag]] = Field(description='Tags for the database')
+    configured_auth_method: Optional[ArkDPADBDatabaseTargetConfiguredAuthMethod] = Field(description='The target configured auth method')
 
     # pylint: disable=no-self-use,no-self-argument
     @validator('platform')

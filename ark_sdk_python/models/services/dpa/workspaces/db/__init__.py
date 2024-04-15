@@ -1,4 +1,10 @@
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_add_database import ArkDPADBAddDatabase
+from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_auth_method import (
+    ArkDPADBAuthMethod,
+    ArkDPADBAuthMethodType,
+    ArkDPADBDatabaseAuthMethod,
+    ArkDPADBDatabaseTargetConfiguredAuthMethod,
+)
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_database import ArkDPADBDatabase
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_database_info import ArkDPADBDatabaseInfo, ArkDPADBDatabaseInfoList
 from ark_sdk_python.models.services.dpa.workspaces.db.ark_dpa_db_databases_filter import ArkDPADBDatabasesFilter
@@ -38,4 +44,8 @@ __all__ = [
     'ArkDPADBUpdateDatabase',
     'ArkDPADBWarning',
     'serialize_db_platform_type',
+    'ArkDPADBAuthMethod',
+    'ArkDPADBAuthMethodType',
+    'ArkDPADBDatabaseAuthMethod',
+    'ArkDPADBDatabaseTargetConfiguredAuthMethod',
 ]
