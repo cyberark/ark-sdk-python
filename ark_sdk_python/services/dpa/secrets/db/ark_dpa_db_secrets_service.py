@@ -101,6 +101,20 @@ class ArkDPADBSecretsService(ArkService):
                 'safe': add_secret.pam_safe,
                 'account_name': add_secret.pam_account_name,
             }
+        elif add_secret.secret_type == ArkDPADBSecretType.IAMUser:
+            if (
+                not add_secret.iam_access_key_id
+                or not add_secret.iam_secret_access_key
+                or not add_secret.iam_account
+                or not add_secret.iam_username
+            ):
+                raise ArkServiceException('When specifying a iam user secret type, all iam parameters must be supplied')
+            add_secret_dict['secret_data'] = {
+                'account': add_secret.iam_account,
+                'username': add_secret.iam_username,
+                'access_key_id': add_secret.iam_access_key_id.get_secret_value(),
+                'secret_access_key': add_secret.iam_secret_access_key.get_secret_value(),
+            }
         resp: Response = self.__client.post(
             SECRETS_ROUTE,
             json=add_secret_dict,
@@ -156,6 +170,25 @@ class ArkDPADBSecretsService(ArkService):
             update_secret_dict['secret_data'] = {
                 'username': update_secret.username,
                 'password': update_secret.password.get_secret_value(),
+            }
+        if (
+            update_secret.iam_access_key_id
+            or update_secret.iam_secret_access_key
+            or update_secret.iam_account
+            or update_secret.iam_username
+        ):
+            if (
+                not update_secret.iam_access_key_id
+                or not update_secret.iam_secret_access_key
+                or not update_secret.iam_account
+                or not update_secret.iam_username
+            ):
+                raise ArkServiceException('When specifying a iam user secret type, all iam parameters must be supplied')
+            update_secret_dict['secret_data'] = {
+                'account': update_secret.iam_account,
+                'username': update_secret.iam_username,
+                'access_key_id': update_secret.iam_access_key_id.get_secret_value(),
+                'secret_access_key': update_secret.iam_secret_access_key.get_secret_value(),
             }
         resp: Response = self.__client.post(
             SECRET_ROUTE.format(secret_id=update_secret.secret_id),
