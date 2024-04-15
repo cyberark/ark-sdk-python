@@ -22,3 +22,27 @@ class ArkDPADBMongoDatabaseBuiltinRole(str, Enum):
     DbAdmin = 'dbAdmin'
     ReadWrite = 'readWrite'
     Read = 'read'
+
+
+class ArkDPADBSqlServerGlobalBuiltinRole(str, Enum):
+    SysAdmin = 'sysadmin'
+    ServerAdmin = 'serveradmin'
+    SecurityAdmin = 'securityadmin'
+    ProcessAdmin = 'processadmin'
+    SetupAdmin = 'setupadmin'
+    BulkAdmin = 'bulkadmin'
+    DiskAdmin = 'diskadmin'
+    DbCreator = 'dbcreator'
+    Public = 'public'
+
+
+class ArkDPADBSqlServerDatabaseBuiltinRole(str, Enum):
+    DbOwner = 'db_owner'
+    DbSecurityAdmin = 'db_securityadmin'
+    DbAccessAdmin = 'db_accessadmin'
+    DbBackupOperator = 'db_backupoperator'
+    DbDdlAdmin = 'db_ddladmin'
+    DbDataWriter = 'db_datawriter'
+    DbDataReader = 'db_datareader'
+    DbDenyDataWriter = 'db_denydatawriter'
+    DbDenyDataReader = 'db_denydatareader'
