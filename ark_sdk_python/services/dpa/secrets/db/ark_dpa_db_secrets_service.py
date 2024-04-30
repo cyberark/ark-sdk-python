@@ -89,6 +89,8 @@ class ArkDPADBSecretsService(ArkService):
                 'iam_account',
                 'iam_access_key_id',
                 'iam_secret_access_key',
+                'atlas_public_key',
+                'atlas_private_key',
             },
         )
         if not add_secret.store_type:
@@ -127,6 +129,15 @@ class ArkDPADBSecretsService(ArkService):
                 'username': add_secret.iam_username,
                 'access_key_id': add_secret.iam_access_key_id.get_secret_value(),
                 'secret_access_key': add_secret.iam_secret_access_key.get_secret_value(),
+            }
+        elif add_secret.secret_type == ArkDPADBSecretType.AtlasAccessKeys:
+            if not add_secret.atlas_public_key or not add_secret.atlas_private_key:
+                raise ArkServiceException(
+                    'When specifying an atlas secret type, both private key and public key parameters must be supplied'
+                )
+            add_secret_dict['secret_data'] = {
+                'public_key': add_secret.atlas_public_key,
+                'private_key': add_secret.atlas_private_key.get_secret_value(),
             }
         resp: Response = self.__client.post(
             SECRETS_ROUTE,
@@ -176,6 +187,8 @@ class ArkDPADBSecretsService(ArkService):
                 'iam_account',
                 'iam_access_key_id',
                 'iam_secret_access_key',
+                'atlas_public_key',
+                'atlas_private_key',
             },
         )
         if update_secret.new_secret_name:
@@ -215,6 +228,14 @@ class ArkDPADBSecretsService(ArkService):
                 'access_key_id': update_secret.iam_access_key_id.get_secret_value(),
                 'secret_access_key': update_secret.iam_secret_access_key.get_secret_value(),
             }
+        if update_secret.atlas_public_key or update_secret.atlas_private_key:
+            if not update_secret.atlas_public_key or not update_secret.atlas_private_key:
+                raise ArkServiceException('When specifying an atlas secret, both private key and public key parameters must be supplied')
+            update_secret_dict['secret_data'] = {
+                'public_key': update_secret.atlas_public_key,
+                'private_key': update_secret.atlas_private_key.get_secret_value(),
+            }
+
         resp: Response = self.__client.patch(
             SECRET_ROUTE.format(secret_id=update_secret.secret_id),
             json=update_secret_dict,
