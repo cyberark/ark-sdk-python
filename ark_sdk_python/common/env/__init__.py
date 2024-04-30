@@ -9,6 +9,7 @@ from ark_sdk_python.common.env.ark_env_mapping import (
     AwsEnv,
     check_if_identity_generated_suffix,
     get_deploy_env,
+    is_gov_cloud,
 )
 
 __all__ = [
@@ -22,4 +23,5 @@ __all__ = [
     'IDENTITY_TENANT_NAME',
     'SHELL_DOMAIN',
     'ROOT_DOMAIN',
+    'is_gov_cloud',
 ]

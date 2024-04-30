@@ -13,4 +13,6 @@ class ArkDPADBStoreType(str, Enum):
 SECRET_TYPE_TO_STORE_DICT: Final[Dict[ArkDPADBSecretType, ArkDPADBStoreType]] = {
     ArkDPADBSecretType.UsernamePassword: ArkDPADBStoreType.Managed,
     ArkDPADBSecretType.CyberArkPAM: ArkDPADBStoreType.PAM,
+    ArkDPADBSecretType.IAMUser: ArkDPADBStoreType.Managed,
+    ArkDPADBSecretType.AtlasAccessKeys: ArkDPADBStoreType.Managed,
 }

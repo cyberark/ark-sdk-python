@@ -32,5 +32,9 @@ class ArkDPADBAddSecret(ArkModel):
     iam_access_key_id: Optional[SecretStr] = Field(description='Access key id of the user')
     iam_secret_access_key: Optional[SecretStr] = Field(description='Secret access key of the user')
 
+    # Atlas Secret Type
+    atlas_public_key: Optional[str] = Field(description='Public part of mongo atlas access keys')
+    atlas_private_key: Optional[SecretStr] = Field(description='Private part of mongo atlas access keys')
+
     class Config:
         json_encoders = {SecretStr: lambda v: v.get_secret_value() if v else None}

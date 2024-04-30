@@ -77,7 +77,22 @@ class ArkDPADBSecretsService(ArkService):
             ArkDPADBSecretMetadata: _description_
         """
         self._logger.info('Adding new db secret')
-        add_secret_dict = add_secret.dict(exclude_none=True, exclude={'store_type', 'username', 'password', 'pam_safe', 'pam_account_name'})
+        add_secret_dict = add_secret.dict(
+            exclude_none=True,
+            exclude={
+                'store_type',
+                'username',
+                'password',
+                'pam_safe',
+                'pam_account_name',
+                'iam_username',
+                'iam_account',
+                'iam_access_key_id',
+                'iam_secret_access_key',
+                'atlas_public_key',
+                'atlas_private_key',
+            },
+        )
         if not add_secret.store_type:
             add_secret.store_type = SECRET_TYPE_TO_STORE_DICT[add_secret.secret_type]
         add_secret_dict['secret_store'] = {
@@ -115,6 +130,15 @@ class ArkDPADBSecretsService(ArkService):
                 'access_key_id': add_secret.iam_access_key_id.get_secret_value(),
                 'secret_access_key': add_secret.iam_secret_access_key.get_secret_value(),
             }
+        elif add_secret.secret_type == ArkDPADBSecretType.AtlasAccessKeys:
+            if not add_secret.atlas_public_key or not add_secret.atlas_private_key:
+                raise ArkServiceException(
+                    'When specifying an atlas secret type, both private key and public key parameters must be supplied'
+                )
+            add_secret_dict['secret_data'] = {
+                'public_key': add_secret.atlas_public_key,
+                'private_key': add_secret.atlas_private_key.get_secret_value(),
+            }
         resp: Response = self.__client.post(
             SECRETS_ROUTE,
             json=add_secret_dict,
@@ -151,7 +175,21 @@ class ArkDPADBSecretsService(ArkService):
         self._logger.info(f'Updating existing db secret with id [{update_secret.secret_id}]')
         update_secret_dict = update_secret.dict(
             exclude_none=True,
-            exclude={'secret_id', 'secret_name', 'new_secret_name', 'username', 'password', 'pam_safe', 'pam_account_name'},
+            exclude={
+                'secret_id',
+                'secret_name',
+                'new_secret_name',
+                'username',
+                'password',
+                'pam_safe',
+                'pam_account_name',
+                'iam_username',
+                'iam_account',
+                'iam_access_key_id',
+                'iam_secret_access_key',
+                'atlas_public_key',
+                'atlas_private_key',
+            },
         )
         if update_secret.new_secret_name:
             update_secret_dict['secret_name'] = update_secret.new_secret_name
@@ -190,12 +228,24 @@ class ArkDPADBSecretsService(ArkService):
                 'access_key_id': update_secret.iam_access_key_id.get_secret_value(),
                 'secret_access_key': update_secret.iam_secret_access_key.get_secret_value(),
             }
-        resp: Response = self.__client.post(
+        if update_secret.atlas_public_key or update_secret.atlas_private_key:
+            if not update_secret.atlas_public_key or not update_secret.atlas_private_key:
+                raise ArkServiceException('When specifying an atlas secret, both private key and public key parameters must be supplied')
+            update_secret_dict['secret_data'] = {
+                'public_key': update_secret.atlas_public_key,
+                'private_key': update_secret.atlas_private_key.get_secret_value(),
+            }
+
+        resp: Response = self.__client.patch(
             SECRET_ROUTE.format(secret_id=update_secret.secret_id),
             json=update_secret_dict,
         )
         if resp.status_code == HTTPStatus.OK:
-            return self.secret(ArkDPADBSecretMetadata(secret_id=update_secret.secret_id))
+            try:
+                return ArkDPADBSecretMetadata.parse_obj(resp.json())
+            except (ValidationError, JSONDecodeError) as ex:
+                self._logger.exception(f'Failed to parse db secret response [{str(ex)}] - [{resp.text}]')
+                raise ArkServiceException(f'Failed to parse db secret response [{str(ex)}]') from ex
         raise ArkServiceException(f'Failed to update db secret [{resp.text}] - [{resp.status_code}]')
 
     def delete_secret(self, delete_secret: ArkDPADBDeleteSecret) -> None:
@@ -282,13 +332,8 @@ class ArkDPADBSecretsService(ArkService):
             )
         self._logger.info(f'Enabling db secret by id [{enable_secret.secret_id}]')
         resp: Response = self.__client.post(ENABLE_SECRET_ROUTE.format(secret_id=enable_secret.secret_id))
-        if resp.status_code == HTTPStatus.OK:
-            try:
-                return ArkDPADBSecretMetadata.parse_obj(resp.json())
-            except (ValidationError, JSONDecodeError) as ex:
-                self._logger.exception(f'Failed to parse enable db secret response [{str(ex)}] - [{resp.text}]')
-                raise ArkServiceException(f'Failed to parse enable db secret response [{str(ex)}]') from ex
-        raise ArkServiceException(f'Failed to retrieve enable db secret [{resp.text}] - [{resp.status_code}]')
+        if resp.status_code != HTTPStatus.OK:
+            raise ArkServiceException(f'Failed to enable db secret [{resp.text}] - [{resp.status_code}]')
 
     def disable_secret(self, disable_secret: ArkDPADBDisableSecret) -> ArkDPADBSecretMetadata:
         """
@@ -313,13 +358,8 @@ class ArkDPADBSecretsService(ArkService):
             )
         self._logger.info(f'Disabling db secret by id [{disable_secret.secret_id}]')
         resp: Response = self.__client.post(DISABLE_SECRET_ROUTE.format(secret_id=disable_secret.secret_id))
-        if resp.status_code == HTTPStatus.OK:
-            try:
-                return ArkDPADBSecretMetadata.parse_obj(resp.json())
-            except (ValidationError, JSONDecodeError) as ex:
-                self._logger.exception(f'Failed to parse disable db secret response [{str(ex)}] - [{resp.text}]')
-                raise ArkServiceException(f'Failed to parse disable db secret response [{str(ex)}]') from ex
-        raise ArkServiceException(f'Failed to retrieve disable db secret [{resp.text}] - [{resp.status_code}]')
+        if resp.status_code != HTTPStatus.OK:
+            raise ArkServiceException(f'Failed to disable db secret [{resp.text}] - [{resp.status_code}]')
 
     def secret(self, get_secret: ArkDPADBGetSecret) -> ArkDPADBSecretMetadata:
         """
