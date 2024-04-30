@@ -6,6 +6,7 @@ from typing import Dict, Final
 
 class AwsEnv(str, Enum):
     PROD = 'prod'
+    GOV_PROD = 'gov-prod'
 
 
 DEPLOY_ENV: Final[str] = 'DEPLOY_ENV'
@@ -44,3 +45,11 @@ def get_deploy_env() -> AwsEnv:
 def check_if_identity_generated_suffix(tenant_suffix, env: AwsEnv) -> bool:
     pattern = IDENTITY_GENERATED_SUFFIX_PATTERN.get(env)
     return re.match(pattern, tenant_suffix) is not None
+
+
+def is_gov_cloud() -> bool:
+    try:
+        region_name = os.getenv('AWS_REGION') or os.getenv('AWS_DEFAULT_REGION')
+        return region_name.startswith('us-gov')
+    except Exception:
+        return False

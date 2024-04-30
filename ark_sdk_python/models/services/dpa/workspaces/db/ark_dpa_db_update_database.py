@@ -25,6 +25,7 @@ class ArkDPADBUpdateDatabase(ArkCamelizedModel):
         description='Whether to enforce certificate validation on TLS comm to the DC', default=True
     )
     domain_controller_ldaps_certificate: Optional[str] = Field(description='Certificate id to use for the domain controller TLS comm')
+    account: Optional[str] = Field(description='Account to be used for provider based databases such as snowflake or atlas')
     provider_engine: Optional[ArkDPADBDatabaseEngineType] = Field(
         description='Provider engine, will be later deduced to the identifer of the provider'
     )

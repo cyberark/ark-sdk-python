@@ -539,18 +539,21 @@ class ArkIdentity:
             return self.auth_identity(profile, interactive, force)
 
         self.__logger.debug('Attempting to refresh authenticate to Identity')
+        saved_cookies = None
+        if self.__session:
+            saved_cookies = self.__session.cookies.copy()
         self.__session = Session()
         self.__session.verify = self.__verify
         self.__session.headers.update(ArkIdentityFQDNResolver.default_headers())
         decoded_token = get_unverified_claims(self.__session_details.token)
         platform_tenant_id = decoded_token['tenant_id']
-        cookies = {
+        refresh_cookies = {
             f'refreshToken-{platform_tenant_id}': self.__session_details.refresh_token,
             f'idToken-{platform_tenant_id}': self.__session_details.token,
         }
         response = self.__session.post(
             url=f'{self.__identity_url}/OAuth2/RefreshPlatformToken',
-            cookies=cookies,
+            cookies=refresh_cookies,
         )
         if response.status_code != HTTPStatus.OK:
             raise ArkAuthException('Failed to refresh token')
@@ -558,6 +561,8 @@ class ArkIdentity:
         new_refresh_token = response.cookies.get(f'refreshToken-{platform_tenant_id}')
         if not new_token or not new_refresh_token:
             raise ArkAuthException('Failed to retrieve refresh tokens cookies')
+        if saved_cookies:
+            self.__session.cookies = saved_cookies
         self.__session_details.token = new_token
         self.__session_details.refresh_token = new_refresh_token
         self.__session_details.token_lifetime = (

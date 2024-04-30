@@ -122,7 +122,10 @@ class ArkDPADBWorkspaceService(ArkService):
             ArkDPADBDatabase: _description_
         """
         if update_database.name and not update_database.id:
-            update_database.id = self.list_databases_by(ArkDPADBDatabasesFilter(name=update_database.name))
+            databases = self.list_databases_by(ArkDPADBDatabasesFilter(name=update_database.name))
+            if not databases.items or len(databases.items) != 1:
+                raise ArkServiceException(f'Failed to update database - name [{update_database.name}] not found')
+            update_database.id = self.list_databases_by(ArkDPADBDatabasesFilter(name=update_database.name)).items[0].id
         self._logger.info(f'Updating database [{update_database.id}]')
         update_database_dict = update_database.dict(exclude={'name', 'new_name'}, exclude_none=True)
         if update_database.new_name:
@@ -197,7 +200,10 @@ class ArkDPADBWorkspaceService(ArkService):
             ArkDPADBDatabase: _description_
         """
         if get_database.name and not get_database.id:
-            get_database.id = self.list_databases_by(ArkDPADBDatabasesFilter(name=get_database.name))
+            databases = self.list_databases_by(ArkDPADBDatabasesFilter(name=get_database.name))
+            if not databases.items or len(databases.items) != 1:
+                raise ArkServiceException(f'Failed to get database - name [{get_database.name}] not found')
+            get_database.id = self.list_databases_by(ArkDPADBDatabasesFilter(name=get_database.name)).items[0].id
         self._logger.info(f'Getting database [{get_database.id}]')
         resp: Response = self.__client.get(RESOURCE_API.format(resource_id=get_database.id))
         if resp.status_code == HTTPStatus.OK:
