@@ -235,3 +235,39 @@ class ArkAPI:
         from ark_sdk_python.services.sm import ArkSMService
 
         return cast(ArkSMService, self.service(ArkSMService))
+
+    @property
+    def pcloud_accounts(self) -> "ArkPCloudAccountsService":
+        """
+        Returns the PCloud Accounts service if the appropriate authenticators were given
+
+        Returns:
+            ArkPCloudAccountsService: _description_
+        """
+        from ark_sdk_python.services.pcloud.accounts import ArkPCloudAccountsService
+
+        return cast(ArkPCloudAccountsService, self.service(ArkPCloudAccountsService))
+
+    @property
+    def pcloud_safes(self) -> "ArkPCloudSafesService":
+        """
+        Returns the PCloud Safes service if the appropriate authenticators were given
+
+        Returns:
+            ArkPCloudSafesService: _description_
+        """
+        from ark_sdk_python.services.pcloud.safes import ArkPCloudSafesService
+
+        return cast(ArkPCloudSafesService, self.service(ArkPCloudSafesService))
+
+    @property
+    def pcloud_platforms(self) -> "ArkPCloudPlatformsService":
+        """
+        Returns the PCloud Platforms service if the appropriate authenticators were given
+
+        Returns:
+            ArkPCloudPlatformsService: _description_
+        """
+        from ark_sdk_python.services.pcloud.platforms import ArkPCloudPlatformsService
+
+        return cast(ArkPCloudPlatformsService, self.service(ArkPCloudPlatformsService))
