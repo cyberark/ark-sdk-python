@@ -8,7 +8,7 @@ if __name__ == '__main__':
     isp_auth = ArkISPAuth(cache_authentication=False)
     isp_auth.authenticate(
         auth_profile=ArkAuthProfile(
-            username='smarom@cyberark.cloud.84573',
+            username='user@cyberark.cloud.12345',
             auth_method=ArkAuthMethod.Identity,
             auth_method_settings=IdentityArkAuthMethodSettings(),
         ),
