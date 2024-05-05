@@ -41,6 +41,9 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] Identity Roles Service
     - [x] Identity Policies Service
     - [x] Identity Directories Service
+    - [x] PCloud Accounts Service
+    - [x] PCloud Safes Service
+    - [x] PCloud Platforms Service
 - [x] All services contains CRUD and Statistics per respective service
 - [x] Ready to use SDK in Python
 - [x] CLI and SDK Examples
@@ -221,6 +224,10 @@ The following services and commands are supported:
     - <b>roles</b> - Identity Roles Management
     - <b>policies</b> - Identity Policies Management
     - <b>directories</b> - Identity Directories Reading
+- <b>pcloud</b> - PCloud Service
+    - <b>accounts</b> - PCloud Accounts Management
+    - <b>safes</b> - PCloud Safes Management
+    - <b>platforms</b> - PCloud Platforms Management
 
 Any command has its own subcommands, with respective arguments
 
@@ -296,6 +303,21 @@ ark exec dpa k8s generate-kubeconfig
 Generate kubectl config file and save on specific path
 ```shell
 ark exec dpa k8s generate-kubeconfig --folder=/Users/My.User/.kube
+```
+
+Create a PCloud Safe
+```shell
+ark exec pcloud safes add-safe --safe-name=safe
+```
+
+Create a PCloud Account
+```shell
+ark exec pcloud accounts add-account --name account --safe-name safe --platform-id='UnixSSH' --username root --address 1.2.3.4 --secret-type=password --secret mypass
+```
+
+List available platforms
+```shell
+ark exec pcloud platforms list-platforms
 ```
 
 You can view all of the commands via the --help for each respective exec action

@@ -204,3 +204,18 @@ ark exec identity policies add-authentication-profile --auth-profile-name myprof
 ```shell
 ark exec identity policies add-policy --policy-name mypolicy --role-names RoleName --auth-profile-name myprofile
 ```
+
+### Create a PCloud Safe
+```shell
+ark exec pcloud safes add-safe --safe-name=safe
+```
+
+### Create a PCloud Account
+```shell
+ark exec pcloud accounts add-account --name account --safe-name safe --platform-id='UnixSSH' --username root --address 1.2.3.4 --secret-type=password --secret mypass
+```
+
+### List available platforms
+```shell
+ark exec pcloud platforms list-platforms
+```

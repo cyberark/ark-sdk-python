@@ -31,6 +31,10 @@ The following DPA commands are supported:
     - `users` - Users management
     - `policies` - Policies management
     - `directories` - Directories reading
+- `ark exec pcloud`: Root command for PCloud service
+    - `accounts` - Accounts management
+    - `safes` - Safes management
+    - `platforms` - Platforms management
 
 All commands have their own subcommands and respective arguments.
 
@@ -44,10 +48,10 @@ ark exec
 usage: ark exec [-h] [-r] [-s] [-ao] [-v] [-ls {default}] [-ll {DEBUG,INFO,WARN,ERROR,CRITICAL}]
                 [-dcv] [-tc TRUSTED_CERT] [-pn PROFILE_NAME] [-op OUTPUT_PATH] [-rf REQUEST_FILE]
                 [-rc RETRY_COUNT] [-ra]
-                {identity,dpa,sm} ...
+                {identity,dpa,sm,pcloud} ...
 
 positional arguments:
-  {identity,dpa,sm}
+  {identity,dpa,sm,pcloud}
 
 optional arguments:
   -h, --help            show this help message and exit

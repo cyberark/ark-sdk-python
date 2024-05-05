@@ -54,6 +54,20 @@ The Dynamic Privilege Access (DPA) service requires the ArkISPAuth authenticator
 
 
 ## Session monitoring service
-
 The Session Monitoring (SM) service requires ArkISPAuth authenticator, and exposes these service classes:
 - <b>ArkSMService (sm)</b> - Session Monitoring Service
+
+
+## Identity service
+The Identity (identity) service requires ArkISPAuth authenticator, and exposes those service classes:
+- <b>ArkIdentityRolesService - Identity roles service
+- <b>ArkIdentityUsersService - Identity users service
+- <b>ArkIdentityPoliciesService - Identity policies service
+- <b>ArkIdentityDirectoriesService - Identity directories service
+
+
+## Privilege Cloud service
+The Privilege Cloud (pcloud) service requires ArkISPAuth authenticator, and exposes those service classes:
+- <b>ArkPCloudAccountsService</b> - Accounts management service
+- <b>ArkPCloudSafesService</b> - Safes management service
+- <b>ArkPCloudPlatformsService</b> - Platforms management service

@@ -226,3 +226,29 @@ if __name__ == "__main__":
     identity_api.identity_roles.create_role(ArkIdentityCreateRole(role_name='IT'))
     identity_api.identity_users.create_user(ArkIdentityCreateUser(username='it_user', password='CoolPassword', roles=['IT']))
 ```
+
+
+## List PCloud Accounts
+
+```python
+import pprint
+
+from ark_sdk_python.auth import ArkISPAuth
+from ark_sdk_python.models.auth import ArkAuthMethod, ArkAuthProfile, ArkSecret, IdentityArkAuthMethodSettings
+from ark_sdk_python.services.pcloud.accounts import ArkPCloudAccountsService
+
+if __name__ == '__main__':
+    isp_auth = ArkISPAuth(cache_authentication=False)
+    isp_auth.authenticate(
+        auth_profile=ArkAuthProfile(
+            username='smarom@cyberark.cloud.84573',
+            auth_method=ArkAuthMethod.Identity,
+            auth_method_settings=IdentityArkAuthMethodSettings(),
+        ),
+        secret=ArkSecret(secret="CoolPassword"),
+    )
+    accounts_service = ArkPCloudAccountsService(isp_auth=isp_auth)
+    for page in accounts_service.list_accounts():
+        for item in page:
+            pprint.pprint(item.dict())
+```

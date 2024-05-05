@@ -13,6 +13,7 @@ class ArkDPADBAuthMethodType(str, Enum):
     ADEphemeralUser = 'ad_ephemeral_user'
     LocalEphemeralUser = 'local_ephemeral_user'
     RDSIAMAuthentication = 'rds_iam_authentication'
+    AtlasEphemeralUser = 'atlas_ephemeral_user'
 
 
 class ArkDPADBAuthMethod(ArkCamelizedModel):
