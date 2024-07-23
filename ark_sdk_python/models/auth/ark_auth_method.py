@@ -39,7 +39,7 @@ class IdentityArkAuthMethodSettings(ArkAuthMethodSettings):
 class IdentityServiceUserArkAuthMethodSettings(ArkAuthMethodSettings):
     identity_authorization_application: str = Field(
         description='Identity application to authorize once logged in with the service user',
-        default='__identity_cybr_user_oidc',
+        default='__idaptive_cybr_user_oidc',
         alias='Service User Authorization Application',
     )
 

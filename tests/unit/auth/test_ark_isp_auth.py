@@ -80,16 +80,16 @@ class TestArkISPAuth:
         assert 'cookies' in token.metadata
         tenant_fqdn_mock.assert_called_once()
         session_mock.return_value.post.assert_any_call(
-            url='https://url.com/Oauth2/Token/__identity_cybr_user_oidc',
+            url='https://url.com/Oauth2/Token/__idaptive_cybr_user_oidc',
             auth=HTTPBasicAuth('user@user.com', 'token'),
             verify=True,
             data={'grant_type': 'client_credentials', 'scope': 'api'},
         )
         session_mock.return_value.get.assert_any_call(
-            url='https://url.com/OAuth2/Authorize/__identity_cybr_user_oidc',
+            url='https://url.com/OAuth2/Authorize/__idaptive_cybr_user_oidc',
             headers={'Authorization': 'Bearer access_token'},
             params={
-                'client_id': '__identity_cybr_user_oidc',
+                'client_id': '__idaptive_cybr_user_oidc',
                 'response_type': 'id_token',
                 'scope': 'openid profile api',
                 'redirect_uri': 'https://cyberark.cloud/redirect',
