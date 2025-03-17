@@ -11,10 +11,13 @@ from ark_sdk_python.models.ark_exceptions import (
 from ark_sdk_python.models.ark_model import (
     ArkCamelizedModel,
     ArkGenericModel,
+    ArkHttpUrlString,
     ArkModel,
     ArkPollableModel,
     ArkPollCallback,
     ArkPresentableModel,
+    ArkSecretBytes,
+    ArkSecretStr,
     ArkTitleizedModel,
 )
 from ark_sdk_python.models.ark_profile import ArkProfile, ArkProfileLoader
@@ -36,4 +39,7 @@ __all__ = [
     'ArkCamelizedModel',
     'ArkPollableModel',
     'ArkPollCallback',
+    'ArkSecretStr',
+    'ArkSecretBytes',
+    'ArkHttpUrlString',
 ]

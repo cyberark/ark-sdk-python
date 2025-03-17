@@ -3,7 +3,8 @@ from enum import Enum
 from json.encoder import JSONEncoder
 from typing import Dict, List, Optional
 
-from pydantic import Field, conlist
+from pydantic import Field
+from typing_extensions import Annotated
 
 from ark_sdk_python.models.ark_model import ArkModel
 from ark_sdk_python.models.common.identity.ark_identity_common_schemas import IdentityApiResponse
@@ -25,7 +26,7 @@ class DirectoryServiceRow(ArkModel):
 
 
 class GetDirectorySevicesResult(ArkModel):
-    results: conlist(DirectoryServiceRow, min_items=1) = Field(alias='Results')
+    results: Annotated[List[DirectoryServiceRow], Field(min_length=1)] = Field(alias='Results')
 
 
 class GetDirectoryServicesResponse(IdentityApiResponse):
@@ -68,11 +69,11 @@ class DirectoryServiceQuerySpecificRoleRequest(DirectoryServiceQueryRequest):
 
 
 class GroupRow(ArkModel):
-    display_name: Optional[str] = Field(alias='DisplayName')
+    display_name: Optional[str] = Field(default=None, alias='DisplayName')
     service_instance_localized: str = Field(alias='ServiceInstanceLocalized')
     directory_service_type: DirectoryService = Field(alias='ServiceType')
-    system_name: Optional[str] = Field(alias='SystemName')
-    internal_id: Optional[str] = Field(alias='InternalName')
+    system_name: Optional[str] = Field(default=None, alias='SystemName')
+    internal_id: Optional[str] = Field(default=None, alias='InternalName')
 
 
 class GroupResult(ArkModel):
@@ -81,20 +82,20 @@ class GroupResult(ArkModel):
 
 class GroupsResult(ArkModel):
     results: List[GroupResult] = Field(alias='Results')
-    full_count: Optional[int] = Field(alias='FullCount')
+    full_count: Optional[int] = Field(default=None, alias='FullCount')
 
 
 class RoleAdminRight(ArkModel):
     path: str = Field(alias='Path')
-    service_name: Optional[str] = Field(alias='ServiceName')
+    service_name: Optional[str] = Field(default=None, alias='ServiceName')
 
 
 class RoleRow(ArkModel):
-    name: Optional[str] = Field(alias='Name')
+    name: Optional[str] = Field(default=None, alias='Name')
     id: str = Field(alias='_ID')
-    admin_rights: Optional[List[RoleAdminRight]] = Field(alias='AdministrativeRights')
-    is_hidden: Optional[bool] = Field(alias='IsHidden')
-    description: Optional[str] = Field(alias='Description')
+    admin_rights: Optional[List[RoleAdminRight]] = Field(default=None, alias='AdministrativeRights')
+    is_hidden: Optional[bool] = Field(default=None, alias='IsHidden')
+    description: Optional[str] = Field(default=None, alias='Description')
 
 
 class RoleResult(ArkModel):
@@ -103,18 +104,18 @@ class RoleResult(ArkModel):
 
 class RolesResult(ArkModel):
     results: List[RoleResult] = Field(alias='Results')
-    full_count: Optional[int] = Field(alias='FullCount')
+    full_count: Optional[int] = Field(default=None, alias='FullCount')
 
 
 class UserRow(ArkModel):
-    display_name: Optional[str] = Field(alias='DisplayName')
+    display_name: Optional[str] = Field(default=None, alias='DisplayName')
     service_instance_localized: str = Field(alias='ServiceInstanceLocalized')
     distinguished_name: str = Field(alias='DistinguishedName')
-    system_name: Optional[str] = Field(alias='SystemName')
+    system_name: Optional[str] = Field(default=None, alias='SystemName')
     directory_service_type: DirectoryService = Field(alias='ServiceType')
-    email: Optional[str] = Field(alias='EMail')
-    internal_id: Optional[str] = Field(alias='InternalName')
-    description: Optional[str] = Field(alias='Description')
+    email: Optional[str] = Field(default=None, alias='EMail')
+    internal_id: Optional[str] = Field(default=None, alias='InternalName')
+    description: Optional[str] = Field(default=None, alias='Description')
 
 
 class UserResult(ArkModel):
@@ -123,13 +124,13 @@ class UserResult(ArkModel):
 
 class UsersResult(ArkModel):
     results: List[UserResult] = Field(alias='Results')
-    full_count: Optional[int] = Field(alias='FullCount')
+    full_count: Optional[int] = Field(default=None, alias='FullCount')
 
 
 class QueryResult(ArkModel):
-    groups: Optional[GroupsResult] = Field(alias='Group')
-    roles: Optional[RolesResult] = Field()
-    users: Optional[UsersResult] = Field(alias='User')
+    groups: Optional[GroupsResult] = Field(default=None, alias='Group')
+    roles: Optional[RolesResult] = Field(None)
+    users: Optional[UsersResult] = Field(default=None, alias='User')
 
 
 class DirectoryServiceQueryResponse(IdentityApiResponse):

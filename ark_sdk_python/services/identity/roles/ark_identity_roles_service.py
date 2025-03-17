@@ -2,7 +2,7 @@ from http import HTTPStatus
 from typing import Final, List
 
 from overrides import overrides
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 from requests import Response
 from requests.exceptions import JSONDecodeError
 
@@ -208,14 +208,14 @@ class ArkIdentityRolesService(ArkIdentityBaseService):
         ]
         response: Response = self._client.post(
             f'{self._url_prefix}{DIRECTORY_SERVICE_QUERY_URL}',
-            data=DirectoryServiceQuerySpecificRoleRequest(
+            json=DirectoryServiceQuerySpecificRoleRequest(
                 role_name=role_id_by_name.role_name, directory_services=directories, args=DirectorySearchArgs(limit=1)
-            ).json(by_alias=True, exclude={'users'}),
+            ).model_dump(by_alias=True, exclude={'users'}),
         )
         if response.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to query for directory services role [{response.text}]')
         try:
-            result = DirectoryServiceQueryResponse.parse_raw(response.text)
+            result = DirectoryServiceQueryResponse.model_validate_json(response.text)
             all_roles = result.result.roles.results
             if not len(all_roles):
                 raise ArkServiceException('No role found for given name')

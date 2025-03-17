@@ -9,6 +9,7 @@ from requests.cookies import RequestsCookieJar
 
 from ark_sdk_python.auth.ark_isp_auth import ArkISPAuth
 from ark_sdk_python.common.ark_client import ArkClient
+from ark_sdk_python.common.ark_jwt_utils import ArkJWTUtils
 from ark_sdk_python.common.env import ROOT_DOMAIN, AwsEnv
 from ark_sdk_python.models import ArkException
 
@@ -51,16 +52,14 @@ class ArkISPServiceClient(ArkClient):
         token: Optional[str] = None,
         seperator: str = '.',
     ) -> str:
-        from jose.jwt import get_unverified_claims
-
         tenant_env = tenant_env or AwsEnv(os.environ.get('DEPLOY_ENV', AwsEnv.PROD.value))
         platform_domain = ROOT_DOMAIN[tenant_env]
         tenant_chosen_subdomain = None
         if token:
-            subdomain = get_unverified_claims(token).get('subdomain', None)
+            subdomain = ArkJWTUtils.get_unverified_claims(token).get('subdomain', None)
             if subdomain:
                 tenant_chosen_subdomain = subdomain
-            platform_token_domain = get_unverified_claims(token).get('platform_domain', None)
+            platform_token_domain = ArkJWTUtils.get_unverified_claims(token).get('platform_domain', None)
             if platform_token_domain:
                 platform_domain = platform_token_domain
                 tenant_env = list(filter(lambda e: ROOT_DOMAIN[e] == platform_domain, ROOT_DOMAIN.keys()))
@@ -72,7 +71,7 @@ class ArkISPServiceClient(ArkClient):
             parsed_url = urlparse(base_tenant_url)
             tenant_chosen_subdomain = parsed_url.netloc.split('.', 1)[0]
         if not tenant_chosen_subdomain:
-            unique_name = get_unverified_claims(token).get('unique_name', None)
+            unique_name = ArkJWTUtils.get_unverified_claims(token).get('unique_name', None)
             if unique_name:
                 full_domain = unique_name.split('@', 1)
                 if len(full_domain) > 1:
@@ -96,6 +95,7 @@ class ArkISPServiceClient(ArkClient):
         isp_auth: ArkISPAuth,
         service_name: Optional[str] = None,
         seperator: str = '.',
+        refresh_connection_callback: Optional[Callable[['ArkClient'], None]] = None,
     ) -> 'ArkISPServiceClient':
         tenant_env = None
         base_tenant_url = None
@@ -120,7 +120,7 @@ class ArkISPServiceClient(ArkClient):
                 if 'cookies' in isp_auth.token.metadata
                 else None
             ),
-            refresh_connection_callback=ArkISPServiceClient.refresh_client,
+            refresh_connection_callback=refresh_connection_callback,
         )
 
     @staticmethod
@@ -141,7 +141,5 @@ class ArkISPServiceClient(ArkClient):
     @property
     def tenant_id(self) -> str:
         if self.session_token:
-            from jose.jwt import get_unverified_claims
-
-            return get_unverified_claims(self.session_token)['tenant_id']
+            return ArkJWTUtils.get_unverified_claims(self.session_token)['tenant_id']
         raise ArkException('Failed to retrieve tenant id')

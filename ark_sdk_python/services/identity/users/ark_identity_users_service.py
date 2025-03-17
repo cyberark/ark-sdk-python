@@ -3,7 +3,7 @@ from http import HTTPStatus
 from typing import Final
 
 from overrides import overrides
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 from requests import Response
 from requests.exceptions import JSONDecodeError
 
@@ -13,9 +13,11 @@ from ark_sdk_python.models.services.identity.roles import ArkIdentityAddUserToRo
 from ark_sdk_python.models.services.identity.users import (
     ArkIdentityCreateUser,
     ArkIdentityDeleteUser,
+    ArkIdentityDeleteUsers,
     ArkIdentityResetUserPassword,
     ArkIdentityUpdateUser,
     ArkIdentityUser,
+    ArkIdentityUserById,
     ArkIdentityUserByName,
     ArkIdentityUserIdByName,
     ArkIdentityUserInfo,
@@ -30,8 +32,9 @@ SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
 
 TENANT_SUFFIX_URL: Final[str] = 'Core/GetCdsAliasesForTenant'
 CREATE_USER_URL: Final[str] = 'CDirectoryService/CreateUser'
+DELETE_USER_URL: Final[str] = 'CDirectoryService/DeleteUser'
 UPDATE_USER_URL: Final[str] = 'CDirectoryService/ChangeUser'
-DELETE_USER_URL: Final[str] = 'UserMgmt/RemoveUsers'
+REMOVE_USERS_URL: Final[str] = 'UserMgmt/RemoveUsers'
 RESET_USER_PASSWORD_URL: Final[str] = 'UserMgmt/ResetUserPassword'
 REDROCK_QUERY: Final[str] = 'Redrock/query'
 USER_INFO_URL: Final[str] = 'OAuth2/UserInfo/__idaptive_cybr_user_oidc'
@@ -138,16 +141,35 @@ class ArkIdentityUsersService(ArkIdentityBaseService):
         Raises:
             ArkServiceException: _description_
         """
-        if delete_user.username and not delete_user.user_id:
-            delete_user.user_id = self.user_id_by_name(ArkIdentityUserIdByName(username=delete_user.username))
         self._logger.info(f'Deleting user [{delete_user.user_id}]')
-        response: Response = self._client.post(f'{self._url_prefix}{DELETE_USER_URL}', json={'Users': [delete_user.user_id]})
+        response: Response = self._client.post(
+            f'{self._url_prefix}{DELETE_USER_URL}', json={'ID': delete_user.user_id or delete_user.username}
+        )
         try:
             if response.status_code != HTTPStatus.OK or not response.json()['success']:
                 raise ArkServiceException(f'Failed to delete user [{response.text}]')
         except (ValidationError, JSONDecodeError, KeyError) as ex:
             self._logger.exception(f'Failed to parse delete user response [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to parse delete user response [{str(ex)}]') from ex
+
+    def delete_users(self, delete_users: ArkIdentityDeleteUsers) -> None:
+        """
+        Deletes users by given ids
+
+        Args:
+            delete_users (ArkIdentityDeleteUsers): _description_
+
+        Raises:
+            ArkServiceException: _description_
+        """
+        self._logger.info(f'Removing users [{",".join(delete_users.user_ids)}]')
+        response: Response = self._client.post(f'{self._url_prefix}{REMOVE_USERS_URL}', json={'Users': [delete_users.user_ids]})
+        try:
+            if response.status_code != HTTPStatus.OK or not response.json()['success']:
+                raise ArkServiceException(f'Failed to remove users [{response.text}]')
+        except (ValidationError, JSONDecodeError, KeyError) as ex:
+            self._logger.exception(f'Failed to parse remove users response [{str(ex)}] - [{response.text}]')
+            raise ArkServiceException(f'Failed to parse remove users response [{str(ex)}]') from ex
 
     def user_id_by_name(self, user_id_by_name: ArkIdentityUserIdByName) -> str:
         """
@@ -218,6 +240,48 @@ class ArkIdentityUsersService(ArkIdentityBaseService):
             self._logger.exception(f'Failed to parse user id by name response [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to parse user id by name response [{str(ex)}]') from ex
 
+    def user_by_id(self, user_by_id: ArkIdentityUserById) -> ArkIdentityUser:
+        """
+        Finds the identifier of the given id
+
+        Args:
+            user_by_id (ArkIdentityUserIdById): _description_
+
+        Returns:
+            str: _description_
+        """
+        response: Response = self._client.post(
+            f'{self._url_prefix}{REDROCK_QUERY}',
+            json={"Script": f"Select ID, Username, DisplayName, Email, MobileNumber, LastLogin from User WHERE ID='{user_by_id.user_id}'"},
+        )
+        if response.status_code != HTTPStatus.OK:
+            raise ArkServiceException(f'Failed to retrieve user id by id [{response.text}] - [{response.status_code}]')
+        try:
+            query_result = response.json()
+            if not query_result['success'] or len(query_result['Result']["Results"]) == 0:
+                raise ArkServiceException('Failed to retrieve user id by id')
+            user_row = query_result['Result']["Results"][0]["Row"]
+            last_login = None
+            if last_login := user_row.get('LastLogin'):
+                try:
+                    last_login = last_login.split('(')[1].split(')')[0]
+                    last_login = f'{last_login[:10]}.{last_login[10:]}'  # for milliseconds
+                    last_login = datetime.fromtimestamp(float(last_login), timezone.utc)
+                except Exception as ex:
+                    self._logger.debug(f'Failed to parse last login [{user_row.get("LastLogin")}] [{str(ex)}]')
+
+            return ArkIdentityUser(
+                user_id=user_row["ID"],
+                username=user_row["Username"],
+                display_name=user_row["DisplayName"],
+                email=user_row["Email"],
+                mobile_number=user_row["MobileNumber"],
+                last_login=last_login,
+            )
+        except (ValidationError, JSONDecodeError, KeyError) as ex:
+            self._logger.exception(f'Failed to parse user id by id response [{str(ex)}] - [{response.text}]')
+            raise ArkServiceException(f'Failed to parse user id by id response [{str(ex)}]') from ex
+
     def reset_user_password(self, reset_user_password: ArkIdentityResetUserPassword) -> None:
         """
         Resets a given username's password to the new given one
@@ -247,6 +311,9 @@ class ArkIdentityUsersService(ArkIdentityBaseService):
 
         Raises:
             ArkServiceException: _description_
+
+        Returns:
+            ArkIdentityUserInfo: _description_
         """
         response: Response = self._client.post(
             f'{self._url_prefix}{USER_INFO_URL}',
@@ -256,7 +323,7 @@ class ArkIdentityUsersService(ArkIdentityBaseService):
             result = response.json()
             if response.status_code != HTTPStatus.OK:
                 raise ArkServiceException(f'Failed to get user info [{response.text}]')
-            return ArkIdentityUserInfo.parse_obj(result)
+            return ArkIdentityUserInfo.model_validate(result)
         except (ValidationError, JSONDecodeError, KeyError) as ex:
             self._logger.exception(f'Failed to get user info [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to get user info [{str(ex)}]') from ex

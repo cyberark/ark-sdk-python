@@ -12,7 +12,7 @@ This page lists some useful SDK examples.
 ```python
 from ark_sdk_python.auth import ArkISPAuth
 from ark_sdk_python.models.auth import ArkSecret, ArkAuthMethod, ArkAuthProfile, IdentityArkAuthMethodSettings
-from ark_sdk_python.services.dpa.policies.db import ArkDPADBPoliciesService
+from ark_sdk_python.services.sia.policies.db import ArkSIADBPoliciesService
 
 if __name__ == "__main__":
     isp_auth = ArkISPAuth()
@@ -22,16 +22,16 @@ if __name__ == "__main__":
         ),
         secret=ArkSecret(secret='CoolPassword'),
     )
-    db_policies_service = ArkDPADBPoliciesService(isp_auth)
+    db_policies_service = ArkSIADBPoliciesService(isp_auth)
     policies = db_policies_service.list_policies()
 ```
 
-## Authenticate and provision DPA databases and policy
+## Authenticate and provision SIA databases and policy
 
 ```python
 if __name__ == '__main__':
     ArkSystemConfig.disable_verbose_logging()
-    # Authenticate to the tenant with an auth profile to configure DPA
+    # Authenticate to the tenant with an auth profile to configure SIA
     username = 'user@cyberark.cloud.12345'
     print(f'Authenticating to the created tenant with user [{username}]')
     isp_auth = ArkISPAuth()
@@ -42,51 +42,51 @@ if __name__ == '__main__':
         secret=ArkSecret(secret='CoolPassword'),
     )
 
-    # Create DPA DB Secret, Database, Connector and DB Policy
-    dpa_service = ArkDPAAPI(isp_auth)
-    print('Adding DPA DB User Secret')
-    secret = dpa_service.secrets_db.add_secret(
-        ArkDPADBAddSecret(secret_type=ArkDPADBSecretType.UsernamePassword, username='Administrator', password='CoolPassword')
+    # Create SIA DB Secret, Database, Connector and DB Policy
+    sia_service = ArkSIAAPI(isp_auth)
+    print('Adding SIA DB User Secret')
+    secret = sia_service.secrets_db.add_secret(
+        ArkSIADBAddSecret(secret_type=ArkSIADBSecretType.UsernamePassword, username='Administrator', password='CoolPassword')
     )
-    print('Adding DPA Database')
-    dpa_service.workspace_db.add_database(
-        ArkDPADBAddDatabase(
+    print('Adding SIA Database')
+    sia_service.workspace_db.add_database(
+        ArkSIADBAddDatabase(
             name='mydomain.com',
-            provider_engine=ArkDPADBDatabaseEngineType.PostgresSH,
+            provider_engine=ArkSIADBDatabaseEngineType.PostgresSH,
             secret_id=secret.secret_id,
             read_write_endpoint="myendpoint.mydomain.com",
         )
     )
-    print('Adding DPA DB Policy')
-    dpa_service.policies_db.add_policy(
-        ArkDPADBAddPolicy(
+    print('Adding SIA DB Policy')
+    sia_service.policies_db.add_policy(
+        ArkSIADBAddPolicy(
             policy_name='IT Policy',
-            status=ArkDPARuleStatus.Active,
+            status=ArkSIARuleStatus.Enabled,
             description='IT Policy',
-            providers_data=ArkDPADBProvidersData(
-                postgres=ArkDPADBPostgres(
+            providers_data=ArkSIADBProvidersData(
+                postgres=ArkSIADBPostgres(
                     resources=['postgres-onboarded-asset'],
                 ),
             ),
             user_access_rules=[
-                ArkDPADBAuthorizationRule(
+                ArkSIADBAuthorizationRule(
                     rule_name='IT Rule',
-                    user_data=ArkDPAUserData(roles=['DpaAdmin'], groups=[], users=[]),
-                    connection_information=ArkDPADBConnectionInformation(
+                    user_data=ArkSIAUserData(roles=['DpaAdmin'], groups=[], users=[]),
+                    connection_information=ArkSIADBConnectionInformation(
                         grant_access=2,
                         idle_time=10,
                         full_days=True,
                         hours_from='07:00',
                         hours_to='17:00',
                         time_zone='Asia/Jerusalem',
-                        connect_as=ArkDPADBConnectAs(
+                        connect_as=ArkSIADBConnectAs(
                             db_auth=[
-                                ArkDPADBLocalDBAuth(
+                                ArkSIADBLocalDBAuth(
                                     roles=['rds_superuser'],
                                     applied_to=[
-                                        ArkDPADBAppliedTo(
+                                        ArkSIADBAppliedTo(
                                             name='postgres-onboarded-asset',
-                                            type=ArkDPADBResourceIdentifierType.RESOURCE,
+                                            type=ArkSIADBResourceIdentifierType.RESOURCE,
                                         )
                                     ],
                                 ),
@@ -99,7 +99,7 @@ if __name__ == '__main__':
     )
 ```
 
-## Authenticate and provision DPA VM policies
+## Authenticate and provision SIA VM policies
 
 ```python
 if __name__ == '__main__':
@@ -110,30 +110,30 @@ if __name__ == '__main__':
         ),
         secret=ArkSecret(secret='CoolPassword'),
     )
-    print('Adding DPA Policy')
-    dpa_service.policies.add_policy(
-        ArkDPAVMAddPolicy(
+    print('Adding SIA Policy')
+    sia_service.policies.add_policy(
+        ArkSIAVMAddPolicy(
             policy_name='IT Policy',
             description='IT Policy',
-            status=ArkDPARuleStatus.Enabled,
+            status=ArkSIARuleStatus.Enabled,
             providers_data={
-                ArkWorkspaceType.AWS: ArkDPAVMAWSProviderData(
+                ArkWorkspaceType.AWS: ArkSIAVMAWSProviderData(
                     account_ids=['965428623928'], tags=[{'key': 'team', 'value': 'IT'}], regions=[], vpc_ids=[]
                 )
             },
             user_access_rules=[
-                ArkDPAVMAuthorizationRule(
+                ArkSIAVMAuthorizationRule(
                     rule_name='IT Rule',
-                    user_data=ArkDPAUserData(roles=['IT']),
-                    connection_information=ArkDPAVMConnectionInformation(
+                    user_data=ArkSIAUserData(roles=['IT']),
+                    connection_information=ArkSIAVMConnectionInformation(
                         full_days=True,
                         days_of_week=[],
                         time_zone='Asia/Jerusalem',
                         connect_as={
                             ArkWorkspaceType.AWS: {
                                 ArkProtocolType.SSH: 'root',
-                                ArkProtocolType.RDP: ArkDPAVMRDPLocalEphemeralUserConnectionData(
-                                    local_ephemeral_user=ArkDPAVMLocalEphemeralUserConnectionMethodData(assign_groups={'Administrators'})
+                                ArkProtocolType.RDP: ArkSIAVMRDPLocalEphemeralUserConnectionData(
+                                    local_ephemeral_user=ArkSIAVMLocalEphemeralUserConnectionMethodData(assign_groups={'Administrators'})
                                 ),
                             }
                         },
@@ -142,6 +142,87 @@ if __name__ == '__main__':
             ],
         )
     )
+```
+
+## Authenticate and provision SIA VM RDP Target Set / Secret / Policy
+
+```python
+if __name__ == '__main__':
+    ArkSystemConfig.disable_verbose_logging()
+    # Authenticate to the tenant with an auth profile to configure SIA
+    username = 'user@cyberark.cloud.12345'
+    print(f'Authenticating to the created tenant with user [{username}]')
+    isp_auth = ArkISPAuth()
+    isp_auth.authenticate(
+        auth_profile=ArkAuthProfile(
+            username=username, auth_method=ArkAuthMethod.Identity, auth_method_settings=IdentityArkAuthMethodSettings()
+        ),
+        secret=ArkSecret(secret='CoolPassword'),
+    )
+
+    # Create SIA VM Secret, Target Set and VM Policy
+    sia_service = ArkSIAAPI(isp_auth)
+    print('Adding SIA VM User Secret')
+    secret = sia_service.secrets_vm.add_secret(
+        ArkSIAVMAddSecret(
+            secret_type=ArkSIAVMSecretType.ProvisionerUser, 
+            provisioner_username='Administrator', 
+            provisioner_password='CoolPassword',
+        ),
+    )
+    print('Adding SIA Target Set')
+    sia_service.workspace_target_sets.add_target_set(
+        ArkSIAAddTargetSet(
+            name='mydomain.com',
+            secret_type=ArkSIAVMSecretType.ProvisionerUser,
+            secret_id=secret.secret_id,
+        )
+    )
+    print('Adding SIA VM Policy')
+    sia_service.policies_vm.add_policy(
+        ArkSIAVMAddPolicy(
+            policy_name='IT Policy',
+            status=ArkSIARuleStatus.Enabled,
+            description='IT Policy',
+            providers_data={
+                ArkWorkspaceType.ONPREM: ArkSIAVMOnPremProviderData(
+                    fqdn_rules=[
+                        ArkSIAVMFQDNRule(
+                            operator=ArkSIAVMFQDNOperator.WILDCARD,
+                            computername_pattern='*',
+                            domain='mydomain.com',
+                        ),
+                    ],
+                ),
+            },
+            user_access_rules=[
+                ArkSIAVMAuthorizationRule(
+                    rule_name='IT Rule',
+                    user_data=ArkSIAUserData(roles=['DpaAdmin'], groups=[], users=[]),
+                    connection_information=ArkSIAVMConnectionInformation(
+                        grant_access=2,
+                        idle_time=10,
+                        full_days=True,
+                        hours_from='07:00',
+                        hours_to='17:00',
+                        time_zone='Asia/Jerusalem',
+                        connect_as={
+                            ArkWorkspaceType.ONPREM: {
+                                ArkProtocolType.RDP: ArkSIAVMRDPLocalEphemeralUserConnectionData(
+                                    local_ephemeral_user=ArkSIAVMLocalEphemeralUserConnectionMethodData(
+                                        assign_groups=[
+                                            'Administrators'
+                                        ],
+                                    ),
+                                ),
+                            },
+                        },
+                    ),
+                )
+            ],
+        )
+    )
+    print('Finished Successfully')
 ```
 
 ## View Session Monitoring Sessions And Activities Per Session
@@ -250,5 +331,5 @@ if __name__ == '__main__':
     accounts_service = ArkPCloudAccountsService(isp_auth=isp_auth)
     for page in accounts_service.list_accounts():
         for item in page:
-            pprint.pprint(item.dict())
+            pprint.pprint(item.model_dump())
 ```

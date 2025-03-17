@@ -22,14 +22,14 @@ Derived from the model above, there are different model types that serve differe
 Any request can be called with a defined model, for example:
 
 ```python
-policies_service = ArkDPADBPoliciesService(isp_auth)
+policies_service = ArkSIADBPoliciesService(isp_auth)
 policies = policies_service.list_policies()
 ```
 
-The above example creates a DB policies service and calls `list_policies()` to retrieve a list of all tenant DB polices. The returned list items contain `policy_id` and `policy_name` fields, which can be used with the ArkDPAGetPolicy model:
+The above example creates a DB policies service and calls `list_policies()` to retrieve a list of all tenant DB polices. The returned list items contain `policy_id` and `policy_name` fields, which can be used with the ArkSIAGetPolicy model:
 
 ```python
-class ArkDPAGetPolicy(ArkModel):
+class ArkSIAGetPolicy(ArkModel):
     policy_id: Optional[str] = Field(description='Policy id to get')
     policy_name: Optional[str] = Field(description='Policy name to get')
 

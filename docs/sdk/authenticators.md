@@ -52,7 +52,7 @@ isp_auth.authenticate(
     ),
     secret=ArkSecret(secret="CoolPassword"),
 )
-dpa_api = ArkDPAAPI(isp_auth=isp_auth)
+sia_api = ArkSIAAPI(isp_auth=isp_auth)
 ```
 
 The example above initializes an instance of the ArkISPAuth class and authenticates to the specified ISP tenant, using the `Identity` authentication type with the provided username and password.

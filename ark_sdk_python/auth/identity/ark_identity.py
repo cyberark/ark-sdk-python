@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from http import HTTPStatus
 from multiprocessing import Pipe, Process, get_context
 from multiprocessing.connection import Connection
-from typing import Dict, Final, List, Optional, Union
+from typing import Dict, Final, List, Optional, Tuple, Union
 
 import inquirer
 from cachetools import LRUCache, cached
@@ -40,7 +40,7 @@ from ark_sdk_python.models.common.identity import (
 RECV_PIPE_INTERVAL: Final[int] = 3.0
 POLL_INTERVAL_MS: Final[int] = 0.5
 POLL_TIME_SECONDS: Final[int] = 360
-SUPPORTED_MECHANISMS: Final[List[str]] = ['pf', 'sms', 'email', 'otp']
+SUPPORTED_MECHANISMS: Final[List[str]] = ['pf', 'sms', 'email', 'otp', 'up']
 MECHANISM_RETRY_COUNT: Final[int] = 20
 DEFAULT_TOKEN_LIFETIME_SECONDS: Final[int] = 3600
 
@@ -72,6 +72,9 @@ def input_process(pipe_write: Connection, pipe_read: Connection, mechanism: Mech
 
 
 class ArkIdentity:
+    __LAST_START_AUTH_RESP: Dict[str, Tuple[StartAuthResponse, datetime]] = {}
+    __LAST_START_AUTH_RESP_DELTA_SECONDS: Final[int] = 30
+
     def __init__(
         self,
         username: str,
@@ -119,9 +122,9 @@ class ArkIdentity:
                 import dill as pickle
 
                 try:
-                    self.__session_details = AdvanceAuthResult.parse_raw(token.token.get_secret_value())
+                    self.__session_details = AdvanceAuthResult.model_validate_json(token.token.get_secret_value())
                 except ValidationError:
-                    self.__session_details = IdpAuthStatusResult.parse_raw(token.token.get_secret_value())
+                    self.__session_details = IdpAuthStatusResult.model_validate_json(token.token.get_secret_value())
                 self.__session_exp = token.expires_in
                 self.__session = pickle.loads(codecs.decode(session.token.get_secret_value().encode(), "base64"))
                 self.__session.verify = self.__verify
@@ -138,7 +141,7 @@ class ArkIdentity:
             self.__keyring.save_token(
                 profile,
                 ArkToken(
-                    token=self.__session_details.json(),
+                    token=self.__session_details.model_dump_json(),
                     username=self.__username,
                     endpoint=self.__identity_url,
                     token_type=ArkTokenType.Internal,
@@ -181,13 +184,13 @@ class ArkIdentity:
             json={'User': self.__username, 'Version': '1.0', 'PlatformTokenResponse': True, 'MfaRequestor': 'DeviceAgent'},
         )
         try:
-            parsed_res: StartAuthResponse = StartAuthResponse.parse_raw(response.text)
+            parsed_res: StartAuthResponse = StartAuthResponse.model_validate_json(response.text)
             if not parsed_res.result.challenges and not parsed_res.result.idp_redirect_url:
                 raise ValidationError('No challenges or idp redirect url on start auth')
         except (ValidationError, TypeError) as ex:
             try:
                 if 'PodFqdn' in response.text:
-                    fqdn = TenantFqdnResponse.parse_raw(response.text)
+                    fqdn = TenantFqdnResponse.model_validate_json(response.text)
                     self.__identity_url = f'https://{fqdn.result.pod_fqdn}'
                     self.__session = Session()
                     self.__session.verify = self.__verify
@@ -207,9 +210,9 @@ class ArkIdentity:
             json={'SessionId': session_id, 'MechanismId': mechanism_id, 'Action': action, 'Answer': answer},
         )
         try:
-            parsed_res: AdvanceAuthMidResponse = AdvanceAuthMidResponse.parse_raw(response.text)
+            parsed_res: AdvanceAuthMidResponse = AdvanceAuthMidResponse.model_validate_json(response.text)
             if parsed_res.result.summary == 'LoginSuccess':
-                parsed_res: AdvanceAuthResponse = AdvanceAuthResponse.parse_raw(response.text)
+                parsed_res: AdvanceAuthResponse = AdvanceAuthResponse.model_validate_json(response.text)
         except (ValidationError, TypeError) as ex:
             raise ArkException(f'Identity advance authentication failed to be parsed / validated [{response.text}]') from ex
         return parsed_res
@@ -221,7 +224,7 @@ class ArkIdentity:
             json={'SessionId': session_id},
         )
         try:
-            parsed_res: IdpAuthStatusResponse = IdpAuthStatusResponse.parse_raw(response.text)
+            parsed_res: IdpAuthStatusResponse = IdpAuthStatusResponse.model_validate_json(response.text)
         except (ValidationError, TypeError) as ex:
             raise ArkException(f'Identity idp auth status failed to be parsed / validated [{response.text}]') from ex
         return parsed_res
@@ -309,7 +312,7 @@ class ArkIdentity:
                 self.__stop_input_process()
 
     def __pick_mechanism(self, challenge: Challenge) -> Mechanism:
-        factors = {'otp': '📲 Push / Code', 'sms': '📟 SMS', 'email': '📧 Email', 'pf': '📞 Phone call'}
+        factors = {'otp': '📲 Push / Code', 'sms': '📟 SMS', 'email': '📧 Email', 'pf': '📞 Phone call', 'up': '🔑 User Password'}
         supported_mechanisms = [m for m in challenge.mechanisms if m.name.lower() in SUPPORTED_MECHANISMS]
         answers = inquirer.prompt(
             [
@@ -367,6 +370,45 @@ class ArkIdentity:
                 break
             time.sleep(POLL_INTERVAL_MS)
 
+    def __perform_up_authentication(
+        self,
+        profile: ArkProfile,
+        mechanism: Mechanism,
+        interactive: bool,
+        start_auth_response: StartAuthResponse,
+        current_challenge_idx: int,
+    ) -> Tuple[str, int]:
+        current_challenge_idx += 1
+        # Password, answer it
+        if not self.__password:
+            if not interactive:
+                raise ArkAuthException('No password and not interactive, cannot continue')
+            answers = inquirer.prompt(
+                [inquirer.Password('answer', message='Identity Security Platform Secret')],
+                render=ArkInquirerRender(),
+            )
+            if not answers:
+                raise ArkAuthException('Canceled by user')
+            self.__password = answers['answer']
+        advance_resp = self.__advance_authentication(
+            mechanism.mechanism_id, start_auth_response.result.session_id, self.__password, 'Answer'
+        )
+        if isinstance(advance_resp, AdvanceAuthResponse) and len(start_auth_response.result.challenges) == 1:
+            # Done here, save the token
+            self.__session_details = advance_resp.result
+            self.__session.headers.update(
+                {'Authorization': f'Bearer {advance_resp.result.auth}', **ArkIdentityFQDNResolver.default_headers()}
+            )
+            delta = self.__session_details.token_lifetime or DEFAULT_TOKEN_LIFETIME_SECONDS
+            self.__session_exp = datetime.now() + timedelta(seconds=delta)
+            if self.__cache_authentication:
+                self.__save_cache(profile)
+            return 'DONE', current_challenge_idx
+        elif isinstance(advance_resp, AdvanceAuthMidResponse) and advance_resp.result.challenges:
+            start_auth_response.result.challenges = advance_resp.result.challenges
+            current_challenge_idx = 0
+        return 'CONTINUE', current_challenge_idx
+
     @classmethod
     def has_cache_record(cls, profile: ArkProfile, username: str, refresh_auth_allowed: bool) -> bool:
         """
@@ -416,6 +458,32 @@ class ArkIdentity:
         resp = identity.__start_authentication()
         return resp.result.idp_redirect_url != None
 
+    @classmethod
+    @cached(cache=LRUCache(maxsize=1024))
+    def is_password_required(cls, username: str, identity_url: Optional[str], identity_tenant_subdomain: Optional[str]) -> bool:
+        """
+        Checks whether or not the specified username is from an external IDP.
+        Args:
+            username (str): _description_
+            identity_url (Optional[str]): _description_
+            identity_tenant_subdomain (Optional[str]): _description_
+        Returns:
+            bool: _description_
+        """
+        identity = ArkIdentity(
+            username=username,
+            password='',
+            identity_url=identity_url,
+            identity_tenant_subdomain=identity_tenant_subdomain,
+        )
+        resp = identity.__start_authentication()
+        ArkIdentity.__LAST_START_AUTH_RESP[f'{identity.identity_url}_{username}'] = (resp, datetime.now())
+        return (
+            resp.result.idp_redirect_url == None
+            and resp.result.challenges
+            and all(c.name == 'UP' for c in resp.result.challenges[0].mechanisms)
+        )
+
     def get_apps(self) -> Dict:
         """
         Returns the applications to which the user is logged in.
@@ -459,7 +527,14 @@ class ArkIdentity:
         self.__session.headers.update(ArkIdentityFQDNResolver.default_headers())
 
         # Start the authentication
-        start_auth_response = self.__start_authentication()
+        start_auth_response: Optional[StartAuthResponse] = None
+        if f'{self.__identity_url}_{self.__username}' in ArkIdentity.__LAST_START_AUTH_RESP:
+            start_auth_response_time = ArkIdentity.__LAST_START_AUTH_RESP[f'{self.__identity_url}_{self.__username}']
+            if (datetime.now() - start_auth_response_time[1]).total_seconds() < ArkIdentity.__LAST_START_AUTH_RESP_DELTA_SECONDS:
+                start_auth_response = start_auth_response_time[0]
+            del ArkIdentity.__LAST_START_AUTH_RESP[f'{self.__identity_url}_{self.__username}']
+        if not start_auth_response:
+            start_auth_response = self.__start_authentication()
         if start_auth_response.result.idp_redirect_url:
             # External IDP Flow, ignore the mechanisms and just open a browser
             self.__perform_idp_authentication(start_auth_response, profile, interactive)
@@ -467,42 +542,36 @@ class ArkIdentity:
 
         # Check if password is part of the first challenges list and if so, answer it directly
         current_challenge_idx = 0
-        for mechanism in start_auth_response.result.challenges[current_challenge_idx].mechanisms:
+        if len(start_auth_response.result.challenges[current_challenge_idx].mechanisms) > 1 and interactive:
+            mechanism = self.__pick_mechanism(start_auth_response.result.challenges[current_challenge_idx])
             if mechanism.name.lower() == 'up':
-                current_challenge_idx += 1
-                # Password, answer it
-                if not self.__password:
-                    if not interactive:
-                        raise ArkAuthException('No password and not interactive, cannot continue')
-                    answers = inquirer.prompt(
-                        [inquirer.Password('answer', message='Identity Security Platform Secret')],
-                        render=ArkInquirerRender(),
-                    )
-                    if not answers:
-                        raise ArkAuthException('Canceled by user')
-                    self.__password = answers['answer']
-                advance_resp = self.__advance_authentication(
-                    mechanism.mechanism_id, start_auth_response.result.session_id, self.__password, 'Answer'
+                result, current_challenge_idx = self.__perform_up_authentication(
+                    profile, mechanism, interactive, start_auth_response, current_challenge_idx
                 )
-                if isinstance(advance_resp, AdvanceAuthResponse) and len(start_auth_response.result.challenges) == 1:
-                    # Done here, save the token
-                    self.__session_details = advance_resp.result
-                    self.__session.headers.update(
-                        {'Authorization': f'Bearer {advance_resp.result.auth}', **ArkIdentityFQDNResolver.default_headers()}
-                    )
-                    delta = self.__session_details.token_lifetime or DEFAULT_TOKEN_LIFETIME_SECONDS
-                    self.__session_exp = datetime.now() + timedelta(seconds=delta)
-                    if self.__cache_authentication:
-                        self.__save_cache(profile)
+                if result == 'DONE':
                     return
-                break
+            else:
+                oob_advance_resp = self.__advance_authentication(
+                    mechanism.mechanism_id, start_auth_response.result.session_id, '', 'StartOOB'
+                )
+                self.__poll_authentication(profile, mechanism, start_auth_response, oob_advance_resp, interactive)
+                if self.__session_details:
+                    return
+        else:
+            mechanism = start_auth_response.result.challenges[current_challenge_idx].mechanisms[0]
+            if mechanism.name.lower() == 'up':
+                result, current_challenge_idx = self.__perform_up_authentication(
+                    profile, mechanism, interactive, start_auth_response, current_challenge_idx
+                )
+                if result == 'DONE':
+                    return
 
         # Pick MFA for the user
         if interactive:
             self.__pick_mechanism(start_auth_response.result.challenges[current_challenge_idx])
 
         # Handle a case where MFA type was supplied
-        if self.__mfa_type and self.__mfa_type.lower() in SUPPORTED_MECHANISMS and current_challenge_idx == 1:
+        if self.__mfa_type and self.__mfa_type.lower() in SUPPORTED_MECHANISMS:
             for mechanism in start_auth_response.result.challenges[current_challenge_idx].mechanisms:
                 if mechanism.name.lower() == self.__mfa_type.lower():
                     oob_advance_resp = self.__advance_authentication(

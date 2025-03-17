@@ -24,7 +24,7 @@ The `-ra` flag indicates that the user's profile authenticator should be refresh
 
 To try to run any command with an existing authenticator, use the `-ra `or -`-refresh-auth` CLI flag:
 ```bash  linenums="0"
-ark exec -ra dpa policies list-policies
+ark exec -ra sia policies list-policies
 ```
 
 The `-ra` flag indicates that the user's profile authenticator should be refreshed and used before executing the command. When the refresh fails, an error is returned and you must log in again.

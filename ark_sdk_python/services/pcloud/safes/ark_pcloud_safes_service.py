@@ -5,8 +5,7 @@ from typing import Dict, Final, Iterator, List, Optional, Set
 from urllib.parse import parse_qs, urlparse
 
 from overrides import overrides
-from pydantic import parse_obj_as
-from pydantic.error_wrappers import ValidationError
+from pydantic import TypeAdapter, ValidationError
 from requests import Response
 from requests.exceptions import JSONDecodeError
 
@@ -39,7 +38,7 @@ from ark_sdk_python.models.services.pcloud.safes import (
 from ark_sdk_python.services.pcloud.common import ArkPCloudBaseService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
-    service_name='pcloud-safes', required_authenticator_names=[], optional_authenticator_names=['isp']
+    service_name='pcloud-safes', required_authenticator_names=[], optional_authenticator_names=['isp', 'pvwa', 'pcloud_im']
 )
 SAFES_URL: Final[str] = 'safes'
 SAFE_URL: Final[str] = 'safes/{safe_id}'
@@ -125,7 +124,7 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
                     if not safes:
                         raise ArkServiceException('Failed to list safes, unexpected result')
                     safes = [{f'{k[0].lower()}{k[1:]}': v for k, v in safe.items()} for safe in safes]
-                    accounts = parse_obj_as(List[ArkPCloudSafe], safes)
+                    accounts = TypeAdapter(List[ArkPCloudSafe]).validate_python(safes)
                     yield ArkPCloudSafesPage(items=accounts)
                     if 'nextLink' in result:
                         query = parse_qs(urlparse(result['nextLink']).query)
@@ -162,7 +161,7 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
             if resp.status_code == HTTPStatus.OK:
                 try:
                     result = resp.json()
-                    safe_members = parse_obj_as(List[ArkPCloudSafeMember], result['value'])
+                    safe_members = TypeAdapter(List[ArkPCloudSafeMember]).validate_python(result['value'])
                     for sm in safe_members:
                         sm.permission_set = (
                             [p for p in SAFE_MEMBER_PERMISSIONS_SETS.keys() if SAFE_MEMBER_PERMISSIONS_SETS[p] == sm.permissions]
@@ -254,7 +253,7 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
         resp: Response = self._client.get(SAFE_URL.format(safe_id=get_safe.safe_id))
         if resp.status_code == HTTPStatus.OK:
             try:
-                return ArkPCloudSafe.parse_obj(resp.json())
+                return ArkPCloudSafe.model_validate(resp.json())
             except (ValidationError, JSONDecodeError, KeyError) as ex:
                 self._logger.exception(f'Failed to parse safe response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse safe response [{str(ex)}]') from ex
@@ -278,7 +277,7 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
         resp: Response = self._client.get(SAFE_MEMBER_URL.format(safe_id=get_safe_member.safe_id, member_name=get_safe_member.member_name))
         if resp.status_code == HTTPStatus.OK:
             try:
-                safe_member = ArkPCloudSafeMember.parse_obj(resp.json())
+                safe_member = ArkPCloudSafeMember.model_validate(resp.json())
                 safe_member.permission_set = (
                     [p for p in SAFE_MEMBER_PERMISSIONS_SETS.keys() if SAFE_MEMBER_PERMISSIONS_SETS[p] == safe_member.permissions]
                     + [ArkPCloudSafeMemberPermissionSet.Custom]
@@ -304,10 +303,10 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
             ArkPCloudSafe: _description_
         """
         self._logger.info('Adding new safe')
-        resp: Response = self._client.post(SAFES_URL, json=add_safe.dict(by_alias=True))
+        resp: Response = self._client.post(SAFES_URL, json=add_safe.model_dump(by_alias=True))
         if resp.status_code == HTTPStatus.CREATED:
             try:
-                return ArkPCloudSafe.parse_obj(resp.json())
+                return ArkPCloudSafe.model_validate(resp.json())
             except (ValidationError, JSONDecodeError) as ex:
                 self._logger.exception(f'Failed to parse add safe response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse add safe response [{str(ex)}]') from ex
@@ -335,14 +334,14 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
         ):
             raise ArkServiceException('Custom permissions must have permissions model set')
         if add_safe_member.permission_set and add_safe_member.permission_set != ArkPCloudSafeMemberPermissionSet.Custom:
-            add_safe_member.permissions = SAFE_MEMBER_PERMISSIONS_SETS[add_safe_member.permission_set].copy()
+            add_safe_member.permissions = SAFE_MEMBER_PERMISSIONS_SETS[add_safe_member.permission_set].model_copy()
         resp: Response = self._client.post(
             SAFE_MEMBERS_URL.format(safe_id=add_safe_member.safe_id),
-            json=add_safe_member.dict(by_alias=True, exclude={'safe_id', 'permission_set'}),
+            json=add_safe_member.model_dump(by_alias=True, exclude={'safe_id', 'permission_set'}),
         )
         if resp.status_code == HTTPStatus.CREATED:
             try:
-                return ArkPCloudSafeMember.parse_obj(resp.json())
+                return ArkPCloudSafeMember.model_validate(resp.json())
             except (ValidationError, JSONDecodeError) as ex:
                 self._logger.exception(f'Failed to parse add safe member response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse add safe member response [{str(ex)}]') from ex
@@ -398,11 +397,11 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
         """
         self._logger.info(f'Updating safe [{update_safe.safe_id}]')
         resp: Response = self._client.put(
-            SAFE_URL.format(safe_id=update_safe.safe_id), json=update_safe.dict(by_alias=True, exclude={'safe_id'}, exclude_none=True)
+            SAFE_URL.format(safe_id=update_safe.safe_id), json=update_safe.model_dump(by_alias=True, exclude={'safe_id'}, exclude_none=True)
         )
         if resp.status_code == HTTPStatus.OK:
             try:
-                return ArkPCloudSafe.parse_obj(resp.json())
+                return ArkPCloudSafe.model_validate(resp.json())
             except (ValidationError, JSONDecodeError) as ex:
                 self._logger.exception(f'Failed to parse update safe response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse update safe response [{str(ex)}]') from ex
@@ -430,14 +429,14 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
         ):
             raise ArkServiceException('Custom permissions must have permissions model set')
         if update_safe_member.permission_set and update_safe_member.permission_set != ArkPCloudSafeMemberPermissionSet.Custom:
-            update_safe_member.permissions = SAFE_MEMBER_PERMISSIONS_SETS[update_safe_member.permission_set].copy()
+            update_safe_member.permissions = SAFE_MEMBER_PERMISSIONS_SETS[update_safe_member.permission_set].model_copy()
         resp: Response = self._client.put(
             SAFE_MEMBER_URL.format(safe_id=update_safe_member.safe_id, member_name=update_safe_member.member_name),
-            json=update_safe_member.dict(by_alias=True, exclude={'safe_id', 'member_name', 'permission_set'}, exclude_none=True),
+            json=update_safe_member.model_dump(by_alias=True, exclude={'safe_id', 'member_name', 'permission_set'}, exclude_none=True),
         )
         if resp.status_code == HTTPStatus.OK:
             try:
-                return ArkPCloudSafeMember.parse_obj(resp.json())
+                return ArkPCloudSafeMember.model_validate(resp.json())
             except (ValidationError, JSONDecodeError, KeyError) as ex:
                 self._logger.exception(f'Failed to parse update safe member response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse update safe member response [{str(ex)}]') from ex
@@ -452,7 +451,7 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
         """
         self._logger.info('Calculating safes statistics')
         safes = list(itertools.chain.from_iterable([p.items for p in list(self.list_safes())]))
-        safes_stats = ArkPCloudSafesStats.construct()
+        safes_stats = ArkPCloudSafesStats.model_construct()
         safes_stats.safes_count = len(safes)
 
         # Get safes per location
@@ -481,7 +480,7 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
                 [p.items for p in list(self.list_safe_members(ArkPCloudListSafeMembers(safe_id=get_safe_members_stats.safe_id)))]
             )
         )
-        safe_members_stats = ArkPCloudSafeMembersStats.construct()
+        safe_members_stats = ArkPCloudSafeMembersStats.model_construct()
         safe_members_stats.safe_members_count = len(safe_members)
 
         # Get safe members count and names per permission set
@@ -509,7 +508,7 @@ class ArkPCloudSafesService(ArkPCloudBaseService):
         """
         self._logger.info('Calculating safes members statistics')
         safes = list(itertools.chain.from_iterable([p.items for p in list(self.list_safes())]))
-        safes_members_stats = ArkPCloudSafesMembersStats.construct()
+        safes_members_stats = ArkPCloudSafesMembersStats.model_construct()
         with ThreadPoolExecutor() as executor:
             safe_members_stats_tuples = executor.map(
                 lambda s: (s.safe_name, self.safe_members_stats(ArkPCloudGetSafeMembersStats(safe_id=s.safe_id))), safes

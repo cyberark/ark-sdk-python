@@ -81,6 +81,18 @@ class ArkAPI:
         return self.__profile
 
     @property
+    def identity_connectors(self) -> "ArkIdentityConnectorsService":
+        """
+        Returns the Identity Connectors Service if the appropriate authenticators were given
+
+        Returns:
+            ArkIdentityConnectorsService: _description_
+        """
+        from ark_sdk_python.services.identity.connectors import ArkIdentityConnectorsService
+
+        return cast(ArkIdentityConnectorsService, self.service(ArkIdentityConnectorsService))
+
+    @property
     def identity_directories(self) -> "ArkIdentityDirectoriesService":
         """
         Returns the Identity Directories Service if the appropriate authenticators were given
@@ -129,100 +141,124 @@ class ArkAPI:
         return cast(ArkIdentityUsersService, self.service(ArkIdentityUsersService))
 
     @property
-    def dpa_workspaces_db(self) -> "ArkDPADBWorkspaceService":
+    def sia_workspaces_db(self) -> "ArkSIADBWorkspaceService":
         """
-        Returns the DPA DB Workspace service if the appropriate authenticators were provided.
+        Returns the SIA DB Workspace service if the appropriate authenticators were provided.
 
         Returns:
-            ArkDPADBWorkspaceService: _description_
+            ArkSIADBWorkspaceService: _description_
         """
-        from ark_sdk_python.services.dpa.workspaces.db import ArkDPADBWorkspaceService
+        from ark_sdk_python.services.sia.workspaces.db import ArkSIADBWorkspaceService
 
-        return cast(ArkDPADBWorkspaceService, self.service(ArkDPADBWorkspaceService))
+        return cast(ArkSIADBWorkspaceService, self.service(ArkSIADBWorkspaceService))
 
     @property
-    def dpa_policies_vm(self) -> "ArkDPAVMPoliciesService":
+    def sia_workspaces_target_sets(self) -> "ArkSIATargetSetsWorkspaceService":
         """
-        Returns the DPA VM Policies service if the appropriate authenticators were provided.
+        Returns the SIA Target Sets Workspace service if the appropriate authenticators were provided.
 
         Returns:
-            ArkDPAVMPoliciesService: _description_
+            ArkSIATargetSetsWorkspaceService: _description_
         """
-        from ark_sdk_python.services.dpa.policies.vm import ArkDPAVMPoliciesService
+        from ark_sdk_python.services.sia.workspaces.targetsets import ArkSIATargetSetsWorkspaceService
 
-        return cast(ArkDPAVMPoliciesService, self.service(ArkDPAVMPoliciesService))
+        return cast(ArkSIATargetSetsWorkspaceService, self.service(ArkSIATargetSetsWorkspaceService))
 
     @property
-    def dpa_policies_db(self) -> "ArkDPADBPoliciesService":
+    def sia_policies_vm(self) -> "ArkSIAVMPoliciesService":
         """
-        Returns the DPA DB Policies service if the appropriate authenticators were provided.
+        Returns the SIA VM Policies service if the appropriate authenticators were provided.
 
         Returns:
-            ArkDPADBPoliciesService: _description_
+            ArkSIAVMPoliciesService: _description_
         """
-        from ark_sdk_python.services.dpa.policies.db import ArkDPADBPoliciesService
+        from ark_sdk_python.services.sia.policies.vm import ArkSIAVMPoliciesService
 
-        return cast(ArkDPADBPoliciesService, self.service(ArkDPADBPoliciesService))
+        return cast(ArkSIAVMPoliciesService, self.service(ArkSIAVMPoliciesService))
 
     @property
-    def dpa_secrets_db(self) -> "ArkDPADBSecretsService":
+    def sia_policies_db(self) -> "ArkSIADBPoliciesService":
         """
-        Returns the DPA DB Secrets service if the appropriate authenticators were provided.
+        Returns the SIA DB Policies service if the appropriate authenticators were provided.
 
         Returns:
-            ArkDPADBSecretsService: _description_
+            ArkSIADBPoliciesService: _description_
         """
-        from ark_sdk_python.services.dpa.secrets.db import ArkDPADBSecretsService
+        from ark_sdk_python.services.sia.policies.db import ArkSIADBPoliciesService
 
-        return cast(ArkDPADBSecretsService, self.service(ArkDPADBSecretsService))
+        return cast(ArkSIADBPoliciesService, self.service(ArkSIADBPoliciesService))
 
     @property
-    def dpa_sso(self) -> "ArkDPASSOService":
+    def sia_secrets_db(self) -> "ArkSIADBSecretsService":
         """
-        Returns the DPA sso service if the appropriate authenticators were provided.
+        Returns the SIA DB Secrets service if the appropriate authenticators were provided.
 
         Returns:
-            ArkDPASSOService: _description_
+            ArkSIADBSecretsService: _description_
         """
-        from ark_sdk_python.services.dpa.sso import ArkDPASSOService
+        from ark_sdk_python.services.sia.secrets.db import ArkSIADBSecretsService
 
-        return cast(ArkDPASSOService, self.service(ArkDPASSOService))
+        return cast(ArkSIADBSecretsService, self.service(ArkSIADBSecretsService))
 
     @property
-    def dpa_db(self) -> "ArkDPADBService":
+    def sia_secrets_vm(self) -> "ArkSIAVMSecretsService":
         """
-        Returns the DPA DB service if the appropriate authenticators were provided.
+        Returns the SIA VM Secrets service if the appropriate authenticators were provided.
 
         Returns:
-            ArkDPADBService: _description_
+            ArkSIAVMSecretsService: _description_
         """
-        from ark_sdk_python.services.dpa.db import ArkDPADBService
+        from ark_sdk_python.services.sia.secrets.vm import ArkSIAVMSecretsService
 
-        return cast(ArkDPADBService, self.service(ArkDPADBService))
+        return cast(ArkSIAVMSecretsService, self.service(ArkSIAVMSecretsService))
 
     @property
-    def dpa_certificates(self) -> "ArkDPACertificatesService":
+    def sia_sso(self) -> "ArkSIASSOService":
         """
-        Returns DPA certificates service if the appropriate authenticators were provided.
+        Returns the SIA sso service if the appropriate authenticators were provided.
 
         Returns:
-            ArkDPACertificatesService: _description_
+            ArkSIASSOService: _description_
         """
-        from ark_sdk_python.services.dpa.certificates import ArkDPACertificatesService
+        from ark_sdk_python.services.sia.sso import ArkSIASSOService
 
-        return cast(ArkDPACertificatesService, self.service(ArkDPACertificatesService))
+        return cast(ArkSIASSOService, self.service(ArkSIASSOService))
 
     @property
-    def dpa_k8s(self) -> "ArkDPAK8SService":
+    def sia_db(self) -> "ArkSIADBService":
         """
-        Returns the DPA Policies service if the appropriate authenticators were provided.
+        Returns the SIA DB service if the appropriate authenticators were provided.
 
         Returns:
-            ArkDPAK8SService: _description_
+            ArkSIADBService: _description_
         """
-        from ark_sdk_python.services.dpa.k8s import ArkDPAK8SService
+        from ark_sdk_python.services.sia.db import ArkSIADBService
 
-        return cast(ArkDPAK8SService, self.service(ArkDPAK8SService))
+        return cast(ArkSIADBService, self.service(ArkSIADBService))
+
+    @property
+    def sia_certificates(self) -> "ArkSIACertificatesService":
+        """
+        Returns SIA certificates service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkSIACertificatesService: _description_
+        """
+        from ark_sdk_python.services.sia.certificates import ArkSIACertificatesService
+
+        return cast(ArkSIACertificatesService, self.service(ArkSIACertificatesService))
+
+    @property
+    def sia_k8s(self) -> "ArkSIAK8SService":
+        """
+        Returns the SIA Policies service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkSIAK8SService: _description_
+        """
+        from ark_sdk_python.services.sia.k8s import ArkSIAK8SService
+
+        return cast(ArkSIAK8SService, self.service(ArkSIAK8SService))
 
     @property
     def sm(self) -> "ArkSMService":

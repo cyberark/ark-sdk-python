@@ -5,25 +5,25 @@ from ark_sdk_python.ark_api import ArkAPI
 
 class ArkCLIAPI(ArkAPI):
     @property
-    def dpa_policies_vm_editor(self) -> "ArkDPAVMPoliciesEditorService":
+    def sia_policies_vm_editor(self) -> "ArkSIAVMPoliciesEditorService":
         """
         VM policy editor CLI service
 
         Returns:
-            ArkDPAVMPoliciesEditorService: _description_
+            ArkSIAVMPoliciesEditorService: _description_
         """
-        from ark_sdk_python.cli_services.dpa.vm import ArkDPAVMPoliciesEditorService
+        from ark_sdk_python.cli_services.sia.vm import ArkSIAVMPoliciesEditorService
 
-        return ArkDPAVMPoliciesEditorService(self.authenticator('isp'), profile=self.profile)
+        return ArkSIAVMPoliciesEditorService(self.authenticator('isp'), profile=self.profile)
 
     @property
-    def dpa_policies_db_editor(self) -> "ArkDPADBPoliciesEditorService":
+    def sia_policies_db_editor(self) -> "ArkSIADBPoliciesEditorService":
         """
         DB policy editor CLI service
 
         Returns:
-            ArkDPADBPoliciesEditorService: _description_
+            ArkSIADBPoliciesEditorService: _description_
         """
-        from ark_sdk_python.cli_services.dpa.db import ArkDPADBPoliciesEditorService
+        from ark_sdk_python.cli_services.sia.db import ArkSIADBPoliciesEditorService
 
-        return ArkDPADBPoliciesEditorService(self.authenticator('isp'), profile=self.profile)
+        return ArkSIADBPoliciesEditorService(self.authenticator('isp'), profile=self.profile)

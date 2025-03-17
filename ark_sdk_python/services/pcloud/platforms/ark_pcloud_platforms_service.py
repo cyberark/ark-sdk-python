@@ -5,8 +5,7 @@ from pathlib import Path
 from typing import Final, List, Optional, Set
 
 from overrides import overrides
-from pydantic import parse_obj_as
-from pydantic.error_wrappers import ValidationError
+from pydantic import TypeAdapter, ValidationError
 from requests import Response
 from requests.exceptions import JSONDecodeError
 
@@ -35,7 +34,7 @@ from ark_sdk_python.models.services.pcloud.platforms import (
 from ark_sdk_python.services.pcloud.common import ArkPCloudBaseService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
-    service_name='pcloud-platforms', required_authenticator_names=[], optional_authenticator_names=['isp']
+    service_name='pcloud-platforms', required_authenticator_names=[], optional_authenticator_names=['isp', 'pvwa', 'pcloud_im']
 )
 PLATFORMS_URL: Final[str] = 'platforms'
 PLATFORM_URL: Final[str] = 'platforms/{platform_id}'
@@ -67,7 +66,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
                 # Platform type may come in uppercase, lowercase it just in case
                 for p in data['Platforms']:
                     p['general']['platformType'] = p['general']['platformType'].lower()
-                return parse_obj_as(List[ArkPCloudPlatform], data['Platforms'])
+                return TypeAdapter(List[ArkPCloudPlatform]).validate_python(data['Platforms'])
             except (ValidationError, JSONDecodeError, KeyError) as ex:
                 self._logger.exception(f'Failed to parse list platforms response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse list platforms response [{str(ex)}]') from ex
@@ -118,7 +117,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
         resp: Response = self._client.get(PLATFORM_URL.format(platform_id=get_platform.platform_id))
         if resp.status_code == HTTPStatus.OK:
             try:
-                return ArkPCloudPlatform.parse_obj(resp.json())
+                return ArkPCloudPlatform.model_validate(resp.json())
             except (ValidationError, JSONDecodeError) as ex:
                 self._logger.exception(f'Failed to parse platform response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse platform response [{str(ex)}]') from ex
@@ -236,7 +235,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
         """
         self._logger.info('Calculating platform statistics')
         platforms = self.list_platforms()
-        platforms_stats = ArkPCloudPlatformsStats.construct()
+        platforms_stats = ArkPCloudPlatformsStats.model_construct()
         platforms_stats.platforms_count = len(platforms)
 
         # Get platforms per platform type
@@ -279,7 +278,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
         resp: Response = self._client.get(TARGET_PLATFORMS_URL, params=params)
         if resp.status_code == HTTPStatus.OK:
             try:
-                return parse_obj_as(List[ArkPCloudTargetPlatform], resp.json()['Platforms'])
+                return TypeAdapter(List[ArkPCloudTargetPlatform]).validate_python(resp.json()['Platforms'])
             except (ValidationError, JSONDecodeError, KeyError) as ex:
                 self._logger.exception(f'Failed to parse list target platforms response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse list target platforms response [{str(ex)}]') from ex
@@ -410,11 +409,11 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
         )
         resp: Response = self._client.post(
             DUPLICATE_TARGET_PLATFORM_URL.format(target_platform_id=duplicate_target_platform.target_platform_id),
-            json=duplicate_target_platform.dict(by_alias=True, exclude={'target_platform_id'}),
+            json=duplicate_target_platform.model_dump(by_alias=True, exclude={'target_platform_id'}),
         )
         if resp.status_code == HTTPStatus.OK:
             try:
-                return ArkPCloudDuplicatedTargetPlatformInfo.parse_obj(resp.json())
+                return ArkPCloudDuplicatedTargetPlatformInfo.model_validate(resp.json())
             except (ValidationError, JSONDecodeError, KeyError) as ex:
                 self._logger.exception(f'Failed to parse duplicate target platform response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse duplicate target platform response [{str(ex)}]') from ex
@@ -445,7 +444,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
         """
         self._logger.info('Calculating target platform statistics')
         target_platforms = self.list_target_platforms()
-        target_platforms_stats = ArkPCloudTargetPlatformsStats.construct()
+        target_platforms_stats = ArkPCloudTargetPlatformsStats.model_construct()
         target_platforms_stats.target_platforms_count = len(target_platforms)
 
         # Get target platforms per system type

@@ -17,12 +17,12 @@ class ArkSMSessionActivity(ArkCamelizedModel):
     user_id: str = Field(description='Id of the user who performed the audit')
     source: str = Field(description='Source of the audit')
     action_type: str = Field(description='Type of action for the audit')
-    audit_code: Optional[str] = Field(description='Audit code of the audit')
-    command: Optional[str] = Field(description='Command performed as part of the audit')
-    target: Optional[str] = Field(description='Target of the audit')
-    service_name: Optional[str] = Field(description='Service name of the audit')
-    session_id: Optional[str] = Field(description='Session id of the audit if related to a session')
-    message: Optional[str] = Field(description='Message of the audit')
+    audit_code: Optional[str] = Field(default=None, description='Audit code of the audit')
+    command: Optional[str] = Field(default=None, description='Command performed as part of the audit')
+    target: Optional[str] = Field(default=None, description='Target of the audit')
+    service_name: Optional[str] = Field(default=None, description='Service name of the audit')
+    session_id: Optional[str] = Field(default=None, description='Session id of the audit if related to a session')
+    message: Optional[str] = Field(default=None, description='Message of the audit')
 
 
 class ArkSMSessionActivities(ArkCamelizedModel):

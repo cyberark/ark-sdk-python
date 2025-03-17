@@ -7,23 +7,25 @@ description: Exec Command
 
 You use the `exec` command is used to run commands on available services (the available services depend on the authorized user's account).
 
-## DPA services
+## SIA services
 
-The following DPA commands are supported:
+The following SIA commands are supported:
 
-- `ark exec dpa`: Root command for the DPA service
+- `ark exec sia`: Root command for the SIA service
     - `policies` - Policy management
         - `db` - DB policies
             - `editor` - DB policies interactive editor
-        - `vm` - DPA VM policies
-            - `editor` - DPA VM policies interactive editor
+        - `vm` - SIA VM policies
+            - `editor` - SIA VM policies interactive editor
     - `certificates` - Certificate management
     - `db` - Databases end-user operations
     - `sso` - SSO end-user operations
     - `secrets` - Secrets service
         - `db` - DB secrets service
+        - `vm` - VM secrets service
     - `workspaces` - Workspaces management
         - `db` - DB workspace management
+        - `target-sets` - Target Sets workspace management
     - `k8s` - Kubernetes service
 - `ark exec sm`: Root command for Session Monitoring service
 - `ark exec identity`: Root command for Identity service
@@ -48,10 +50,10 @@ ark exec
 usage: ark exec [-h] [-r] [-s] [-ao] [-v] [-ls {default}] [-ll {DEBUG,INFO,WARN,ERROR,CRITICAL}]
                 [-dcv] [-tc TRUSTED_CERT] [-pn PROFILE_NAME] [-op OUTPUT_PATH] [-rf REQUEST_FILE]
                 [-rc RETRY_COUNT] [-ra]
-                {identity,dpa,sm,pcloud} ...
+                {identity,sia,sm,pcloud} ...
 
 positional arguments:
-  {identity,dpa,sm,pcloud}
+  {identity,sia,sm,pcloud}
 
 optional arguments:
   -h, --help            show this help message and exit

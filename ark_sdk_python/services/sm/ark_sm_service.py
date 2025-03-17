@@ -5,7 +5,6 @@ from typing import Dict, Final, Iterator, Optional, Set
 
 from dateutil.tz import tzutc
 from overrides import overrides
-from pydantic import validate_arguments
 
 from ark_sdk_python.auth.ark_isp_auth import ArkISPAuth
 from ark_sdk_python.common import ArkPage
@@ -44,13 +43,18 @@ class ArkSMService(ArkService):
     def __init__(self, isp_auth: ArkISPAuth) -> None:
         super().__init__(isp_auth)
         self.__isp_auth = isp_auth
-        self.__client: ArkISPServiceClient = ArkISPServiceClient.from_isp_auth(self.__isp_auth, 'sessionmonitoring')
+        self.__client: ArkISPServiceClient = ArkISPServiceClient.from_isp_auth(
+            isp_auth=self.__isp_auth,
+            service_name='sessionmonitoring',
+            refresh_connection_callback=self.__refresh_sm_auth,
+        )
 
-    @validate_arguments
+    def __refresh_sm_auth(self, client: ArkISPServiceClient) -> None:
+        ArkISPServiceClient.refresh_client(client, self.__isp_auth)
+
     def __search_params_from_filter(self, sessions_filter: ArkSMSessionsFilter):
         return {'search': sessions_filter.search}
 
-    @validate_arguments
     def __call_sessions_api(self, params: Optional[dict] = None) -> ArkSMSessions:
         params_dict = {}
         if params:
@@ -58,17 +62,15 @@ class ArkSMService(ArkService):
         resp = self.__client.get(SESSIONS_API_URL, **params_dict)
         if resp.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to list sessions [{resp.text}] {params=}')
-        return ArkSMSessions.parse_obj(resp.json())
+        return ArkSMSessions.model_validate(resp.json())
 
-    @validate_arguments
     def __call_activities_api(self, session_id: str, params: Optional[dict] = None) -> ArkSMSessionActivities:
         endpoint = SESSION_ACTIVITIES_API_URL.format(session_id=session_id)
         resp = self.__client.get(endpoint, params=params)
         if resp.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to list activities [{resp.text}]')
-        return ArkSMSessionActivities.parse_obj(resp.json())
+        return ArkSMSessionActivities.model_validate(resp.json())
 
-    @validate_arguments
     def __list_sessions(self, params: Optional[Dict] = None) -> Iterator[ArkSMPage]:
         params = params or {}
         sessions: ArkSMSessions = self.__call_sessions_api(params)
@@ -79,7 +81,6 @@ class ArkSMService(ArkService):
             params['offset'] = offset
             sessions = self.__call_sessions_api(params)
 
-    @validate_arguments
     def __list_activities(self, session_id: str, params: Optional[Dict] = None) -> Iterator[ArkSMActivitiesPage]:
         params = params or {}
         activities: ArkSMSessionActivities = self.__call_activities_api(session_id=session_id, params=params)
@@ -130,7 +131,7 @@ class ArkSMService(ArkService):
         Yields:
             Iterator[ArkSMPage]: _description_
         """
-        self._logger.info('Listing sessions by filter', search=sessions_filter.search)
+        self._logger.info(f'Listing sessions by filter: {sessions_filter.search}')
         yield from self.__list_sessions(self.__search_params_from_filter(sessions_filter))
 
     def count_sessions_by(self, sessions_filter: ArkSMSessionsFilter) -> int:
@@ -171,7 +172,7 @@ class ArkSMService(ArkService):
         session = resp.json()
         if len(session) == 0:
             raise ArkServiceException(f'No session found for requested session id [{get_session.session_id}]')
-        return ArkSMSession.parse_obj(session)
+        return ArkSMSession.model_validate(session)
 
     def list_session_activities(self, get_session_activities: ArkSMGetSessionActivities) -> Iterator[ArkSMActivitiesPage]:
         """
@@ -245,7 +246,7 @@ class ArkSMService(ArkService):
                 [p.items for p in self.list_sessions_by(ArkSMSessionsFilter(search=f'startTime ge {start_time_from}'))]
             )
         )
-        sessions_stats = ArkSMSessionsStats.construct()
+        sessions_stats = ArkSMSessionsStats.model_construct()
         sessions_stats.sessions_count = len(sessions)
         sessions_stats.sessions_failure_count = len([s for s in sessions if s.session_status == ArkSMSessionStatus.FAILED])
 

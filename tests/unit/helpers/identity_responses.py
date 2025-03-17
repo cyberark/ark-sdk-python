@@ -29,7 +29,7 @@ START_AUTH_SUCCESS_RESPONSE = MockResponse(
                 )
             ],
         ),
-    ).json(),
+    ).model_dump_json(),
 )
 
 ADVANCE_AUTH_SUCCESS_RESPONSE = MockResponse(
@@ -47,7 +47,7 @@ ADVANCE_AUTH_SUCCESS_RESPONSE = MockResponse(
             user_id='userid',
             pod_fqdn='pod',
         ),
-    ).json(),
+    ).model_dump_json(),
 )
 
 OAUTH_TOKEN_SUCCESS_RESPONSE = MockResponse(status_code=HTTPStatus.OK, text=json.dumps({'access_token': 'access_token'}))

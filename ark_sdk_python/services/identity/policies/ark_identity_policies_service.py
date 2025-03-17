@@ -2,8 +2,7 @@ from http import HTTPStatus
 from typing import Final, List
 
 from overrides import overrides
-from pydantic import parse_obj_as
-from pydantic.error_wrappers import ValidationError
+from pydantic import TypeAdapter, ValidationError
 from requests import Response
 from requests.exceptions import JSONDecodeError
 
@@ -71,7 +70,7 @@ class ArkIdentityPoliciesService(ArkIdentityBaseService):
             result = response.json()
             if response.status_code != HTTPStatus.OK or not result['success']:
                 raise ArkServiceException(f'Failed to add authentication profile [{response.text}] - [{response.status_code}]')
-            return ArkIdentityAuthenticationProfile.parse_obj(result['Result'])
+            return ArkIdentityAuthenticationProfile.model_validate(result['Result'])
         except (ValidationError, JSONDecodeError, KeyError) as ex:
             self._logger.exception(f'Failed to parse add authentication profile response [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to parse add authentication profile response [{str(ex)}]') from ex
@@ -114,7 +113,7 @@ class ArkIdentityPoliciesService(ArkIdentityBaseService):
             result = response.json()
             if response.status_code != HTTPStatus.OK or not result['success']:
                 raise ArkServiceException(f'Failed to list authentication profiles [{response.text}] - [{response.status_code}]')
-            return parse_obj_as(List[ArkIdentityAuthenticationProfile], [r['Row'] for r in result['Result']['Results']])
+            return TypeAdapter(List[ArkIdentityAuthenticationProfile]).validate_python([r['Row'] for r in result['Result']['Results']])
         except (ValidationError, JSONDecodeError, KeyError) as ex:
             self._logger.exception(f'Failed to parse list authentication profiles response [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to parse list authentication profiles response [{str(ex)}]') from ex
@@ -154,7 +153,7 @@ class ArkIdentityPoliciesService(ArkIdentityBaseService):
         """
         self._logger.info(f'Adding policy [{add_policy.policy_name}]')
         roles_service = ArkIdentityRolesService(self._isp_auth)
-        policies_list = [p.dict(by_alias=True) for p in self.list_policies()]
+        policies_list = [p.model_dump(by_alias=True) for p in self.list_policies()]
         policy_name = f'/Policy/{add_policy.policy_name}'
         policy_link = {
             "Description": add_policy.description,
@@ -241,7 +240,7 @@ class ArkIdentityPoliciesService(ArkIdentityBaseService):
         policy_name = policy_operation.policy_name
         policy = self.policy(get_policy=ArkIdentityGetPolicy(policy_name=policy_name))
 
-        policies_list = [p.dict(by_alias=True) for p in self.list_policies()]
+        policies_list = [p.model_dump(by_alias=True) for p in self.list_policies()]
         for elem in policies_list:
             if elem['ID'] == policy_name:
                 elem['LinkType'] = policy_operation.operation_type.value
@@ -331,7 +330,7 @@ class ArkIdentityPoliciesService(ArkIdentityBaseService):
             result = response.json()
             if response.status_code != HTTPStatus.OK or not result['success']:
                 raise ArkServiceException(f'Failed to list policies [{response.text}] - [{response.status_code}]')
-            return parse_obj_as(List[ArkIdentityPolicyInfo], [p['Row'] for p in result['Result']['Results']])
+            return TypeAdapter(List[ArkIdentityPolicyInfo]).validate_python([p['Row'] for p in result['Result']['Results']])
         except (ValidationError, JSONDecodeError, KeyError) as ex:
             self._logger.exception(f'Failed to parse list policies response [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to parse list policies response [{str(ex)}]') from ex
@@ -355,7 +354,7 @@ class ArkIdentityPoliciesService(ArkIdentityBaseService):
             result = response.json()
             if response.status_code != HTTPStatus.OK or not result['success']:
                 raise ArkServiceException(f'Failed to list policies [{response.text}] - [{response.status_code}]')
-            return ArkIdentityPolicy.parse_obj(result['Result'])
+            return ArkIdentityPolicy.model_validate(result['Result'])
         except (ValidationError, JSONDecodeError, KeyError) as ex:
             self._logger.exception(f'Failed to parse policy response [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to parse policy response [{str(ex)}]') from ex

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ark-sdk-python"
-version = "1.2.1"
+version = "2.0.0"
 description='Official Ark SDK / CLI for CyberArk Identity Security Platform'
 authors = ["CyberArk <cyberark@cyberark.com>", "Ofir Iluz <ofir.iluz@cyberark.com"]
 readme = "README.md"
@@ -9,10 +9,10 @@ classifiers = [
     'Intended Audience :: Developers',
     'Natural Language :: English',
     'Programming Language :: Python',
-    'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
-    'Programming Language :: Python :: 3.11'
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12'
 ]
 repository = "https://github.com/cyberark/ark-sdk-python"
 packages = [{ include = "ark_sdk_python" }]
@@ -38,18 +38,18 @@ pytest-mock = "*"
 python-dotenv = "*"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 
 requests = "*"
 keyring = "*"
 "keyrings.cryptfile" = "*"
 colorama = "*"
-pydantic = "1.10.*"
+pydantic = "2.*"
 argcomplete = "*"
 pyhumps = "*"
 overrides = "*"
 packaging = "*"
-deepdiff = "*"
+deepdiff = "7.*.*"
 pycryptodome = "*"
 dill = "*"
 urlextract = "*"
@@ -57,9 +57,8 @@ inquirer = "*"
 progress = "*"
 aenum = "*"
 cachetools = "*"
-python-jose = { extras = ["cryptography"], version = "*" }
-fake-useragent = "*"
-retry = "*"
+pyjwt = "*"
+fake-useragent = "1.5.1"
 tzlocal = "*"
 pyyaml = "*"
 python-dateutil = "*"

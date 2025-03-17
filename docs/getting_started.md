@@ -44,5 +44,5 @@ The CLI has the following basic commands:
 
 1. Execute actions (such as generating a short-lived SSO password):
     ``` shell linenums="0"
-    ark exec dpa sso short-lived-password
+    ark exec sia sso short-lived-password
     ```

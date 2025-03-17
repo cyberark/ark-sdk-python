@@ -5,7 +5,7 @@ from typing import Final, List, Optional
 from pydantic import Field, SecretStr
 
 from ark_sdk_python.common import ArkRandomUtils
-from ark_sdk_python.models import ArkModel
+from ark_sdk_python.models import ArkModel, ArkSecretStr
 
 DEFAULT_ADMIN_ROLES: Final[List[str]] = ["DpaAdmin", 'global auditor', "System Administrator"]
 
@@ -24,6 +24,8 @@ class ArkIdentityCreateUser(ArkModel):
     mobile_number: Optional[str] = Field(
         description='Mobile number of the user', default_factory=lambda: f'+44-987-654-{"".join(random.choices(string.digits, k=4))}'
     )
-    suffix: Optional[str] = Field(description='Suffix to use for the username')
-    password: SecretStr = Field(description='Password of the user', default_factory=lambda: SecretStr(ArkRandomUtils.random_password(n=25)))
+    suffix: Optional[str] = Field(default=None, description='Suffix to use for the username')
+    password: ArkSecretStr = Field(
+        description='Password of the user', default_factory=lambda: SecretStr(ArkRandomUtils.random_password(n=25))
+    )
     roles: List[str] = Field(description='Roles to add the user to', default_factory=DEFAULT_ADMIN_ROLES.copy)

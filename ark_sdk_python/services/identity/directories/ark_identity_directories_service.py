@@ -2,7 +2,7 @@ from http import HTTPStatus
 from typing import Final, Iterator, List
 
 from overrides import overrides
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 from requests import Response
 from requests.exceptions import JSONDecodeError
 
@@ -60,7 +60,7 @@ class ArkIdentityDirectoriesService(ArkIdentityBaseService):
         self._logger.info(f'Retrieving directory services for directories [{list_directories}] [{self._url_prefix}]')
         response: Response = self._client.get(f'{self._url_prefix}{GET_DIRECTORY_SERVICES_URL}', data={})
         try:
-            directory_services_result = GetDirectoryServicesResponse.parse_raw(response.text)
+            directory_services_result = GetDirectoryServicesResponse.model_validate_json(response.text)
             requested_directories = set(item.value for item in list_directories.directories)
             requested_services = list(
                 filter(lambda service: service.row.service in requested_directories, directory_services_result.result.results)
@@ -111,18 +111,18 @@ class ArkIdentityDirectoriesService(ArkIdentityBaseService):
                 exclusion_list.add('roles')
         response: Response = self._idp_client.post(
             DIRECTORY_SERVICE_QUERY_URL,
-            data=DirectoryServiceQueryRequest(
+            json=DirectoryServiceQueryRequest(
                 directory_services=directories,
                 search_string=list_directories_entities.search,
                 args=DirectorySearchArgs(
                     limit=list_directories_entities.limit, page_number=1, page_size=list_directories_entities.page_size
                 ),
-            ).json(by_alias=True, exclude=exclusion_list),
+            ).model_dump(by_alias=True, exclude=exclusion_list),
         )
         if response.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to query for directory services entities [{response.text}] - [{response.status_code}]')
         try:
-            result = DirectoryServiceQueryResponse.parse_raw(response.text)
+            result = DirectoryServiceQueryResponse.model_validate_json(response.text)
             entities: List[ArkIdentityEntity] = []
             if result.result.users and result.result.users.results:
                 for user in result.result.users.results:
@@ -193,7 +193,7 @@ class ArkIdentityDirectoriesService(ArkIdentityBaseService):
         if response.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to get directory services [{response.text}]')
         try:
-            tenant_suffixes_result: GetTenantSuffixResult = GetTenantSuffixResult.parse_raw(response.text)
+            tenant_suffixes_result: GetTenantSuffixResult = GetTenantSuffixResult.model_validate_json(response.text)
             tenant_suffixes_list: List[str] = [result['Entities'][0]['Key'] for result in tenant_suffixes_result.result['Results']]
             if len(tenant_suffixes_list) == 0:
                 raise ArkServiceException('No tenant suffix has been found')

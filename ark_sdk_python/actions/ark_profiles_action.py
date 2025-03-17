@@ -68,7 +68,7 @@ class ArkProfilesAction(ArkAction):
             profiles = [p for p in profiles if args.auth_profile in list(p.auth_profiles.keys())]
         # Print them based on request
         if args.all:
-            ArkArgsFormatter.print_success(json.dumps([p.dict() for p in profiles], indent=4))
+            ArkArgsFormatter.print_success(json.dumps([p.model_dump() for p in profiles], indent=4))
         else:
             ArkArgsFormatter.print_success(json.dumps([p.profile_name for p in profiles], indent=4))
 
@@ -80,7 +80,7 @@ class ArkProfilesAction(ArkAction):
                 f'No profile was found for the name {profile_name}',
             )
             return
-        ArkArgsFormatter.print_success(profile.json(indent=4))
+        ArkArgsFormatter.print_success(profile.model_dump_json(indent=4))
 
     def __run_delete_action(self, args: argparse.Namespace) -> None:
         profile: Optional[ArkProfile] = ArkProfileLoader.load_profile(args.profile_name)
@@ -136,7 +136,8 @@ class ArkProfilesAction(ArkAction):
             )
             return
         try:
-            profile: ArkProfile = ArkProfile.parse_file(args.profile_path)
+            with open(args.profile_path, 'r', encoding='utf-8') as fh:
+                profile: ArkProfile = ArkProfile.model_validate_json(fh.read())
             ArkProfileLoader.save_profile(profile)
         except Exception as ex:
             self._logger.exception(f'Failed to parser profile [{str(ex)}]')
@@ -156,9 +157,9 @@ class ArkProfilesAction(ArkAction):
         answer = inquirer.prompt(
             [inquirer.Editor('profile_edit', message=f'Chosen profile [{profile_name}] is about to be edited')],
             render=ArkInquirerRender(),
-            answers={'profile_edit': profile.json(indent=4)},
+            answers={'profile_edit': profile.model_dump_json(indent=4)},
         )
-        edited_profile = ArkProfile.parse_raw(answer['profile_edit'])
+        edited_profile = ArkProfile.model_validate_json(answer['profile_edit'])
         ArkProfileLoader.save_profile(edited_profile)
 
     @overrides

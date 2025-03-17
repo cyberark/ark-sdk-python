@@ -1,12 +1,9 @@
 from typing import Optional
 
-from pydantic import Field, SecretStr
+from pydantic import Field
 
-from ark_sdk_python.models.ark_model import ArkModel
+from ark_sdk_python.models.ark_model import ArkModel, ArkSecretStr
 
 
 class ArkSecret(ArkModel):
-    secret: Optional[SecretStr] = Field(alias='Secret', description='Secret to be used')
-
-    class Config:
-        json_encoders = {SecretStr: lambda v: v.get_secret_value()}
+    secret: Optional[ArkSecretStr] = Field(default=None, alias='Secret', description='Secret to be used')

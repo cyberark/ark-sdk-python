@@ -41,7 +41,7 @@ class ArkConfigureAction(ArkAction):
 
         # Add the profile settings to the arguments
         ArkPydanticArgparse.schema_to_argparse(
-            ArkProfile.schema(by_alias=False), conf_parser, ignore_keys=CONFIGURATION_IGNORED_DEFINITION_KEYS
+            ArkProfile.model_json_schema(by_alias=False), conf_parser, ignore_keys=CONFIGURATION_IGNORED_DEFINITION_KEYS
         )
 
         # Add the supported authenticator settings and whether to work with them or not
@@ -61,7 +61,7 @@ class ArkConfigureAction(ArkAction):
                 )
             # Add the rest of the ark auth profile params
             ArkPydanticArgparse.schema_to_argparse(
-                ArkAuthProfile.schema(by_alias=False),
+                ArkAuthProfile.model_json_schema(by_alias=False),
                 conf_parser,
                 key_prefix=authenticator.authenticator_name().replace('_', '-'),
                 ignore_keys=CONFIGURATION_IGNORED_DEFINITION_KEYS,
@@ -71,7 +71,7 @@ class ArkConfigureAction(ArkAction):
             for auth_method in authenticator.supported_auth_methods():
                 auth_settings = ArkAuthMethodSettingsMap[auth_method]
                 ArkPydanticArgparse.schema_to_argparse(
-                    auth_settings.schema(by_alias=False),
+                    auth_settings.model_json_schema(by_alias=False),
                     conf_parser,
                     key_prefix=authenticator.authenticator_name().replace('_', '-'),
                     ignore_keys=CONFIGURATION_IGNORED_DEFINITION_KEYS
@@ -98,7 +98,10 @@ class ArkConfigureAction(ArkAction):
 
         # Fill the rest of the profile settings
         profile_vals = ArkPydanticArgparse.argparse_to_schema_interactive(
-            ArkProfile.schema(by_alias=False), args, ignored_keys=CONFIGURATION_IGNORED_INTERACTIVE_KEYS, existing_values=profile.dict()
+            ArkProfile.model_json_schema(by_alias=False),
+            args,
+            ignored_keys=CONFIGURATION_IGNORED_INTERACTIVE_KEYS,
+            existing_values=profile.model_dump(),
         )
         profile = ArkPydanticArgparse.merge_by_model(ArkProfile, profile, profile_vals)
         if len(SUPPORTED_AUTHENTICATORS_LIST) == 1:
@@ -150,10 +153,10 @@ class ArkConfigureAction(ArkAction):
                 )
                 # Get the auth profile general settings
                 auth_profile_vals = ArkPydanticArgparse.argparse_to_schema_interactive(
-                    ArkAuthProfile.schema(by_alias=False),
+                    ArkAuthProfile.model_json_schema(by_alias=False),
                     args,
                     ignored_keys=ignored_keys,
-                    existing_values=auth_profile.dict(),
+                    existing_values=auth_profile.model_dump(),
                     key_prefix=authenticator.authenticator_name(),
                 )
                 auth_profile = ArkPydanticArgparse.merge_by_model(
@@ -169,11 +172,11 @@ class ArkConfigureAction(ArkAction):
                 if auth_method != auth_profile.auth_method:
                     method_settings = ArkAuthMethodSettingsMap[auth_method]()
                 else:
-                    method_settings = ArkAuthMethodSettingsMap[auth_method].parse_obj(auth_profile.auth_method_settings)
+                    method_settings = ArkAuthMethodSettingsMap[auth_method].model_validate(auth_profile.auth_method_settings)
                 method_settings_vals = ArkPydanticArgparse.argparse_to_schema_interactive(
-                    method_settings.schema(by_alias=False),
+                    method_settings.model_json_schema(by_alias=False),
                     args,
-                    existing_values=method_settings.dict(),
+                    existing_values=method_settings.model_dump(),
                     override_aliases=CONFIGURATION_OVERRIDE_ALIASES,
                     key_prefix=authenticator.authenticator_name(),
                     ignored_keys=CONFIGURATION_IGNORED_INTERACTIVE_KEYS
@@ -212,7 +215,7 @@ class ArkConfigureAction(ArkAction):
         profile = ArkPydanticArgparse.merge_by_model(
             ArkProfile,
             ArkProfileLoader.load_profile(args.profile_name) or ArkProfile(profile_name=args.profile_name),
-            ArkPydanticArgparse.argparse_to_schema(ArkProfile.schema(by_alias=False), args),
+            ArkPydanticArgparse.argparse_to_schema(ArkProfile.model_json_schema(by_alias=False), args),
         )
 
         # Load the authenticators
@@ -234,7 +237,7 @@ class ArkConfigureAction(ArkAction):
                     ArkAuthProfile,
                     auth_profile,
                     ArkPydanticArgparse.argparse_to_schema(
-                        ArkAuthProfile.schema(by_alias=False), args, key_prefix=authenticator.authenticator_name()
+                        ArkAuthProfile.model_json_schema(by_alias=False), args, key_prefix=authenticator.authenticator_name()
                     ),
                     key_prefix=authenticator.authenticator_name(),
                 )
@@ -248,11 +251,11 @@ class ArkConfigureAction(ArkAction):
                 if auth_method != auth_profile.auth_method:
                     method_settings = ArkAuthMethodSettingsMap[auth_method]()
                 else:
-                    method_settings = ArkAuthMethodSettingsMap[auth_method].parse_obj(method_settings)
+                    method_settings = ArkAuthMethodSettingsMap[auth_method].model_validate(method_settings)
 
                 # Parse and merge the method settings from the cli
                 method_settings_vals = ArkPydanticArgparse.argparse_to_schema(
-                    method_settings.schema(by_alias=False), args, key_prefix=authenticator.authenticator_name()
+                    method_settings.model_json_schema(by_alias=False), args, key_prefix=authenticator.authenticator_name()
                 )
 
                 # Remove the postfix
@@ -298,7 +301,7 @@ class ArkConfigureAction(ArkAction):
         ArkProfileLoader.save_profile(profile)
 
         # Print out results
-        ArkArgsFormatter.print_success(profile.json(indent=4))
+        ArkArgsFormatter.print_success(profile.model_dump_json(indent=4))
         ArkArgsFormatter.print_success_bright(
             f"Profile has been saved to {ArkProfileLoader.profiles_folder()}",
         )

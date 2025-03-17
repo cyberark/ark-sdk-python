@@ -1,7 +1,5 @@
-from pydantic import HttpUrl
-
-from ark_sdk_python.models import ArkModel
+from ark_sdk_python.models import ArkHttpUrlString, ArkModel
 
 
 class IdentityEndpointResponse(ArkModel):
-    endpoint: HttpUrl
+    endpoint: ArkHttpUrlString

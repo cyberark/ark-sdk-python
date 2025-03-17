@@ -29,13 +29,13 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] MFA Support for Identity
     - [x] Identity Security Platform
 - [x] Services API
-    - [x] DPA VM / Databases Policies and Policies Interactive Editor Service
-    - [x] DPA Databases Onboarding
-    - [x] DPA Databases Secrets
-    - [x] DPA Certificates Service
-    - [x] DPA SSO Service
-    - [x] DPA K8S Service
-    - [x] DPA DB Service
+    - [x] SIA VM / Databases Policies and Policies Interactive Editor Service
+    - [x] SIA Databases Onboarding
+    - [x] SIA Databases Secrets
+    - [x] SIA Certificates Service
+    - [x] SIA SSO Service
+    - [x] SIA K8S Service
+    - [x] SIA DB Service
     - [x] Session Monitoring Service
     - [x] Identity Users Service
     - [x] Identity Roles Service
@@ -204,20 +204,22 @@ exec
 The exec command is used to execute various commands based on supported services for the fitting logged in authenticators
 
 The following services and commands are supported:
-- <b>dpa</b> - Dynamic Privilege Access Services
-    - <b>policies</b> - DPA Policies Management
-        - <b>vm</b> - DPA VM Policies Service
-            - <b>editor</b> - DPA Policies Interactive Editor
-        - <b>db</b> - DPA DB Policies Service
-            - <b>editor</b> - DPA Policies Interactive Editor
-    - <b>workspaces</b> - DPA Workspaces Management
-        - <b>db</b> - DPA DB Workspace Service
-    - <b>secrets</b> - DPA Secrets / Strong Accounts Management
-        - <b>db</b> - DPA DB Secrets Service
-    - <b>certificates</b> - DPA Certificates Management
-    - <b>db</b> - DPA DB Enduser Operations
-    - <b>sso</b> - DPA SSO Enduser Operations
-    - <b>k8s</b> - DPA kubernetes service
+- <b>sia</b> - Dynamic Privilege Access Services
+    - <b>policies</b> - SIA Policies Management
+        - <b>vm</b> - SIA VM Policies Service
+            - <b>editor</b> - SIA Policies Interactive Editor
+        - <b>db</b> - SIA DB Policies Service
+            - <b>editor</b> - SIA Policies Interactive Editor
+    - <b>workspaces</b> - SIA Workspaces Management
+        - <b>db</b> - SIA DB Workspace Service
+        - <b>target-sets</b> - SIA Target Sets Workspace Service
+    - <b>secrets</b> - SIA Secrets / Strong Accounts Management
+        - <b>db</b> - SIA DB Secrets Service
+        - <b>vm</b> - SIA VM Secrets Service
+    - <b>certificates</b> - SIA Certificates Management
+    - <b>db</b> - SIA DB Enduser Operations
+    - <b>sso</b> - SIA SSO Enduser Operations
+    - <b>k8s</b> - SIA kubernetes service
 - <b>sm</b> - Session Monitoring Service
 - <b>identity</b> - Identity Service
     - <b>users</b> - Identity Users Management
@@ -231,31 +233,41 @@ The following services and commands are supported:
 
 Any command has its own subcommands, with respective arguments
 
-For example configure a profile to login to that respective tenant and perform DPA actions such as:
+For example configure a profile to login to that respective tenant and perform SIA actions such as:
 
-Add DPA Database Secret
+Add SIA Database Secret
 ```shell
-ark exec dpa secrets db add-secret --secret-name mysecret --secret-type username_password --username user --password mypass
+ark exec sia secrets db add-secret --secret-name mysecret --secret-type username_password --username user --password mypass
 ```
 
-Delete DPA Database Secret
+Delete SIA Database Secret
 ```shell
-ark exec dpa secrets db delete-secret --secret-name mysecret
+ark exec sia secrets db delete-secret --secret-name mysecret
 ```
 
-Add DPA Database
+Add SIA Database
 ```shell
-ark exec dpa workspaces db add-database --name mydb --provider-engine postgres-sh --read-write-endpoint myendpoint.domain.com
+ark exec sia workspaces db add-database --name mydb --provider-engine postgres-sh --read-write-endpoint myendpoint.domain.com
 ```
 
-List DPA Databases
+List SIA Databases
 ```shell
-ark exec dpa workspaces db list-databases
+ark exec sia workspaces db list-databases
 ```
 
 Get VM policies stats
 ```shell
-ark exec dpa policies vm policies-stats
+ark exec sia policies vm policies-stats
+```
+
+Add SIA VM Target Set
+```shell
+ark_public exec sia workspaces target-sets add-target-set --name mydomain.com --type Domain
+```
+
+Add SIA VM Secret
+```shell
+ark_public exec sia secrets vm add-secret --secret-type ProvisionerUser --provisioner-username=myuser --provisioner-password=mypassword
 ```
 
 Edit policies interactively
@@ -267,42 +279,42 @@ When they are ready, once can commit all the policies changes to the remote
 Initially, the policies can be loaded and reloaded using
 
 ```shell
-ark exec dpa policies vm editor load-policies
+ark exec sia policies vm editor load-policies
 ```
 
 Once they are loaded locally, they can be edited using the following commands
 ```shell
-ark exec dpa policies vm editor edit-policies
-ark exec dpa policies vm editor view-policies
-ark exec dpa policies vm editor reset-policies
-ark exec dpa policies vm editor generate-policy
-ark exec dpa policies vm editor remove-policies
-ark exec dpa policies vm editor policies diff
+ark exec sia policies vm editor edit-policies
+ark exec sia policies vm editor view-policies
+ark exec sia policies vm editor reset-policies
+ark exec sia policies vm editor generate-policy
+ark exec sia policies vm editor remove-policies
+ark exec sia policies vm editor policies diff
 ```
 
 Evantually, they can be committed using
 ```shell
-ark exec dpa policies vm editor commit-policies
+ark exec sia policies vm editor commit-policies
 ```
 
 Generate a short lived SSO password for databases connection
 ```shell
-ark exec dpa sso short-lived-password
+ark exec sia sso short-lived-password
 ```
 
 Generate a short lived SSO oracle wallet for oracle database connection
 ```shell
-ark exec dpa sso short-lived-oracle-wallet --folder ~/wallet
+ark exec sia sso short-lived-oracle-wallet --folder ~/wallet
 ```
 
 Generate kubectl config file 
 ```shell
-ark exec dpa k8s generate-kubeconfig 
+ark exec sia k8s generate-kubeconfig 
 ```
 
 Generate kubectl config file and save on specific path
 ```shell
-ark exec dpa k8s generate-kubeconfig --folder=/Users/My.User/.kube
+ark exec sia k8s generate-kubeconfig --folder=/Users/My.User/.kube
 ```
 
 Create a PCloud Safe
@@ -380,13 +392,13 @@ As well as using the CLI, one can also develop under the ark sdk using its API /
 
 The same idea as the CLI applies here as well
 
-For example, let's say we want to create a demo environment containing all needed DPA DB assets
+For example, let's say we want to create a demo environment containing all needed SIA DB assets
 
 To do so, we can use the following script:
 
 ```python
 ArkSystemConfig.disable_verbose_logging()
-# Authenticate to the tenant with an auth profile to configure DPA
+# Authenticate to the tenant with an auth profile to configure SIA
 username = 'user@cyberark.cloud.12345'
 print(f'Authenticating to the created tenant with user [{username}]')
 isp_auth = ArkISPAuth()
@@ -397,51 +409,51 @@ isp_auth.authenticate(
     secret=ArkSecret(secret='CoolPassword'),
 )
 
-# Create DPA DB Secret, Database, Connector and DB Policy
-dpa_service = ArkDPAAPI(isp_auth)
-print('Adding DPA DB User Secret')
-secret = dpa_service.secrets_db.add_secret(
-    ArkDPADBAddSecret(secret_type=ArkDPADBSecretType.UsernamePassword, username='Administrator', password='CoolPassword')
+# Create SIA DB Secret, Database, Connector and DB Policy
+sia_service = ArkSIAAPI(isp_auth)
+print('Adding SIA DB User Secret')
+secret = sia_service.secrets_db.add_secret(
+    ArkSIADBAddSecret(secret_type=ArkSIADBSecretType.UsernamePassword, username='Administrator', password='CoolPassword')
 )
-print('Adding DPA Database')
-dpa_service.workspace_db.add_database(
-    ArkDPADBAddDatabase(
+print('Adding SIA Database')
+sia_service.workspace_db.add_database(
+    ArkSIADBAddDatabase(
         name='mydomain.com',
-        provider_engine=ArkDPADBDatabaseEngineType.PostgresSH,
+        provider_engine=ArkSIADBDatabaseEngineType.PostgresSH,
         secret_id=secret.secret_id,
         read_write_endpoint="myendpoint.mydomain.com",
     )
 )
-print('Adding DPA DB Policy')
-dpa_service.policies_db.add_policy(
-    ArkDPADBAddPolicy(
+print('Adding SIA DB Policy')
+sia_service.policies_db.add_policy(
+    ArkSIADBAddPolicy(
         policy_name='IT Policy',
-        status=ArkDPARuleStatus.Active,
+        status=ArkSIARuleStatus.Enabled,
         description='IT Policy',
-        providers_data=ArkDPADBProvidersData(
-            postgres=ArkDPADBPostgres(
+        providers_data=ArkSIADBProvidersData(
+            postgres=ArkSIADBPostgres(
                 resources=['postgres-onboarded-asset'],
             ),
         ),
         user_access_rules=[
-            ArkDPADBAuthorizationRule(
+            ArkSIADBAuthorizationRule(
                 rule_name='IT Rule',
-                user_data=ArkDPAUserData(roles=['DpaAdmin'], groups=[], users=[]),
-                connection_information=ArkDPADBConnectionInformation(
+                user_data=ArkSIAUserData(roles=['DpaAdmin'], groups=[], users=[]),
+                connection_information=ArkSIADBConnectionInformation(
                     grant_access=2,
                     idle_time=10,
                     full_days=True,
                     hours_from='07:00',
                     hours_to='17:00',
                     time_zone='Asia/Jerusalem',
-                    connect_as=ArkDPADBConnectAs(
+                    connect_as=ArkSIADBConnectAs(
                         db_auth=[
-                            ArkDPADBLocalDBAuth(
+                            ArkSIADBLocalDBAuth(
                                 roles=['rds_superuser'],
                                 applied_to=[
-                                    ArkDPADBAppliedTo(
+                                    ArkSIADBAppliedTo(
                                         name='postgres-onboarded-asset',
-                                        type=ArkDPADBResourceIdentifierType.RESOURCE,
+                                        type=ArkSIADBResourceIdentifierType.RESOURCE,
                                     )
                                 ],
                             ),

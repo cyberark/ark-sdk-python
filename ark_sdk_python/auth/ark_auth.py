@@ -18,13 +18,13 @@ from ark_sdk_python.models.auth import (
 
 
 class ArkAuth(ABC):
-    def __init__(self, cache_authentication: bool = True) -> None:
+    def __init__(self, cache_authentication: bool = True, token: Optional[ArkToken] = None) -> None:
         self._logger = get_logger(app=self.__class__.__name__)
         self._cache_authentication = cache_authentication
         self._cache_keyring = None
         if cache_authentication:
             self._cache_keyring = ArkKeyring(self.authenticator_name())
-        self.__token = None
+        self.__token = token
         self._active_profile = None
         self._active_auth_profile = None
 
@@ -116,7 +116,7 @@ class ArkAuth(ABC):
             profile = ArkProfileLoader.load_default_profile()
         if auth_profile.auth_method not in self.supported_auth_methods() and auth_profile.auth_method != ArkAuthMethod.Default:
             raise ArkAuthException(
-                f'{self.authenticator_human_readable_name()} does not support authentication method {auth_profile.auth_method}'
+                f'{self.authenticator_human_readable_name()} does not support authentication method {auth_profile.auth_method.value}'
             )
         if auth_profile.auth_method == ArkAuthMethod.Default:
             auth_profile.auth_method, auth_profile.auth_method_settings = self.default_auth_method()

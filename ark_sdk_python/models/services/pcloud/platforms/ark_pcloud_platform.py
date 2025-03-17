@@ -19,13 +19,13 @@ class ArkPCloudPlatformGeneralDetails(ArkCamelizedModel):
     system_type: str = Field(description='System type of the platform')
     active: bool = Field(description='Whether this platform is active or not')
     description: str = Field(description='Description about the platform')
-    platform_base_id: Optional[str] = Field(description='Base ID of the platform if inherits from another one')
+    platform_base_id: Optional[str] = Field(description='Base ID of the platform if inherits from another one', default=None)
     platform_type: ArkPCloudPlatformType = Field(description='Type of the platform')
 
 
 class ArkPCloudPlatformProperty(ArkCamelizedModel):
-    name: Optional[str] = Field(description='Property name')
-    display_name: Optional[str] = Field(description='Property display name')
+    name: Optional[str] = Field(description='Property name', default=None)
+    display_name: Optional[str] = Field(description='Property display name', default=None)
 
 
 class ArkPCloudPlatformProperties(ArkCamelizedModel):
@@ -48,7 +48,7 @@ class ArkPCloudCredentialsManagement(ArkCamelizedModel):
 class ArkPCloudSessionManagement(ArkCamelizedModel):
     require_privileged_session_monitoring_and_isolation: bool = Field(description='Whether sessions require PSM isolation and monitoring')
     record_and_save_session_activity: bool = Field(description='Whether to record and save session activity')
-    psm_server_id: Optional[str] = Field(description='ID of the psm server installed')
+    psm_server_id: Optional[str] = Field(description='ID of the psm server installed', default=None)
 
 
 class ArkPCloudPrivilegedAccessWorkflows(ArkCamelizedModel):
