@@ -67,6 +67,8 @@ from ark_sdk_python.models.services.sia.workspaces.targetsets import (
     ArkSIATargetSetsFilter,
     ArkSIAUpdateTargetSet,
 )
+from ark_sdk_python.models.services.sia.workspaces.targetsets.ark_sia_bulk_add_target_sets import ArkSIABulkAddTargetSetsItem
+from ark_sdk_python.models.services.sia.workspaces.targetsets.ark_sia_bulk_delete_target_sets import ArkSIABulkDeleteTargetSets
 
 WORKSPACES_DB_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
     'add-database': ArkSIADBAddDatabase,
@@ -82,7 +84,9 @@ WORKSPACES_DB_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefini
 )
 WORKSPACES_TARGETSETS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
     'add-target-set': ArkSIAAddTargetSet,
+    'bulk-add-target-sets': ArkSIABulkAddTargetSetsItem,
     'delete-target-set': ArkSIADeleteTargetSet,
+    'bulk-delete-target-sets': ArkSIABulkDeleteTargetSets,
     'update-target-set': ArkSIAUpdateTargetSet,
     'list-target-sets': None,
     'list-target-sets-by': ArkSIATargetSetsFilter,

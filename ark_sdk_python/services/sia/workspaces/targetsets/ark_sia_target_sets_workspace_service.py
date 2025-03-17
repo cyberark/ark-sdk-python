@@ -21,12 +21,16 @@ from ark_sdk_python.models.services.sia.workspaces.targetsets import (
     ArkSIATargetSetsStats,
     ArkSIAUpdateTargetSet,
 )
+from ark_sdk_python.models.services.sia.workspaces.targetsets.ark_sia_bulk_add_target_sets import ArkSIABulkAddTargetSetsItem
+from ark_sdk_python.models.services.sia.workspaces.targetsets.ark_sia_bulk_delete_target_sets import ArkSIABulkDeleteTargetSets
+from ark_sdk_python.models.services.sia.workspaces.targetsets.ark_sia_bulk_target_set_response import ArkSIABulkTargetSetResponse
 from ark_sdk_python.services.ark_service import ArkService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
     service_name='sia-workspaces-target-sets', required_authenticator_names=['isp'], optional_authenticator_names=[]
 )
 TARGET_SETS_API: Final[str] = 'api/targetsets'
+BULK_TARGET_SETS_API: Final[str] = 'api/targetsets/bulk'
 TARGET_SET_API: Final[str] = 'api/targetsets/{target_name}'
 
 
@@ -45,7 +49,7 @@ class ArkSIATargetSetsWorkspaceService(ArkService):
 
     def add_target_set(self, add_target_set: ArkSIAAddTargetSet) -> ArkSIATargetSet:
         """
-        Add a new target set for on-premises platform
+        Add a new target set
 
         Args:
             add_target_set (ArkSIAAddTargetSet): _description_
@@ -68,9 +72,32 @@ class ArkSIATargetSetsWorkspaceService(ArkService):
                 raise ArkServiceException(f'Failed to parse add target set response [{str(ex)}]') from ex
         raise ArkServiceException(f'Failed to add target set [{resp.text}] - [{resp.status_code}]')
 
+    def bulk_add_target_sets(self, bulk_add_target_sets: ArkSIABulkAddTargetSetsItem) -> ArkSIABulkTargetSetResponse:
+        """
+        Bulk add new target sets
+
+        Args:
+            bulk_add_target_sets (ArkSIABulkAddTargetSet): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkSIABulkTargetSetResponse: _description_
+        """
+        self._logger.info(f'Bulk adding target sets [{bulk_add_target_sets}]')
+        resp: Response = self.__client.post(BULK_TARGET_SETS_API, json=bulk_add_target_sets.model_dump())
+        if resp.status_code == HTTPStatus.MULTI_STATUS:
+            try:
+                return ArkSIABulkTargetSetResponse.model_validate(resp.json())
+            except (ValidationError, JSONDecodeError, KeyError) as ex:
+                self._logger.exception(f'Failed to parse bulk add target set response [{str(ex)}] - [{resp.text}]')
+                raise ArkServiceException(f'Failed to parse bulk add target set response [{str(ex)}]') from ex
+        raise ArkServiceException(f'Failed to bulk add target sets [{resp.text}] - [{resp.status_code}]')
+
     def delete_target_set(self, delete_target_set: ArkSIADeleteTargetSet) -> None:
         """
-        Delete an existing on premise target set
+        Delete an existing target set
 
         Args:
             delete_target_set (ArkSIADeleteTargetSet): _description_
@@ -83,9 +110,32 @@ class ArkSIATargetSetsWorkspaceService(ArkService):
         if resp.status_code != HTTPStatus.NO_CONTENT:
             raise ArkServiceException(f'Failed to delete target set [{resp.text}] - [{resp.status_code}]')
 
+    def bulk_delete_target_sets(self, bulk_delete_target_sets: ArkSIABulkDeleteTargetSets) -> ArkSIABulkTargetSetResponse:
+        """
+        Bulk deletes existing target sets
+
+        Args:
+            bulk_delete_target_sets (ArkSIABulkDeleteTargetSet): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkSIABulkTargetSetResponse: _description_
+        """
+        self._logger.info(f'Bulk deleting target sets [{bulk_delete_target_sets}]')
+        resp: Response = self.__client.delete(BULK_TARGET_SETS_API, json=bulk_delete_target_sets.target_sets)
+        if resp.status_code == HTTPStatus.MULTI_STATUS:
+            try:
+                return ArkSIABulkTargetSetResponse.model_validate(resp.json())
+            except (ValidationError, JSONDecodeError, KeyError) as ex:
+                self._logger.exception(f'Failed to parse bulk delete target set response [{str(ex)}] - [{resp.text}]')
+                raise ArkServiceException(f'Failed to parse bulk delete target set response [{str(ex)}]') from ex
+        raise ArkServiceException(f'Failed to bulk delete target sets [{resp.text}] - [{resp.status_code}]')
+
     def update_target_set(self, update_target_set: ArkSIAUpdateTargetSet) -> ArkSIATargetSet:
         """
-        Update an existing on premise target set
+        Update an existing target set
 
         Args:
             update_target_set (ArkSIAUpdateTargetSet): _description_
@@ -112,7 +162,7 @@ class ArkSIATargetSetsWorkspaceService(ArkService):
 
     def list_target_sets(self) -> List[ArkSIATargetSet]:
         """
-        List all on premise target sets
+        List all target sets
 
         Raises:
             ArkServiceException: _description_
@@ -132,7 +182,7 @@ class ArkSIATargetSetsWorkspaceService(ArkService):
 
     def list_target_sets_by(self, target_sets_filter: ArkSIATargetSetsFilter) -> List[ArkSIATargetSet]:
         """
-        List on premise target sets by given filters
+        List target sets by given filters
 
         Args:
             target_sets_filter (ArkSIATargetSetsFilter): _description_
@@ -150,7 +200,7 @@ class ArkSIATargetSetsWorkspaceService(ArkService):
 
     def target_set(self, get_target_set: ArkSIAGetTargetSet) -> ArkSIATargetSet:
         """
-        Get on premise specific target set
+        Get specific target set
 
         Args:
             get_target_set (ArkSIAGetTargetSet): _description_
