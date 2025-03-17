@@ -124,6 +124,7 @@ class ArkLoginAction(ArkAction):
                     and not args.__dict__[f'{authenticator_name}_secret']
                     and not args.no_shared_secrets
                 ):
+                    # pylint: disable-next=cell-var-from-loop
                     secret = next(filter(lambda s: auth_profile.username == s[0], shared_secrets_map[auth_profile.auth_method]))[1]
                 else:
                     if not args.force and (

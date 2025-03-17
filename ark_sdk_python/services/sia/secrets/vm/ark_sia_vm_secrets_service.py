@@ -1,7 +1,6 @@
 import json
 from fnmatch import fnmatch
 from http import HTTPStatus
-from pathlib import Path
 from typing import Any, Dict, Final, List, Optional, Set, Union
 
 from overrides import overrides
@@ -55,17 +54,10 @@ class ArkSIAVMSecretsService(ArkService):
             secret_data = json.dumps(
                 {'username': secret_input.provisioner_username, 'password': secret_input.provisioner_password.get_secret_value()}
             )
-        elif secret_input.secret_type == ArkSIAVMSecretType.PCloudAccount:
+        else:
             if not secret_input.pcloud_account_name or not secret_input.pcloud_account_safe:
                 raise ArkServiceException('PCloud account secret type requires both the safe and the account name to be supplied')
             secret_data = json.dumps({'safe': secret_input.pcloud_account_safe, 'account_name': secret_input.pcloud_account_name})
-        else:
-            if not secret_input.target_certificate_contents and not secret_input.target_certificate_path:
-                raise ArkServiceException('Target certificates secret type requires either certificate contents or path')
-            if secret_input.target_certificate_contents:
-                secret_data = secret_input.target_certificate_contents.get_secret_value()
-            else:
-                secret_data = Path(secret_input.target_certificate_path).read_text(encoding='utf-8')
         return secret_data
 
     def __list_secrets_with_filters(
@@ -103,11 +95,6 @@ class ArkSIAVMSecretsService(ArkService):
         self._logger.info('Adding new vm secret')
         secret_data = self.__deduce_secret_data(add_secret)
         add_secret.secret_details = add_secret.secret_details or {}
-        if add_secret.secret_type == ArkSIAVMSecretType.TargetCertificate:
-            if add_secret.target_certificate_domain:
-                add_secret.secret_details['domain'] = add_secret.target_certificate_domain
-            if add_secret.target_certificate_path:
-                add_secret.secret_details['certFileName'] = Path(add_secret.target_certificate_path).name
         resp: Response = self.__client.post(
             SECRETS_ROUTE,
             json={

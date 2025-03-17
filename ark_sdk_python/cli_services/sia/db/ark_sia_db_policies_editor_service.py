@@ -251,6 +251,7 @@ class ArkSIADBPoliciesEditorService(
                         generated_auth_methods['oracle_auth'].append(DEFAULT_GENERATED_AUTH_METHODS[ArkWorkspaceType(provider)])
             policy.providers_data = ArkSIADBProvidersData(**generated_providers)
             rule.connection_information.connect_as = ArkSIADBConnectAs(**generated_auth_methods)
+        # pylint: disable-next=no-member
         policy.user_access_rules.append(rule)
         return policy
 

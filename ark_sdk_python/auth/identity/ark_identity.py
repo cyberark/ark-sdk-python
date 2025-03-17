@@ -20,6 +20,7 @@ from requests import Session
 from ark_sdk_python.args import ArkArgsFormatter, ArkInquirerRender
 from ark_sdk_python.auth.identity.ark_identity_fqdn_resolver import ArkIdentityFQDNResolver
 from ark_sdk_python.common import ArkKeyring, ArkSystemConfig, get_logger
+from ark_sdk_python.common.ark_jwt_utils import ArkJWTUtils
 from ark_sdk_python.common.env import AwsEnv
 from ark_sdk_python.models import ArkException, ArkNonInteractiveException
 from ark_sdk_python.models.ark_exceptions import ArkAuthException
@@ -601,8 +602,6 @@ class ArkIdentity:
         Raises:
             ArkAuthException: _description_
         """
-        from jose.jwt import get_unverified_claims
-
         if not self.__session_details.token:
             # We only refresh platform token at the moment, call the normal authentication instead
             return self.auth_identity(profile, interactive, force)
@@ -614,7 +613,7 @@ class ArkIdentity:
         self.__session = Session()
         self.__session.verify = self.__verify
         self.__session.headers.update(ArkIdentityFQDNResolver.default_headers())
-        decoded_token = get_unverified_claims(self.__session_details.token)
+        decoded_token = ArkJWTUtils.get_unverified_claims(self.__session_details.token)
         platform_tenant_id = decoded_token['tenant_id']
         refresh_cookies = {
             f'refreshToken-{platform_tenant_id}': self.__session_details.refresh_token,
@@ -635,8 +634,8 @@ class ArkIdentity:
         self.__session_details.token = new_token
         self.__session_details.refresh_token = new_refresh_token
         self.__session_details.token_lifetime = (
-            datetime.fromtimestamp(get_unverified_claims(new_token)['exp'])
-            - datetime.fromtimestamp(get_unverified_claims(new_token)['iat'])
+            datetime.fromtimestamp(ArkJWTUtils.get_unverified_claims(new_token)['exp'])
+            - datetime.fromtimestamp(ArkJWTUtils.get_unverified_claims(new_token)['iat'])
         ).seconds
         delta = self.__session_details.token_lifetime or DEFAULT_TOKEN_LIFETIME_SECONDS
         self.__session_exp = datetime.now() + timedelta(seconds=delta)

@@ -141,6 +141,7 @@ class ArkConfigureAction(ArkAction):
                         prioritize_existing_val=True,
                     )
                     auth_method = next(
+                        # pylint: disable-next=cell-var-from-loop
                         filter(lambda k: ArkAuthMethodsDescriptionMap[k] == auth_method, ArkAuthMethodsDescriptionMap.keys())
                     )
                     # If the default is chosen, override it by the authenticator's default

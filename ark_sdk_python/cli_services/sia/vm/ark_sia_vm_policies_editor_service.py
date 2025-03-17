@@ -175,11 +175,15 @@ class ArkSIAVMPoliciesEditorService(
                 for provider in generate_policy.providers:
                     # Supported RDP protocol providers
                     if ArkWorkspaceType(provider) in SUPPORTED_RDP_PROTOCOL_PROVIDERS:
+                        # pylint: disable-next=no-member
                         if provider not in rule.connection_information.connect_as:
+                            # pylint: disable-next=no-member
                             rule.connection_information.connect_as[provider] = {}
+                        # pylint: disable-next=no-member
                         rule.connection_information.connect_as[provider][ArkProtocolType.RDP] = DEFAULT_GENERATED_PROTOCOLS[
                             ArkProtocolType.RDP
                         ]
+        # pylint: disable-next=no-member
         policy.user_access_rules.append(rule)
         return policy
 
