@@ -35,7 +35,7 @@ from ark_sdk_python.models.services.pcloud.accounts import (
 from ark_sdk_python.services.pcloud.common import ArkPCloudBaseService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
-    service_name='pcloud-accounts', required_authenticator_names=[], optional_authenticator_names=['isp', 'pvwa', 'pcloud_im']
+    service_name='pcloud-accounts', required_authenticator_names=[], optional_authenticator_names=['isp']
 )
 ACCOUNTS_URL: Final[str] = 'accounts'
 ACCOUNT_URL: Final[str] = 'accounts/{account_id}'

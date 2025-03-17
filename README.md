@@ -31,7 +31,9 @@ CyberArk's Official SDK and CLI for different services operations
 - [x] Services API
     - [x] SIA VM / Databases Policies and Policies Interactive Editor Service
     - [x] SIA Databases Onboarding
+    - [x] SIA Target Sets Onboarding
     - [x] SIA Databases Secrets
+    - [x] SIA VM Secrets
     - [x] SIA Certificates Service
     - [x] SIA SSO Service
     - [x] SIA K8S Service
@@ -41,9 +43,11 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] Identity Roles Service
     - [x] Identity Policies Service
     - [x] Identity Directories Service
+    - [x] Identity Connectors Service
     - [x] PCloud Accounts Service
     - [x] PCloud Safes Service
     - [x] PCloud Platforms Service
+    - [x] PCloud Applications Service
 - [x] All services contains CRUD and Statistics per respective service
 - [x] Ready to use SDK in Python
 - [x] CLI and SDK Examples
@@ -230,6 +234,7 @@ The following services and commands are supported:
     - <b>accounts</b> - PCloud Accounts Management
     - <b>safes</b> - PCloud Safes Management
     - <b>platforms</b> - PCloud Platforms Management
+    - <b>applications</b> - PCloud Applications Management
 
 Any command has its own subcommands, with respective arguments
 

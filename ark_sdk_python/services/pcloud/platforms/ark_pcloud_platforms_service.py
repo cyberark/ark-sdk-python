@@ -34,7 +34,7 @@ from ark_sdk_python.models.services.pcloud.platforms import (
 from ark_sdk_python.services.pcloud.common import ArkPCloudBaseService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
-    service_name='pcloud-platforms', required_authenticator_names=[], optional_authenticator_names=['isp', 'pvwa', 'pcloud_im']
+    service_name='pcloud-platforms', required_authenticator_names=[], optional_authenticator_names=['isp']
 )
 PLATFORMS_URL: Final[str] = 'platforms'
 PLATFORM_URL: Final[str] = 'platforms/{platform_id}'

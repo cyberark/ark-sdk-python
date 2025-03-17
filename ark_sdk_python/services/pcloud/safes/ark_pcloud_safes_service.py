@@ -38,7 +38,7 @@ from ark_sdk_python.models.services.pcloud.safes import (
 from ark_sdk_python.services.pcloud.common import ArkPCloudBaseService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
-    service_name='pcloud-safes', required_authenticator_names=[], optional_authenticator_names=['isp', 'pvwa', 'pcloud_im']
+    service_name='pcloud-safes', required_authenticator_names=[], optional_authenticator_names=['isp']
 )
 SAFES_URL: Final[str] = 'safes'
 SAFE_URL: Final[str] = 'safes/{safe_id}'

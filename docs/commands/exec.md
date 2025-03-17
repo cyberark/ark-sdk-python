@@ -37,6 +37,7 @@ The following SIA commands are supported:
     - `accounts` - Accounts management
     - `safes` - Safes management
     - `platforms` - Platforms management
+    - `applications` - Applications management
 
 All commands have their own subcommands and respective arguments.
 

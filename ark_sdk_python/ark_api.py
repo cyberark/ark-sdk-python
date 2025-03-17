@@ -307,3 +307,15 @@ class ArkAPI:
         from ark_sdk_python.services.pcloud.platforms import ArkPCloudPlatformsService
 
         return cast(ArkPCloudPlatformsService, self.service(ArkPCloudPlatformsService))
+
+    @property
+    def pcloud_applications(self) -> "ArkPCloudApplicationsService":
+        """
+        Returns the PCloud Applications service if the appropriate authenticators were given
+
+        Returns:
+            ArkPCloudApplicationsService: _description_
+        """
+        from ark_sdk_python.services.pcloud.applications import ArkPCloudApplicationsService
+
+        return cast(ArkPCloudApplicationsService, self.service(ArkPCloudApplicationsService))
