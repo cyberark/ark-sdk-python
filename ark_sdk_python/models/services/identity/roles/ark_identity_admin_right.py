@@ -23,6 +23,7 @@ class ArkIdentityAdminRights(str, Enum):
     Audit = 'ServiceRight/auditShowTile'
     JIT = 'ServiceRight/dpaShowTile'
     DPA = 'ServiceRight/dpaShowTile'
+    SIA = 'ServiceRight/dpaShowTile'
     CloudOnboarding = 'ServiceRight/cloudonboardingShowTile'
     ConnectorManagement = 'ServiceRight/connectormanagementShowTile'
     PrivilegeCloud = 'ServiceRight/passwordvaultShowTile'

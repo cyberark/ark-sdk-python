@@ -128,7 +128,7 @@ class ArkPydanticArgparse:
                 is_required = True
             enum = None
             if 'enum' in def_prop:
-                enum = def_prop
+                enum = def_prop['enum']
             ArkPydanticArgparse.__populate_type(
                 prop_type, snake_prop_name, default, is_required, parser, prefix, desc, ignore_keys, enum, key_prefix
             )
@@ -249,14 +249,31 @@ class ArkPydanticArgparse:
                         if item['type'] == 'object':
                             if ArkPydanticArgparse.__arg_in_schema(arg_key, item, definitions, f'{prefix}{snake_prop_name}.'):
                                 return item['type']
+                        if item['type'] == 'null':
+                            continue
                         if prefix + snake_prop_name == arg_key:
                             return item['type']
             elif (
                 'anyOf' in schema['properties'][prop_name].keys()
                 and isinstance(schema['properties'][prop_name]['anyOf'], list)
-                and all('type' in t for t in schema['properties'][prop_name]['anyOf'])
+                and all('type' in t or '$ref' in t for t in schema['properties'][prop_name]['anyOf'])
             ):
+                if any('$ref' in t for t in schema['properties'][prop_name]['anyOf']):
+                    item = [t for t in schema['properties'][prop_name]['anyOf'] if '$ref' in t][0]
+                    def_prop_name = item['$ref'].split('/')[2]
+                    def_prop = definitions[def_prop_name]
+                    if 'type' not in def_prop.keys():
+                        if 'enum' in def_prop.keys():
+                            return 'string'
+                        continue
+                    if def_prop['type'] == 'object':
+                        if ArkPydanticArgparse.__arg_in_schema(arg_key, def_prop, definitions, f'{prefix}{snake_prop_name}.'):
+                            return def_prop['type']
+                    if prefix + snake_prop_name == arg_key:
+                        return def_prop['type']
                 if prefix + snake_prop_name == arg_key:
+                    if any(t['type'] != 'null' for t in schema['properties'][prop_name]['anyOf']):
+                        return [t['type'] for t in schema['properties'][prop_name]['anyOf'] if t['type'] != 'null'][0]
                     return 'string'
             elif 'type' in schema['properties'][prop_name].keys():
                 if prefix + snake_prop_name == arg_key:
@@ -266,7 +283,40 @@ class ArkPydanticArgparse:
                         arg_key, schema['properties'][prop_name], definitions, f'{prefix}{snake_prop_name}.'
                     ):
                         return schema['properties'][prop_name]['type']
+                if schema['properties'][prop_name]['type'] == 'null':
+                    return None
         return None
+
+    @staticmethod
+    def __parse_types(args: Dict[str, str]) -> Dict[str, Any]:
+        parsed_args = {}
+        for k, v in args.items():
+            if not isinstance(v, str):
+                parsed_args[k] = v
+                continue
+            if v.lower() == 'true':
+                parsed_args[k] = True
+                continue
+            if v.lower() == 'false':
+                parsed_args[k] = False
+                continue
+            try:
+                parsed_args[k] = int(v)
+                continue
+            except:  # pylint: disable=bare-except
+                pass
+            try:
+                parsed_args[k] = float(v)
+                continue
+            except:  # pylint: disable=bare-except
+                pass
+            try:
+                parsed_args[k] = json.loads(v)
+                continue
+            except:  # pylint: disable=bare-except
+                pass
+            parsed_args[k] = v
+        return parsed_args
 
     @staticmethod
     def __arg_to_schema(
@@ -302,6 +352,7 @@ class ArkPydanticArgparse:
                         for item in next(csv.reader([arg_val], delimiter=',', quotechar="'", escapechar="\\", skipinitialspace=True))
                     )
                     if len(args_dict) > 0:
+                        args_dict = ArkPydanticArgparse.__parse_types(args_dict)
                         args_map[key_prefix + arg_key] = args_dict
                     elif arg_key != 'extrafields':
                         args_map[key_prefix + arg_key] = arg_val
@@ -321,10 +372,8 @@ class ArkPydanticArgparse:
     ) -> None:
         """
         Converts the given schema to argparse parameters.
-
         Recursively iterates over the JSON schema and adds parameters to the parser.
         The argparse parameters can then be parsed from the CLI and then converted back using argparse_to_schema function.
-
         This function does not return anything, but updates the parser itself.
 
         Args:
@@ -337,8 +386,8 @@ class ArkPydanticArgparse:
             ignore_keys (Optional[List[str]], optional): _description_. Defaults to None.
             key_prefix (str, optional): _description_. Defaults to ''.
         """
-        if not definitions and 'definitions' in schema.keys():
-            definitions = schema['definitions']
+        if not definitions and '$defs' in schema.keys():
+            definitions = schema['$defs']
         elif not definitions:
             definitions = {}
         if not required and 'required' in schema.keys():
@@ -381,25 +430,66 @@ class ArkPydanticArgparse:
             elif (
                 'anyOf' in schema['properties'][prop_name].keys()
                 and isinstance(schema['properties'][prop_name]['anyOf'], list)
-                and all('type' in t for t in schema['properties'][prop_name]['anyOf'])
+                and all('type' in t or '$ref' in t for t in schema['properties'][prop_name]['anyOf'])
             ):
                 snake_prop_name = re.sub(r'(?<!^)(?=[A-Z])', '_', prop_name).lower().replace('_', '-')
-                is_required = False
-                if prop_name in required:
-                    is_required = True
-                default = None
-                if 'default' in schema['properties'][prop_name].keys():
-                    default = schema['properties'][prop_name]['default']
-                desc = ''
-                if 'description' in schema['properties'][prop_name].keys():
-                    desc = schema['properties'][prop_name]['description']
-                enum = None
-                if 'enum' in schema['properties'][prop_name]:
-                    enum = schema['enum']
-                ArkPydanticArgparse.__populate_type(
-                    'string', snake_prop_name, default, is_required, parser, prefix, desc, ignore_keys, enum, key_prefix
-                )
-                continue
+                if any('$ref' in t for t in schema['properties'][prop_name]['anyOf']):
+                    item = [t for t in schema['properties'][prop_name]['anyOf'] if '$ref' in t][0]
+                    def_prop_name = item['$ref'].split('/')[2]
+                    def_prop = definitions[def_prop_name]
+                    if 'type' not in def_prop.keys():
+                        if 'enum' in def_prop.keys():
+                            is_required = False
+                            if required and prop_name in required:
+                                is_required = True
+                            enum = def_prop['enum']
+                            ArkPydanticArgparse.__populate_type(
+                                'string', snake_prop_name, default, is_required, parser, prefix, desc, ignore_keys, enum, key_prefix
+                            )
+                        continue
+                    prop_type = def_prop['type']
+                    if prop_type == 'object':
+                        ArkPydanticArgparse.schema_to_argparse(
+                            def_prop, parser, defaults, f'{prefix}{snake_prop_name}.', definitions, required, ignore_keys, key_prefix
+                        )
+                    else:
+                        is_required = False
+                        if required and prop_name in required:
+                            is_required = True
+                        default = None
+                        if 'default' in schema['properties'][prop_name].keys():
+                            default = schema['properties'][prop_name]['default']
+                        desc = ''
+                        if 'description' in schema['properties'][prop_name].keys():
+                            desc = schema['properties'][prop_name]['description']
+                        enum = None
+                        if 'enum' in def_prop:
+                            enum = def_prop['enum']
+                        ArkPydanticArgparse.__populate_type(
+                            prop_type, snake_prop_name, default, is_required, parser, prefix, desc, ignore_keys, enum, key_prefix
+                        )
+                else:
+                    is_required = False
+                    if prop_name in required:
+                        is_required = True
+                    default = None
+                    if 'default' in schema['properties'][prop_name].keys():
+                        default = schema['properties'][prop_name]['default']
+                    desc = ''
+                    if 'description' in schema['properties'][prop_name].keys():
+                        desc = schema['properties'][prop_name]['description']
+                    enum = None
+                    if 'enum' in schema['properties'][prop_name]:
+                        enum = schema['enum']
+                    prop_type = 'string'
+                    if any(t['type'] != 'null' for t in schema['properties'][prop_name]['anyOf']) and all(
+                        t['type'] != 'string' for t in schema['properties'][prop_name]['anyOf']
+                    ):
+                        prop_type = [t['type'] for t in schema['properties'][prop_name]['anyOf'] if t['type'] != 'null'][0]
+                    ArkPydanticArgparse.__populate_type(
+                        prop_type, snake_prop_name, default, is_required, parser, prefix, desc, ignore_keys, enum, key_prefix
+                    )
+                    continue
             desc = ''
             if 'description' in schema['properties'][prop_name].keys():
                 desc = schema['properties'][prop_name]['description']
@@ -440,6 +530,26 @@ class ArkPydanticArgparse:
                         prop_type, snake_prop_name, default, is_required, parser, prefix, desc, ignore_keys, enum, key_prefix
                     )
                 else:
+                    local_schema = schema['properties'][prop_name]
+                    if 'properties' not in local_schema.keys():
+                        prop_name = local_schema['title']
+                        snake_prop_name = re.sub(r'(?<!^)(?=[A-Z])', '_', prop_name).lower().replace('_', '-')
+                        is_required = False
+                        if prop_name in required:
+                            is_required = True
+                        default = None
+                        if 'default' in schema.keys():
+                            default = local_schema['default']
+                        desc = ''
+                        if 'description' in schema.keys():
+                            desc = local_schema['description']
+                        enum = None
+                        if 'enum' in local_schema:
+                            enum = local_schema['enum']
+                        ArkPydanticArgparse.__populate_type(
+                            local_schema['type'], snake_prop_name, default, is_required, parser, prefix, desc, ignore_keys, enum, key_prefix
+                        )
+                        continue
                     ArkPydanticArgparse.schema_to_argparse(
                         schema['properties'][prop_name],
                         parser,
@@ -489,8 +599,8 @@ class ArkPydanticArgparse:
             key_prefix = key_prefix + '_'
         if 'properties' not in schema:
             return {}
-        if not definitions and 'definitions' in schema.keys():
-            definitions = schema['definitions']
+        if not definitions and '$defs' in schema.keys():
+            definitions = schema['$defs']
         elif not definitions:
             definitions = {}
         if not override_aliases:
@@ -549,8 +659,10 @@ class ArkPydanticArgparse:
                 for key, value in loaded_args_map.items():
                     first, *others = key.split('_')
                     file_args_map[''.join([first.lower(), *map(str.title, others)])] = value
-        if 'definitions' in schema.keys():
-            definitions = schema['definitions']
+                    # Also add the snake case for models which are not camel based
+                    file_args_map[key] = value
+        if '$defs' in schema.keys():
+            definitions = schema['$defs']
         for arg_key, arg_val in args.__dict__.items():
             if ignored_keys and arg_key in ignored_keys:
                 continue
@@ -578,7 +690,6 @@ class ArkPydanticArgparse:
         """
         Converts the given schema and args into a finalized dictionary.
         The function interacts with the user and requests args that were not provided in the CLI.
-
         Returns a dict that combines the schema with the user inputs.
 
         Args:
@@ -658,15 +769,15 @@ class ArkPydanticArgparse:
         if key_prefix:
             new_vals = {k.replace(f'{key_prefix}_', ''): v for k, v in new_vals.items()}
         if isinstance(new_vals, BaseModel):
-            new_vals = new_vals.dict(by_alias=by_alias)
+            new_vals = new_vals.model_dump(by_alias=by_alias)
         new_vals = {k: v for k, v in new_vals.items() if v is not None}
-        vals_dict = existing_model.dict(by_alias=by_alias)
+        vals_dict = existing_model.model_dump(by_alias=by_alias)
         if ignore_keys:
             new_vals = {k: v for k, v in new_vals.items() if k not in ignore_keys}
         vals_dict.update(new_vals)
         if defaults:
             vals_dict.update({k: v for k, v in defaults.items() if k not in vals_dict or vals_dict[k] is None})
-        return model.parse_obj(vals_dict)
+        return model.model_validate(vals_dict)
 
     @staticmethod
     def schema_to_simple_arguments(
@@ -683,8 +794,8 @@ class ArkPydanticArgparse:
             Dict[str, TaskInputParameter]: _description_
         """
         definitions: dict = None
-        if 'definitions' in schema.keys():
-            definitions = schema['definitions']
+        if '$defs' in schema.keys():
+            definitions = schema['$defs']
         parser = argparse.ArgumentParser()
         ArkPydanticArgparse.schema_to_argparse(schema, parser, ignore_keys=ignore_keys)
         input_args = {}

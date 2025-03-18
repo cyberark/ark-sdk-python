@@ -18,13 +18,13 @@ class ArkIdentityEntity(ArkModel):
     name: str = Field(description='Name of the entity')
     entity_type: ArkIdentityEntityType = Field(description='Type of the entity')
     directory_service_type: DirectoryService = Field(description='Directory type of the entity')
-    display_name: Optional[str] = Field(description='Display name of the entity')
+    display_name: Optional[str] = Field(default=None, description='Display name of the entity')
     service_instance_localized: str = Field(description='Display directory service name')
 
 
 class ArkIdentityUserEntity(ArkIdentityEntity):
-    email: Optional[str] = Field(description='Email of the user')
-    description: Optional[str] = Field(description='Description of the user')
+    email: Optional[str] = Field(default=None, description='Email of the user')
+    description: Optional[str] = Field(default=None, description='Description of the user')
 
 
 class ArkIdentityGroupEntity(ArkIdentityEntity):
@@ -32,6 +32,6 @@ class ArkIdentityGroupEntity(ArkIdentityEntity):
 
 
 class ArkIdentityRoleEntity(ArkIdentityEntity):
-    admin_rights: Optional[List[RoleAdminRight]] = Field(description='Admin rights of the role')
+    admin_rights: Optional[List[RoleAdminRight]] = Field(default=None, description='Admin rights of the role')
     is_hidden: bool = Field(description='Whwether this role is hidden or not')
-    description: Optional[str] = Field(description='Description of the role')
+    description: Optional[str] = Field(default=None, description='Description of the role')

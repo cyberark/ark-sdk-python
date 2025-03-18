@@ -7,4 +7,4 @@ from ark_sdk_python.models.common.identity import DirectoryService
 
 
 class ArkIdentityListDirectories(ArkModel):
-    directories: Optional[List[DirectoryService]] = Field(description='Directories types to list')
+    directories: Optional[List[DirectoryService]] = Field(default=None, description='Directories types to list')

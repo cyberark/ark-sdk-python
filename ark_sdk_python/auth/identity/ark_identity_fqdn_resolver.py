@@ -61,7 +61,7 @@ class ArkIdentityFQDNResolver:
         )
         try:
             if response.status_code == HTTPStatus.OK:
-                parsed_response: IdentityEndpointResponse = IdentityEndpointResponse.parse_raw(response.text)
+                parsed_response: IdentityEndpointResponse = IdentityEndpointResponse.model_validate_json(response.text)
                 return str(parsed_response.endpoint)
         except (ValidationError, TypeError) as ex:
             raise ArkException('Getting tenant FQDN failed from platform discovery to be parsed / validated') from ex
@@ -94,7 +94,7 @@ class ArkIdentityFQDNResolver:
             headers={'Content-Type': 'application/json', 'X-IDAP-NATIVE-CLIENT': 'true'},
         )
         try:
-            parsed_res: TenantFqdnResponse = TenantFqdnResponse.parse_raw(response.text)
+            parsed_res: TenantFqdnResponse = TenantFqdnResponse.model_validate_json(response.text)
         except (ValidationError, TypeError) as ex:
             raise ArkException('Getting tenant FQDN failed to be parsed / validated') from ex
         if not parsed_res.result.pod_fqdn.startswith('https://'):

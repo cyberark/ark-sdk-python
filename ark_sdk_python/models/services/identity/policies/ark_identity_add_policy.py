@@ -10,4 +10,4 @@ class ArkIdentityAddPolicy(ArkModel):
     description: str = Field(description='Description of the policy', default="")
     role_names: List[str] = Field(description='Roles to associate to the policy')
     auth_profile_name: str = Field(description='Authentication profile to assoicate to the policy')
-    settings: Optional[Dict[str, Any]] = Field(description='Settings of the policy')
+    settings: Optional[Dict[str, Any]] = Field(default=None, description='Settings of the policy')

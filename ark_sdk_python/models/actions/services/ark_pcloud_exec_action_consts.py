@@ -19,6 +19,17 @@ from ark_sdk_python.models.services.pcloud.accounts import (
     ArkPCloudUpdateAccountCredentialsInVault,
     ArkPCloudVerifyAccountCredentials,
 )
+from ark_sdk_python.models.services.pcloud.applications import (
+    ArkPCloudAddApplication,
+    ArkPCloudAddApplicationAuthMethod,
+    ArkPCloudApplicationAuthMethodsFilter,
+    ArkPCloudApplicationsFilter,
+    ArkPCloudDeleteApplication,
+    ArkPCloudDeleteApplicationAuthMethod,
+    ArkPCloudGetApplication,
+    ArkPCloudGetApplicationAuthMethod,
+    ArkPCloudListApplicationAuthMethods,
+)
 from ark_sdk_python.models.services.pcloud.platforms import (
     ArkPCloudActivateTargetPlatform,
     ArkPCloudDeactivateTargetPlatform,
@@ -120,6 +131,25 @@ PCLOUD_PLATFORMS_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDef
     schemas=PCLOUD_PLATFORMS_ACTION_TO_SCHEMA_MAP,
 )
 
+# PCloud Applications Definitions
+PCLOUD_APPLICATIONS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'add-application': ArkPCloudAddApplication,
+    'delete-application': ArkPCloudDeleteApplication,
+    'list-applications': None,
+    'list-applications-by': ArkPCloudApplicationsFilter,
+    'application': ArkPCloudGetApplication,
+    'applications-stats': None,
+    'add-application-auth-method': ArkPCloudAddApplicationAuthMethod,
+    'delete-application-auth-method': ArkPCloudDeleteApplicationAuthMethod,
+    'list-application-auth-methods': ArkPCloudListApplicationAuthMethods,
+    'list-application-auth-methods-by': ArkPCloudApplicationAuthMethodsFilter,
+    'application-auth-method': ArkPCloudGetApplicationAuthMethod,
+}
+PCLOUD_APPLICATIONS_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
+    action_name='applications',
+    schemas=PCLOUD_APPLICATIONS_ACTION_TO_SCHEMA_MAP,
+)
+
 # Service Actions Definition
 PCLOUD_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='pcloud',
@@ -127,5 +157,6 @@ PCLOUD_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
         PCLOUD_ACCOUNTS_ACTION,
         PCLOUD_PLATFORMS_ACTION,
         PCLOUD_SAFES_ACTION,
+        PCLOUD_APPLICATIONS_ACTION,
     ],
 )

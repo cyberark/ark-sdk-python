@@ -87,7 +87,7 @@ class ArkServiceExecAction(ArkExecAction):
         """
         action_def, action_dest = self.__deduce_action_command_def(args.command, args)
         action_value = args.__dict__[action_dest]
-        api_name = action_dest.replace('_action', '')
+        api_name = action_dest.replace('_action', '').replace('-', '_')
         while '_' in api_name and not hasattr(api, api_name):
             api_name = api_name.rsplit('_', 1)[0]
         service = getattr(api, api_name)

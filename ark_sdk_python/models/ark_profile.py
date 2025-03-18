@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from pydantic import Field, validator
+from pydantic import Field, field_validator
 
 from ark_sdk_python.common.ark_logger import get_logger
 from ark_sdk_python.models.ark_model import ArkModel
@@ -18,15 +18,18 @@ class ArkProfile(ArkModel):
     )
 
     # pylint: disable=no-self-use,no-self-argument
-    @validator('auth_profiles', pre=True)
+    @field_validator('auth_profiles', mode="before")
+    @classmethod
     def validate_auth_profiles(cls, val):
         auth_profiles = {}
         for k, v in val.items():
-            auth_profile = ArkAuthProfile.parse_obj(v)
+            auth_profile = ArkAuthProfile.model_validate(v)
             # Make sure that the settings are parsed with the correct class
             # Due to properties overlapping
             if 'auth_method_settings' in v:
-                auth_profile.auth_method_settings = ArkAuthMethodSettingsMap[auth_profile.auth_method].parse_obj(v['auth_method_settings'])
+                auth_profile.auth_method_settings = ArkAuthMethodSettingsMap[auth_profile.auth_method].model_validate(
+                    v['auth_method_settings']
+                )
             auth_profiles[k] = auth_profile
         return auth_profiles
 
@@ -82,7 +85,8 @@ class ArkProfileLoader:
         folder = ArkProfileLoader.profiles_folder()
         profile_name = ArkProfileLoader.deduce_profile_name()
         if os.path.exists(os.path.join(folder, profile_name)):
-            profile: ArkProfile = ArkProfile.parse_file(os.path.join(folder, profile_name))
+            with open(os.path.join(folder, profile_name), 'r', encoding='utf-8') as fh:
+                profile: ArkProfile = ArkProfile.model_validate_json(fh.read())
             return profile
         return ArkProfile()
 
@@ -100,7 +104,8 @@ class ArkProfileLoader:
         """
         folder = ArkProfileLoader.profiles_folder()
         if os.path.exists(os.path.join(folder, profile_name)):
-            profile: ArkProfile = ArkProfile.parse_file(os.path.join(folder, profile_name))
+            with open(os.path.join(folder, profile_name), 'r', encoding='utf-8') as fh:
+                profile: ArkProfile = ArkProfile.model_validate_json(fh.read())
             return profile
         return None
 
@@ -116,7 +121,7 @@ class ArkProfileLoader:
         if not os.path.exists(folder):
             os.makedirs(folder)
         with open(os.path.join(folder, profile.profile_name), 'w', encoding='utf-8') as f:
-            f.write(profile.json(indent=4, by_alias=False))
+            f.write(profile.model_dump_json(indent=4, by_alias=False))
 
     @staticmethod
     def load_all_profiles() -> Optional[List[ArkProfile]]:
@@ -133,7 +138,8 @@ class ArkProfileLoader:
         profiles: List[ArkProfile] = []
         for profile_name in os.listdir(folder):
             try:
-                profiles.append(ArkProfile.parse_file(os.path.join(folder, profile_name)))
+                with open(os.path.join(folder, profile_name), 'r', encoding='utf-8') as fh:
+                    profiles.append(ArkProfile.model_validate_json(fh.read()))
             except Exception as ex:
                 logger.warning(f'Profile {profile_name} failed to be loaded successfully [{str(ex)}]')
                 continue

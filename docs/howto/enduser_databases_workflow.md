@@ -20,9 +20,9 @@ Here is an example workflow for connecting to a database:
     ```shell linenums="0"
     ark login --silent --isp-secret <my-ark-secret>
     ```
-1. Get a short-lived SSO password for a database from the DPA service:
+1. Get a short-lived SSO password for a database from the SIA service:
     ```shell linenums="0"
-    ark exec dpa sso short-lived-password
+    ark exec sia sso short-lived-password
     ```
 1. One of these:
     * Log in directly to the database:
@@ -31,5 +31,5 @@ Here is an example workflow for connecting to a database:
         ```
     * Log in to the database from Ark:
         ```shell linenums="0"
-        ark exec dpa db psql --target-username postgres --target-address mypostgres.fqdn.com
+        ark exec sia db psql --target-username postgres --target-address mypostgres.fqdn.com
         ```

@@ -19,9 +19,19 @@ class ArkAsyncClient(ABC, ArkClient):
         auth_header_name: str = 'Authorization',
         auth: Optional[Tuple[str, str]] = None,
         refresh_connection_callback: Optional[Callable[['ArkClient'], None]] = None,
+        origin_verify: Optional[str] = None,
+        origin_verify_header_name: str = 'x-origin-verify',
     ) -> None:
         super().__init__(
-            base_url, token, token_type, cookies, auth_header_name, auth, refresh_connection_callback=refresh_connection_callback
+            base_url,
+            token,
+            token_type,
+            cookies,
+            auth_header_name,
+            auth,
+            refresh_connection_callback=refresh_connection_callback,
+            origin_verify=origin_verify,
+            origin_verify_header_name=origin_verify_header_name,
         )
         self.__async_request_settings = async_request_settings or ArkAsyncRequestSettings()
 

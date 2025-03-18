@@ -4,8 +4,7 @@ from typing import Final, Iterator, List, Optional, Set
 from urllib.parse import parse_qs, urlparse
 
 from overrides import overrides
-from pydantic import parse_obj_as
-from pydantic.error_wrappers import ValidationError
+from pydantic import TypeAdapter, ValidationError
 from requests import Response
 from requests.exceptions import JSONDecodeError
 
@@ -82,7 +81,7 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
             if resp.status_code == HTTPStatus.OK:
                 try:
                     result = resp.json()
-                    accounts = parse_obj_as(List[ArkPCloudAccount], result['value'])
+                    accounts = TypeAdapter(List[ArkPCloudAccount]).validate_python(result['value'])
                     yield ArkPCloudAccountsPage(items=accounts)
                     if 'nextLink' in result:
                         query = parse_qs(urlparse(result['nextLink']).query)
@@ -146,7 +145,7 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
         resp: Response = self._client.get(ACCOUNT_SECRET_VERSIONS.format(account_id=list_account_secret_versions.account_id))
         if resp.status_code == HTTPStatus.OK:
             try:
-                return parse_obj_as(List[ArkPCloudAccountSecretVersion], resp.json()['versions'])
+                return TypeAdapter(List[ArkPCloudAccountSecretVersion]).validate_python(resp.json()['versions'])
             except (ValidationError, JSONDecodeError, KeyError) as ex:
                 self._logger.exception(f'Failed to parse list account secret versions response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse list account secret versions response [{str(ex)}]') from ex
@@ -224,7 +223,7 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
         self._logger.info(f'Marking account [{set_account_next_credentials.account_id}] for changing credentials for the given password')
         resp: Response = self._client.post(
             SET_ACCOUNT_NEXT_CREDENTIALS.format(account_id=set_account_next_credentials.account_id),
-            json=set_account_next_credentials.dict(exclude={'account_id'}, by_alias=True),
+            json=set_account_next_credentials.model_dump(exclude={'account_id'}, by_alias=True),
         )
         if resp.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to mark account for changing credentials next password [{resp.text}] - [{resp.status_code}]')
@@ -243,7 +242,7 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
         self._logger.info(f'Updates account [{update_account_credentials_in_vault.account_id}] vault credentials')
         resp: Response = self._client.post(
             UPDATE_ACCOUNT_CREDENTIALS_IN_VAULT.format(account_id=update_account_credentials_in_vault.account_id),
-            json=update_account_credentials_in_vault.dict(exclude={'account_id'}, by_alias=True),
+            json=update_account_credentials_in_vault.model_dump(exclude={'account_id'}, by_alias=True),
         )
         if resp.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to update credentials in vault for account [{resp.text}] - [{resp.status_code}]')
@@ -282,7 +281,7 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
         resp: Response = self._client.get(ACCOUNT_URL.format(account_id=get_account.account_id))
         if resp.status_code == HTTPStatus.OK:
             try:
-                return ArkPCloudAccount.parse_obj(resp.json())
+                return ArkPCloudAccount.model_validate(resp.json())
             except (ValidationError, JSONDecodeError, KeyError) as ex:
                 self._logger.exception(f'Failed to parse account response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse account response [{str(ex)}]') from ex
@@ -305,7 +304,7 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
         self._logger.info(f'Retrieving account password for details [{get_account_credentials}]')
         body = {
             k.replace('_', '').title(): v
-            for k, v in get_account_credentials.dict(exclude={'account_id', 'reason'}, exclude_none=True).items()
+            for k, v in get_account_credentials.model_dump(exclude={'account_id', 'reason'}, exclude_none=True).items()
         }
         if get_account_credentials.reason:
             body['reason'] = get_account_credentials.reason
@@ -343,10 +342,12 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
             elif add_account.remote_machines_access.remote_machines:
                 add_account.remote_machines_access.remote_machines = ','.join(add_account.remote_machines_access.remote_machines)
 
-        resp: Response = self._client.post(ACCOUNTS_URL, data=add_account.json(by_alias=True, exclude_none=True, exclude_defaults=True))
+        resp: Response = self._client.post(
+            ACCOUNTS_URL, json=add_account.model_dump(by_alias=True, exclude_none=True, exclude_defaults=True)
+        )
         if resp.status_code == HTTPStatus.CREATED:
             try:
-                return ArkPCloudAccount.parse_obj(resp.json())
+                return ArkPCloudAccount.model_validate(resp.json())
             except (ValidationError, JSONDecodeError) as ex:
                 self._logger.exception(f'Failed to parse add account response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse add account response [{str(ex)}]') from ex
@@ -370,12 +371,12 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
         if update_account.remote_machines_access and not update_account.remote_machines_access.remote_machines:
             update_account.remote_machines_access = None
         operations = []
-        for key, val in update_account.dict(exclude={'account_id'}, exclude_none=True, by_alias=True, exclude_defaults=True):
+        for key, val in update_account.model_dump(exclude={'account_id'}, exclude_none=True, by_alias=True, exclude_defaults=True).items():
             operations.append({'op': 'replace', 'path': f'/{key}', 'value': val})
-        resp: Response = self._client.put(ACCOUNT_URL.format(account_id=update_account.account_id), json=operations)
+        resp: Response = self._client.patch(ACCOUNT_URL.format(account_id=update_account.account_id), json=operations)
         if resp.status_code == HTTPStatus.OK:
             try:
-                return ArkPCloudAccount.parse_obj(resp.json())
+                return ArkPCloudAccount.model_validate(resp.json())
             except (ValidationError, JSONDecodeError) as ex:
                 self._logger.exception(f'Failed to parse update account response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse update account response [{str(ex)}]') from ex
@@ -414,7 +415,7 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
             f'by idx [{link_account.extra_password_index}]'
         )
         resp: Response = self._client.post(
-            LINK_ACCOUNT.format(account_id=link_account.account_id), json=link_account.dict(exclude={'account_id'}, by_alias=True)
+            LINK_ACCOUNT.format(account_id=link_account.account_id), json=link_account.model_dump(exclude={'account_id'}, by_alias=True)
         )
         if resp.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to link account [{resp.text}] - [{resp.status_code}]')
@@ -446,7 +447,7 @@ class ArkPCloudAccountsService(ArkPCloudBaseService):
         """
         self._logger.info('Calculating accounts statistics')
         accounts = list(itertools.chain.from_iterable([p.items for p in list(self.list_accounts())]))
-        accounts_stats = ArkPCloudAccountsStats.construct()
+        accounts_stats = ArkPCloudAccountsStats.model_construct()
         accounts_stats.accounts_count = len(accounts)
 
         # Get accounts per platform id

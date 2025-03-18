@@ -24,15 +24,20 @@ class IdentityArkAuthMethodSettings(ArkAuthMethodSettings):
         description='MFA method if mfa is needed', default='email', alias='MFA Method to use by default [pf, sms, email, otp]'
     )
     identity_mfa_interactive: bool = Field(description='Allow interactive MFA (passcodes)', alias='Allow Interactive MFA', default=True)
-    identity_application: Optional[str] = Field(description='Identity application to use once logged in', alias='Identity Application')
+    identity_application: Optional[str] = Field(
+        description='Identity application to use once logged in', alias='Identity Application', default=None
+    )
     identity_url: Optional[str] = Field(
-        description='Identity url to use for authentication instead of fqdn resolving', alias='Identity Url'
+        description='Identity url to use for authentication instead of fqdn resolving',
+        alias='Identity Url',
+        default=None,
     )
     identity_tenant_subdomain: Optional[str] = Field(
         description='Identity security platform tenant subdomain, '
         'for exmaple mytenant.cyberark.cloud would be subdomained to mytenant. '
         'this will be used instead of fqdn resolving from the username',
         alias='Identity Tenant Subdomain',
+        default=None,
     )
 
 
@@ -45,7 +50,7 @@ class IdentityServiceUserArkAuthMethodSettings(ArkAuthMethodSettings):
 
 
 class DirectArkAuthMethodSettings(ArkAuthMethodSettings):
-    endpoint: Optional[str] = Field(description='Direct authentication endpoint', alias='Authentication Endpoint')
+    endpoint: Optional[str] = Field(description='Direct authentication endpoint', alias='Authentication Endpoint', default=None)
     interactive: bool = Field(description='Allow interactiveness', alias='Allow interactiveness', default=True)
 
 

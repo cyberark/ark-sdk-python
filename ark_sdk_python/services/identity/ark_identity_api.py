@@ -1,4 +1,5 @@
 from ark_sdk_python.auth import ArkISPAuth
+from ark_sdk_python.services.identity.connectors import ArkIdentityConnectorsService
 from ark_sdk_python.services.identity.directories import ArkIdentityDirectoriesService
 from ark_sdk_python.services.identity.policies import ArkIdentityPoliciesService
 from ark_sdk_python.services.identity.roles import ArkIdentityRolesService
@@ -7,10 +8,21 @@ from ark_sdk_python.services.identity.users import ArkIdentityUsersService
 
 class ArkIdentityAPI:
     def __init__(self, isp_auth: ArkISPAuth) -> None:
+        self.__identity_connectors = ArkIdentityConnectorsService(isp_auth)
         self.__identity_directories = ArkIdentityDirectoriesService(isp_auth)
         self.__identity_policies = ArkIdentityPoliciesService(isp_auth)
         self.__identity_roles = ArkIdentityRolesService(isp_auth)
         self.__identity_users = ArkIdentityUsersService(isp_auth)
+
+    @property
+    def identity_connectors(self) -> ArkIdentityConnectorsService:
+        """
+        Getter for the identity connectors service
+
+        Returns:
+            ArkIdentityConnectorsService: _description_
+        """
+        return self.__identity_connectors
 
     @property
     def identity_directories(self) -> ArkIdentityDirectoriesService:

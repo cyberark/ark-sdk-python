@@ -1,6 +1,7 @@
 import socket
 from base64 import b64decode
-from typing import Callable, Dict, List, Optional, Tuple, Union
+from http import HTTPStatus
+from typing import Callable, Dict, Final, List, Optional, Tuple, Union
 
 import requests.packages.urllib3.util.connection as urllib3_cn  # pylint: disable=import-error
 from requests import Response, Session
@@ -17,6 +18,8 @@ urllib3_cn.allowed_gai_family = allowed_gai_family
 
 
 class ArkClient:
+    __DEFAULT_REFRESH_RETRY_COUNT: Final[int] = 5
+
     def __init__(
         self,
         base_url: Optional[str] = None,
@@ -28,6 +31,8 @@ class ArkClient:
         cookie_jar: Optional[RequestsCookieJar] = None,
         verify: Optional[Union[str, bool]] = None,
         refresh_connection_callback: Optional[Callable[['ArkClient'], None]] = None,
+        origin_verify: Optional[str] = None,
+        origin_verify_header_name: str = 'x-origin-verify',
     ) -> None:
         from fake_useragent import UserAgent
 
@@ -50,6 +55,8 @@ class ArkClient:
                 verify = ArkSystemConfig.is_verifiying_certificates()
         self.__session.verify = verify
         self.__session.headers['User-Agent'] = UserAgent(browsers=['chrome']).googlechrome
+        if origin_verify is not None and len(origin_verify) > 0:
+            self.__session.headers[origin_verify_header_name] = origin_verify
 
     @property
     def base_url(self) -> Optional[str]:
@@ -76,18 +83,34 @@ class ArkClient:
     def add_cookie(self, key: str, value: str) -> None:
         self.__session.cookies[key] = value
 
-    def generic_http_method_request(self, method: str, route: str, **kwargs) -> Response:
+    def __generic_http_method_request_with_retry(self, method: str, route: str, refresh_retry_count: int, **kwargs) -> Response:
         url = route
         if self.__base_url:
             url = f'{self.__base_url}'
             if route and route != '':
-                if self.__base_url.endswith('/') or route.startswith('/'):
+                base_end = self.__base_url.endswith('/')
+                route_start = route.startswith('/')
+                if base_end ^ route_start:
                     url = f'{self.__base_url}{route}'
                 else:
-                    url = f'{self.__base_url}/{route}'
+                    if base_end and route_start:
+                        url = f'{self.__base_url}{route[1:]}'
+                    else:
+                        url = f'{self.__base_url}/{route}'
         http_method = getattr(self.__session, method)
         response: Response = http_method(url, **kwargs)
+        if response.status_code == HTTPStatus.UNAUTHORIZED and self.__refresh_connection_callback and refresh_retry_count > 0:
+            self.__refresh_connection_callback(self)
+            return self.__generic_http_method_request_with_retry(method, route, refresh_retry_count - 1, **kwargs)
         return response
+
+    def generic_http_method_request(self, method: str, route: str, **kwargs) -> Response:
+        return self.__generic_http_method_request_with_retry(
+            method=method,
+            route=route,
+            refresh_retry_count=ArkClient.__DEFAULT_REFRESH_RETRY_COUNT,
+            **kwargs,
+        )
 
     def get(self, route: str, **kwargs) -> Response:
         """

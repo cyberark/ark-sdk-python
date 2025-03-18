@@ -15,9 +15,9 @@ class ArkPCloudAddSafeMember(ArkCamelizedModel):
     safe_id: str = Field(description='Safe url id to add the member to')
     member_name: str = Field(description='Name of the member to add')
     member_type: ArkPCloudSafeMemberType = Field(description='Type of the member')
-    search_in: Optional[str] = Field(description='Where to search the member in, vault or a domain')
-    membership_expiration_date: Optional[datetime] = Field(description='What is the member expiration date')
-    permissions: Optional[ArkPCloudSafeMemberPermissions] = Field(description='Permissions of the safe member on the safe')
+    search_in: Optional[str] = Field(description='Where to search the member in, vault or a domain', default=None)
+    membership_expiration_date: Optional[datetime] = Field(description='What is the member expiration date', default=None)
+    permissions: Optional[ArkPCloudSafeMemberPermissions] = Field(description='Permissions of the safe member on the safe', default=None)
     permission_set: ArkPCloudSafeMemberPermissionSet = Field(
         description='Predefined permission set to use', default=ArkPCloudSafeMemberPermissionSet.ReadOnly
     )

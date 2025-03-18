@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class ArkApplicationCode(str, Enum):
+    SIA = 'SIA'
     DPA = 'DPA'
     CSM = 'CSM'
     PAM = 'PAM'
@@ -9,7 +10,6 @@ class ArkApplicationCode(str, Enum):
     ITI = 'ITI'
     UBA = 'UBA'
     ADM = 'ADM'
-    USR = 'USR'
     AUD = 'AUD'
     ALR = 'ALR'
     CEM = 'CEM'
@@ -18,3 +18,6 @@ class ArkApplicationCode(str, Enum):
     SHSM = 'SHSM'
     CLO = 'CLO'
     CMS = 'CMS'
+    SMS = 'SMS'
+    PYC = 'PYC'
+    CCE = 'CCE'

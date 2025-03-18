@@ -17,4 +17,4 @@ if __name__ == '__main__':
     accounts_service = ArkPCloudAccountsService(isp_auth=isp_auth)
     for page in accounts_service.list_accounts():
         for item in page:
-            pprint.pprint(item.dict())
+            pprint.pprint(item.model_dump())

@@ -31,7 +31,10 @@ class ArkIdentityBaseService(ArkService):
             else:
                 self._env = AwsEnv(os.environ.get('DEPLOY_ENV', AwsEnv.PROD.value))
             try:
-                self._client: ArkISPServiceClient = ArkISPServiceClient.from_isp_auth(self._isp_auth)
+                self._client: ArkISPServiceClient = ArkISPServiceClient.from_isp_auth(
+                    isp_auth=self._isp_auth,
+                    refresh_connection_callback=self.__refresh_identity_auth,
+                )
                 self._env = self._client.tenant_env
             except Exception:
                 self._client = self._idp_client
@@ -41,3 +44,6 @@ class ArkIdentityBaseService(ArkService):
             self._client = self._idp_client
             self._url_prefix = ''
             self._env = AwsEnv(os.environ.get('DEPLOY_ENV', AwsEnv.GOV_PROD.value))
+
+    def __refresh_identity_auth(self, client: ArkISPServiceClient) -> None:
+        ArkISPServiceClient.refresh_client(client, self._isp_auth)

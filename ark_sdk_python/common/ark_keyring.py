@@ -137,6 +137,9 @@ class ArkKeyring:
     @staticmethod
     def get_keyring(enforce_basic_keyring: bool = False):
         try:
+            from keyring.backends import SecretService, macOS  # pylint: disable=unused-import
+            from keyrings.cryptfile.cryptfile import CryptFileKeyring  # pylint: disable=import-error
+
             # Docker or WSL
             if (
                 ArkKeyring.__is_docker()
@@ -146,8 +149,6 @@ class ArkKeyring:
             ):
                 return BasicKeyring()
             if sys.platform == 'win32':
-                from keyrings.cryptfile.cryptfile import CryptFileKeyring  # pylint: disable=import-error
-
                 kr = CryptFileKeyring()
                 kr.keyring_key = socket.gethostname()
                 return kr
@@ -156,8 +157,6 @@ class ArkKeyring:
             else:
                 if DBUS_SESSION_ENV_VAR not in os.environ:
                     return BasicKeyring()
-                from keyring.backends import SecretService  # pylint: disable=unused-import
-
                 return SecretService.Keyring()
         except Exception:
             return BasicKeyring()
@@ -176,7 +175,7 @@ class ArkKeyring:
         try:
             self.__logger.info(f'Trying to save token [{self.__service_name}-{postfix}] of profile [{profile.profile_name}]')
             kr = self.get_keyring(enforce_basic_keyring)
-            kr.set_password(f'{self.__service_name}-{postfix}', profile.profile_name, token.json())
+            kr.set_password(f'{self.__service_name}-{postfix}', profile.profile_name, token.model_dump_json())
             self.__logger.info('Saved token successfully')
         except Exception as ex:
             # Last resort fallback to basic keyring
@@ -207,7 +206,7 @@ class ArkKeyring:
             if not token_val:
                 self.__logger.info('No token found')
                 return None
-            token = ArkToken.parse_raw(token_val)
+            token = ArkToken.model_validate_json(token_val)
             if token.expires_in:
                 if (
                     not token.refresh_token

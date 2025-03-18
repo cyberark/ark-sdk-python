@@ -14,5 +14,6 @@ class ArkWorkspaceType(str, MultiValueEnum):
     POSTGRES = 'postgres', 'Postgres'
     MONGO = 'mongo', 'Mongo'
     DB2 = 'db2', 'Db2'
+    ATLAS = 'atlas', 'ATLAS', 'Atlas'
     FAULT = 'fault', 'FAULT'
     UNKNOWN = 'unknown', 'UNKNOWN', 'Unknown'

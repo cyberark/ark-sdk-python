@@ -2,6 +2,7 @@ from typing import Dict, Final, Optional, Type
 
 from ark_sdk_python.models import ArkModel
 from ark_sdk_python.models.actions.ark_service_action_definition import ArkServiceActionDefinition
+from ark_sdk_python.models.services.identity.connectors import ArkIdentityConnectorsFilter, ArkIdentityGetConnector
 from ark_sdk_python.models.services.identity.directories import ArkIdentityListDirectories, ArkIdentityListDirectoriesEntities
 from ark_sdk_python.models.services.identity.policies import (
     ArkIdentityAddAuthenticationProfile,
@@ -37,6 +38,17 @@ from ark_sdk_python.models.services.identity.users import (
 )
 
 # Identity Definitions
+# Connectors
+IDENTITY_CONNECTORS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'list-connectors': None,
+    'list-connectors-by': ArkIdentityConnectorsFilter,
+    'connector': ArkIdentityGetConnector,
+}
+IDENTITY_CONNECTORS_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
+    action_name='connectors',
+    schemas=IDENTITY_CONNECTORS_ACTION_TO_SCHEMA_MAP,
+)
+
 # Directories
 IDENTITY_DIRECTORIES_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
     'list-directories': ArkIdentityListDirectories,
@@ -106,6 +118,7 @@ IDENTITY_USERS_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefi
 IDENTITY_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='identity',
     subactions=[
+        IDENTITY_CONNECTORS_ACTIONS,
         IDENTITY_DIRECTORIES_ACTIONS,
         IDENTITY_POLICIES_ACTIONS,
         IDENTITY_ROLES_ACTIONS,

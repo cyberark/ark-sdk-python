@@ -33,6 +33,7 @@ class ArkRegion(str, Enum):
     Indonesia = 'ap-southeast-3'
     Melbourne = 'ap-southeast-4'
     UAE = 'me-central-1'
+    Israel = 'il-central-1'
 
 
 regions_full_names = {
@@ -67,6 +68,7 @@ regions_full_names = {
     ArkRegion.Indonesia: 'ap-southeast-3 (Indonesia)',
     ArkRegion.Melbourne: 'ap-southeast-4 (Melbourne)',
     ArkRegion.UAE: 'me-central-1 (UAE)',
+    ArkRegion.Israel: 'il-central-1 (Tel-Aviv)',
 }
 
 platform_region_dict = {
@@ -101,6 +103,7 @@ platform_region_dict = {
     'Indonesia': 'ap-southeast-3',
     'Melbourne': 'ap-southeast-4',
     'UAE': 'me-central-1',
+    'Israel': 'il-central-1',
 }
 
 

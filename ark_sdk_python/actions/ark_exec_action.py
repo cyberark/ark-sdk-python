@@ -8,7 +8,6 @@ from collections import namedtuple
 from typing import Any, Dict, Generator, List, Optional, Tuple, Type, Union
 
 from overrides import overrides
-from retry.api import retry_call
 
 from ark_sdk_python.actions.ark_action import ArkAction
 from ark_sdk_python.args import ArkArgsFormatter, ArkPydanticArgparse
@@ -16,6 +15,7 @@ from ark_sdk_python.auth import SUPPORTED_AUTHENTICATORS
 from ark_sdk_python.auth.ark_auth import ArkAuth
 from ark_sdk_python.cli_services import ArkCLIAPI
 from ark_sdk_python.common import ArkAsyncRequest, ArkPollers, ArkSystemConfig
+from ark_sdk_python.common.ark_retry import ArkRetry
 from ark_sdk_python.models import ArkException, ArkModel
 from ark_sdk_python.models.ark_model import ArkPollableModel
 from ark_sdk_python.models.ark_profile import ArkProfileLoader
@@ -30,25 +30,47 @@ class ArkExecAction(ArkAction):
             return self._serialize_output(list(itertools.chain.from_iterable([p.items for p in output])))
         if isinstance(output, list):
             return json.dumps(
-                [json.loads(a.json(by_alias=False, exclude={'poll_progress_callback'})) for a in output if a is not None], indent=4
+                [
+                    (
+                        json.loads(a.model_dump_json(by_alias=False, exclude={'poll_progress_callback'}))
+                        if issubclass(type(a), ArkModel)
+                        else a
+                    )
+                    for a in output
+                    if a is not None
+                ],
+                indent=4,
             )
         elif isinstance(output, tuple):
             return json.dumps(
-                [json.loads(a.json(by_alias=False, exclude={'poll_progress_callback'})) for a in output if a is not None], indent=4
+                [
+                    (
+                        json.loads(a.model_dump_json(by_alias=False, exclude={'poll_progress_callback'}))
+                        if issubclass(type(a), ArkModel)
+                        else a
+                    )
+                    for a in output
+                    if a is not None
+                ],
+                indent=4,
             )
         elif isinstance(output, dict):
             return json.dumps(
                 {
-                    k: json.loads(v.json(indent=4, by_alias=False, exclude={'poll_progress_callback'}))
+                    k: (
+                        json.loads(v.model_dump_json(indent=4, by_alias=False, exclude={'poll_progress_callback'}))
+                        if issubclass(type(v), ArkModel)
+                        else v
+                    )
                     for k, v in output.items()
                     if k is not None and v is not None
                 },
                 indent=4,
             )
         elif issubclass(type(output), ArkModel):
-            return output.json(indent=4, by_alias=False, exclude={'poll_progress_callback'})
+            return output.model_dump_json(indent=4, by_alias=False, exclude={'poll_progress_callback'})
         elif issubclass(type(output), ArkAsyncRequest):
-            return output.async_task.json(indent=4, by_alias=False)
+            return output.async_task.model_dump_json(indent=4, by_alias=False)
         return str(output)
 
     def _write_output_to_file(self, output_path: str, serialized_output: str) -> None:
@@ -63,7 +85,9 @@ class ArkExecAction(ArkAction):
     ) -> None:
         try:
             model_type: Type[ArkPollableModel] = schemas_map[action.replace('_', '-')]
-            model: ArkPollableModel = model_type.parse_obj(ArkPydanticArgparse.argparse_to_schema(model_type.schema(), args))
+            model: ArkPollableModel = model_type.model_validate(
+                ArkPydanticArgparse.argparse_to_schema(model_type.model_json_schema(), args)
+            )
             model.poll_progress_callback = ArkPollers.default_poller()
             output = getattr(service, action.replace('-', '_'))(model)
             async_req = None
@@ -77,22 +101,22 @@ class ArkExecAction(ArkAction):
             if async_req is not None:
                 if args.output_path:
                     self._write_output_to_file(
-                        args.output_path, async_req.async_task.json(indent=4, by_alias=False, exclude={"poll_progress_callback"})
+                        args.output_path, async_req.async_task.model_dump_json(indent=4, by_alias=False, exclude={"poll_progress_callback"})
                     )
                 if async_req.task_failed():
                     if async_req.task_timeout():
                         ArkArgsFormatter.print_warning(
-                            f'Failed to execute async command due to timeout, error:\n{async_req.async_task.json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
+                            f'Failed to execute async command due to timeout, error:\n{async_req.async_task.model_dump_json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
                         )
                         raise ArkException(
-                            f'Failed to execute async command due to timeout, error:\n{async_req.async_task.json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
+                            f'Failed to execute async command due to timeout, error:\n{async_req.async_task.model_dump_json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
                         )
                     else:
                         ArkArgsFormatter.print_failure(
-                            f'Failed to execute async command, error:\n{async_req.async_task.json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
+                            f'Failed to execute async command, error:\n{async_req.async_task.model_dump_json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
                         )
                         raise ArkException(
-                            f'Failed to execute async command, error:\n{async_req.async_task.json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
+                            f'Failed to execute async command, error:\n{async_req.async_task.model_dump_json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
                         )
                 else:
                     ArkArgsFormatter.print_success(self._serialize_output(output))
@@ -100,23 +124,25 @@ class ArkExecAction(ArkAction):
                 if args.output_path:
                     self._write_output_to_file(
                         args.output_path,
-                        json.dumps([ar.async_task.dict(indent=4, by_alias=False, exclude={"poll_progress_callback"}) for ar in output]),
+                        json.dumps(
+                            [ar.async_task.model_dump(indent=4, by_alias=False, exclude={"poll_progress_callback"}) for ar in output]
+                        ),
                     )
                 for ar in output:
                     if ar.task_failed():
                         if ar.task_timeout():
                             ArkArgsFormatter.print_warning(
-                                f'Failed to execute async command due to timeout, error:\n{ar.async_task.json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
+                                f'Failed to execute async command due to timeout, error:\n{ar.async_task.model_dump_json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
                             )
                             raise ArkException(
-                                f'Failed to execute async command due to timeout, error:\n{ar.async_task.json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
+                                f'Failed to execute async command due to timeout, error:\n{ar.async_task.model_dump_json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
                             )
                         else:
                             ArkArgsFormatter.print_failure(
-                                f'Failed to execute async command, error:\n{ar.async_task.json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
+                                f'Failed to execute async command, error:\n{ar.async_task.model_dump_json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
                             )
                             raise ArkException(
-                                f'Failed to execute async command, error:\n{ar.async_task.json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
+                                f'Failed to execute async command, error:\n{ar.async_task.model_dump_json(indent=4, by_alias=False, exclude={"poll_progress_callback"})}',
                             )
                     else:
                         ArkArgsFormatter.print_success(self._serialize_output(ar))
@@ -134,7 +160,7 @@ class ArkExecAction(ArkAction):
         try:
             model_type: Type[ArkPollableModel] = schemas_map[action.replace('_', '-')]
             if model_type:
-                model: ArkModel = model_type.parse_obj(ArkPydanticArgparse.argparse_to_schema(model_type.schema(), args))
+                model: ArkModel = model_type.model_validate(ArkPydanticArgparse.argparse_to_schema(model_type.model_json_schema(), args))
                 output = getattr(service, action.replace('-', '_'))(model)
             else:
                 output = getattr(service, action.replace('-', '_'))()
@@ -161,7 +187,7 @@ class ArkExecAction(ArkAction):
             parser = subparsers.add_parser(action)
             if schema:
                 ArkPydanticArgparse.schema_to_argparse(
-                    schema.schema(), parser, defaults=defaults_map.get(action, None) if defaults_map else None
+                    schema.model_json_schema(), parser, defaults=defaults_map.get(action, None) if defaults_map else None
                 )
 
     @overrides
@@ -237,7 +263,7 @@ class ArkExecAction(ArkAction):
 
         # Run the actual exec fitting action with the api
         # Run it with retries as per defined by user
-        retry_call(
+        ArkRetry.retry_call(
             self.run_exec_action,
             fargs=[api, args],
             tries=args.retry_count,

@@ -124,6 +124,7 @@ class ArkLoginAction(ArkAction):
                     and not args.__dict__[f'{authenticator_name}_secret']
                     and not args.no_shared_secrets
                 ):
+                    # pylint: disable-next=cell-var-from-loop
                     secret = next(filter(lambda s: auth_profile.username == s[0], shared_secrets_map[auth_profile.auth_method]))[1]
                 else:
                     if not args.force and (
@@ -139,7 +140,7 @@ class ArkLoginAction(ArkAction):
                         if (
                             authenticator_name == 'isp'
                             and auth_profile.auth_method == ArkAuthMethod.Identity
-                            and ArkIdentity.is_idp_user(
+                            and not ArkIdentity.is_password_required(
                                 auth_profile.username,
                                 (
                                     auth_profile.auth_method_settings.identity_url
@@ -182,7 +183,7 @@ class ArkLoginAction(ArkAction):
             if 'cookies' in v.metadata:
                 del v.metadata['cookies']
             ArkArgsFormatter.print_success(
-                f'{k} Token\n{v.json(indent=4, exclude={} if args.show_tokens else {"token", "refresh_token"})}',
+                f'{k} Token\n{v.model_dump_json(indent=4, exclude={} if args.show_tokens else {"token", "refresh_token"})}',
             )
 
     @overrides

@@ -35,34 +35,34 @@ ark login -s --isp-secret=CoolPasswordß
 
 Use the `--help` flag to view all `exec` options.
 
-### Add DPA database secret
+### Add SIA database secret
 
 ```shell linenums="0"
-ark exec dpa secrets db add-secret --secret-name mysecret --secret-type username_password --username user --password mypass
+ark exec sia secrets db add-secret --secret-name mysecret --secret-type username_password --username user --password mypass
 ```
 
-### Delete DPA database secret
+### Delete SIA database secret
 
 ```shell linenums="0"
-ark exec dpa secrets db delete-secret --secret-name mysecret
+ark exec sia secrets db delete-secret --secret-name mysecret
 ```
 
-### Add DPA database
+### Add SIA database
 
 ```shell linenums="0"
-ark exec dpa workspaces db add-database --name mydb --provider-engine postgres-sh --read-write-endpoint myendpoint.domain.com
+ark exec sia workspaces db add-database --name mydb --provider-engine postgres-sh --read-write-endpoint myendpoint.domain.com
 ```
 
-### List DPA databases
+### List SIA databases
 
 ```shell linenums="0"
-ark exec dpa workspaces db list-databases
+ark exec sia workspaces db list-databases
 ```
 
 ### Get VM policies stats
 
 ```shell linenums="0"
-ark exec dpa policies vm policies-stats
+ark exec sia policies vm policies-stats
 ```
 
 ### Edit policies interactively example
@@ -72,42 +72,57 @@ This example shows how to locally work with a policies workspace, and edit, rese
 To load and reload policies locally:
 
 ```shell linenums="0"
-ark exec dpa policies vm editor load-policies
+ark exec sia policies vm editor load-policies
 ```
 
 After loading the policies, use these commands to edit them:
 ```shell
-ark exec dpa policies vm editor edit-policies
-ark exec dpa policies vm editor view-policies
-ark exec dpa policies vm editor reset-policies
-ark exec dpa policies vm editor generate-policy
-ark exec dpa policies vm editor remove-policies
-ark exec dpa policies vm editor policies diff
+ark exec sia policies vm editor edit-policies
+ark exec sia policies vm editor view-policies
+ark exec sia policies vm editor reset-policies
+ark exec sia policies vm editor generate-policy
+ark exec sia policies vm editor remove-policies
+ark exec sia policies vm editor policies diff
 ```
 
 When they are ready to be committed, run:
 ```shell linenums="0"
-ark exec dpa policies vm editor commit-policies
+ark exec sia policies vm editor commit-policies
 ```
 
 ### Generate a short-lived SSO password for a database connection
 ```shell linenums="0"
-ark exec dpa sso short-lived-password
+ark exec sia sso short-lived-password
 ```
 
 ### Generate a short-lived SSO Oracle wallet for an Oracle database connection
 ```shell linenums="0"
-ark exec dpa sso short-lived-oracle-wallet --folder ~/wallet
+ark exec sia sso short-lived-oracle-wallet --folder ~/wallet
 ```
 
 ### Generate a kubectl config file 
 ```shell linenums="0"
-ark exec dpa k8s generate-kubeconfig 
+ark exec sia k8s generate-kubeconfig 
 ```
 
 ### Generate a kubectl config file and save it in the specified path
 ```shell linenums="0"
-ark exec dpa k8s generate-kubeconfig --folder=/Users/My.User/.kube
+ark exec sia k8s generate-kubeconfig --folder=/Users/My.User/.kube
+```
+
+### Add SIA VM Target Set
+```shell
+ark_public exec sia workspaces target-sets add-target-set --name mydomain.com --type Domain
+```
+
+### Add SIA VM Secret
+```shell
+ark_public exec sia secrets vm add-secret --secret-type ProvisionerUser --provisioner-username=myuser --provisioner-password=mypassword
+```
+
+### Get SIA connector installation script
+```shell
+ark exec sia access connector-setup-script -ct onprem -co windows -cpi 588741d5-e059-479d-b4c4-3d821a87f012
 ```
 
 ### List All Session Monitoring sessions from the last 24 hours
@@ -175,7 +190,7 @@ ark exec identity directories list-directories-entities
 ark exec identity directories list-directories-entities --entity-types ROLE
 ```
 
-### Create a role with DPA show tile admin right
+### Create a role with SIA show tile admin right
 ```shell
 ark exec identity roles create-role --role-name RoleName --admin-rights "ServiceRight/dpaShowTile"
 ```
@@ -218,4 +233,9 @@ ark exec pcloud accounts add-account --name account --safe-name safe --platform-
 ### List available platforms
 ```shell
 ark exec pcloud platforms list-platforms
+```
+
+### List CMGR connector pools
+```shell
+ark exec exec cmgr list-pools
 ```

@@ -1,62 +1,62 @@
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
-from pydantic import Field, conlist, constr
+from pydantic import Field, StringConstraints
+from typing_extensions import Annotated
 
 from ark_sdk_python.models.ark_model import ArkModel
 from ark_sdk_python.models.common.identity.ark_identity_common_schemas import IdentityApiResponse
 
 
 class PodFqdnResult(ArkModel):
-    pod_fqdn: constr(min_length=2) = Field(alias='PodFqdn')
-
-    def get_tenant_id(self):
-        return self.pod_fqdn.split('.')[0]
+    pod_fqdn: Annotated[str, StringConstraints(min_length=2)] = Field(alias='PodFqdn')
 
 
 class AdvanceAuthResult(ArkModel):
-    display_name: Optional[constr(min_length=2)] = Field(alias='DisplayName')
-    auth: constr(min_length=2) = Field(alias='Auth')
-    summary: constr(min_length=2) = Field(alias='Summary')
-    token: Optional[constr(min_length=2)] = Field(alias='Token')
-    refresh_token: Optional[constr(min_length=2)] = Field(alias='RefreshToken')
-    token_lifetime: Optional[int] = Field(alias='TokenLifetime')
-    customer_id: Optional[str] = Field(alias='CustomerID')
-    user_id: Optional[str] = Field(alias='UserId')
-    pod_fqdn: Optional[str] = Field(alias='PodFqdn')
-
-
-class AdvanceAuthMidResult(ArkModel):
-    summary: constr(min_length=2) = Field(alias='Summary')
-    generated_auth_value: Optional[str] = Field(alias='GeneratedAuthValue')
+    display_name: Optional[Annotated[str, StringConstraints(min_length=2)]] = Field(default=None, alias='DisplayName')
+    auth: Annotated[str, StringConstraints(min_length=2)] = Field(alias='Auth')
+    summary: Annotated[str, StringConstraints(min_length=2)] = Field(alias='Summary')
+    token: Optional[Annotated[str, StringConstraints(min_length=2)]] = Field(default=None, alias='Token')
+    refresh_token: Optional[Annotated[str, StringConstraints(min_length=2)]] = Field(default=None, alias='RefreshToken')
+    token_lifetime: Optional[int] = Field(default=None, alias='TokenLifetime')
+    customer_id: Optional[str] = Field(default=None, alias='CustomerID')
+    user_id: Optional[str] = Field(default=None, alias='UserId')
+    pod_fqdn: Optional[str] = Field(default=None, alias='PodFqdn')
 
 
 class Mechanism(ArkModel):
-    answer_type: constr(min_length=2) = Field(alias='AnswerType')
-    name: constr(min_length=2) = Field(alias='Name')
-    prompt_mech_chosen: constr(min_length=2) = Field(alias='PromptMechChosen')
-    prompt_select_mech: Optional[constr(min_length=2)] = Field(alias='PromptSelectMech')
-    mechanism_id: constr(min_length=2) = Field(alias='MechanismId')
+    answer_type: Annotated[str, StringConstraints(min_length=2)] = Field(alias='AnswerType')
+    name: Annotated[str, StringConstraints(min_length=2)] = Field(alias='Name')
+    prompt_mech_chosen: Annotated[str, StringConstraints(min_length=2)] = Field(alias='PromptMechChosen')
+    prompt_select_mech: Optional[Annotated[str, StringConstraints(min_length=2)]] = Field(default=None, alias='PromptSelectMech')
+    mechanism_id: Annotated[str, StringConstraints(min_length=2)] = Field(alias='MechanismId')
+    image: Optional[str] = Field(alias='Image', default=None)
 
 
 class Challenge(ArkModel):
-    mechanisms: conlist(Mechanism, min_items=1) = Field(alias='Mechanisms')
+    mechanisms: Annotated[List[Mechanism], Field(min_length=1)] = Field(alias='Mechanisms')
+
+
+class AdvanceAuthMidResult(ArkModel):
+    summary: Annotated[str, StringConstraints(min_length=2)] = Field(alias='Summary')
+    generated_auth_value: Optional[str] = Field(default=None, alias='GeneratedAuthValue')
+    challenges: Optional[Annotated[List[Challenge], Field(min_length=1)]] = Field(default=None, alias='Challenges')
 
 
 class StartAuthResult(ArkModel):
-    challenges: Optional[conlist(Challenge, min_items=1)] = Field(alias='Challenges')
-    session_id: Optional[constr(min_length=2)] = Field(alias='SessionId')
-    idp_redirect_url: Optional[str] = Field(alias='IdpRedirectUrl')
-    idp_login_session_id: Optional[str] = Field(alias='IdpLoginSessionId')
-    idp_redirect_short_url: Optional[str] = Field(alias='IdpRedirectShortUrl')
-    idp_short_url_id: Optional[str] = Field(alias='IdpShortUrlId')
-    tenant_id: Optional[str] = Field(alias='TenantId')
+    challenges: Optional[Annotated[List[Challenge], Field(min_length=1)]] = Field(default=None, alias='Challenges')
+    session_id: Optional[Annotated[str, StringConstraints(min_length=2)]] = Field(default=None, alias='SessionId')
+    idp_redirect_url: Optional[str] = Field(default=None, alias='IdpRedirectUrl')
+    idp_login_session_id: Optional[str] = Field(default=None, alias='IdpLoginSessionId')
+    idp_redirect_short_url: Optional[str] = Field(default=None, alias='IdpRedirectShortUrl')
+    idp_short_url_id: Optional[str] = Field(default=None, alias='IdpShortUrlId')
+    tenant_id: Optional[str] = Field(default=None, alias='TenantId')
 
 
 class IdpAuthStatusResult(ArkModel):
     state: str = Field(alias='State')
-    token_lifetime: Optional[int] = Field(alias='TokenLifetime')
-    token: Optional[str] = Field(alias='Token')
-    refresh_token: Optional[str] = Field(alias='RefreshToken')
+    token_lifetime: Optional[int] = Field(default=None, alias='TokenLifetime')
+    token: Optional[str] = Field(default=None, alias='Token')
+    refresh_token: Optional[str] = Field(default=None, alias='RefreshToken')
 
 
 class TenantFqdnResponse(IdentityApiResponse):
@@ -76,7 +76,7 @@ class StartAuthResponse(IdentityApiResponse):
 
 
 class GetTenantSuffixResult(IdentityApiResponse):
-    result: Optional[Dict] = Field(alias='Result')
+    result: Optional[Dict] = Field(default=None, alias='Result')
 
 
 class IdpAuthStatusResponse(IdentityApiResponse):

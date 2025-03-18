@@ -1,0 +1,3 @@
+from ark_sdk_python.services.sia.workspaces.targetsets.ark_sia_target_sets_workspace_service import ArkSIATargetSetsWorkspaceService
+
+__all__ = ['ArkSIATargetSetsWorkspaceService']
