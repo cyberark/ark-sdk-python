@@ -20,9 +20,13 @@ from ark_sdk_python.models.services.sia.policies.db import (
     ArkSIADBBaseAuth,
     ArkSIADBConnectAs,
     ArkSIADBConnectionInformation,
+    ArkSIADBDb2,
     ArkSIADBLDAPAuth,
     ArkSIADBLocalDBAuth,
     ArkSIADBMariaDB,
+    ArkSIADBMongo,
+    ArkSIADBMongoDBAuth,
+    ArkSIADBMongoGlobalBuiltinRole,
     ArkSIADBMSSQL,
     ArkSIADBMySQL,
     ArkSIADBOracle,
@@ -46,6 +50,8 @@ SUPPORTED_DATABASE_TYPES: Final[List[str]] = [
     'MariaDB',
     'Postgres',
     'Oracle',
+    'DB2',
+    'Mongo',
 ]
 DEFAULT_GENERATED_POLICY: Final[ArkSIADBPolicy] = ArkSIADBPolicy(
     policy_name='Default DB Policy',
@@ -73,6 +79,8 @@ DEFAULT_GENERATED_PROVIDERS: Final[Dict[ArkWorkspaceType, ArkSIADB]] = {
             ),
         ],
     ),
+    ArkWorkspaceType.DB2: ArkSIADBDb2(resources=['db2-onboarded-asset']),
+    ArkWorkspaceType.MONGO: ArkSIADBMongo(resources=['mongo-onboarded-asset']),
 }
 DEFAULT_GENERATED_AUTH_METHODS: Final[Dict[ArkWorkspaceType, ArkSIADBBaseAuth]] = {
     ArkWorkspaceType.MSSQL: ArkSIADBLDAPAuth(
@@ -123,6 +131,26 @@ DEFAULT_GENERATED_AUTH_METHODS: Final[Dict[ArkWorkspaceType, ArkSIADBBaseAuth]] 
             )
         ],
     ),
+    ArkWorkspaceType.DB2: ArkSIADBLDAPAuth(
+        assign_groups=['DomainSQLAdmins'],
+        applied_to=[
+            ArkSIADBAppliedTo(
+                name='db2-onboarded-asset',
+                type=ArkSIADBResourceIdentifierType.RESOURCE,
+            )
+        ],
+    ),
+    ArkWorkspaceType.MONGO: ArkSIADBMongoDBAuth(
+        global_builtin_roles=[
+            ArkSIADBMongoGlobalBuiltinRole.DbAdminAnyDatabase,
+        ],
+        applied_to=[
+            ArkSIADBAppliedTo(
+                name='mongo-onboarded-asset',
+                type=ArkSIADBResourceIdentifierType.RESOURCE,
+            ),
+        ],
+    ),
 }
 DEFAULT_GENERATED_AUTHORIZATION_RULE: Final[ArkSIADBAuthorizationRule] = ArkSIADBAuthorizationRule(
     rule_name='Default DB Rule',
@@ -156,6 +184,8 @@ WORKSPACE_TO_PROVIDER_NAME: Final[Dict[ArkWorkspaceType, str]] = {
     ArkWorkspaceType.POSTGRES: 'postgres',
     ArkWorkspaceType.ORACLE: 'oracle',
     ArkWorkspaceType.MARIADB: 'mariadb',
+    ArkWorkspaceType.DB2: 'db2',
+    ArkWorkspaceType.MONGO: 'mongo',
 }
 
 

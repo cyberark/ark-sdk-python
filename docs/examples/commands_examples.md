@@ -120,6 +120,11 @@ ark_public exec sia workspaces target-sets add-target-set --name mydomain.com --
 ark_public exec sia secrets vm add-secret --secret-type ProvisionerUser --provisioner-username=myuser --provisioner-password=mypassword
 ```
 
+### Get SIA connector installation script
+```shell
+ark exec sia access connector-setup-script -ct onprem -co windows -cpi 588741d5-e059-479d-b4c4-3d821a87f012
+```
+
 ### List All Session Monitoring sessions from the last 24 hours
 ```shell
 ark exec sm list-sessions
@@ -228,4 +233,9 @@ ark exec pcloud accounts add-account --name account --safe-name safe --platform-
 ### List available platforms
 ```shell
 ark exec pcloud platforms list-platforms
+```
+
+### List CMGR connector pools
+```shell
+ark exec exec cmgr list-pools
 ```

@@ -80,7 +80,12 @@ SUPPORTED_SSH_PROTOCOL_PROVIDERS: Final[ArkWorkspaceType] = [
     ArkWorkspaceType.GCP,
     ArkWorkspaceType.ONPREM,
 ]
-SUPPORTED_RDP_PROTOCOL_PROVIDERS: Final[ArkWorkspaceType] = [ArkWorkspaceType.AWS, ArkWorkspaceType.AZURE, ArkWorkspaceType.ONPREM]
+SUPPORTED_RDP_PROTOCOL_PROVIDERS: Final[ArkWorkspaceType] = [
+    ArkWorkspaceType.AWS,
+    ArkWorkspaceType.AZURE,
+    ArkWorkspaceType.GCP,
+    ArkWorkspaceType.ONPREM,
+]
 
 
 class ArkSIAVMPoliciesEditorService(

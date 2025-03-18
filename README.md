@@ -38,6 +38,7 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] SIA SSO Service
     - [x] SIA K8S Service
     - [x] SIA DB Service
+    - [x] SIA Access Service
     - [x] Session Monitoring Service
     - [x] Identity Users Service
     - [x] Identity Roles Service
@@ -48,6 +49,7 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] PCloud Safes Service
     - [x] PCloud Platforms Service
     - [x] PCloud Applications Service
+    - [x] Connector Manager Service
 - [x] All services contains CRUD and Statistics per respective service
 - [x] Ready to use SDK in Python
 - [x] CLI and SDK Examples
@@ -224,6 +226,7 @@ The following services and commands are supported:
     - <b>db</b> - SIA DB Enduser Operations
     - <b>sso</b> - SIA SSO Enduser Operations
     - <b>k8s</b> - SIA kubernetes service
+    - <b>access</b> - SIA access service
 - <b>sm</b> - Session Monitoring Service
 - <b>identity</b> - Identity Service
     - <b>users</b> - Identity Users Management
@@ -235,6 +238,7 @@ The following services and commands are supported:
     - <b>safes</b> - PCloud Safes Management
     - <b>platforms</b> - PCloud Platforms Management
     - <b>applications</b> - PCloud Applications Management
+- <b>cmgr</b> - Connector Manager Service
 
 Any command has its own subcommands, with respective arguments
 
@@ -337,6 +341,16 @@ List available platforms
 ark exec pcloud platforms list-platforms
 ```
 
+List connector pools
+```shell
+ark exec exec cmgr list-pools
+```
+
+Get connector installation script
+```shell
+ark exec sia access connector-setup-script -ct onprem -co windows -cpi 588741d5-e059-479d-b4c4-3d821a87f012
+```
+
 You can view all of the commands via the --help for each respective exec action
 
 Notes:
@@ -427,6 +441,17 @@ sia_service.workspace_db.add_database(
         provider_engine=ArkSIADBDatabaseEngineType.PostgresSH,
         secret_id=secret.secret_id,
         read_write_endpoint="myendpoint.mydomain.com",
+    )
+)
+print('Installing SIA Connector')
+sia_service.access.install_connector(
+    ArkSIAInstallConnector(
+        connector_os=ArkOsType.LINUX,
+        connector_type=ArkWorkspaceType.ONPREM,
+        connector_pool_id='pool_id',
+        target_machine='1.2.3.4',
+        username='root',
+        private_key_path='/path/to/private.pem',
     )
 )
 print('Adding SIA DB Policy')

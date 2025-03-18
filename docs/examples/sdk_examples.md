@@ -26,7 +26,7 @@ if __name__ == "__main__":
     policies = db_policies_service.list_policies()
 ```
 
-## Authenticate and provision SIA databases and policy
+## Authenticate and provision SIA databases and policy and connector
 
 ```python
 if __name__ == '__main__':
@@ -55,6 +55,17 @@ if __name__ == '__main__':
             provider_engine=ArkSIADBDatabaseEngineType.PostgresSH,
             secret_id=secret.secret_id,
             read_write_endpoint="myendpoint.mydomain.com",
+        )
+    )
+    print('Installing SIA Connector')
+    sia_service.access.install_connector(
+        ArkSIAInstallConnector(
+            connector_os=ArkOsType.LINUX,
+            connector_type=ArkWorkspaceType.ONPREM,
+            connector_pool_id='pool_id',
+            target_machine='1.2.3.4',
+            username='root',
+            private_key_path='/path/to/private.pem',
         )
     )
     print('Adding SIA DB Policy')
@@ -144,7 +155,7 @@ if __name__ == '__main__':
     )
 ```
 
-## Authenticate and provision SIA VM RDP Target Set / Secret / Policy
+## Authenticate and provision SIA VM RDP Target Set / Secret / Policy / Connector
 
 ```python
 if __name__ == '__main__':
@@ -169,6 +180,17 @@ if __name__ == '__main__':
             provisioner_username='Administrator', 
             provisioner_password='CoolPassword',
         ),
+    )
+    print('Installing SIA Connector')
+    sia_service.access.install_connector(
+        ArkSIAInstallConnector(
+            connector_os=ArkOsType.LINUX,
+            connector_type=ArkWorkspaceType.ONPREM,
+            connector_pool_id='pool_id',
+            target_machine='1.2.3.4',
+            username='root',
+            private_key_path='/path/to/private.pem',
+        )
     )
     print('Adding SIA Target Set')
     sia_service.workspace_target_sets.add_target_set(

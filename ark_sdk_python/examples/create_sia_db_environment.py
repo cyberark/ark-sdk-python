@@ -1,6 +1,8 @@
 from ark_sdk_python.auth import ArkISPAuth
 from ark_sdk_python.common import ArkSystemConfig
 from ark_sdk_python.models.auth import ArkAuthMethod, ArkAuthProfile, ArkSecret, IdentityArkAuthMethodSettings
+from ark_sdk_python.models.common import ArkOsType, ArkWorkspaceType
+from ark_sdk_python.models.services.sia.access import ArkSIAInstallConnector
 from ark_sdk_python.models.services.sia.policies.common import ArkSIARuleStatus, ArkSIAUserData
 from ark_sdk_python.models.services.sia.policies.db import (
     ArkSIADBAddPolicy,
@@ -43,6 +45,17 @@ if __name__ == '__main__':
             provider_engine=ArkSIADBDatabaseEngineType.PostgresSH,
             secret_id=secret.secret_id,
             read_write_endpoint="myendpoint.mydomain.com",
+        )
+    )
+    print('Installing SIA Connector')
+    sia_service.access.install_connector(
+        ArkSIAInstallConnector(
+            connector_os=ArkOsType.LINUX,
+            connector_type=ArkWorkspaceType.ONPREM,
+            connector_pool_id='pool_id',
+            target_machine='1.2.3.4',
+            username='root',
+            private_key_path='/path/to/private.pem',
         )
     )
     print('Adding SIA DB Policy')

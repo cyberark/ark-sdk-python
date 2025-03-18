@@ -27,6 +27,7 @@ The following SIA commands are supported:
         - `db` - DB workspace management
         - `target-sets` - Target Sets workspace management
     - `k8s` - Kubernetes service
+    - `access` - Access service
 - `ark exec sm`: Root command for Session Monitoring service
 - `ark exec identity`: Root command for Identity service
     - `roles` - Roles management
@@ -38,6 +39,7 @@ The following SIA commands are supported:
     - `safes` - Safes management
     - `platforms` - Platforms management
     - `applications` - Applications management
+- `ark exec cmgr`: Root command for Connector Manager service
 
 All commands have their own subcommands and respective arguments.
 

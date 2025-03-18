@@ -13,7 +13,7 @@ class ArkPCloudAddApplication(ArkTitleizedModel):
     access_permitted_to: int = Field(description='End time the access is permitted in hours', default=24)
     expiration_date: str = Field(
         description='Expiratin date of the application in format mm/dd/yyyy',
-        default=(date.today() + timedelta(days=30)).strftime('%m/%d/%Y'),
+        default_factory=lambda: (date.today() + timedelta(days=30)).strftime('%m/%d/%Y'),
     )
     disabled: bool = Field(description='Whether application is disabled or not', default=False)
     business_owner_first_name: str = Field(description='First name of the owner', default='', alias='BusinessOwnerFName')

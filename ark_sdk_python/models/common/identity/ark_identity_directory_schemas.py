@@ -129,7 +129,7 @@ class UsersResult(ArkModel):
 
 class QueryResult(ArkModel):
     groups: Optional[GroupsResult] = Field(default=None, alias='Group')
-    roles: Optional[RolesResult] = Field(None)
+    roles: Optional[RolesResult] = Field(default=None)
     users: Optional[UsersResult] = Field(default=None, alias='User')
 
 

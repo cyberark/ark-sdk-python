@@ -1,8 +1,8 @@
 from ark_sdk_python.auth import ArkISPAuth
 from ark_sdk_python.common import ArkSystemConfig
 from ark_sdk_python.models.auth import ArkAuthMethod, ArkAuthProfile, ArkSecret, IdentityArkAuthMethodSettings
-from ark_sdk_python.models.common.ark_protocol_type import ArkProtocolType
-from ark_sdk_python.models.common.ark_workspace_type import ArkWorkspaceType
+from ark_sdk_python.models.common import ArkOsType, ArkProtocolType, ArkWorkspaceType
+from ark_sdk_python.models.services.sia.access import ArkSIAInstallConnector
 from ark_sdk_python.models.services.sia.policies.common import ArkSIARuleStatus, ArkSIAUserData
 from ark_sdk_python.models.services.sia.policies.vm import ArkSIAVMAddPolicy
 from ark_sdk_python.models.services.sia.policies.vm.ark_sia_vm_authorization_rule import (
@@ -17,7 +17,6 @@ from ark_sdk_python.models.services.sia.policies.vm.ark_sia_vm_providers import 
     ArkSIAVMFQDNOperator,
     ArkSIAVMFQDNRule,
     ArkSIAVMOnPremProviderData,
-    ArkSIAVMProvidersDict,
 )
 from ark_sdk_python.models.services.sia.secrets.vm import ArkSIAVMAddSecret, ArkSIAVMSecretType
 from ark_sdk_python.models.services.sia.workspaces.targetsets import ArkSIAAddTargetSet
@@ -52,6 +51,17 @@ if __name__ == '__main__':
             name='mydomain.com',
             secret_type=ArkSIAVMSecretType.ProvisionerUser,
             secret_id=secret.secret_id,
+        )
+    )
+    print('Installing SIA Connector')
+    sia_service.access.install_connector(
+        ArkSIAInstallConnector(
+            connector_os=ArkOsType.LINUX,
+            connector_type=ArkWorkspaceType.ONPREM,
+            connector_pool_id='pool_id',
+            target_machine='1.2.3.4',
+            username='root',
+            private_key_path='/path/to/private.pem',
         )
     )
     print('Adding SIA VM Policy')
