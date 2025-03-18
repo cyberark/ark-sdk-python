@@ -41,6 +41,7 @@ SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
 ACQUIRE_SSO_TOKEN_URL: Final[str] = '/api/adb/sso/acquire'
 SSO_TOKEN_INFO_URL: Final[str] = '/api/adb/sso/info'
 SSH_SSO_KEY_URL: Final[str] = '/api/ssh/sso/key'
+DEFAULT_SSH_FOLDER_PATH: Final[str] = '~/.ssh'
 
 
 class ArkSIASSOService(ArkService):
@@ -351,7 +352,7 @@ class ArkSIASSOService(ArkService):
             self._logger.exception(f'Failed to parse get short lived token info response [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to parse get short lived token info response [{str(ex)}]') from ex
 
-    def short_lived_ssh_key(self, get_ssh_key: ArkSIASSOGetSSHKey) -> None:
+    def short_lived_ssh_key(self, get_ssh_key: ArkSIASSOGetSSHKey) -> str:
         """
         Gets a short lived ssh sso key.
 
@@ -369,14 +370,18 @@ class ArkSIASSOService(ArkService):
         if response.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to get short lived ssh sso key - [{response.status_code}] - [{response.text}]')
         try:
-            folder_path = self.__expand_folder(get_ssh_key.folder)
+            folder_path = get_ssh_key.folder or DEFAULT_SSH_FOLDER_PATH
+            folder_path = self.__expand_folder(folder_path)
             if not folder_path:
                 raise ArkServiceException('Folder parameter is required')
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
-            base_name = 'ssh_key'
-            with open(f'{folder_path}{os.path.sep}{base_name}', 'w', encoding='utf-8') as file_handle:
+            claims = ArkJWTUtils.get_unverified_claims(self.__client.session_token)
+            base_name = f'sia_ssh_key_{claims["unique_name"].split("@")[0]}.pem'
+            full_path = os.path.normpath(f'{folder_path}{os.path.sep}{base_name}')
+            with open(full_path, 'w', encoding='utf-8') as file_handle:
                 file_handle.write(response.text)
+            return full_path
         except (ValidationError, JSONDecodeError, KeyError) as ex:
             self._logger.exception(f'Failed to parse get short lived token info response [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to parse get short lived token info response [{str(ex)}]') from ex

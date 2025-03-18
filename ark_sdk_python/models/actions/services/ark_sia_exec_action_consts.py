@@ -53,6 +53,8 @@ from ark_sdk_python.models.services.sia.sso import (
     ArkSIASSOGetShortLivedOracleWallet,
     ArkSIASSOGetShortLivedPassword,
     ArkSIASSOGetShortLivedRDPFile,
+    ArkSIASSOGetSSHKey,
+    ArkSIASSOGetTokenInfo,
 )
 from ark_sdk_python.models.services.sia.workspaces.db import (
     ArkSIADBAddDatabase,
@@ -208,6 +210,8 @@ SSO_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
     'short-lived-client-certificate': ArkSIASSOGetShortLivedClientCertificate,
     'short-lived-oracle-wallet': ArkSIASSOGetShortLivedOracleWallet,
     'short-lived-rdp-file': ArkSIASSOGetShortLivedRDPFile,
+    'short-lived-token-info': ArkSIASSOGetTokenInfo,
+    'short-lived-ssh-key': ArkSIASSOGetSSHKey,
 }
 SSO_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(action_name='sso', schemas=SSO_ACTION_TO_SCHEMA_MAP)
 DB_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
