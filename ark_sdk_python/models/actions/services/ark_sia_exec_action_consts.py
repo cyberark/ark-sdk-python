@@ -14,6 +14,7 @@ from ark_sdk_python.models.cli_services.sia.policies_editor.common import (
 )
 from ark_sdk_python.models.cli_services.sia.policies_editor.db import ArkSIADBGeneratePolicy
 from ark_sdk_python.models.cli_services.sia.policies_editor.vm import ArkSIAVMGeneratePolicy
+from ark_sdk_python.models.services.sia.access import ArkSIAGetConnectorSetupScript, ArkSIAInstallConnector, ArkSIAUninstallConnector
 from ark_sdk_python.models.services.sia.certificates import (
     ArkSIACertificatesFilter,
     ArkSIACreateCertificate,
@@ -218,7 +219,25 @@ DB_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
 DB_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(action_name='db', schemas=DB_ACTION_TO_SCHEMA_MAP)
 K8S_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {'generate-kubeconfig': ArkSIAK8SGenerateKubeConfig}
 K8S_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(action_name='k8s', schemas=K8S_ACTION_TO_SCHEMA_MAP)
+ACCESS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'connector-setup-script': ArkSIAGetConnectorSetupScript,
+    'install-connector': ArkSIAInstallConnector,
+    'uninstall-connector': ArkSIAUninstallConnector,
+}
+ACCESS_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
+    action_name='access',
+    schemas=ACCESS_ACTION_TO_SCHEMA_MAP,
+)
 SIA_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='sia',
-    subactions=[POLICIES_ACTION, WORKSPACES_ACTION, SECRETS_ACTION, SSO_ACTION, DB_ACTION, CERTIFICATES_ACTION, K8S_ACTION],
+    subactions=[
+        POLICIES_ACTION,
+        WORKSPACES_ACTION,
+        SECRETS_ACTION,
+        SSO_ACTION,
+        DB_ACTION,
+        CERTIFICATES_ACTION,
+        K8S_ACTION,
+        ACCESS_ACTION,
+    ],
 )

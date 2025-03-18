@@ -141,6 +141,18 @@ class ArkAPI:
         return cast(ArkIdentityUsersService, self.service(ArkIdentityUsersService))
 
     @property
+    def sia_access(self) -> "ArkSIAAccessService":
+        """
+        Returns the SIA Access service if the appropriate authenticators were given
+
+        Returns:
+            ArkSIAAccessService: _description_
+        """
+        from ark_sdk_python.services.sia.access import ArkSIAAccessService
+
+        return cast(ArkSIAAccessService, self.service(ArkSIAAccessService))
+
+    @property
     def sia_workspaces_db(self) -> "ArkSIADBWorkspaceService":
         """
         Returns the SIA DB Workspace service if the appropriate authenticators were provided.
@@ -319,3 +331,15 @@ class ArkAPI:
         from ark_sdk_python.services.pcloud.applications import ArkPCloudApplicationsService
 
         return cast(ArkPCloudApplicationsService, self.service(ArkPCloudApplicationsService))
+
+    @property
+    def cmgr(self) -> "ArkCmgrService":
+        """
+        Returns the Connector Management service if the appropriate authenticators were given
+
+        Returns:
+            ArkCmgrService: _description_
+        """
+        from ark_sdk_python.services.cmgr import ArkCmgrService
+
+        return cast(ArkCmgrService, self.service(ArkCmgrService))

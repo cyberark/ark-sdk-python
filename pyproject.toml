@@ -62,6 +62,8 @@ fake-useragent = "1.5.1"
 tzlocal = "*"
 pyyaml = "*"
 python-dateutil = "*"
+paramiko = "*"
+pywinrm = "*"
 
 [tool.poetry.scripts]
 ark = 'ark_sdk_python.ark:main'

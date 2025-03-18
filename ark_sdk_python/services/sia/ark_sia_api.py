@@ -1,4 +1,5 @@
 from ark_sdk_python.auth import ArkISPAuth
+from ark_sdk_python.services.sia.access import ArkSIAAccessService
 from ark_sdk_python.services.sia.certificates import ArkSIACertificatesService
 from ark_sdk_python.services.sia.db import ArkSIADBService
 from ark_sdk_python.services.sia.k8s import ArkSIAK8SService
@@ -23,6 +24,7 @@ class ArkSIAAPI:
         self.__db_service = ArkSIADBService(isp_auth)
         self.__certificates_service = ArkSIACertificatesService(isp_auth)
         self.__k8s_service = ArkSIAK8SService(isp_auth)
+        self.__access_service = ArkSIAAccessService(isp_auth)
 
     @property
     def workspace_db(self) -> ArkSIADBWorkspaceService:
@@ -43,6 +45,16 @@ class ArkSIAAPI:
             ArkSIATargetSetsWorkspaceService: _description_
         """
         return self.__targetsets_workspace_service
+
+    @property
+    def access(self) -> ArkSIAAccessService:
+        """
+        Getter for the Access service
+
+        Returns:
+            ArkSIAAccessService: _description_
+        """
+        return self.__access_service
 
     @property
     def policies_vm(self) -> ArkSIAVMPoliciesService:
