@@ -514,6 +514,7 @@ class ArkPydanticArgparse:
                     'properties' not in schema['properties'][prop_name]
                     and (
                         'additionalProperties' in schema['properties'][prop_name]
+                        and isinstance(schema['properties'][prop_name]['additionalProperties'], dict)
                         and 'type' in schema['properties'][prop_name]['additionalProperties']
                         and len(schema['properties'][prop_name]['additionalProperties']) == 1
                     )
