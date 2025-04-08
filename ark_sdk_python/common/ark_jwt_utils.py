@@ -10,3 +10,13 @@ class ArkJWTUtils:
             token,
             options={'verify_signature': False},
         )
+
+    @staticmethod
+    def get_subdomain_from_token(token: str) -> str:
+        claims = ArkJWTUtils.get_unverified_claims(token)
+        return claims.get('subdomain', '')
+
+    @staticmethod
+    def get_platform_domain_from_token(token: str) -> str:
+        claims = ArkJWTUtils.get_unverified_claims(token)
+        return claims.get('platform_domain', '')
