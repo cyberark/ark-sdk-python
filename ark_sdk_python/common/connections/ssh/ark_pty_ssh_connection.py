@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Any, Optional
 
 from overrides import overrides
-from pexpect import pxssh
 
 from ark_sdk_python.common.connections.ark_connection import ArkConnection
 from ark_sdk_python.common.connections.ssh.ark_ssh_connection import SSH_PORT
@@ -20,7 +19,7 @@ class ArkPTYSSHConnection(ArkConnection):
         super().__init__()
         self.__is_connected: bool = False
         self.__is_suspended: bool = False
-        self.__ssh_client: Optional[pxssh.pxssh] = None
+        self.__ssh_client: Optional[Any] = None
 
     @overrides
     def connect(self, connection_details: ArkConnectionDetails) -> None:
@@ -34,6 +33,8 @@ class ArkPTYSSHConnection(ArkConnection):
         Raises:
             ArkException: _description_
         """
+        from pexpect import pxssh
+
         if self.__is_connected:
             return
         try:
