@@ -16,6 +16,7 @@ import inquirer
 from cachetools import LRUCache, cached
 from pydantic import ValidationError
 from requests import Session
+from requests.cookies import RequestsCookieJar
 
 from ark_sdk_python.args import ArkArgsFormatter, ArkInquirerRender
 from ark_sdk_python.auth.identity.ark_identity_fqdn_resolver import ArkIdentityFQDNResolver
@@ -73,7 +74,7 @@ def input_process(pipe_write: Connection, pipe_read: Connection, mechanism: Mech
 
 
 class ArkIdentity:
-    __LAST_START_AUTH_RESP: Dict[str, Tuple[StartAuthResponse, datetime]] = {}
+    __LAST_START_AUTH_RESP: Dict[str, Tuple[StartAuthResponse, datetime, RequestsCookieJar]] = {}
     __LAST_START_AUTH_RESP_DELTA_SECONDS: Final[int] = 30
 
     def __init__(
@@ -478,7 +479,11 @@ class ArkIdentity:
             identity_tenant_subdomain=identity_tenant_subdomain,
         )
         resp = identity.__start_authentication()
-        ArkIdentity.__LAST_START_AUTH_RESP[f'{identity.identity_url}_{username}'] = (resp, datetime.now())
+        ArkIdentity.__LAST_START_AUTH_RESP[f'{identity.identity_url}_{username}'] = (
+            resp,
+            datetime.now(),
+            identity.session.cookies,
+        )
         return (
             resp.result.idp_redirect_url == None
             and resp.result.challenges
@@ -533,6 +538,7 @@ class ArkIdentity:
             start_auth_response_time = ArkIdentity.__LAST_START_AUTH_RESP[f'{self.__identity_url}_{self.__username}']
             if (datetime.now() - start_auth_response_time[1]).total_seconds() < ArkIdentity.__LAST_START_AUTH_RESP_DELTA_SECONDS:
                 start_auth_response = start_auth_response_time[0]
+                self.__session.cookies.update(start_auth_response_time[2])
             del ArkIdentity.__LAST_START_AUTH_RESP[f'{self.__identity_url}_{self.__username}']
         if not start_auth_response:
             start_auth_response = self.__start_authentication()
