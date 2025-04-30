@@ -26,6 +26,7 @@ class ArkPTYSSHWinConnection(ArkConnection):
     __DEFAULT_ROW_SIZE: Final[int] = 24
     __DEFAULT_NONEAGER_TIMEOEUT: Final[float] = 1.0
     __DEFAULT_PROMPT_OVERALL_TIMEOUT: Final[float] = 20.0
+    __CHAR_SLEEP_TIME: Final[float] = 0.05
 
     def __init__(self):
         super().__init__()
@@ -35,11 +36,11 @@ class ArkPTYSSHWinConnection(ArkConnection):
         self.__output_lock: threading.Lock = threading.Lock()
         self.__buffer: str = ''
 
-    def __strip_ansi(self, input: str) -> str:
-        input = input.strip()
-        input = ArkPTYSSHWinConnection.__ANSI_COLOR_STRIPPER.sub('', input)
-        input = ArkPTYSSHWinConnection.__ANSI_ESCAPE_STRIPPER.sub('', input)
-        return input
+    def __strip_ansi(self, ansi_input: str) -> str:
+        ansi_input = ansi_input.strip()
+        ansi_input = ArkPTYSSHWinConnection.__ANSI_COLOR_STRIPPER.sub('', ansi_input)
+        ansi_input = ArkPTYSSHWinConnection.__ANSI_ESCAPE_STRIPPER.sub('', ansi_input)
+        return ansi_input
 
     def __reset_buffer(self) -> None:
         with self.__output_lock:
@@ -67,7 +68,7 @@ class ArkPTYSSHWinConnection(ArkConnection):
                     break
                 if (time.time() - start_time) > overall_timeout and prompt_found_at == -1:
                     raise RuntimeError(f'Timeout while waiting for prompt [{buffer}]')
-                time.sleep(0.05)
+                time.sleep(ArkPTYSSHWinConnection.__CHAR_SLEEP_TIME)
                 continue
 
             buffer += char
@@ -105,6 +106,7 @@ class ArkPTYSSHWinConnection(ArkConnection):
         Raises:
             ArkException: _description_
         """
+        # pylint: disable=import-error
         import winpty
 
         if self.__is_connected:

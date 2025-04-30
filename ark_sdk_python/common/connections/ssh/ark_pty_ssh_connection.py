@@ -33,6 +33,7 @@ class ArkPTYSSHConnection(ArkConnection):
         Raises:
             ArkException: _description_
         """
+        # pylint: disable=import-error
         from pexpect import pxssh
 
         if self.__is_connected:
