@@ -32,9 +32,11 @@ of the license associated with each component.
   - https://github.com/regebro/tzlocal - [Tzlocal](#Tzlocal)
   - https://github.com/yaml/pyyaml - [Pyyaml](#Pyyaml)
   - https://github.com/diyan/pywinrm - [Pywinrm](#Pywinrm)
+  - https://github.com/andfoy/pywinpty - [Pywinpty](#Pywinpty)
 
 - [SECTION 5: ISC](<SECTION 5: ISC>)
   - https://github.com/verigak/progress - [Progress](#Progress)
+  - https://github.com/pexpect/pexpect - [Pexpect](#Pexpect)
 
 - [SECTION 6: LGPL-2.1](<SECTION 5: LGPL-2.1>)
   - https://github.com/paramiko/paramiko - [Paramiko](#Paramiko)
@@ -2059,58 +2061,26 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+## Pywinpty
 
-# SECTION 5: ISC
-
-## Progress
-
-https://github.com/verigak/progress
+https://github.com/andfoy/pywinpty
 
 ### Authors / Copyright
 
-progress is licensed under ISC
-
-Copyright (c) 2012 Georgios Verigakis <verigak@gmail.com>
+Copyright (c) 2017 Spyder IDE
 
 ### License
 
-Copyright (c) 2012 Georgios Verigakis <verigak@gmail.com>
+MIT License
 
-Permission to use, copy, modify, and distribute this software for any
-purpose with or without fee is hereby granted, provided that the above
-copyright notice and this permission notice appear in all copies.
+Copyright (c) 2017 Spyder IDE
 
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
-
-## Pyyaml
-
-https://github.com/yaml/pyyaml
-
-### Authors / Copyright
-
-The PyYAML module was written by Kirill Simonov xi@resolvent.net. It is currently maintained by the YAML and Python communities.
-
-Copyright (c) 2017-2021 Ingy döt Net
-Copyright (c) 2006-2016 Kirill Simonov
-
-### License
-
-Copyright (c) 2017-2021 Ingy döt Net
-Copyright (c) 2006-2016 Kirill Simonov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
@@ -2151,6 +2121,37 @@ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+## Pexpect
+
+https://github.com/pexpect/pexpect
+
+### Authors / Copyright
+
+Copyright (c) 2013-2014, Pexpect development team
+Copyright (c) 2012, Noah Spurrier <noah@noah.org>
+
+### License
+
+ISC LICENSE
+
+    This license is approved by the OSI and FSF as GPL-compatible.
+        http://opensource.org/licenses/isc-license.txt
+
+    Copyright (c) 2013-2014, Pexpect development team
+    Copyright (c) 2012, Noah Spurrier <noah@noah.org>
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted, provided that the above
+    copyright notice and this permission notice appear in all copies.
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+    WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+    MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+    ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+    WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 
 # SECTION 6: LGPL-2.1
