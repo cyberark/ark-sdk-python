@@ -1,11 +1,17 @@
 import argparse
+import platform
 import tempfile
 
 from ark_sdk_python.auth import ArkISPAuth
 from ark_sdk_python.common.ark_jwt_utils import ArkJWTUtils
 from ark_sdk_python.common.connections.ssh.ark_pty_ssh_connection import ArkPTYSSHConnection
+from ark_sdk_python.common.connections.ssh.ark_pty_ssh_win_connection import ArkPTYSSHWinConnection
 from ark_sdk_python.models.auth import ArkAuthMethod, ArkAuthProfile, ArkSecret
-from ark_sdk_python.models.auth.ark_auth_method import IdentityServiceUserArkAuthMethodSettings
+from ark_sdk_python.models.auth.ark_auth_method import (
+    ArkAuthMethodsDescriptionMap,
+    IdentityArkAuthMethodSettings,
+    IdentityServiceUserArkAuthMethodSettings,
+)
 from ark_sdk_python.models.common.connections.ark_connection_command import ArkConnectionCommand
 from ark_sdk_python.models.common.connections.ark_connection_credentials import ArkConnectionCredentials
 from ark_sdk_python.models.common.connections.ark_connection_details import ArkConnectionDetails
@@ -13,29 +19,36 @@ from ark_sdk_python.models.services.sia.sso.ark_sia_sso_get_ssh_key import ArkSI
 from ark_sdk_python.services.sia.sso import ArkSIASSOService
 
 
-def login_to_identity_security_platform(service_user: str, service_token: str, application_name: str) -> ArkISPAuth:
+def login_to_identity_security_platform(user: str, secret: str, is_service_user: bool, application_name: str) -> ArkISPAuth:
     """
-    This will perform login to the tenant with the given service user credentials
+    This will perform login to the tenant with the given user credentials
+    Where the user is normal or service user based on the boolean
     Caching the logged in token is disabled and will perform a full login on each call
     Will return an identity security platform authenticated class
 
     Args:
-        service_user (str): _description_
-        service_token (str): _description_
+        user (str): _description_
+        secret (str): _description_
         application_name (str): _description_
 
     Returns:
         ArkISPAuth: _description_
     """
-    print('Logging in to the tenant')
     isp_auth = ArkISPAuth(cache_authentication=False)
+    auth_method = ArkAuthMethod.IdentityServiceUser if is_service_user else ArkAuthMethod.Identity
+    auth_methods_settings = (
+        IdentityServiceUserArkAuthMethodSettings(identity_authorization_application=application_name)
+        if is_service_user
+        else IdentityArkAuthMethodSettings()
+    )
+    print(f'Logging in to the tenant with [{ArkAuthMethodsDescriptionMap[auth_method]}] user type and user [{user}]')
     isp_auth.authenticate(
         auth_profile=ArkAuthProfile(
-            username=service_user,
-            auth_method=ArkAuthMethod.IdentityServiceUser,
-            auth_method_settings=IdentityServiceUserArkAuthMethodSettings(identity_authorization_application=application_name),
+            username=user,
+            auth_method=auth_method,
+            auth_method_settings=auth_methods_settings,
         ),
-        secret=ArkSecret(secret=service_token),
+        secret=ArkSecret(secret=secret),
     )
     print('Logged in successfully')
     return isp_auth
@@ -92,7 +105,10 @@ def connect_and_validate_connection(ssh_key_path: str, proxy_address: str, conne
         command (str): _description_
     """
     print(f'Connecting to proxy [{proxy_address}] and connection string [{connection_string}]')
-    ssh_connection = ArkPTYSSHConnection()
+    if platform.system() == 'Windows':
+        ssh_connection = ArkPTYSSHWinConnection()
+    else:
+        ssh_connection = ArkPTYSSHConnection()
     ssh_connection.connect(
         ArkConnectionDetails(
             address=proxy_address,
@@ -112,8 +128,9 @@ def connect_and_validate_connection(ssh_key_path: str, proxy_address: str, conne
 if __name__ == '__main__':
     # Construct an argument parser for CLI parameters for the script
     parser = argparse.ArgumentParser()
-    parser.add_argument('--service-user', required=True, help='Service user to login and perform the operation with')
-    parser.add_argument('--service-token', required=True, help='Service user token to use for logging in and connecting')
+    parser.add_argument('--user', required=True, help='User to login and perform the operation with')
+    parser.add_argument('--secret', required=True, help='User secret to use for logging in and connecting')
+    parser.add_argument('--is-service-user', action='store_true', help='Whether this user is a service user and not a normal user')
     parser.add_argument(
         '--service-application',
         default='__idaptive_cybr_user_oidc',
@@ -139,7 +156,7 @@ if __name__ == '__main__':
         # - Generate an MFA Caching SSH key
         # - Construct the ssh proxy address
         # - Connect in SSH to the proxy / target with the MFA Caching SSH Key and perform the command
-        isp_auth = login_to_identity_security_platform(args.service_user, args.service_token, args.service_application)
+        isp_auth = login_to_identity_security_platform(args.user, args.secret, args.is_service_user, args.service_application)
         ssh_key_path = generate_mfa_caching_ssh_key(isp_auth, temp_folder)
         proxy_address = construct_ssh_proxy_address(isp_auth)
         connect_and_validate_connection(ssh_key_path, proxy_address, args.connection_string, args.test_command)
