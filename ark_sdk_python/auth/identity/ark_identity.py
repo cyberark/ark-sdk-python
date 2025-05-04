@@ -314,7 +314,14 @@ class ArkIdentity:
                 self.__stop_input_process()
 
     def __pick_mechanism(self, challenge: Challenge) -> Mechanism:
-        factors = {'otp': '📲 Push / Code', 'oath': '📲 Push / Code', 'sms': '📟 SMS', 'email': '📧 Email', 'pf': '📞 Phone call', 'up': '🔑 User Password',}
+        factors = {
+            'otp': '📲 Push / Code',
+            'oath': '📲 Push / Code',
+            'sms': '📟 SMS',
+            'email': '📧 Email',
+            'pf': '📞 Phone call',
+            'up': '🔑 User Password',
+        }
         supported_mechanisms = [m for m in challenge.mechanisms if m.name.lower() in SUPPORTED_MECHANISMS]
         answers = inquirer.prompt(
             [
