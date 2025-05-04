@@ -316,7 +316,7 @@ class ArkIdentity:
     def __pick_mechanism(self, challenge: Challenge) -> Mechanism:
         factors = {
             'otp': '📲 Push / Code',
-            'oath': '📲 Push / Code',
+            'oath': '🔐 OATH Code',
             'sms': '📟 SMS',
             'email': '📧 Email',
             'pf': '📞 Phone call',
