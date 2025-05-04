@@ -20,8 +20,8 @@ class ArkAuthMethodSettings(ArkModel):
 
 
 class IdentityArkAuthMethodSettings(ArkAuthMethodSettings):
-    identity_mfa_method: Literal[('pf', 'sms', 'email', 'otp')] = Field(
-        description='MFA method if mfa is needed', default='email', alias='MFA Method to use by default [pf, sms, email, otp]'
+    identity_mfa_method: Literal[('pf', 'sms', 'email', 'otp', 'oath')] = Field(
+        description='MFA method if mfa is needed', default='email', alias='MFA Method to use by default [pf, sms, email, otp, oath]'
     )
     identity_mfa_interactive: bool = Field(description='Allow interactive MFA (passcodes)', alias='Allow Interactive MFA', default=True)
     identity_application: Optional[str] = Field(
