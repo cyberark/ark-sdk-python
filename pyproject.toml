@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ark-sdk-python"
-version = "2.0.6"
+version = "2.0.7"
 description='Official Ark SDK / CLI for CyberArk Identity Security Platform'
 authors = ["CyberArk <cyberark@cyberark.com>", "Ofir Iluz <ofir.iluz@cyberark.com"]
 readme = "README.md"
