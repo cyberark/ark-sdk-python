@@ -42,7 +42,7 @@ from ark_sdk_python.models.common.identity import (
 RECV_PIPE_INTERVAL: Final[int] = 3.0
 POLL_INTERVAL_MS: Final[int] = 0.5
 POLL_TIME_SECONDS: Final[int] = 360
-SUPPORTED_MECHANISMS: Final[List[str]] = ['pf', 'sms', 'email', 'otp', 'up']
+SUPPORTED_MECHANISMS: Final[List[str]] = ['pf', 'sms', 'email', 'otp', 'oath', 'up']
 MECHANISM_RETRY_COUNT: Final[int] = 20
 DEFAULT_TOKEN_LIFETIME_SECONDS: Final[int] = 3600
 
@@ -314,7 +314,7 @@ class ArkIdentity:
                 self.__stop_input_process()
 
     def __pick_mechanism(self, challenge: Challenge) -> Mechanism:
-        factors = {'otp': '📲 Push / Code', 'sms': '📟 SMS', 'email': '📧 Email', 'pf': '📞 Phone call', 'up': '🔑 User Password'}
+        factors = {'otp': '📲 Push / Code', 'oath': '📲 Push / Code', 'sms': '📟 SMS', 'email': '📧 Email', 'pf': '📞 Phone call', 'up': '🔑 User Password',}
         supported_mechanisms = [m for m in challenge.mechanisms if m.name.lower() in SUPPORTED_MECHANISMS]
         answers = inquirer.prompt(
             [
