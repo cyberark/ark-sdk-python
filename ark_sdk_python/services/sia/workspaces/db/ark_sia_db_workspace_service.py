@@ -109,7 +109,10 @@ class ArkSIADBWorkspaceService(ArkService):
             ArkServiceException: _description_
         """
         if delete_database.name and not delete_database.id:
-            delete_database.id = self.list_databases_by(ArkSIADBDatabasesFilter(name=delete_database.name))
+            databases = self.list_databases_by(ArkSIADBDatabasesFilter(name=delete_database.name))
+            if not databases.items or len(databases.items) != 1:
+                raise ArkServiceException(f'Failed to delete database - name [{delete_database.name}] not found')
+            delete_database.id = databases.items[0].id
         self._logger.info(f'Deleting database [{delete_database.id}]')
         resp: Response = self.__client.delete(RESOURCE_API.format(resource_id=delete_database.id))
         if resp.status_code != HTTPStatus.NO_CONTENT:
@@ -132,11 +135,17 @@ class ArkSIADBWorkspaceService(ArkService):
             databases = self.list_databases_by(ArkSIADBDatabasesFilter(name=update_database.name))
             if not databases.items or len(databases.items) != 1:
                 raise ArkServiceException(f'Failed to update database - name [{update_database.name}] not found')
-            update_database.id = self.list_databases_by(ArkSIADBDatabasesFilter(name=update_database.name)).items[0].id
+            update_database.id = databases.items[0].id
+
+        existing_database = self.database(ArkSIADBGetDatabase(id=update_database.id))
         self._logger.info(f'Updating database [{update_database.id}]')
         update_database_dict = update_database.model_dump(exclude={'name', 'new_name'}, exclude_none=True)
         if update_database.new_name:
             update_database_dict["name"] = update_database.new_name
+        elif update_database.name:
+            update_database_dict["name"] = update_database.name
+        else:
+            update_database_dict["name"] = existing_database.name
         resp: Response = self.__client.put(RESOURCE_API.format(resource_id=update_database.id), json=update_database_dict)
         if resp.status_code == HTTPStatus.OK:
             try:
@@ -210,7 +219,7 @@ class ArkSIADBWorkspaceService(ArkService):
             databases = self.list_databases_by(ArkSIADBDatabasesFilter(name=get_database.name))
             if not databases.items or len(databases.items) != 1:
                 raise ArkServiceException(f'Failed to get database - name [{get_database.name}] not found')
-            get_database.id = self.list_databases_by(ArkSIADBDatabasesFilter(name=get_database.name)).items[0].id
+            get_database.id = databases.items[0].id
         self._logger.info(f'Getting database [{get_database.id}]')
         resp: Response = self.__client.get(RESOURCE_API.format(resource_id=get_database.id))
         if resp.status_code == HTTPStatus.OK:
