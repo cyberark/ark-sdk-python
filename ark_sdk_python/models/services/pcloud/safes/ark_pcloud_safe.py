@@ -14,7 +14,7 @@ class ArkPCloudBaseSafe(ArkCamelizedModel):
     safe_name: Optional[str] = Field(description='Name of the safe', default=None)
     description: Optional[str] = Field(description='Description about the safe', default=None)
     location: Optional[str] = Field(description='Location of the safe in the vault', default="\\")
-    number_of_days_retention: Optional[str] = Field(description='Number of retention days on the safe objects', default=0)
+    number_of_days_retention: Optional[int] = Field(description='Number of retention days on the safe objects', default=0)
     number_of_versions_retention: Optional[int] = Field(description='Number of retention versions on the safe objects', default=None)
     auto_purge_enabled: Optional[bool] = Field(description='Whether auto purge is enabled on the safe', default=False)
     olac_enabled: Optional[bool] = Field(description='Whether object level access control is enabled', default=False)
