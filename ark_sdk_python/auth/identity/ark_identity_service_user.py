@@ -14,6 +14,7 @@ from ark_sdk_python.common import ArkKeyring, ArkSystemConfig, get_logger
 from ark_sdk_python.common.env import DEPLOY_ENV, IDENTITY_ENV_URLS, AwsEnv
 from ark_sdk_python.models import ArkAuthException, ArkProfile
 from ark_sdk_python.models.auth import ArkAuthMethod, ArkToken, ArkTokenType
+from ark_sdk_python.common.ark_jwt_utils import ArkJWTUtils
 
 
 class ArkIdentityServiceUser:
@@ -64,7 +65,8 @@ class ArkIdentityServiceUser:
 
     def __save_cache(self, profile: Optional[ArkProfile] = None) -> None:
         if self.__keyring and profile and self.__session_token:
-            self.__session_exp = datetime.now() + timedelta(hours=4)
+            if not self.__session_exp:
+                self.__session_exp = datetime.now() + timedelta(hours=4)
             self.__keyring.save_token(
                 profile,
                 ArkToken(
@@ -142,7 +144,11 @@ class ArkIdentityServiceUser:
             raise ArkAuthException('Failed to parse id token from location header')
         self.__session_token = parsed_query['id_token'][0]
         self.__session.headers.update({'Authorization': f'Bearer {self.__session_token}', **ArkIdentityFQDNResolver.default_headers()})
-        self.__session_exp = datetime.now() + timedelta(hours=4)
+        try:
+            decoded_token = ArkJWTUtils.get_unverified_claims(self.__session_token)
+            self.__session_exp = datetime.fromtimestamp(decoded_token['exp'])
+        except Exception:
+            self.__session_exp = datetime.now() + timedelta(hours=4)
         self.__logger.info(
             f'Created a service user session via endpoint [{self.__identity_url}] ' f'with user [{self.__username}] to platform'
         )
@@ -152,6 +158,10 @@ class ArkIdentityServiceUser:
     @property
     def session(self) -> Session:
         return self.__session
+
+    @property
+    def session_exp(self) -> Optional[datetime]:
+        return self.__session_exp
 
     @property
     def session_token(self) -> Optional[str]:
