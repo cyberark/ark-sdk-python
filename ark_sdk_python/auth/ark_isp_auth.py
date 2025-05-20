@@ -126,13 +126,16 @@ class ArkISPAuth(ArkAuth):
             found_env = list(filter(lambda e: ROOT_DOMAIN[e] in identity.identity_url, ROOT_DOMAIN.keys()))
             if found_env:
                 env = found_env[0]
+            expires_in = identity.session_exp
+            if not expires_in:
+                expires_in = datetime.now() + timedelta(hours=4)
             return ArkToken(
                 token=identity.session_token,
                 username=auth_profile.username,
                 endpoint=identity.identity_url,
                 token_type=ArkTokenType.JWT,
                 auth_method=ArkAuthMethod.IdentityServiceUser,
-                expires_in=datetime.now() + timedelta(hours=4),
+                expires_in=expires_in,
                 metadata={'env': env, 'cookies': codecs.encode(pickle.dumps(identity.session.cookies), 'base64').decode()},
             )
         except Exception as ex:
