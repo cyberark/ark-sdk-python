@@ -53,6 +53,7 @@ The Dynamic Privilege Access (SIA) service requires the ArkISPAuth authenticator
 - <b>ArkSIAWorkspacesService (workspaces)</b> - SIA workspaces management
     - <b>ArkSIADBWorkspaceService (db)</b> - SIA DB workspace management
     - <b>ArkSIATargetSetsWorkspaceService (db)</b> - SIA Target Sets workspace management
+- <b>ArkSIASSHCAService (ssh-ca)</b> - SIA SSH CA service
 
 
 ## Session monitoring service

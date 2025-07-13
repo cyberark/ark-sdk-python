@@ -153,6 +153,18 @@ class ArkAPI:
         return cast(ArkSIAAccessService, self.service(ArkSIAAccessService))
 
     @property
+    def sia_ssh_ca(self) -> "ArkSIASSHCAService":
+        """
+        Returns the SIA SSH CA service if the appropriate authenticators were given
+
+        Returns:
+            ArkSIASSHCAService: _description_
+        """
+        from ark_sdk_python.services.sia.ssh_ca import ArkSIASSHCAService
+
+        return cast(ArkSIASSHCAService, self.service(ArkSIASSHCAService))
+
+    @property
     def sia_workspaces_db(self) -> "ArkSIADBWorkspaceService":
         """
         Returns the SIA DB Workspace service if the appropriate authenticators were provided.

@@ -39,6 +39,7 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] SIA K8S Service
     - [x] SIA DB Service
     - [x] SIA Access Service
+    - [x] SIA SSH CA Service
     - [x] Session Monitoring Service
     - [x] Identity Users Service
     - [x] Identity Roles Service
@@ -225,8 +226,9 @@ The following services and commands are supported:
     - <b>certificates</b> - SIA Certificates Management
     - <b>db</b> - SIA DB Enduser Operations
     - <b>sso</b> - SIA SSO Enduser Operations
-    - <b>k8s</b> - SIA kubernetes service
-    - <b>access</b> - SIA access service
+    - <b>k8s</b> - SIA Kubernetes Service
+    - <b>access</b> - SIA Access Service
+    - <b>ssh-ca</b> - SIA SSH CA Service
 - <b>sm</b> - Session Monitoring Service
 - <b>identity</b> - Identity Service
     - <b>users</b> - Identity Users Management
@@ -311,6 +313,11 @@ Generate a short lived SSO password for databases connection
 ark exec sia sso short-lived-password
 ```
 
+Generate a short lived SSO password for RDP connection
+```shell
+ark exec sia sso short-lived-password --service DPA-RDP
+```
+
 Generate a short lived SSO oracle wallet for oracle database connection
 ```shell
 ark exec sia sso short-lived-oracle-wallet --folder ~/wallet
@@ -324,6 +331,31 @@ ark exec sia k8s generate-kubeconfig
 Generate kubectl config file and save on specific path
 ```shell
 ark exec sia k8s generate-kubeconfig --folder=/Users/My.User/.kube
+```
+
+Generate new SSH CA Key version
+```shell
+ark exec sia ssh-ca generate-new-ca
+```
+
+Deactivate previous SSH CA Key version
+```shell
+ark exec sia ssh-ca deactivate-previous-ca
+```
+
+Reactivate previous SSH CA Key version
+```shell
+ark exec sia ssh-ca reactivate-previous-ca
+```
+
+Get SSH CA public key
+```shell
+ark exec sia ssh-ca public-key
+```
+
+Get SSH CA public key script
+```shell
+ark exec sia ssh-ca public-key-script
 ```
 
 Create a PCloud Safe

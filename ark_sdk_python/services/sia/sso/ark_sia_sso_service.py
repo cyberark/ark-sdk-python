@@ -187,7 +187,7 @@ class ArkSIASSOService(ArkService):
             ACQUIRE_SSO_TOKEN_URL,
             json={
                 'token_type': 'password',
-                'service': 'DPA-DB',
+                'service': get_short_lived_password.service,
             },
         )
         if response.status_code != HTTPStatus.CREATED:
