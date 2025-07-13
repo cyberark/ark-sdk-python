@@ -95,6 +95,11 @@ ark exec sia policies vm editor commit-policies
 ark exec sia sso short-lived-password
 ```
 
+### Generate a short lived SSO password for RDP connection
+```shell
+ark exec sia sso short-lived-password --service DPA-RDP
+```
+
 ### Generate a short-lived SSO Oracle wallet for an Oracle database connection
 ```shell linenums="0"
 ark exec sia sso short-lived-oracle-wallet --folder ~/wallet
@@ -138,6 +143,31 @@ ark exec sia access install-connector --connector-pool-id abcd --connector-type 
 ### Delete and uninstall a DPA Connector
 ```shell
 ark exec sia access delete-connector --connector-id=CMSConnector_e9685e0d-a92e-4097-ad4d-b54eadb69bcb_81fa03c5-d0d3-4157-95f8-6a1903900fa0 --uninstall-connector --target-machine 1.2.3.4 --username ec2-user --private-key-path /path/to/key.pem
+```
+
+### Generate new SSH CA Key version
+```shell
+ark exec sia ssh-ca generate-new-ca
+```
+
+### Deactivate previous SSH CA Key version
+```shell
+ark exec sia ssh-ca deactivate-previous-ca
+```
+
+### Reactivate previous SSH CA Key version
+```shell
+ark exec sia ssh-ca reactivate-previous-ca
+```
+
+### Get SSH CA public key
+```shell
+ark exec sia ssh-ca public-key
+```
+
+### Get SSH CA public key script
+```shell
+ark exec sia ssh-ca public-key-script
 ```
 
 ### List All Session Monitoring sessions from the last 24 hours

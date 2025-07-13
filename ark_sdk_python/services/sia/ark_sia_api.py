@@ -7,6 +7,7 @@ from ark_sdk_python.services.sia.policies.db import ArkSIADBPoliciesService
 from ark_sdk_python.services.sia.policies.vm import ArkSIAVMPoliciesService
 from ark_sdk_python.services.sia.secrets.db import ArkSIADBSecretsService
 from ark_sdk_python.services.sia.secrets.vm import ArkSIAVMSecretsService
+from ark_sdk_python.services.sia.ssh_ca import ArkSIASSHCAService
 from ark_sdk_python.services.sia.sso import ArkSIASSOService
 from ark_sdk_python.services.sia.workspaces.db import ArkSIADBWorkspaceService
 from ark_sdk_python.services.sia.workspaces.targetsets import ArkSIATargetSetsWorkspaceService
@@ -25,6 +26,7 @@ class ArkSIAAPI:
         self.__certificates_service = ArkSIACertificatesService(isp_auth)
         self.__k8s_service = ArkSIAK8SService(isp_auth)
         self.__access_service = ArkSIAAccessService(isp_auth)
+        self.__ssh_ca_service = ArkSIASSHCAService(isp_auth)
 
     @property
     def workspace_db(self) -> ArkSIADBWorkspaceService:
@@ -135,3 +137,13 @@ class ArkSIAAPI:
             ArkSIAK8SService: _description_
         """
         return self.__k8s_service
+
+    @property
+    def ssh_ca(self) -> ArkSIASSHCAService:
+        """
+        Getter for the SSH CA service
+
+        Returns:
+            ArkDPASSHCAService: _description_
+        """
+        return self.__ssh_ca_service

@@ -28,6 +28,7 @@ The following SIA commands are supported:
         - `target-sets` - Target Sets workspace management
     - `k8s` - Kubernetes service
     - `access` - Access service
+    - `ssh-ca` - SSH CA service
 - `ark exec sm`: Root command for Session Monitoring service
 - `ark exec identity`: Root command for Identity service
     - `roles` - Roles management

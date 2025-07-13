@@ -48,6 +48,7 @@ from ark_sdk_python.models.services.sia.secrets.vm import (
     ArkSIAVMGetSecret,
     ArkSIAVMSecretsFilter,
 )
+from ark_sdk_python.models.services.sia.ssh_ca.ark_sia_get_ssh_public_key import ArkSIAGetSSHPublicKey
 from ark_sdk_python.models.services.sia.sso import (
     ArkSIASSOGetShortLivedClientCertificate,
     ArkSIASSOGetShortLivedOracleWallet,
@@ -232,6 +233,17 @@ ACCESS_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='access',
     schemas=ACCESS_ACTION_TO_SCHEMA_MAP,
 )
+SSH_CA_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'generate-new-ca': None,
+    'deactivate-previous-ca': None,
+    'reactivate-previous-ca': None,
+    'public-key': ArkSIAGetSSHPublicKey,
+    'public-key-script': ArkSIAGetSSHPublicKey,
+}
+SSH_CA_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
+    action_name='ssh-ca',
+    schemas=SSH_CA_ACTION_TO_SCHEMA_MAP,
+)
 SIA_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='sia',
     subactions=[
@@ -243,5 +255,6 @@ SIA_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
         CERTIFICATES_ACTION,
         K8S_ACTION,
         ACCESS_ACTION,
+        SSH_CA_ACTION,
     ],
 )

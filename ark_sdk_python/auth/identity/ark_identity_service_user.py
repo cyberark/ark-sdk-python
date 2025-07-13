@@ -11,10 +11,10 @@ from requests.auth import HTTPBasicAuth
 
 from ark_sdk_python.auth.identity.ark_identity_fqdn_resolver import ArkIdentityFQDNResolver
 from ark_sdk_python.common import ArkKeyring, ArkSystemConfig, get_logger
+from ark_sdk_python.common.ark_jwt_utils import ArkJWTUtils
 from ark_sdk_python.common.env import DEPLOY_ENV, IDENTITY_ENV_URLS, AwsEnv
 from ark_sdk_python.models import ArkAuthException, ArkProfile
 from ark_sdk_python.models.auth import ArkAuthMethod, ArkToken, ArkTokenType
-from ark_sdk_python.common.ark_jwt_utils import ArkJWTUtils
 
 
 class ArkIdentityServiceUser:
