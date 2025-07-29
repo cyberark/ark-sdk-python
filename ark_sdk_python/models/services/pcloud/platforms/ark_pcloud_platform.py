@@ -9,7 +9,7 @@ from ark_sdk_python.models.ark_model import ArkCamelizedModel
 class ArkPCloudPlatformType(str, Enum):
     Regular = 'regular'
     Group = 'group'
-    RotationalGroups = 'rotationalGroups'
+    RotationalGroups = 'rotationalgroup'
     Dependent = 'dependent'
 
 
