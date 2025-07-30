@@ -19,6 +19,7 @@ from ark_sdk_python.models.services.pcloud.platforms.ark_pcloud_platform import 
     ArkPCloudPrivilegedAccessWorkflows,
     ArkPCloudSessionManagement,
 )
+from ark_sdk_python.models.services.pcloud.platforms.ark_pcloud_platform_details import ArkPCloudPlatformDetails
 from ark_sdk_python.models.services.pcloud.platforms.ark_pcloud_platforms_filter import ArkPCloudPlatformsFilter
 from ark_sdk_python.models.services.pcloud.platforms.ark_pcloud_platforms_stats import ArkPCloudPlatformsStats
 from ark_sdk_python.models.services.pcloud.platforms.ark_pcloud_target_platform import (
@@ -42,6 +43,7 @@ __all__ = [
     'ArkPCloudImportTargetPlatform',
     'ArkPCloudCredentialsManagement',
     'ArkPCloudPlatform',
+    'ArkPCloudPlatformDetails',
     'ArkPCloudPlatformGeneralDetails',
     'ArkPCloudPlatformProperties',
     'ArkPCloudPlatformProperty',
