@@ -124,7 +124,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
                 raise ArkServiceException(f'Failed to parse platform response [{str(ex)}]') from ex
         raise ArkServiceException(f'Failed to retrieve platform [{resp.text}] - [{resp.status_code}]')
 
-    def import_platform(self, import_platform: ArkPCloudImportPlatform) -> ArkPCloudPlatformDetails:
+    def import_platform(self, import_platform: ArkPCloudImportPlatform) -> str:
         """
         Tries to import a platform zip data
         https://docs.cyberark.com/Product-Doc/OnlineHelp/PrivCloud-SS/Latest/en/Content/WebServices/ImportPlatform.htm
@@ -136,7 +136,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
             ArkServiceException: _description_
 
         Returns:
-            ArkPCloudPlatformDetails: _description_
+            str: The imported platform ID
         """
         self._logger.info('Importing platform')
         platform_path = Path(import_platform.platform_zip_path)
@@ -147,7 +147,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
         if resp.status_code == HTTPStatus.CREATED:
             try:
                 platform_id = resp.json()['PlatformID']
-                return self.platform(ArkPCloudGetPlatform(platform_id=platform_id))
+                return platform_id
             except (ValidationError, JSONDecodeError, KeyError) as ex:
                 self._logger.exception(f'Failed to parse import platform response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse import platform response [{str(ex)}]') from ex
