@@ -118,12 +118,12 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
         resp: Response = self._client.get(PLATFORM_URL.format(platform_id=get_platform.platform_id))
         if resp.status_code == HTTPStatus.OK:
             try:
-                # Try the correct model for Details API first
-                return ArkPCloudPlatformDetails.model_validate(resp.json())
+                # Try the old model first for backward compatibility
+                return ArkPCloudPlatform.model_validate(resp.json())
             except ValidationError:
                 try:
-                    # Fallback to old model for compatibility
-                    return ArkPCloudPlatform.model_validate(resp.json())
+                    # Fallback to new Details API model
+                    return ArkPCloudPlatformDetails.model_validate(resp.json())
                 except (ValidationError, JSONDecodeError) as ex:
                     self._logger.exception(f'Failed to parse platform response [{str(ex)}] - [{resp.text}]')
                     raise ArkServiceException(f'Failed to parse platform response [{str(ex)}]') from ex
