@@ -2,7 +2,7 @@ from base64 import b64encode
 from fnmatch import fnmatch
 from http import HTTPStatus
 from pathlib import Path
-from typing import Final, List, Optional, Set
+from typing import Final, List, Optional, Set, Union
 
 from overrides import overrides
 from pydantic import TypeAdapter, ValidationError
@@ -100,7 +100,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
             active=platforms_filter.active, platform_type=platforms_filter.platform_type, platform_name=platforms_filter.platform_name
         )
 
-    def platform(self, get_platform: ArkPCloudGetPlatform) -> ArkPCloudPlatformDetails:
+    def platform(self, get_platform: ArkPCloudGetPlatform) -> Union[ArkPCloudPlatform, ArkPCloudPlatformDetails]:
         """
         Retrieves a platform by id
         https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/WebServices/GetPlatformDetails.htm
@@ -112,19 +112,24 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
             ArkServiceException: _description_
 
         Returns:
-            ArkPCloudPlatformDetails: _description_
+            Union[ArkPCloudPlatform, ArkPCloudPlatformDetails]: Platform details in appropriate format
         """
         self._logger.info(f'Retrieving platform [{get_platform.platform_id}]')
         resp: Response = self._client.get(PLATFORM_URL.format(platform_id=get_platform.platform_id))
         if resp.status_code == HTTPStatus.OK:
             try:
+                # Try the correct model for Details API first
                 return ArkPCloudPlatformDetails.model_validate(resp.json())
-            except (ValidationError, JSONDecodeError) as ex:
-                self._logger.exception(f'Failed to parse platform response [{str(ex)}] - [{resp.text}]')
-                raise ArkServiceException(f'Failed to parse platform response [{str(ex)}]') from ex
+            except ValidationError:
+                try:
+                    # Fallback to old model for compatibility
+                    return ArkPCloudPlatform.model_validate(resp.json())
+                except (ValidationError, JSONDecodeError) as ex:
+                    self._logger.exception(f'Failed to parse platform response [{str(ex)}] - [{resp.text}]')
+                    raise ArkServiceException(f'Failed to parse platform response [{str(ex)}]') from ex
         raise ArkServiceException(f'Failed to retrieve platform [{resp.text}] - [{resp.status_code}]')
 
-    def import_platform(self, import_platform: ArkPCloudImportPlatform) -> str:
+    def import_platform(self, import_platform: ArkPCloudImportPlatform) -> ArkPCloudPlatform:
         """
         Tries to import a platform zip data
         https://docs.cyberark.com/Product-Doc/OnlineHelp/PrivCloud-SS/Latest/en/Content/WebServices/ImportPlatform.htm
@@ -136,7 +141,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
             ArkServiceException: _description_
 
         Returns:
-            str: The imported platform ID
+            ArkPCloudPlatform: _description_
         """
         self._logger.info('Importing platform')
         platform_path = Path(import_platform.platform_zip_path)
@@ -147,7 +152,7 @@ class ArkPCloudPlatformsService(ArkPCloudBaseService):
         if resp.status_code == HTTPStatus.CREATED:
             try:
                 platform_id = resp.json()['PlatformID']
-                return platform_id
+                return self.platform(ArkPCloudGetPlatform(platform_id=platform_id))
             except (ValidationError, JSONDecodeError, KeyError) as ex:
                 self._logger.exception(f'Failed to parse import platform response [{str(ex)}] - [{resp.text}]')
                 raise ArkServiceException(f'Failed to parse import platform response [{str(ex)}]') from ex
