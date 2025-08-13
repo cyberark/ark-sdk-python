@@ -7,6 +7,7 @@ from ark_sdk_python.services.sia.policies.db import ArkSIADBPoliciesService
 from ark_sdk_python.services.sia.policies.vm import ArkSIAVMPoliciesService
 from ark_sdk_python.services.sia.secrets.db import ArkSIADBSecretsService
 from ark_sdk_python.services.sia.secrets.vm import ArkSIAVMSecretsService
+from ark_sdk_python.services.sia.settings import ArkSIASettingsService
 from ark_sdk_python.services.sia.ssh_ca import ArkSIASSHCAService
 from ark_sdk_python.services.sia.sso import ArkSIASSOService
 from ark_sdk_python.services.sia.workspaces.db import ArkSIADBWorkspaceService
@@ -15,18 +16,19 @@ from ark_sdk_python.services.sia.workspaces.targetsets import ArkSIATargetSetsWo
 
 class ArkSIAAPI:
     def __init__(self, isp_auth: ArkISPAuth) -> None:
-        self.__db_workspace_service = ArkSIADBWorkspaceService(isp_auth)
         self.__targetsets_workspace_service = ArkSIATargetSetsWorkspaceService(isp_auth)
+        self.__db_workspace_service = ArkSIADBWorkspaceService(isp_auth)
+        self.__access_service = ArkSIAAccessService(isp_auth)
+        self.__ssh_ca_service = ArkSIASSHCAService(isp_auth)
         self.__vm_policies_service = ArkSIAVMPoliciesService(isp_auth)
         self.__db_policies_service = ArkSIADBPoliciesService(isp_auth)
-        self.__db_secrets_service = ArkSIADBSecretsService(isp_auth)
         self.__vm_secrets_service = ArkSIAVMSecretsService(isp_auth)
+        self.__db_secrets_service = ArkSIADBSecretsService(isp_auth)
         self.__sso_service = ArkSIASSOService(isp_auth)
         self.__db_service = ArkSIADBService(isp_auth)
         self.__certificates_service = ArkSIACertificatesService(isp_auth)
         self.__k8s_service = ArkSIAK8SService(isp_auth)
-        self.__access_service = ArkSIAAccessService(isp_auth)
-        self.__ssh_ca_service = ArkSIASSHCAService(isp_auth)
+        self.__settings_service = ArkSIASettingsService(isp_auth)
 
     @property
     def workspace_db(self) -> ArkSIADBWorkspaceService:
@@ -59,6 +61,16 @@ class ArkSIAAPI:
         return self.__access_service
 
     @property
+    def ssh_ca(self) -> ArkSIASSHCAService:
+        """
+        Getter for the SSH CA service
+
+        Returns:
+            ArkSIASSHCAService: _description_
+        """
+        return self.__ssh_ca_service
+
+    @property
     def policies_vm(self) -> ArkSIAVMPoliciesService:
         """
         Getter for the VM policies service.
@@ -79,6 +91,16 @@ class ArkSIAAPI:
         return self.__db_policies_service
 
     @property
+    def secrets_vm(self) -> ArkSIAVMSecretsService:
+        """
+        Getter for the VM secrets service.
+
+        Returns:
+            ArkSIAVMSecretsService: _description_
+        """
+        return self.__vm_secrets_service
+
+    @property
     def secrets_db(self) -> ArkSIADBSecretsService:
         """
         Getter for the DB secrets service.
@@ -87,16 +109,6 @@ class ArkSIAAPI:
             ArkSIADBSecretsService: _description_
         """
         return self.__db_secrets_service
-
-    @property
-    def secrets_vm(self) -> ArkSIADBSecretsService:
-        """
-        Getter for the VM secrets service.
-
-        Returns:
-            ArkSIAVMSecretsService: _description_
-        """
-        return self.__vm_secrets_service
 
     @property
     def sso(self) -> ArkSIASSOService:
@@ -139,11 +151,11 @@ class ArkSIAAPI:
         return self.__k8s_service
 
     @property
-    def ssh_ca(self) -> ArkSIASSHCAService:
+    def settings(self) -> ArkSIASettingsService:
         """
-        Getter for the SSH CA service
+        Getter for the settings service
 
         Returns:
-            ArkDPASSHCAService: _description_
+            ArkSIASettingsService: _description_
         """
-        return self.__ssh_ca_service
+        return self.__settings_service

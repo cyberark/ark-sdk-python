@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ark-sdk-python"
-version = "2.0.15"
+version = "2.1.0"
 description='Official Ark SDK / CLI for CyberArk Identity Security Platform'
 authors = ["CyberArk <cyberark@cyberark.com>", "Ofir Iluz <ofir.iluz@cyberark.com"]
 readme = "README.md"
@@ -9,10 +9,9 @@ classifiers = [
     'Intended Audience :: Developers',
     'Natural Language :: English',
     'Programming Language :: Python',
-    'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
-    'Programming Language :: Python :: 3.12'
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13'
 ]
 repository = "https://github.com/cyberark/ark-sdk-python"
 packages = [{ include = "ark_sdk_python" }]
@@ -38,7 +37,7 @@ pytest-mock = "*"
 python-dotenv = "*"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11 || ^3.13"
 
 requests = "*"
 keyring = "*"

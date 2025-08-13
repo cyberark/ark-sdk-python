@@ -1,5 +1,6 @@
 import base64
 import json
+from datetime import datetime
 from typing import Any, Callable, Dict, Optional, Union
 
 from humps.main import camelize
@@ -74,6 +75,7 @@ ArkSecretStr = Annotated[SecretStr, PlainSerializer(func=secret_serializer, retu
 ArkSecretBytes = Annotated[SecretBytes, PlainSerializer(func=secret_serializer, return_type=bytes)]
 ArkB64SerializedDict = Annotated[Dict[str, Any], PlainSerializer(base64_serializer, return_type=str)]
 ArkHttpUrlString = Annotated[str, BeforeValidator(lambda value: str(TypeAdapter(HttpUrl).validate_python(value)))]
+ArkSerializableDatetime = Annotated[datetime, PlainSerializer(lambda v: v.strftime('%FT%T%z'))]
 
 
 class ArkPollableModel(ArkCamelizedModel):

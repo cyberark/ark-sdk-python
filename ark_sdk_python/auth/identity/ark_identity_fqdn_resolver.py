@@ -6,6 +6,7 @@ from cachetools import LRUCache, cached
 from pydantic import ValidationError
 from requests import Session
 
+from ark_sdk_python.common.ark_user_agent import user_agent
 from ark_sdk_python.common.env import IDENTITY_ENV_URLS, ROOT_DOMAIN, AwsEnv
 from ark_sdk_python.models import ArkException
 from ark_sdk_python.models.common.identity import TenantFqdnResponse
@@ -19,21 +20,17 @@ class ArkIdentityFQDNResolver:
     @staticmethod
     @cached(cache=LRUCache(maxsize=1024))
     def default_headers() -> Dict[str, str]:
-        from fake_useragent import UserAgent
-
         return {
             'Content-Type': 'application/json',
             'X-IDAP-NATIVE-CLIENT': 'true',
-            'User-Agent': UserAgent(browsers=['chrome']).chrome,
+            'User-Agent': user_agent(),
             'OobIdPAuth': 'true',
         }
 
     @staticmethod
     @cached(cache=LRUCache(maxsize=1024))
     def default_system_headers() -> Dict[str, str]:
-        from fake_useragent import UserAgent
-
-        return {'X-IDAP-NATIVE-CLIENT': 'true', 'User-Agent': UserAgent(browsers=['chrome']).chrome}
+        return {'X-IDAP-NATIVE-CLIENT': 'true', 'User-Agent': user_agent()}
 
     @staticmethod
     @cached(cache=LRUCache(maxsize=1024))

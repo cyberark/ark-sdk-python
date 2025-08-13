@@ -201,7 +201,7 @@ class ArkSIASSOService(ArkService):
 
     def short_lived_client_certificate(self, get_short_lived_client_certificate: ArkSIASSOGetShortLivedClientCertificate) -> None:
         """
-        Generates a short-lived client certificate used to connect to DPA services.
+        Generates a short-lived client certificate used to connect to SIA services.
 
         Args:
             get_short_lived_client_certificate (ArkSIASSOGetShortLivedClientCertificate): _description_

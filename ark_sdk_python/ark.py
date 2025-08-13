@@ -14,10 +14,9 @@ import argcomplete
 import urllib3
 
 from ark_sdk_python.actions import ArkAction, ArkCacheAction, ArkConfigureAction, ArkLoginAction, ArkProfilesAction, ArkServiceExecAction
+from ark_sdk_python.common.ark_version import __version__
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-__version__ = '1.0.0'
 
 
 def main():

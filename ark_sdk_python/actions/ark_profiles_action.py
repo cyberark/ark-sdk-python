@@ -172,7 +172,6 @@ class ArkProfilesAction(ArkAction):
 
         Raises:
             ArkException: _description_
-            ArkException: _description_
         """
         if args.profile_cmd == 'list':
             self.__run_list_action(args)

@@ -11,7 +11,13 @@ from ark_sdk_python.models.ark_profile import ArkProfile
 from ark_sdk_python.models.cli_services.sia.policies_editor.vm import ArkSIAVMGeneratePolicy
 from ark_sdk_python.models.common import ArkProtocolType, ArkWorkspaceType
 from ark_sdk_python.models.services import ArkServiceConfig
-from ark_sdk_python.models.services.sia.policies.common import ArkSIADeletePolicy, ArkSIAGetPolicy, ArkSIARuleStatus, ArkSIAUserData
+from ark_sdk_python.models.services.sia.policies.common import (
+    ArkSIADeletePolicy,
+    ArkSIAGetPolicy,
+    ArkSIARuleStatus,
+    ArkSIAUserData,
+    ArkSIAUserDataAttribute,
+)
 from ark_sdk_python.models.services.sia.policies.vm import (
     ArkSIAVMAddPolicy,
     ArkSIAVMAuthorizationRule,
@@ -46,7 +52,7 @@ DEFAULT_GENERATED_POLICY: Final[ArkSIAVMPolicy] = ArkSIAVMPolicy(
 )
 DEFAULT_GENERATED_AUTHORIZATION_RULE: Final[ArkSIAVMAuthorizationRule] = ArkSIAVMAuthorizationRule(
     rule_name='Default VM Rule',
-    user_data=ArkSIAUserData(roles=['DpaAdmin'], groups=[], users=[]),
+    user_data=ArkSIAUserData(roles=[ArkSIAUserDataAttribute(name='DpaAdmin')], groups=[], users=[]),
     connection_information=ArkSIAVMConnectionInformation(
         connect_as={},
         grant_access=2,

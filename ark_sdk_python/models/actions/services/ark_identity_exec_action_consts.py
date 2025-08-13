@@ -31,8 +31,10 @@ from ark_sdk_python.models.services.identity.roles import (
 from ark_sdk_python.models.services.identity.users import (
     ArkIdentityCreateUser,
     ArkIdentityDeleteUser,
+    ArkIdentityDeleteUsers,
     ArkIdentityResetUserPassword,
     ArkIdentityUpdateUser,
+    ArkIdentityUserById,
     ArkIdentityUserByName,
     ArkIdentityUserIdByName,
 )
@@ -105,6 +107,8 @@ IDENTITY_USERS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] 
     'create-user': ArkIdentityCreateUser,
     'update-user': ArkIdentityUpdateUser,
     'delete-user': ArkIdentityDeleteUser,
+    'delete-users': ArkIdentityDeleteUsers,
+    'user-by-id': ArkIdentityUserById,
     'user-by-name': ArkIdentityUserByName,
     'user-id-by-name': ArkIdentityUserIdByName,
     'reset-user-password': ArkIdentityResetUserPassword,

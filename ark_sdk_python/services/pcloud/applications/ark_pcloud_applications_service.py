@@ -28,7 +28,7 @@ from ark_sdk_python.models.services.pcloud.applications import (
 from ark_sdk_python.services.pcloud.common import ArkPCloudBaseService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
-    service_name='pcloud-applications', required_authenticator_names=[], optional_authenticator_names=['isp', 'pvwa', 'pcloud_im']
+    service_name='pcloud-applications', required_authenticator_names=[], optional_authenticator_names=['isp']
 )
 BASE_APPLICATIONS_URL: Final[str] = 'PIMServices.svc/Applications'
 BASE_APPLICATION_URL: Final[str] = 'PIMServices.svc/Applications/{app_id}'

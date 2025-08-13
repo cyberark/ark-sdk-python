@@ -7,7 +7,7 @@ description: End-user rdp Workflow
 Here is an example workflow for connecting to a windows box using rdp:
 
 1. Install Ark SDK: `pip3 install ark-sdk-python`
-1. Create a profile:  
+1. Create a profile:
     * Interactively:
         ```shell linenums="0"
         ark configure

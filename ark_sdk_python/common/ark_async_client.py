@@ -36,7 +36,12 @@ class ArkAsyncClient(ABC, ArkClient):
         self.__async_request_settings = async_request_settings or ArkAsyncRequestSettings()
 
     @abstractmethod
-    def async_request_for(self, poll_model: ArkPollableModel, async_task: ArkAsyncTask) -> ArkAsyncRequest:
+    def async_request_for(
+        self,
+        poll_model: ArkPollableModel,
+        async_task: ArkAsyncTask,
+        request_class_type: Optional[Type[ArkAsyncRequest]] = None,
+    ) -> ArkAsyncRequest:
         """
         Creates an async request for the specified model and task.
         The request polls for async operations as defined by the poll model's implementation.
@@ -44,6 +49,7 @@ class ArkAsyncClient(ABC, ArkClient):
         Args:
             poll_model (ArkPollableModel): _description_
             async_task (ArkAsyncTask): _description_
+            request_class_type (Optional[Type[ArkAsyncRequest]]): _description_
 
         Returns:
             ArkAsyncRequest: _description_

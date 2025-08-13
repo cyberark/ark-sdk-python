@@ -9,7 +9,7 @@ from ark_sdk_python.auth.ark_isp_auth import ArkISPAuth
 from ark_sdk_python.common.isp import ArkISPServiceClient
 from ark_sdk_python.models import ArkServiceException
 from ark_sdk_python.models.services import ArkServiceConfig
-from ark_sdk_python.models.services.sia.ssh_ca import ArkSIAGetSSHPublicKey
+from ark_sdk_python.models.services.sia.ssh_ca.ark_sia_ssh_ca_get_ssh_public_key import ArkSIASSHCAGetSSHPublicKey
 from ark_sdk_python.services.ark_service import ArkService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
@@ -74,12 +74,12 @@ class ArkSIASSHCAService(ArkService):
         if resp.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to reactivate previous CA key [{resp.text}] - [{resp.status_code}]')
 
-    def public_key(self, get_public_key: ArkSIAGetSSHPublicKey) -> str:
+    def public_key(self, get_public_key: ArkSIASSHCAGetSSHPublicKey) -> str:
         """
         Retrieves the public key used for SIA SSH connections trust with customer env
 
         Args:
-            get_public_key (ArkSIAGetSSHPublicKey): _description_
+            get_public_key (ArkSIASSHCAGetSSHPublicKey): _description_
 
         Raises:
             ArkNotSupportedException: _description_
@@ -98,13 +98,13 @@ class ArkSIASSHCAService(ArkService):
             return resp.text
         raise ArkServiceException(f'Failed to get public key [{resp.text}] - [{resp.status_code}]')
 
-    def public_key_script(self, get_public_key: ArkSIAGetSSHPublicKey) -> str:
+    def public_key_script(self, get_public_key: ArkSIASSHCAGetSSHPublicKey) -> str:
         """
         Retrieves the public key script used for SIA SSH connections trust with customer env
         The script can be run to install the public key in needed ssh configuration files
 
         Args:
-            get_public_key (ArkSIAGetSSHPublicKey): _description_
+            get_public_key (ArkSIASSHCAGetSSHPublicKey): _description_
 
         Raises:
             ArkNotSupportedException: _description_
