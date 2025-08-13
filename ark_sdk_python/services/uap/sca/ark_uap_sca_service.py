@@ -49,7 +49,7 @@ class ArkUAPSCAService(ArkUAPBaseService):
             if policy.metadata.status == ArkUAPStatusType.ERROR:
                 raise ArkServiceException(f'Policy [{add_policy_response.policy_id}] is in error state')
             if retry_count >= ArkUAPSCAService.__MAX_ACTIVE_STATUS_RETRY_COUNT:
-                self._logger.warn(
+                self._logger.warning(
                     f'Policy [{add_policy_response.policy_id}] is not active after 10 retries, '
                     f'might indicate an issue, moving on regardless'
                 )
@@ -96,7 +96,7 @@ class ArkUAPSCAService(ArkUAPBaseService):
             if policy.metadata.status == ArkUAPStatusType.ERROR:
                 raise ArkServiceException(f'Policy [{update_policy.metadata.policy_id}] is in error state')
             if retry_count >= ArkUAPSCAService.__MAX_ACTIVE_STATUS_RETRY_COUNT:
-                self._logger.warn(
+                self._logger.warning(
                     f'Policy [{update_policy.metadata.policy_id}] is not active after 10 retries, '
                     f'might indicate an issue, moving on regardless'
                 )
