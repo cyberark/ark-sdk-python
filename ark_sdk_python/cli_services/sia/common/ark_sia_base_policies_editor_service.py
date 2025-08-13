@@ -527,7 +527,6 @@ class ArkSIABasePoliciesEditorService(
         The function first calculates the differences between the local and remote policies to find out which policies were edited, including
         the policies selected for deletion and new, uncommitted policies. It also
         allows selecting whether to commit all the edited policies or only specific policies by name.
-
         After all policies are committed, the workspace is reorganized accordingly.
 
         Args:

@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from pydantic import Field
 
@@ -10,6 +10,7 @@ class ArkPCloudPlatformDetails(ArkCamelizedModel):
     Model for Platform Details API response.
     This API endpoint returns a different structure than the List Platforms API.
     """
+
     platform_id: str = Field(description='Platform ID', alias='PlatformID')
     active: bool = Field(description='Whether platform is active', alias='Active')
     details: Dict[str, Any] = Field(description='Platform configuration details', alias='Details')

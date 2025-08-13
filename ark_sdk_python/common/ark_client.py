@@ -8,6 +8,8 @@ from requests import Response, Session
 from requests.cookies import RequestsCookieJar
 
 from ark_sdk_python.common.ark_system_config import ArkSystemConfig
+from ark_sdk_python.common.ark_user_agent import user_agent
+from ark_sdk_python.common.ark_version import __version__
 
 
 def allowed_gai_family():
@@ -34,8 +36,6 @@ class ArkClient:
         origin_verify: Optional[str] = None,
         origin_verify_header_name: str = 'x-origin-verify',
     ) -> None:
-        from fake_useragent import UserAgent
-
         self.__session = Session()
         self.__base_url = base_url
         self.__token = token
@@ -54,7 +54,7 @@ class ArkClient:
             else:
                 verify = ArkSystemConfig.is_verifiying_certificates()
         self.__session.verify = verify
-        self.__session.headers['User-Agent'] = UserAgent(browsers=['chrome']).googlechrome
+        self.__session.headers['User-Agent'] = user_agent()
         if origin_verify is not None and len(origin_verify) > 0:
             self.__session.headers[origin_verify_header_name] = origin_verify
 

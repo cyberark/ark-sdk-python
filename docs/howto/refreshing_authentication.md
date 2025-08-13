@@ -33,7 +33,7 @@ The `-ra` flag indicates that the user's profile authenticator should be refresh
 
 When polling any async command, a timeout can occur before the polling operation finishes. To try and overcome these timeouts, you can enable automatic authentication refreshes for polling operations.
 
-When refreshed are configured, if an unauthorized (`401`) response is returned, Ark refreshes the authenticator before the next poll. When the refresh fails, a timeout error is reported in the CLI. 
+When refreshed are configured, if an unauthorized (`401`) response is returned, Ark refreshes the authenticator before the next poll. When the refresh fails, a timeout error is reported in the CLI.
 
 To enable refreshes, use the `-parc` or `--poll-allow-refresh-connection` CLI flag.
 

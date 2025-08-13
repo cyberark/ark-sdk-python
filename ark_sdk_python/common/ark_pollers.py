@@ -10,7 +10,7 @@ class ArkPollers:
             from colorama import Fore
 
             if async_status == ArkAsyncStatus.StartedPolling:
-                ArkArgsFormatter.print_colored(async_task.json(indent=4), fore=Fore.GREEN)
+                ArkArgsFormatter.print_colored(async_task.model_dump_json(indent=4), fore=Fore.GREEN)
                 ArkArgsFormatter.print_colored(
                     f'[ID: {async_task.task_id}] Started Polling...[Time Remaining: {time_left_seconds}s, '
                     f'Status: {async_task.task_status()}]',
@@ -35,7 +35,7 @@ class ArkPollers:
                     fore=Fore.CYAN,
                 )
             elif async_status == ArkAsyncStatus.AsyncTaskUpdated:
-                ArkArgsFormatter.print_colored(async_task.json(indent=4), fore=Fore.GREEN)
+                ArkArgsFormatter.print_colored(async_task.model_dump_json(indent=4), fore=Fore.GREEN)
                 ArkArgsFormatter.print_colored(
                     f'[ID: {async_task.task_id}] Still Polling...[Time Remaining: {time_left_seconds}s, '
                     f'Status: {async_task.task_status()}]',

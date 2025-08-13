@@ -9,4 +9,4 @@ class ArkPCloudDuplicatedTargetPlatformInfo(ArkTitleizedModel):
     id: int = Field(description='ID of the duplicated platform', alias='ID')
     platform_id: str = Field(description='Platform id of the duplicated platform', alias='PlatformID')
     name: str = Field(description='New duplicated target platform name')
-    description: Optional[str] = Field(description='New duplicated target platform description', default=None)
+    description: Optional[str] = Field(default=None, description='New duplicated target platform description')

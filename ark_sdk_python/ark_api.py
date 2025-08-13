@@ -83,7 +83,7 @@ class ArkAPI:
     @property
     def identity_connectors(self) -> "ArkIdentityConnectorsService":
         """
-        Returns the Identity Connectors Service if the appropriate authenticators were given
+        Returns the Identity Connectors Service if the appropriate authenticators were provided.
 
         Returns:
             ArkIdentityConnectorsService: _description_
@@ -95,7 +95,7 @@ class ArkAPI:
     @property
     def identity_directories(self) -> "ArkIdentityDirectoriesService":
         """
-        Returns the Identity Directories Service if the appropriate authenticators were given
+        Returns the Identity Directories Service if the appropriate authenticators were provided.
 
         Returns:
             ArkIdentityDirectoriesService: _description_
@@ -107,7 +107,7 @@ class ArkAPI:
     @property
     def identity_policies(self) -> "ArkIdentityPoliciesService":
         """
-        Returns the Identity Policies Service if the appropriate authenticators were given
+        Returns the Identity Policies Service if the appropriate authenticators were provided.
 
         Returns:
             ArkIdentityPoliciesService: _description_
@@ -119,7 +119,7 @@ class ArkAPI:
     @property
     def identity_roles(self) -> "ArkIdentityRolesService":
         """
-        Returns the Identity Roles Service if the appropriate authenticators were given
+        Returns the Identity Roles Service if the appropriate authenticators were provided.
 
         Returns:
             ArkIdentityRolesService: _description_
@@ -131,7 +131,7 @@ class ArkAPI:
     @property
     def identity_users(self) -> "ArkIdentityUsersService":
         """
-        Returns the Identity Users Service if the appropriate authenticators were given
+        Returns the Identity Users Service if the appropriate authenticators were provided.
 
         Returns:
             ArkIdentityUsersService: _description_
@@ -141,40 +141,16 @@ class ArkAPI:
         return cast(ArkIdentityUsersService, self.service(ArkIdentityUsersService))
 
     @property
-    def sia_access(self) -> "ArkSIAAccessService":
+    def sm(self) -> "ArkSMService":
         """
-        Returns the SIA Access service if the appropriate authenticators were given
+        Returns the Session Monitoring service if the appropriate authenticators were provided.
 
         Returns:
-            ArkSIAAccessService: _description_
+            ArkSMService: _description_
         """
-        from ark_sdk_python.services.sia.access import ArkSIAAccessService
+        from ark_sdk_python.services.sm import ArkSMService
 
-        return cast(ArkSIAAccessService, self.service(ArkSIAAccessService))
-
-    @property
-    def sia_ssh_ca(self) -> "ArkSIASSHCAService":
-        """
-        Returns the SIA SSH CA service if the appropriate authenticators were given
-
-        Returns:
-            ArkSIASSHCAService: _description_
-        """
-        from ark_sdk_python.services.sia.ssh_ca import ArkSIASSHCAService
-
-        return cast(ArkSIASSHCAService, self.service(ArkSIASSHCAService))
-
-    @property
-    def sia_workspaces_db(self) -> "ArkSIADBWorkspaceService":
-        """
-        Returns the SIA DB Workspace service if the appropriate authenticators were provided.
-
-        Returns:
-            ArkSIADBWorkspaceService: _description_
-        """
-        from ark_sdk_python.services.sia.workspaces.db import ArkSIADBWorkspaceService
-
-        return cast(ArkSIADBWorkspaceService, self.service(ArkSIADBWorkspaceService))
+        return cast(ArkSMService, self.service(ArkSMService))
 
     @property
     def sia_workspaces_target_sets(self) -> "ArkSIATargetSetsWorkspaceService":
@@ -187,6 +163,18 @@ class ArkAPI:
         from ark_sdk_python.services.sia.workspaces.targetsets import ArkSIATargetSetsWorkspaceService
 
         return cast(ArkSIATargetSetsWorkspaceService, self.service(ArkSIATargetSetsWorkspaceService))
+
+    @property
+    def sia_workspaces_db(self) -> "ArkSIADBWorkspaceService":
+        """
+        Returns the SIA DB Workspace service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkSIADBWorkspaceService: _description_
+        """
+        from ark_sdk_python.services.sia.workspaces.db import ArkSIADBWorkspaceService
+
+        return cast(ArkSIADBWorkspaceService, self.service(ArkSIADBWorkspaceService))
 
     @property
     def sia_policies_vm(self) -> "ArkSIAVMPoliciesService":
@@ -213,6 +201,18 @@ class ArkAPI:
         return cast(ArkSIADBPoliciesService, self.service(ArkSIADBPoliciesService))
 
     @property
+    def sia_secrets_vm(self) -> "ArkSIAVMSecretsService":
+        """
+        Returns the SIA VM Secrets service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkSIAVMSecretsService: _description_
+        """
+        from ark_sdk_python.services.sia.secrets.vm import ArkSIAVMSecretsService
+
+        return cast(ArkSIAVMSecretsService, self.service(ArkSIAVMSecretsService))
+
+    @property
     def sia_secrets_db(self) -> "ArkSIADBSecretsService":
         """
         Returns the SIA DB Secrets service if the appropriate authenticators were provided.
@@ -225,16 +225,28 @@ class ArkAPI:
         return cast(ArkSIADBSecretsService, self.service(ArkSIADBSecretsService))
 
     @property
-    def sia_secrets_vm(self) -> "ArkSIAVMSecretsService":
+    def sia_access(self) -> "ArkSIAAccessService":
         """
-        Returns the SIA VM Secrets service if the appropriate authenticators were provided.
+        Returns the SIA Access service if the appropriate authenticators were provided.
 
         Returns:
-            ArkSIAVMSecretsService: _description_
+            ArkSIAAccessService: _description_
         """
-        from ark_sdk_python.services.sia.secrets.vm import ArkSIAVMSecretsService
+        from ark_sdk_python.services.sia.access import ArkSIAAccessService
 
-        return cast(ArkSIAVMSecretsService, self.service(ArkSIAVMSecretsService))
+        return cast(ArkSIAAccessService, self.service(ArkSIAAccessService))
+
+    @property
+    def sia_ssh_ca(self) -> "ArkSIASSHCAService":
+        """
+        Returns the SIA SSH CA service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkSIASSHCAService: _description_
+        """
+        from ark_sdk_python.services.sia.ssh_ca import ArkSIASSHCAService
+
+        return cast(ArkSIASSHCAService, self.service(ArkSIASSHCAService))
 
     @property
     def sia_sso(self) -> "ArkSIASSOService":
@@ -275,7 +287,7 @@ class ArkAPI:
     @property
     def sia_k8s(self) -> "ArkSIAK8SService":
         """
-        Returns the SIA Policies service if the appropriate authenticators were provided.
+        Returns the SIA K8S service if the appropriate authenticators were provided.
 
         Returns:
             ArkSIAK8SService: _description_
@@ -285,21 +297,21 @@ class ArkAPI:
         return cast(ArkSIAK8SService, self.service(ArkSIAK8SService))
 
     @property
-    def sm(self) -> "ArkSMService":
+    def sia_settings(self) -> "ArkSIASettingsService":
         """
-        Returns the SM service if the appropriate authenticators were given
+        Returns the SIA Settings service if the appropriate authenticators were provided.
 
         Returns:
-            ArkSMService: _description_
+            ArkSIASettingsService: _description_
         """
-        from ark_sdk_python.services.sm import ArkSMService
+        from ark_sdk_python.services.sia.settings import ArkSIASettingsService
 
-        return cast(ArkSMService, self.service(ArkSMService))
+        return cast(ArkSIASettingsService, self.service(ArkSIASettingsService))
 
     @property
     def pcloud_accounts(self) -> "ArkPCloudAccountsService":
         """
-        Returns the PCloud Accounts service if the appropriate authenticators were given
+        Returns the PCloud Accounts service if the appropriate authenticators were provided.
 
         Returns:
             ArkPCloudAccountsService: _description_
@@ -311,7 +323,7 @@ class ArkAPI:
     @property
     def pcloud_safes(self) -> "ArkPCloudSafesService":
         """
-        Returns the PCloud Safes service if the appropriate authenticators were given
+        Returns the PCloud Safes service if the appropriate authenticators were provided.
 
         Returns:
             ArkPCloudSafesService: _description_
@@ -323,7 +335,7 @@ class ArkAPI:
     @property
     def pcloud_platforms(self) -> "ArkPCloudPlatformsService":
         """
-        Returns the PCloud Platforms service if the appropriate authenticators were given
+        Returns the PCloud Platforms service if the appropriate authenticators were provided.
 
         Returns:
             ArkPCloudPlatformsService: _description_
@@ -335,7 +347,7 @@ class ArkAPI:
     @property
     def pcloud_applications(self) -> "ArkPCloudApplicationsService":
         """
-        Returns the PCloud Applications service if the appropriate authenticators were given
+        Returns the PCloud Applications service if the appropriate authenticators were provided.
 
         Returns:
             ArkPCloudApplicationsService: _description_
@@ -347,7 +359,7 @@ class ArkAPI:
     @property
     def cmgr(self) -> "ArkCmgrService":
         """
-        Returns the Connector Management service if the appropriate authenticators were given
+        Returns the Connector Management service if the appropriate authenticators were provided.
 
         Returns:
             ArkCmgrService: _description_
@@ -355,3 +367,55 @@ class ArkAPI:
         from ark_sdk_python.services.cmgr import ArkCmgrService
 
         return cast(ArkCmgrService, self.service(ArkCmgrService))
+
+    @property
+    def uap(self) -> "ArkUAPService":
+        """
+        Returns the UAP Executions service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkUAPService: _description_
+        """
+
+        from ark_sdk_python.services.uap.ark_uap_service import ArkUAPService
+
+        return cast(ArkUAPService, self.service(ArkUAPService))
+
+    @property
+    def uap_sca(self) -> "ArkUAPSCAService":
+        """
+        Returns the UAP SCA Executions service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkUAPSCAService: _description_
+        """
+
+        from ark_sdk_python.services.uap.sca.ark_uap_sca_service import ArkUAPSCAService
+
+        return cast(ArkUAPSCAService, self.service(ArkUAPSCAService))
+
+    @property
+    def uap_db(self) -> "ArkUAPSIADBService":
+        """
+        Returns the UAP SIA DB Executions service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkUAPSIADBService: _description_
+        """
+
+        from ark_sdk_python.services.uap.sia.db.ark_uap_sia_db_service import ArkUAPSIADBService
+
+        return cast(ArkUAPSIADBService, self.service(ArkUAPSIADBService))
+
+    @property
+    def uap_vm(self) -> "ArkUAPSIAVMService":
+        """
+        Returns the UAP SIA VM Executions service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkUAPSIAVMService: _description_
+        """
+
+        from ark_sdk_python.services.uap.sia.vm.ark_uap_sia_vm_service import ArkUAPSIAVMService
+
+        return cast(ArkUAPSIAVMService, self.service(ArkUAPSIAVMService))

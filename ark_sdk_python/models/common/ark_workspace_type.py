@@ -17,3 +17,4 @@ class ArkWorkspaceType(str, MultiValueEnum):
     ATLAS = 'atlas', 'ATLAS', 'Atlas'
     FAULT = 'fault', 'FAULT'
     UNKNOWN = 'unknown', 'UNKNOWN', 'Unknown'
+    FQDN_IP = 'FQDN/IP', 'fqdn/ip', 'FqdnIp'

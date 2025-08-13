@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Callable
+from typing import Callable, Union
 
 from ark_sdk_python.common.ark_client import ArkClient
 from ark_sdk_python.common.ark_logger import get_logger
@@ -7,7 +7,7 @@ from ark_sdk_python.models.common import ArkAsyncRequestSettings, ArkAsyncStatus
 
 
 class ArkAsyncRequest(ABC):
-    def __init__(self, client: ArkClient, async_task: ArkAsyncTask, async_request_settings: ArkAsyncRequestSettings):
+    def __init__(self, client: ArkClient, async_task: Union[ArkAsyncTask, Callable], async_request_settings: ArkAsyncRequestSettings):
         self._async_task = async_task
         self._client = client
         self._async_request_settings = async_request_settings

@@ -22,17 +22,22 @@ Derived from the model above, there are different model types that serve differe
 Any request can be called with a defined model, for example:
 
 ```python
-policies_service = ArkSIADBPoliciesService(isp_auth)
-policies = policies_service.list_policies()
+identity_api = ArkIdentityAPI(isp_auth)
+role: ArkIdentityRole = identity_api.identity_roles.create_role(ArkIdentityCreateRole(role_name='IT'))
 ```
 
-The above example creates a DB policies service and calls `list_policies()` to retrieve a list of all tenant DB polices. The returned list items contain `policy_id` and `policy_name` fields, which can be used with the ArkSIAGetPolicy model:
+In the above example, we create the identity service, and call create_role, passing the ArkIdentityCreateRole model, which is based on the model, and returns an ArkIdentityRole model
 
+Where the models are specified as follows:
 ```python
-class ArkSIAGetPolicy(ArkModel):
-    policy_id: Optional[str] = Field(description='Policy id to get')
-    policy_name: Optional[str] = Field(description='Policy name to get')
+class ArkIdentityCreateRole(ArkModel):
+    role_name: str = Field(description='Role name to create')
+    admin_rights: List[ArkIdentityAdminRights] = Field(description='Admin rights to add to the role', default_factory=list)
 
+
+class ArkIdentityRole(ArkModel):
+    role_id: str = Field(description='Identifier of the role')
+    role_name: str = Field(description='Name of the role')
 ```
 
 All models can be found [here](https://github.com/cyberark/ark-sdk-python/tree/main/ark_sdk_python/models) and are separated to folders based on topic, from auth to services

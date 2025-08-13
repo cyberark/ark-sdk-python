@@ -9,7 +9,7 @@ You use the `exec` command is used to run commands on available services (the av
 
 ## SIA services
 
-The following SIA commands are supported:
+The following services and commands are supported:
 
 - `ark exec sia`: Root command for the SIA service
     - `policies` - Policy management
@@ -54,10 +54,10 @@ ark exec
 usage: ark exec [-h] [-r] [-s] [-ao] [-v] [-ls {default}] [-ll {DEBUG,INFO,WARN,ERROR,CRITICAL}]
                 [-dcv] [-tc TRUSTED_CERT] [-pn PROFILE_NAME] [-op OUTPUT_PATH] [-rf REQUEST_FILE]
                 [-rc RETRY_COUNT] [-ra]
-                {identity,sia,sm,pcloud} ...
+                {identity,sia,sm,pcloud,cmgr.uap} ...
 
 positional arguments:
-  {identity,sia,sm,pcloud}
+  {identity,sia,sm,pcloud,cmgr,uap}
 
 optional arguments:
   -h, --help            show this help message and exit

@@ -95,7 +95,7 @@ class ArkIdentity:
         self.__identity_url = self.__resolve_fqdn_from_username_or_subdomain(identity_url, identity_tenant_subdomain)
         if not self.__identity_url.startswith('https://'):
             self.__identity_url = f'https://{self.__identity_url}'
-        self.__mfa_type = mfa_type
+        self.__mfa_type = mfa_type or 'email'
         self.__logger = logger or get_logger(app=self.__class__.__name__)
         self.__interaction_process: Optional[Process] = None
         self.__is_polling: bool = False
@@ -472,10 +472,12 @@ class ArkIdentity:
     def is_password_required(cls, username: str, identity_url: Optional[str], identity_tenant_subdomain: Optional[str]) -> bool:
         """
         Checks whether or not the specified username is from an external IDP.
+
         Args:
             username (str): _description_
             identity_url (Optional[str]): _description_
             identity_tenant_subdomain (Optional[str]): _description_
+
         Returns:
             bool: _description_
         """
@@ -615,7 +617,7 @@ class ArkIdentity:
         Raises:
             ArkAuthException: _description_
         """
-        if not self.__session_details.token:
+        if not self.__session_details or not self.__session_details.token:
             # We only refresh platform token at the moment, call the normal authentication instead
             return self.auth_identity(profile, interactive, force)
 

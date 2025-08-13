@@ -165,7 +165,7 @@ class ArkSIAVMSecretsService(ArkService):
         Lists all tenant vm secrets
 
         Returns:
-            List[ArkSIASecretInfo]: _description_
+            List[ArkSIAVMSecretInfo]: _description_
         """
         self._logger.info('Listing all vm secrets')
         return self.__list_secrets_with_filters()
@@ -175,10 +175,10 @@ class ArkSIAVMSecretsService(ArkService):
         Lists vm secrets by given filters
 
         Args:
-            secrets_filter (ArkSIASecretsFilter): _description_
+            secrets_filter (ArkSIAVMSecretsFilter): _description_
 
         Returns:
-            List[ArkSIASecretInfo]: _description_
+            List[ArkSIAVMSecretInfo]: _description_
         """
         self._logger.info(f'Listing vm secrets by filters [{secrets_filter}]')
         secret_type = None

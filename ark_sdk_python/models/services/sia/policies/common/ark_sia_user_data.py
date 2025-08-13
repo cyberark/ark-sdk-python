@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field
 
@@ -12,6 +12,6 @@ class ArkSIAUserDataAttribute(ArkCamelizedModel):
 
 
 class ArkSIAUserData(ArkCamelizedModel):
-    roles: Optional[List[ArkSIAUserDataAttribute]] = Field(description='Roles allowed for auth rule', default_factory=list)
-    groups: Optional[List[ArkSIAUserDataAttribute]] = Field(description='Groups allowed for auth rule', default_factory=list)
-    users: Optional[List[ArkSIAUserDataAttribute]] = Field(description='Users allowed for auth rule', default_factory=list)
+    roles: Optional[List[Union[str, ArkSIAUserDataAttribute]]] = Field(description='Roles allowed for auth rule', default_factory=list)
+    groups: Optional[List[Union[str, ArkSIAUserDataAttribute]]] = Field(description='Groups allowed for auth rule', default_factory=list)
+    users: Optional[List[Union[str, ArkSIAUserDataAttribute]]] = Field(description='Users allowed for auth rule', default_factory=list)

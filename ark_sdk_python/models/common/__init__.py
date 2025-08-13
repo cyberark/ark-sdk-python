@@ -3,6 +3,7 @@ from ark_sdk_python.models.common.ark_application_code import ArkApplicationCode
 from ark_sdk_python.models.common.ark_async_request_settings import ArkAsyncRequestSettings
 from ark_sdk_python.models.common.ark_async_status import ArkAsyncStatus
 from ark_sdk_python.models.common.ark_async_task import ArkAsyncTask
+from ark_sdk_python.models.common.ark_category_type import ArkCategoryType
 from ark_sdk_python.models.common.ark_connection_method import ArkConnectionMethod
 from ark_sdk_python.models.common.ark_connector_type import ArkConnectorType
 from ark_sdk_python.models.common.ark_counted_values import ArkCountedValues
@@ -38,4 +39,5 @@ __all__ = [
     'VALID_LOGIN_NAME_REGEX',
     'ArkConnectionMethod',
     'ArkAccessMethod',
+    'ArkCategoryType',
 ]

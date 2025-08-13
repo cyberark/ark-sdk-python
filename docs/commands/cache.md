@@ -5,7 +5,7 @@ description: Cache Command
 
 # Cache
 
-Use the `cache` command to manage the Ark data cached on your machine. Currently, you can only clear the filesystem cache (not data cached in the OS's keystore). 
+Use the `cache` command to manage the Ark data cached on your machine. Currently, you can only clear the filesystem cache (not data cached in the OS's keystore).
 
 ## Running
 ```shell linenums="0"

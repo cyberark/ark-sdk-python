@@ -28,10 +28,10 @@ class ArkPCloudBaseService(ArkService):
             token=isp_auth.token.token.get_secret_value(),
             tenant_env=AwsEnv(env),
             base_path=f'passwordvault/{base_api_path}/',
-            refresh_connection_callback=self.__refresh_pvwa_auth,
+            refresh_connection_callback=self.__refresh_pcloud_auth,
         )
 
-    def __refresh_pvwa_auth(self, client: ArkClient) -> None:
+    def __refresh_pcloud_auth(self, client: ArkClient) -> None:
         token = self._isp_auth.load_authentication(self._isp_auth.active_profile, True)
         if token:
             client.update_token(token.token.get_secret_value())

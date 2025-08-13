@@ -32,7 +32,7 @@ The CLI has the following basic commands:
 
 ### Basic flow
 
-1. Install Ark SDK and then configure a profile (either silently or interactively):  
+1. Install Ark SDK and then configure a profile (either silently or interactively):
     ``` shell linenums="0"
     ark configure --silent --work-with-isp --isp-username myuser
     ```

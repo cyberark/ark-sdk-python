@@ -20,24 +20,22 @@ class ArkAuthMethodSettings(ArkModel):
 
 
 class IdentityArkAuthMethodSettings(ArkAuthMethodSettings):
-    identity_mfa_method: Literal[('pf', 'sms', 'email', 'otp', 'oath')] = Field(
-        description='MFA method if mfa is needed', default='email', alias='MFA Method to use by default [pf, sms, email, otp, oath]'
+    identity_mfa_method: Literal['pf', 'sms', 'email', 'otp', 'oath', ''] = Field(
+        description='MFA method if mfa is needed', default='email', alias='MFA Method to use by default [pf, sms, email, otp]'
     )
     identity_mfa_interactive: bool = Field(description='Allow interactive MFA (passcodes)', alias='Allow Interactive MFA', default=True)
     identity_application: Optional[str] = Field(
-        description='Identity application to use once logged in', alias='Identity Application', default=None
+        default=None, description='Identity application to use once logged in', alias='Identity Application'
     )
     identity_url: Optional[str] = Field(
-        description='Identity url to use for authentication instead of fqdn resolving',
-        alias='Identity Url',
-        default=None,
+        default=None, description='Identity url to use for authentication instead of fqdn resolving', alias='Identity Url'
     )
     identity_tenant_subdomain: Optional[str] = Field(
+        default=None,
         description='Identity security platform tenant subdomain, '
         'for exmaple mytenant.cyberark.cloud would be subdomained to mytenant. '
         'this will be used instead of fqdn resolving from the username',
         alias='Identity Tenant Subdomain',
-        default=None,
     )
 
 

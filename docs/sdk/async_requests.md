@@ -50,7 +50,7 @@ def poll(self, timeout_seconds: int, progress_callback: Callable[[ArkAsyncTask, 
     """
 ```
 
-You can call these methods for polling the service to check the request's status. 
+You can call these methods for polling the service to check the request's status.
 
 Async requests also inherits the ArkPollableModel type, which contains information about whether or not to poll the request and how long to wait until the request times out. Additionally, when the request's authenticator can be refreshed, it is refreshed during the polling cycle.
 

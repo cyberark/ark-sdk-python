@@ -51,6 +51,10 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] PCloud Platforms Service
     - [x] PCloud Applications Service
     - [x] Connector Manager Service
+    - [x] Unified Access Policies Service
+        - [x] SCA - Secure Cloud Access
+        - [x] DB - Databases
+        - [x] VM - Virtual Machines
 - [x] All services contains CRUD and Statistics per respective service
 - [x] Ready to use SDK in Python
 - [x] CLI and SDK Examples
@@ -241,6 +245,10 @@ The following services and commands are supported:
     - <b>platforms</b> - PCloud Platforms Management
     - <b>applications</b> - PCloud Applications Management
 - <b>cmgr</b> - Connector Manager Service
+- <b>uap</b> - Unified Access Policies Services
+    - <b>sca</b> - secure cloud access policies management
+    - <b>db</b> - databases access policies management
+    - <b>vm</b> - virtual machines access policies management
 
 Any command has its own subcommands, with respective arguments
 
@@ -381,6 +389,66 @@ ark exec exec cmgr list-pools
 Get connector installation script
 ```shell
 ark exec sia access connector-setup-script -ct onprem -co windows -cpi 588741d5-e059-479d-b4c4-3d821a87f012
+```
+
+List UAP policies
+```shell
+ark exec uap list-policies
+```
+
+Get UAP policy
+```shell
+ark exec uap policy --policy-id my-policy-id
+```
+
+Delete UAP Policy
+```shell
+ark exec uap delete-policy --policy-id my-policy-id
+```
+
+List DB Policies from UAP
+```shell
+ark exec uap db list-policies
+```
+
+Get DB Policy from UAP
+```shell
+ark exec uap db policy --policy-id my-policy-id
+```
+
+Delete DB Policy from UAP
+```shell
+ark exec uap db delete-policy --policy-id my-policy-id
+```
+
+List SCA Policies from UAP
+```shell
+ark exec uap sca list-policies
+```
+
+Get SCA Policy from UAP
+```shell
+ark exec uap sca policy --policy-id my-policy-id
+```
+
+Delete SCA Policy from UAP
+```shell
+ark exec uap sca delete-policy --policy-id my-policy-id
+```
+
+List VM Policies from UAP
+```shell
+ark exec uap vm list-policies
+```
+
+Get VM Policy from UAP
+```shell
+ark exec uap vm policy --policy-id my-policy-id
+```
+
+Delete VM Policy from UAP
+```shell
+ark exec uap vm delete-policy --policy-id my-policy-id
 ```
 
 You can view all of the commands via the --help for each respective exec action
