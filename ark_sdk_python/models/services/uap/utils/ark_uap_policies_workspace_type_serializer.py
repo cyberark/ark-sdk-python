@@ -11,8 +11,6 @@ def serialize_uap_policies_workspace_type(ws_type: ArkWorkspaceType) -> str:
         return 'Azure'
     elif ws_type == ArkWorkspaceType.GCP:
         return 'GCP'
-    elif ws_type == ArkWorkspaceType.ONPREM:
-        return 'OnPrem'
     elif ws_type == ArkWorkspaceType.FQDN_IP:
         return 'FQDN/IP'
     raise ArkException('Invalid Policies Workspace Type')

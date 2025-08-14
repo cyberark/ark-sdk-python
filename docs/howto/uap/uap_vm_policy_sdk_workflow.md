@@ -54,7 +54,7 @@ uap_vm_service.add_policy(ArkUAPSIAVMAccessPolicy(
                                             domain_ephemeral_user=ArkUAPSSIAVMDomainEphemeralUser(
                                                 assign_groups=['rdp_users'], enable_ephemeral_user_reconnect=False, assign_domain_groups=['domain_rdp_users'])
                                         )),
-        targets=ArkUAPSIAVMPlatformTargets(onprem_resource=ArkUAPSIAVMOnPremResource(
+        targets=ArkUAPSIAVMPlatformTargets(fqdnip_resource=ArkUAPSIAVMFQDNIPResource(
                 fqdn_rules=[ArkUAPSIAVMFQDNRule(operator=ArkSIAVMFQDNOperator.EXACTLY, computername_pattern='myvm.mydomain.com',
                                                 domain='domain.com')],
                 ip_rules=[ArkUAPSIAVMIPRule(operator=ArkSIAVMFQDNOperator.EXACTLY, ip_addresses=['8.8.8.8'], logical_name='myLogicalName')],
