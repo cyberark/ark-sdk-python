@@ -110,9 +110,9 @@ class ArkUAPSIAVMGCPResource(ArkCamelizedModel):
     projects: List[str] = Field(description='GCP project IDs. Leave empty for all projects.')
 
 
-class ArkUAPSIAVMOnPremResource(ArkCamelizedModel):
+class ArkUAPSIAVMFQDNIPResource(ArkCamelizedModel):
     """
-    Represents the on-premises resources for a virtual machine access policy, including FQDN and IP rules.
+    Represents the fqdn/ip resources for a virtual machine access policy, including FQDN and IP rules.
     """
 
     fqdn_rules: Optional[List[ArkUAPSIAVMFQDNRule]] = Field(default=None, description='List of FQDN rules applied to the connection')
@@ -121,18 +121,18 @@ class ArkUAPSIAVMOnPremResource(ArkCamelizedModel):
 
 class ArkUAPSIAVMPlatformTargets(ArkCamelizedModel):
     """
-    Represents the targets for a virtual machine access policy, which can include AWS, Azure, GCP, or on-premises resources.
+    Represents the targets for a virtual machine access policy, which can include AWS, Azure, GCP, or fqdn/ip resources.
     """
 
     aws_resource: Annotated[
         Optional[ArkUAPSIAVMAWSResource], Field(description='The AWS resource for this virtual machine access policy')
     ] = None
     azure_resource: Annotated[
-        Optional[ArkUAPSIAVMAzureResource], Field(description='The AWS resource for this virtual machine access policy')
+        Optional[ArkUAPSIAVMAzureResource], Field(description='The Azure resource for this virtual machine access policy')
     ] = None
     gcp_resource: Annotated[
-        Optional[ArkUAPSIAVMGCPResource], Field(description='The AWS resource for this virtual machine access policy')
+        Optional[ArkUAPSIAVMGCPResource], Field(description='The GCP resource for this virtual machine access policy')
     ] = None
-    onprem_resource: Annotated[
-        Optional[ArkUAPSIAVMOnPremResource], Field(description='The AWS resource for this virtual machine access policy')
+    fqdnip_resource: Annotated[
+        Optional[ArkUAPSIAVMFQDNIPResource], Field(description='The FQDN/IP resource for this virtual machine access policy')
     ] = None

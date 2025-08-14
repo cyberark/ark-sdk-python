@@ -13,8 +13,8 @@ from ark_sdk_python.models.services.uap.sia.vm.ark_uap_sia_vm_behavior import (
 from ark_sdk_python.models.services.uap.sia.vm.ark_uap_sia_vm_targets import (
     ArkUAPSIAVMAWSResource,
     ArkUAPSIAVMAzureResource,
+    ArkUAPSIAVMFQDNIPResource,
     ArkUAPSIAVMGCPResource,
-    ArkUAPSIAVMOnPremResource,
     ArkUAPSIAVMPlatformTargets,
 )
 
@@ -40,9 +40,9 @@ class ArkUAPSIAVMAccessPolicy(ArkUAPSIACommonAccessPolicy):
             data['targets'] = {
                 'GCP': self.targets.gcp_resource.model_dump(*args, **kwargs),
             }
-        elif self.metadata.policy_entitlement.location_type == ArkWorkspaceType.FQDN_IP and self.targets.onprem_resource:
+        elif self.metadata.policy_entitlement.location_type == ArkWorkspaceType.FQDN_IP and self.targets.fqdnip_resource:
             data['targets'] = {
-                'FQDN/IP': self.targets.onprem_resource.model_dump(*args, **kwargs),
+                'FQDN/IP': self.targets.fqdnip_resource.model_dump(*args, **kwargs),
             }
         else:
             raise ValueError('Unsupported workspace type')
@@ -65,7 +65,7 @@ class ArkUAPSIAVMAccessPolicy(ArkUAPSIACommonAccessPolicy):
             elif policy.metadata.policy_entitlement.location_type == ArkWorkspaceType.GCP and 'GCP' in data['targets']:
                 policy.targets.gcp_resource = ArkUAPSIAVMGCPResource.model_validate(data['targets']['GCP'])
             elif policy.metadata.policy_entitlement.location_type == ArkWorkspaceType.FQDN_IP and 'FQDN/IP' in data['targets']:
-                policy.targets.onprem_resource = ArkUAPSIAVMOnPremResource.model_validate(data['targets']['FQDN/IP'])
+                policy.targets.fqdnip_resource = ArkUAPSIAVMFQDNIPResource.model_validate(data['targets']['FQDN/IP'])
             else:
                 raise ValueError('Workspace type not found')
         if 'behavior' in data:
