@@ -121,7 +121,7 @@ class ArkUAPSIAVMFQDNIPResource(ArkCamelizedModel):
 
 class ArkUAPSIAVMPlatformTargets(ArkCamelizedModel):
     """
-    Represents the targets for a virtual machine access policy, which can include AWS, Azure, GCP, or on-premises resources.
+    Represents the targets for a virtual machine access policy, which can include AWS, Azure, GCP, or fqdn/ip resources.
     """
 
     aws_resource: Annotated[
