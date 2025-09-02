@@ -130,17 +130,17 @@ ark_public exec sia secrets vm add-secret --secret-type ProvisionerUser --provis
 ark exec sia access connector-setup-script -ct onprem -co windows -cpi 588741d5-e059-479d-b4c4-3d821a87f012
 ```
 
-### Install a DPA Windows Connector Remotely
+### Install a SIA Windows Connector Remotely
 ```shell
 ark exec sia access install-connector --connector-pool-id abcd --connector-type onprem --connector-os windows --target-machine 1.2.3.4 --username myuser --password mypassword
 ```
 
-### Install a DPA Linux Connector Remotely
+### Install a SIA Linux Connector Remotely
 ```shell
 ark exec sia access install-connector --connector-pool-id abcd --connector-type aws --connector-os linux --target-machine 1.2.3.4 --username ec2-user --private-key-path /path/to/key.pem
 ```
 
-### Delete and uninstall a DPA Connector
+### Delete and uninstall a SIA Connector
 ```shell
 ark exec sia access delete-connector --connector-id=CMSConnector_e9685e0d-a92e-4097-ad4d-b54eadb69bcb_81fa03c5-d0d3-4157-95f8-6a1903900fa0 --uninstall-connector --target-machine 1.2.3.4 --username ec2-user --private-key-path /path/to/key.pem
 ```
@@ -293,4 +293,9 @@ ark exec cmgr add-network --name mynetwork
 ### Add CMGR connector pool
 ```shell
 ark exec cmgr add-pool --name mypool --assigned-network-ids mynetwork_id
+```
+
+### Test SIA Connector Reachability
+```shell
+ark exec sia access test-connector-reachability --connector-id CMSConnector_588741d5-e059-479d-b4c4-3d821a87f012_66e0646d-4702-4b9c-81c3-b5b9b4ee2955 --check-backend-endpoints --target-hostname myhost.com --target-port 22
 ```
