@@ -22,15 +22,18 @@ from ark_sdk_python.models.services.sia.access import (
     ArkSIAConnectorSetupScript,
     ArkSIAGetConnectorSetupScript,
     ArkSIAInstallConnector,
+    ArkSIATestConnectorReachability,
     ArkSIAUninstallConnector,
     serialize_access_workspace_type,
 )
+from ark_sdk_python.models.services.sia.access.ark_sia_test_connector_reachability import ArkSIATestConnectorReachabilityResponse
 from ark_sdk_python.services.ark_service import ArkService
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
     service_name='sia-access', required_authenticator_names=['isp'], optional_authenticator_names=[]
 )
 CONNECTORS_SETUP_SCRIPT_API: Final[str] = 'api/connectors/setup-script'
+TEST_CONNECTOR_REACHABILITY_API: Final[str] = 'api/connectors/{connector_id}/reachability'
 
 # Linux / Darwin Commands
 UNIX_STOP_CONNECTOR_SERVICE_CMD: Final[str] = 'sudo systemctl stop cyberark-dpa-connector'
@@ -176,6 +179,34 @@ class ArkSIAAccessService(ArkService):
         connection.run_command(ArkConnectionCommand(command=cmdset['stop-connector-service']))
         connection.run_command(ArkConnectionCommand(command=cmdset['remove-connector-service']))
         connection.run_command(ArkConnectionCommand(command=cmdset['remove-connector-files']))
+
+    def test_connector_reachability(
+        self, test_connector_reachability: ArkSIATestConnectorReachability
+    ) -> ArkSIATestConnectorReachabilityResponse:
+        """
+        Tests reachability to backend endpoints and target hostname/port from specified connector
+
+        Args:
+            test_connector_reachability (ArkSIATestConnectorReachability): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            Reachability test result: _description_
+        """
+        body = {
+            'checkBackendEndpoints': test_connector_reachability.check_backend_endpoints,
+        }
+        if test_connector_reachability.target_hostname and test_connector_reachability.target_port:
+            body['targets'] = [{'hostname': test_connector_reachability.target_hostname, 'port': test_connector_reachability.target_port}]
+        resp: Response = self.__client.post(
+            TEST_CONNECTOR_REACHABILITY_API.format(connector_id=test_connector_reachability.connector_id),
+            json=body,
+        )
+        if resp.status_code == HTTPStatus.OK:
+            return ArkSIATestConnectorReachabilityResponse(**resp.json())
+        raise ArkServiceException(f'Failed to test connector reachability [{resp.text}] - [{resp.status_code}]')
 
     def connector_setup_script(self, get_connector_setup_script: ArkSIAGetConnectorSetupScript) -> ArkSIAConnectorSetupScript:
         """

@@ -14,7 +14,12 @@ from ark_sdk_python.models.cli_services.sia.policies_editor.common import (
 )
 from ark_sdk_python.models.cli_services.sia.policies_editor.db import ArkSIADBGeneratePolicy
 from ark_sdk_python.models.cli_services.sia.policies_editor.vm import ArkSIAVMGeneratePolicy
-from ark_sdk_python.models.services.sia.access import ArkSIAGetConnectorSetupScript, ArkSIAInstallConnector, ArkSIAUninstallConnector
+from ark_sdk_python.models.services.sia.access import (
+    ArkSIAGetConnectorSetupScript,
+    ArkSIAInstallConnector,
+    ArkSIATestConnectorReachability,
+    ArkSIAUninstallConnector,
+)
 from ark_sdk_python.models.services.sia.certificates import (
     ArkSIACertificatesFilter,
     ArkSIACreateCertificate,
@@ -249,6 +254,7 @@ ACCESS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
     'connector-setup-script': ArkSIAGetConnectorSetupScript,
     'install-connector': ArkSIAInstallConnector,
     'uninstall-connector': ArkSIAUninstallConnector,
+    'test-connector-reachability': ArkSIATestConnectorReachability,
 }
 ACCESS_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='access',
