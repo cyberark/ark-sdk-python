@@ -49,14 +49,28 @@ class StartAuthResult(ArkModel):
     idp_login_session_id: Optional[str] = Field(default=None, alias='IdpLoginSessionId')
     idp_redirect_short_url: Optional[str] = Field(default=None, alias='IdpRedirectShortUrl')
     idp_short_url_id: Optional[str] = Field(default=None, alias='IdpShortUrlId')
+    idp_oob_auth_pin_required: Optional[bool] = Field(default=None, alias='IdpOobAuthPinRequired')
     tenant_id: Optional[str] = Field(default=None, alias='TenantId')
 
 
 class IdpAuthStatusResult(ArkModel):
-    state: str = Field(alias='State')
+    auth_level: Optional[str] = Field(default=None, alias='AuthLevel')
+    display_name: Optional[str] = Field(default=None, alias='DisplayName')
+    auth: Optional[str] = Field(default=None, alias='Auth')
+    user_id: Optional[str] = Field(default=None, alias='UserId')
+    state: Optional[str] = Field(default=None, alias='State')
     token_lifetime: Optional[int] = Field(default=None, alias='TokenLifetime')
     token: Optional[str] = Field(default=None, alias='Token')
     refresh_token: Optional[str] = Field(default=None, alias='RefreshToken')
+    email_address: Optional[str] = Field(default=None, alias='EmailAddress')
+    user_directory: Optional[str] = Field(default=None, alias='UserDirectory')
+    pod_fqdn: Optional[str] = Field(default=None, alias='PodFqdn')
+    user: Optional[str] = Field(default=None, alias='User')
+    customer_id: Optional[str] = Field(default=None, alias='CustomerID')
+    forest: Optional[str] = Field(default=None, alias='Forest')
+    system_id: Optional[str] = Field(default=None, alias='SystemID')
+    source_ds_type: Optional[str] = Field(default=None, alias='SourceDsType')
+    summary: Optional[str] = Field(default=None, alias='Summary')
 
 
 class TenantFqdnResponse(IdentityApiResponse):
