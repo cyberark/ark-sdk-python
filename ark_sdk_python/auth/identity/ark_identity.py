@@ -92,11 +92,11 @@ class ArkIdentity:
     ) -> None:
         self.__username = username
         self.__password = password
+        self.__logger = logger or get_logger(app=self.__class__.__name__)
         self.__identity_url = self.__resolve_fqdn_from_username_or_subdomain(identity_url, identity_tenant_subdomain)
         if not self.__identity_url.startswith('https://'):
             self.__identity_url = f'https://{self.__identity_url}'
         self.__mfa_type = mfa_type or 'email'
-        self.__logger = logger or get_logger(app=self.__class__.__name__)
         self.__interaction_process: Optional[Process] = None
         self.__is_polling: bool = False
         self.__keyring = ArkKeyring(self.__class__.__name__.lower()) if cache_authentication else None
@@ -204,17 +204,20 @@ class ArkIdentity:
         return parsed_res
 
     def __advance_authentication(
-        self, mechanism_id: str, session_id: str, answer: str, action: str
-    ) -> Union[AdvanceAuthMidResponse, AdvanceAuthResponse]:
+        self, mechanism_id: str, session_id: str, answer: str, action: str, is_idp_auth: bool = False
+    ) -> Union[AdvanceAuthMidResponse, AdvanceAuthResponse, IdpAuthStatusResponse]:
         self.__logger.info(f'Advancing authentication with user {self.__username} and fqdn {self.__identity_url} and action {action}')
         response = self.__session.post(
             url=f'{self.__identity_url}/Security/AdvanceAuthentication',
             json={'SessionId': session_id, 'MechanismId': mechanism_id, 'Action': action, 'Answer': answer},
         )
         try:
-            parsed_res: AdvanceAuthMidResponse = AdvanceAuthMidResponse.model_validate_json(response.text)
-            if parsed_res.result.summary == 'LoginSuccess':
-                parsed_res: AdvanceAuthResponse = AdvanceAuthResponse.model_validate_json(response.text)
+            if is_idp_auth:
+                parsed_res: IdpAuthStatusResponse = IdpAuthStatusResponse.model_validate_json(response.text)
+            else:
+                parsed_res: AdvanceAuthMidResponse = AdvanceAuthMidResponse.model_validate_json(response.text)
+                if parsed_res.result.summary == 'LoginSuccess':
+                    parsed_res: AdvanceAuthResponse = AdvanceAuthResponse.model_validate_json(response.text)
         except (ValidationError, TypeError) as ex:
             raise ArkException(f'Identity advance authentication failed to be parsed / validated [{response.text}]') from ex
         return parsed_res
@@ -281,14 +284,16 @@ class ArkIdentity:
                 if output_conn.poll():
                     mfa_code = output_conn.recv()
                     advance_resp = self.__advance_authentication(
-                        mechanism.mechanism_id, start_auth_response.result.session_id, mfa_code, 'Answer'
+                        mechanism.mechanism_id, start_auth_response.result.session_id, mfa_code, 'Answer', False
                     )
                     if isinstance(advance_resp, AdvanceAuthResponse):
                         input_conn.send('DONE')
                     else:
                         input_conn.send('CONTINUE')
                 else:
-                    advance_resp = self.__advance_authentication(mechanism.mechanism_id, start_auth_response.result.session_id, '', 'Poll')
+                    advance_resp = self.__advance_authentication(
+                        mechanism.mechanism_id, start_auth_response.result.session_id, '', 'Poll', False
+                    )
                 if isinstance(advance_resp, AdvanceAuthResponse):
                     # Done here, save the token
                     self.__is_polling = False
@@ -340,6 +345,37 @@ class ArkIdentity:
         self.__mfa_type = next(filter(lambda f: factors[f] == answers['mfa'], factors.keys()))
         return next(filter(lambda m: factors[m.name.lower()] == answers['mfa'], supported_mechanisms))
 
+    def __perform_pin_code_idp_authentication(
+        self, start_auth_response: StartAuthResponse, profile: Optional[ArkProfile] = None, interactive: bool = False
+    ) -> None:
+        if not interactive:
+            raise ArkException('Non-interactive mode is not supported for OOB PIN code authentication')
+        answers = inquirer.prompt(
+            [inquirer.Password('answer', message='Please enter the PIN code displayed after you logged in to your identity provider')],
+            render=ArkInquirerRender(),
+        )
+        if not answers:
+            raise ArkAuthException('Canceled by user')
+        pin_code = answers['answer']
+        result = self.__advance_authentication('OOBAUTHPIN', start_auth_response.result.idp_login_session_id, pin_code, 'Answer', True)
+        if (
+            not result
+            or not result.success
+            or not isinstance(result, IdpAuthStatusResponse)
+            or not result.result.summary
+            or result.result.summary != 'LoginSuccess'
+            or not result.result.token
+        ):
+            raise ArkAuthException('Failed to perform idp authentication with OOB PIN')
+        # We managed to successfully authenticate
+        # Done here, save the token
+        self.__session_details = result.result
+        self.__session.headers.update({'Authorization': f'Bearer {result.result.token}', **ArkIdentityFQDNResolver.default_headers()})
+        delta = self.__session_details.token_lifetime or DEFAULT_TOKEN_LIFETIME_SECONDS
+        self.__session_exp = datetime.now() + timedelta(seconds=delta)
+        if self.__cache_authentication:
+            self.__save_cache(profile)
+
     def __perform_idp_authentication(
         self, start_auth_response: StartAuthResponse, profile: Optional[ArkProfile] = None, interactive: bool = False
     ) -> None:
@@ -355,6 +391,11 @@ class ArkIdentity:
 
         # Error can be ignored
         webbrowser.open(start_auth_response.result.idp_redirect_short_url, new=0, autoraise=True)
+
+        # Pin code flow
+        if start_auth_response.result.idp_oob_auth_pin_required:
+            self.__perform_pin_code_idp_authentication(start_auth_response, profile, interactive)
+            return
 
         # Start polling for idp auth
         self.__is_polling = True
@@ -400,7 +441,7 @@ class ArkIdentity:
                 raise ArkAuthException('Canceled by user')
             self.__password = answers['answer']
         advance_resp = self.__advance_authentication(
-            mechanism.mechanism_id, start_auth_response.result.session_id, self.__password, 'Answer'
+            mechanism.mechanism_id, start_auth_response.result.session_id, self.__password, 'Answer', False
         )
         if isinstance(advance_resp, AdvanceAuthResponse) and len(start_auth_response.result.challenges) == 1:
             # Done here, save the token
@@ -568,7 +609,7 @@ class ArkIdentity:
                     return
             else:
                 oob_advance_resp = self.__advance_authentication(
-                    mechanism.mechanism_id, start_auth_response.result.session_id, '', 'StartOOB'
+                    mechanism.mechanism_id, start_auth_response.result.session_id, '', 'StartOOB', False
                 )
                 self.__poll_authentication(profile, mechanism, start_auth_response, oob_advance_resp, interactive)
                 if self.__session_details:
@@ -591,7 +632,7 @@ class ArkIdentity:
             for mechanism in start_auth_response.result.challenges[current_challenge_idx].mechanisms:
                 if mechanism.name.lower() == self.__mfa_type.lower():
                     oob_advance_resp = self.__advance_authentication(
-                        mechanism.mechanism_id, start_auth_response.result.session_id, '', 'StartOOB'
+                        mechanism.mechanism_id, start_auth_response.result.session_id, '', 'StartOOB', False
                     )
                     self.__poll_authentication(profile, mechanism, start_auth_response, oob_advance_resp, interactive)
                     return
@@ -602,7 +643,9 @@ class ArkIdentity:
         # Handle the rest of the challenges, might also handle the first challenge if no password is in the mechanisms
         for challenge in start_auth_response.result.challenges[current_challenge_idx:]:
             mechanism = self.__pick_mechanism(challenge)
-            oob_advance_resp = self.__advance_authentication(mechanism.mechanism_id, start_auth_response.result.session_id, '', 'StartOOB')
+            oob_advance_resp = self.__advance_authentication(
+                mechanism.mechanism_id, start_auth_response.result.session_id, '', 'StartOOB', False
+            )
             self.__poll_authentication(profile, mechanism, start_auth_response, oob_advance_resp, interactive)
 
     # pylint: disable=unused-argument
