@@ -1,4 +1,5 @@
 import base64
+import os
 import uuid
 from typing import Any, Final, Optional
 
@@ -9,6 +10,7 @@ from ark_sdk_python.models import ArkException
 from ark_sdk_python.models.common.connections import ArkConnectionCommand, ArkConnectionDetails, ArkConnectionResult
 
 WINRM_HTTPS_PORT: Final[int] = 5986
+IGNORE_CERT_VALIDATION_ENV_VAR: Final[str] = 'ARK_WINRM_NO_SSL_CERT_VALIDATION'
 
 
 class ArkWinRMConnection(ArkConnection):
@@ -48,13 +50,18 @@ class ArkWinRMConnection(ArkConnection):
                     password = connection_details.credentials.password.get_secret_value()
             if connection_details.connection_data and connection_details.connection_data.certificate:
                 cert = connection_details.connection_data.certificate
+            server_cert_validation = 'validate'
+            if len(os.getenv(IGNORE_CERT_VALIDATION_ENV_VAR, '')) > 0 or (
+                connection_details.connection_data and not connection_details.connection_data.validate_certificate
+            ):
+                server_cert_validation = 'ignore'
             self.__winrm_protocol = winrm.Protocol(
                 endpoint=f'https://{connection_details.address}:' f'{target_port}/wsman',
                 transport='ntlm',
                 username=user,
                 password=password,
                 ca_trust_path=cert,
-                server_cert_validation='ignore',
+                server_cert_validation=server_cert_validation,
                 read_timeout_sec=10,
                 operation_timeout_sec=5,
             )
