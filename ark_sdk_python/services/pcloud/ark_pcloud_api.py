@@ -3,6 +3,7 @@ from ark_sdk_python.services.pcloud.accounts import ArkPCloudAccountsService
 from ark_sdk_python.services.pcloud.applications import ArkPCloudApplicationsService
 from ark_sdk_python.services.pcloud.platforms import ArkPCloudPlatformsService
 from ark_sdk_python.services.pcloud.safes import ArkPCloudSafesService
+from ark_sdk_python.services.pcloud.usermgmt import ArkPCloudUserMgmtService
 
 
 class ArkPCloudAPI:
@@ -10,6 +11,7 @@ class ArkPCloudAPI:
         self.__accounts_service = ArkPCloudAccountsService(isp_auth)
         self.__platforms_service = ArkPCloudPlatformsService(isp_auth)
         self.__safes_service = ArkPCloudSafesService(isp_auth)
+        self.__usermgmt_service = ArkPCloudUserMgmtService(isp_auth)
         self.__applications_service = ArkPCloudApplicationsService(isp_auth)
 
     @property
@@ -41,6 +43,16 @@ class ArkPCloudAPI:
             ArkPCloudSafesService: _description_
         """
         return self.__safes_service
+
+    @property
+    def usermgmt(self) -> ArkPCloudUserMgmtService:
+        """
+        Getter for the usermgmt service
+
+        Returns:
+            ArkPCloudUserMgmtService: _description_
+        """
+        return self.__usermgmt_service
 
     @property
     def applications(self) -> ArkPCloudApplicationsService:

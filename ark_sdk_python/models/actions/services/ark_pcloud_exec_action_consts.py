@@ -58,6 +58,23 @@ from ark_sdk_python.models.services.pcloud.safes import (
     ArkPCloudUpdateSafe,
     ArkPCloudUpdateSafeMember,
 )
+from ark_sdk_python.models.services.pcloud.usermgmt import (
+    ArkPCloudActivateVaultUser,
+    ArkPCloudAddVaultGroup,
+    ArkPCloudAddVaultMemberToGroup,
+    ArkPCloudAddVaultUser,
+    ArkPCloudDeleteVaultGroup,
+    ArkPCloudDeleteVaultUser,
+    ArkPCloudDisableVaultUser,
+    ArkPCloudEnableVaultUser,
+    ArkPCloudGetVaultGroup,
+    ArkPCloudGetVaultUser,
+    ArkPCloudRemoveVaultMemberFromGroup,
+    ArkPCloudUpdateVaultGroup,
+    ArkPCloudUpdateVaultUser,
+    ArkPCloudVaultGroupsFilter,
+    ArkPCloudVaultUsersFilter,
+)
 
 # PCloud Accounts Definitions
 PCLOUD_ACCOUNTS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
@@ -150,6 +167,33 @@ PCLOUD_APPLICATIONS_ACTION: Final[ArkServiceActionDefinition] = ArkServiceAction
     schemas=PCLOUD_APPLICATIONS_ACTION_TO_SCHEMA_MAP,
 )
 
+# PCloud Usermgmt Definitions
+PCLOUD_USERMGMT_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'add-vault-user': ArkPCloudAddVaultUser,
+    'delete-vault-user': ArkPCloudDeleteVaultUser,
+    'update-vault-user': ArkPCloudUpdateVaultUser,
+    'vault-user': ArkPCloudGetVaultUser,
+    'list-vault-users': None,
+    'list-vault-users-by': ArkPCloudVaultUsersFilter,
+    'enable-vault-user': ArkPCloudEnableVaultUser,
+    'disable-vault-user': ArkPCloudDisableVaultUser,
+    'activate-vault-user': ArkPCloudActivateVaultUser,
+    'vault-users-stats': None,
+    'add-vault-group': ArkPCloudAddVaultGroup,
+    'delete-vault-group': ArkPCloudDeleteVaultGroup,
+    'update-vault-group': ArkPCloudUpdateVaultGroup,
+    'vault-group': ArkPCloudGetVaultGroup,
+    'list-vault-groups': None,
+    'list-vault-groups-by': ArkPCloudVaultGroupsFilter,
+    'add-vault-member-to-group': ArkPCloudAddVaultMemberToGroup,
+    'remove-vault-member-from-group': ArkPCloudRemoveVaultMemberFromGroup,
+    'vault-groups-stats': None,
+}
+PCLOUD_USERMGMT_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
+    action_name='usermgmt',
+    schemas=PCLOUD_USERMGMT_ACTION_TO_SCHEMA_MAP,
+)
+
 # Service Actions Definition
 PCLOUD_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='pcloud',
@@ -157,6 +201,7 @@ PCLOUD_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
         PCLOUD_ACCOUNTS_ACTION,
         PCLOUD_PLATFORMS_ACTION,
         PCLOUD_SAFES_ACTION,
+        PCLOUD_USERMGMT_ACTION,
         PCLOUD_APPLICATIONS_ACTION,
     ],
 )

@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from http import HTTPStatus
-from typing import Final
+from typing import Final, List
 
 from overrides import overrides
 from pydantic import ValidationError
@@ -14,6 +14,8 @@ from ark_sdk_python.models.services.identity.users import (
     ArkIdentityCreateUser,
     ArkIdentityDeleteUser,
     ArkIdentityDeleteUsers,
+    ArkIdentityGetUserState,
+    ArkIdentityListUserRoles,
     ArkIdentityResetUserPassword,
     ArkIdentityUpdateUser,
     ArkIdentityUser,
@@ -21,6 +23,8 @@ from ark_sdk_python.models.services.identity.users import (
     ArkIdentityUserByName,
     ArkIdentityUserIdByName,
     ArkIdentityUserInfo,
+    ArkIdentityUserRole,
+    ArkIdentityUserState,
 )
 from ark_sdk_python.services.identity.common import ArkIdentityBaseService
 from ark_sdk_python.services.identity.directories import ArkIdentityDirectoriesService
@@ -38,6 +42,8 @@ REMOVE_USERS_URL: Final[str] = 'UserMgmt/RemoveUsers'
 RESET_USER_PASSWORD_URL: Final[str] = 'UserMgmt/ResetUserPassword'
 REDROCK_QUERY: Final[str] = 'Redrock/query'
 USER_INFO_URL: Final[str] = 'OAuth2/UserInfo/__idaptive_cybr_user_oidc'
+USER_ROLES_URL: Final[str] = 'UserMgmt/GetUsersRolesAndAdministrativeRights'
+USER_ATTRIBUTES_URL: Final[str] = 'UserMgmt/GetUserAttributes'
 
 
 class ArkIdentityUsersService(ArkIdentityBaseService):
@@ -281,6 +287,75 @@ class ArkIdentityUsersService(ArkIdentityBaseService):
         except (ValidationError, JSONDecodeError, KeyError) as ex:
             self._logger.exception(f'Failed to parse user id by id response [{str(ex)}] - [{response.text}]')
             raise ArkServiceException(f'Failed to parse user id by id response [{str(ex)}]') from ex
+
+    def list_user_roles(self, list_user_roles: ArkIdentityListUserRoles) -> List[ArkIdentityUserRole]:
+        """
+        Lists the roles of the given user, as identity resolves them for it (UserMgmt/GetUsersRolesAndAdministrativeRights)
+
+        Args:
+            list_user_roles (ArkIdentityListUserRoles): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            List[ArkIdentityUserRole]: _description_
+        """
+        user_id = list_user_roles.user_id or self.user_id_by_name(ArkIdentityUserIdByName(username=list_user_roles.username))
+        self._logger.info(f'Listing roles of user [{user_id}]')
+        response: Response = self._client.post(f'{self._url_prefix}{USER_ROLES_URL}', json={'id': user_id})
+        if response.status_code != HTTPStatus.OK:
+            raise ArkServiceException(f'Failed to list user roles [{response.text}] - [{response.status_code}]')
+        try:
+            result = response.json()
+            if not result['success']:
+                raise ArkServiceException(f'Failed to list user roles [{response.text}]')
+            roles: List[ArkIdentityUserRole] = []
+            for item in (result.get('Result') or {}).get('Results') or []:
+                row = item['Row']
+                roles.append(
+                    ArkIdentityUserRole(
+                        role_id=row.get('ID', ''),
+                        role_name=row.get('RoleName'),
+                        name=row.get('Name'),
+                        distinguished_name=row.get('DistinguishedName'),
+                    )
+                )
+            return roles
+        except (ValidationError, JSONDecodeError, KeyError) as ex:
+            self._logger.exception(f'Failed to parse list user roles response [{str(ex)}] - [{response.text}]')
+            raise ArkServiceException(f'Failed to parse list user roles response [{str(ex)}]') from ex
+
+    def user_state(self, get_user_state: ArkIdentityGetUserState) -> ArkIdentityUserState:
+        """
+        Retrieves the state of the given user account (UserMgmt/GetUserAttributes), None means no restriction,
+        otherwise the account is Locked, Disabled or Expired
+
+        Args:
+            get_user_state (ArkIdentityGetUserState): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkIdentityUserState: _description_
+        """
+        user_id = get_user_state.user_id or self.user_id_by_name(ArkIdentityUserIdByName(username=get_user_state.username))
+        self._logger.info(f'Retrieving the state of user [{user_id}]')
+        request = {'ID': user_id}
+        if get_user_state.directory_service_uuid:
+            request['DirectoryServiceUuid'] = get_user_state.directory_service_uuid
+        response: Response = self._client.post(f'{self._url_prefix}{USER_ATTRIBUTES_URL}', json=request)
+        if response.status_code != HTTPStatus.OK:
+            raise ArkServiceException(f'Failed to retrieve user state [{response.text}] - [{response.status_code}]')
+        try:
+            result = response.json()
+            if not result['success']:
+                raise ArkServiceException(f'Failed to retrieve user state [{response.text}]')
+            return ArkIdentityUserState(user_id=user_id, state=(result.get('Result') or {}).get('State'))
+        except (ValidationError, JSONDecodeError, KeyError) as ex:
+            self._logger.exception(f'Failed to parse user state response [{str(ex)}] - [{response.text}]')
+            raise ArkServiceException(f'Failed to parse user state response [{str(ex)}]') from ex
 
     def reset_user_password(self, reset_user_password: ArkIdentityResetUserPassword) -> None:
         """

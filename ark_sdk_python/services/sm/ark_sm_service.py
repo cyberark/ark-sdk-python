@@ -53,7 +53,10 @@ class ArkSMService(ArkService):
         ArkISPServiceClient.refresh_client(client, self.__isp_auth)
 
     def __search_params_from_filter(self, sessions_filter: ArkSMSessionsFilter):
-        return {'search': sessions_filter.search}
+        params = {'search': sessions_filter.search}
+        if sessions_filter.limit:
+            params['limit'] = sessions_filter.limit
+        return params
 
     def __call_sessions_api(self, params: Optional[dict] = None) -> ArkSMSessions:
         params_dict = {}

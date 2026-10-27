@@ -67,10 +67,12 @@ The Identity (identity) service requires ArkISPAuth authenticator, and exposes t
 - <b>ArkIdentityUsersService - Identity users service
 - <b>ArkIdentityPoliciesService - Identity policies service
 - <b>ArkIdentityDirectoriesService - Identity directories service
+- <b>ArkIdentityFederationsService - Identity federations service (external identity providers, read only)
 
 
 ## Privilege Cloud service
 The Privilege Cloud (pcloud) service requires ArkISPAuth authenticator, and exposes those service classes:
 - <b>ArkPCloudAccountsService</b> - Accounts management service
 - <b>ArkPCloudSafesService</b> - Safes management service
+- <b>ArkPCloudUserMgmtService</b> - pCloud's Vault User Management
 - <b>ArkPCloudPlatformsService</b> - Platforms management service

@@ -4,6 +4,7 @@ from ark_sdk_python.models import ArkModel
 from ark_sdk_python.models.actions.ark_service_action_definition import ArkServiceActionDefinition
 from ark_sdk_python.models.services.identity.connectors import ArkIdentityConnectorsFilter, ArkIdentityGetConnector
 from ark_sdk_python.models.services.identity.directories import ArkIdentityListDirectories, ArkIdentityListDirectoriesEntities
+from ark_sdk_python.models.services.identity.federations import ArkIdentityFederationsFilter, ArkIdentityGetFederation
 from ark_sdk_python.models.services.identity.policies import (
     ArkIdentityAddAuthenticationProfile,
     ArkIdentityAddPolicy,
@@ -32,6 +33,8 @@ from ark_sdk_python.models.services.identity.users import (
     ArkIdentityCreateUser,
     ArkIdentityDeleteUser,
     ArkIdentityDeleteUsers,
+    ArkIdentityGetUserState,
+    ArkIdentityListUserRoles,
     ArkIdentityResetUserPassword,
     ArkIdentityUpdateUser,
     ArkIdentityUserById,
@@ -102,6 +105,17 @@ IDENTITY_ROLES_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefi
     schemas=IDENTITY_ROLES_ACTION_TO_SCHEMA_MAP,
 )
 
+# Federations
+IDENTITY_FEDERATIONS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'list-federations': None,
+    'list-federations-by': ArkIdentityFederationsFilter,
+    'federation': ArkIdentityGetFederation,
+}
+IDENTITY_FEDERATIONS_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
+    action_name='federations',
+    schemas=IDENTITY_FEDERATIONS_ACTION_TO_SCHEMA_MAP,
+)
+
 # Users
 IDENTITY_USERS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
     'create-user': ArkIdentityCreateUser,
@@ -111,6 +125,8 @@ IDENTITY_USERS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] 
     'user-by-id': ArkIdentityUserById,
     'user-by-name': ArkIdentityUserByName,
     'user-id-by-name': ArkIdentityUserIdByName,
+    'list-user-roles': ArkIdentityListUserRoles,
+    'user-state': ArkIdentityGetUserState,
     'reset-user-password': ArkIdentityResetUserPassword,
 }
 IDENTITY_USERS_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
@@ -124,6 +140,7 @@ IDENTITY_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition
     subactions=[
         IDENTITY_CONNECTORS_ACTIONS,
         IDENTITY_DIRECTORIES_ACTIONS,
+        IDENTITY_FEDERATIONS_ACTIONS,
         IDENTITY_POLICIES_ACTIONS,
         IDENTITY_ROLES_ACTIONS,
         IDENTITY_USERS_ACTIONS,
