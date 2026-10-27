@@ -622,7 +622,7 @@ def _product_descriptions(pcloud_by_user_roles: bool, validate_pcloud_vault: boo
             ' With the vault validation the user must also exist in the vault (PCloud user management, matched by username, case insensitive), '
             'which happens when the user first goes to PrivCloud, so users that only hold a role are not counted.'
             if validate_pcloud_vault
-            else ' The users are not checked against the vault (use --validate-pcloud-vault).'
+            else ' The users are not checked against the vault (the check was turned off with --no-validate-pcloud-vault).'
         ),
     }
 
@@ -669,7 +669,7 @@ def _methodology(report_options: Dict[str, bool]) -> List[str]:
     else:
         lines.append(
             'The PrivCloud users are not checked against the vault, so users that hold a role but never went to PrivCloud are counted '
-            '(use --validate-pcloud-vault to leave them out).'
+            '(the vault validation was turned off with --no-validate-pcloud-vault, it is on by default).'
         )
     if report_options['identity_only']:
         lines.append(
@@ -1153,9 +1153,11 @@ def add_common_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         '--validate-pcloud-vault',
-        action='store_true',
+        action=argparse.BooleanOptionalAction,
+        default=True,
         help='Count a PrivCloud user only when it also exists in the vault (PCloud user management). Users are provisioned to the '
-        'vault when they first go to PrivCloud, so this leaves out users that only hold a role. Needs the right to list vault users',
+        'vault when they first go to PrivCloud, so this leaves out users that only hold a role. Needs the right to list vault users '
+        '(default: on, use --no-validate-pcloud-vault to turn off)',
     )
     parser.add_argument(
         '--vault-page-size',
