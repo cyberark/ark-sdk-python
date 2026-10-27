@@ -19,6 +19,8 @@ class DirectoryService(str, Enum):
 class DirectoryServiceMetadata(ArkModel):
     service: str = Field(alias='Service')
     directory_service_uuid: str = Field(alias='directoryServiceUuid')
+    config: Optional[str] = Field(default=None, alias='Config')
+    display_name_short: Optional[str] = Field(default=None, alias='DisplayNameShort')
 
 
 class DirectoryServiceRow(ArkModel):

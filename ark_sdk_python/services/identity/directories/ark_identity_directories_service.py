@@ -70,7 +70,10 @@ class ArkIdentityDirectoriesService(ArkIdentityBaseService):
             directories = list(
                 map(
                     lambda service: ArkIdentityDirectory(
-                        directory=DirectoryService(service.row.service), directory_service_uuid=service.row.directory_service_uuid
+                        directory=DirectoryService(service.row.service),
+                        directory_service_uuid=service.row.directory_service_uuid,
+                        config=service.row.config,
+                        display_name=service.row.display_name_short,
                     ),
                     requested_services,
                 )

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import ConfigDict, Field, StringConstraints
 from typing_extensions import Annotated
 
@@ -7,6 +9,11 @@ from ark_sdk_python.models import ArkCamelizedModel
 class ArkSMSessionsFilter(ArkCamelizedModel):
     search: Annotated[str, StringConstraints(max_length=4096)] = Field(
         description='Free text query to search sessions by. For example: "startTime GE 2023-11-18T06:53:30Z AND status IN Failed,Ended AND endReason STARTSWITH Err008"'
+    )
+    limit: Optional[int] = Field(
+        default=None,
+        ge=1,
+        description='Page size to request per call (the service default is used when not given). Paging continues by the returned count, so a smaller page size returned by the service is fine',
     )
     model_config = ConfigDict(
         json_schema_extra={

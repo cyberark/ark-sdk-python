@@ -48,6 +48,7 @@ CyberArk's Official SDK and CLI for different services operations
     - [x] Identity Connectors Service
     - [x] PCloud Accounts Service
     - [x] PCloud Safes Service
+    - [x] PCloud Usermgmt Service
     - [x] PCloud Platforms Service
     - [x] PCloud Applications Service
     - [x] Connector Manager Service
@@ -242,6 +243,7 @@ The following services and commands are supported:
 - <b>pcloud</b> - PCloud Service
     - <b>accounts</b> - PCloud Accounts Management
     - <b>safes</b> - PCloud Safes Management
+    - <b>usermgmt</b> - pCloud's Vault User Management
     - <b>platforms</b> - PCloud Platforms Management
     - <b>applications</b> - PCloud Applications Management
 - <b>cmgr</b> - Connector Manager Service

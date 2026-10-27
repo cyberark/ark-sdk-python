@@ -38,6 +38,7 @@ The following services and commands are supported:
 - `ark exec pcloud`: Root command for PCloud service
     - `accounts` - Accounts management
     - `safes` - Safes management
+    - `usermgmt` - Vault users and groups management
     - `platforms` - Platforms management
     - `applications` - Applications management
 - `ark exec cmgr`: Root command for Connector Manager service

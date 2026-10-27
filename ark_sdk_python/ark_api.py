@@ -105,6 +105,18 @@ class ArkAPI:
         return cast(ArkIdentityDirectoriesService, self.service(ArkIdentityDirectoriesService))
 
     @property
+    def identity_federations(self) -> "ArkIdentityFederationsService":
+        """
+        Returns the Identity Federations Service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkIdentityFederationsService: _description_
+        """
+        from ark_sdk_python.services.identity.federations import ArkIdentityFederationsService
+
+        return cast(ArkIdentityFederationsService, self.service(ArkIdentityFederationsService))
+
+    @property
     def identity_policies(self) -> "ArkIdentityPoliciesService":
         """
         Returns the Identity Policies Service if the appropriate authenticators were provided.
@@ -343,6 +355,18 @@ class ArkAPI:
         from ark_sdk_python.services.pcloud.platforms import ArkPCloudPlatformsService
 
         return cast(ArkPCloudPlatformsService, self.service(ArkPCloudPlatformsService))
+
+    @property
+    def pcloud_usermgmt(self) -> "ArkPCloudUserMgmtService":
+        """
+        Returns the PCloud Usermgmt service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkPCloudUserMgmtService: _description_
+        """
+        from ark_sdk_python.services.pcloud.usermgmt import ArkPCloudUserMgmtService
+
+        return cast(ArkPCloudUserMgmtService, self.service(ArkPCloudUserMgmtService))
 
     @property
     def pcloud_applications(self) -> "ArkPCloudApplicationsService":
