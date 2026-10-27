@@ -46,15 +46,11 @@ UNIX_READ_CONNECTOR_CONFIG_CMD: Final[str] = 'sudo cat /opt/cyberark/connector/c
 
 # Windows Commands
 WIN_STOP_CONNECTOR_SERVICE_CMD: Final[str] = 'Stop-Service -Name \"CyberArkDPAConnector\"'
-WIN_REMOVE_CONNECTOR_SERVICE_CMD: Final[
-    str
-] = """$service = Get-WmiObject -Class Win32_Service -Filter "Name='CyberArkDPAConnector'"
+WIN_REMOVE_CONNECTOR_SERVICE_CMD: Final[str] = """$service = Get-WmiObject -Class Win32_Service -Filter "Name='CyberArkDPAConnector'"
 $service.delete()
 """
 WIN_REMOVE_CONNECTOR_FILES_CMD: Final[str] = 'Remove-Item -LiteralPath \"C:\\Program Files\\CyberArk\\DPAConnector\" -Force -Recurse'
-WIN_CONNECTOR_ACTIVE_CMD: Final[
-    str
-] = """$result = Get-Service -Name \"CyberArkDPAConnector\"
+WIN_CONNECTOR_ACTIVE_CMD: Final[str] = """$result = Get-Service -Name \"CyberArkDPAConnector\"
 if ($result.Status -ne 'Running')
 {
     return 1
