@@ -10,7 +10,7 @@ Flow:
     4. Split the users into exactly one of 7 groups according to what they used
        (--active-only first leaves out users whose account is Locked / Disabled / Expired, listing them separately)
 
-Output: stdout + JSON + Excel (Excel requires `pip install openpyxl`).
+Output: stdout + JSON + Excel.
 
 Usage:
     python license_consumption_analytics.py --username user@cyberark.cloud.1234 --secret ... [--service-user] --output-dir ./out
