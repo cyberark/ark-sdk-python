@@ -7,7 +7,7 @@ from ark_sdk_python.common.isp import ArkISPServiceClient
 from ark_sdk_python.services.ark_service import ArkService
 
 
-class ArkIdentityBaseService(ArkService):
+class ArkIdentityBaseService(ArkService):  # pylint: disable=abstract-method
     def __init__(self, isp_auth: ArkISPAuth) -> None:
         super().__init__(isp_auth)
         self._isp_auth = isp_auth

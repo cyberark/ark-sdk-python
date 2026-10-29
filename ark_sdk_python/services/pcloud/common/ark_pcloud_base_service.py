@@ -10,7 +10,7 @@ from ark_sdk_python.common.isp.ark_isp_service_client import ArkISPServiceClient
 from ark_sdk_python.services.ark_service import ArkService
 
 
-class ArkPCloudBaseService(ArkService):
+class ArkPCloudBaseService(ArkService):  # pylint: disable=abstract-method
     def __init__(
         self,
         isp_auth: ArkISPAuth,
