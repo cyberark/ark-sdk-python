@@ -29,18 +29,18 @@ class TestArkPCloudUserMgmtListUsers(unittest.TestCase):
     def setUp(self):
         with patch('ark_sdk_python.services.pcloud.usermgmt.ark_pcloud_usermgmt_service.ArkPCloudBaseService.__init__', return_value=None):
             self.service = ArkPCloudUserMgmtService.__new__(ArkPCloudUserMgmtService)
-        self.service._client = MagicMock()
-        self.service._logger = MagicMock()
+        self.service._client = MagicMock()  # pylint: disable=protected-access
+        self.service._logger = MagicMock()  # pylint: disable=protected-access
         self.sent = []
 
     def _serve(self, responses):
         responses = iter(responses)
 
-        def _get(route, **kwargs):
+        def _get(_route, **kwargs):
             self.sent.append(dict(kwargs['params']))
             return next(responses)
 
-        self.service._client.get.side_effect = _get
+        self.service._client.get.side_effect = _get  # pylint: disable=protected-access
 
     def test_pages_through_all_users_by_page_offset_and_size(self):
         self._serve([_response([1, 2], 5), _response([3, 4], 5), _response([5], 5)])
