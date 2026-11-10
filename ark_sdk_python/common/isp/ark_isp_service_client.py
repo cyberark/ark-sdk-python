@@ -62,7 +62,9 @@ class ArkISPServiceClient(ArkClient):
             platform_token_domain = ArkJWTUtils.get_unverified_claims(token).get('platform_domain', None)
             if platform_token_domain:
                 platform_domain = platform_token_domain
-                tenant_env = list(filter(lambda e: ROOT_DOMAIN[e] == platform_domain, ROOT_DOMAIN.keys()))
+                tenant_envs = list(filter(lambda e: ROOT_DOMAIN[e] == platform_domain, ROOT_DOMAIN.keys()))
+                if tenant_envs:
+                    tenant_env = tenant_envs[0]
         if not tenant_chosen_subdomain and tenant_subdomain:
             tenant_chosen_subdomain = tenant_subdomain
         if not tenant_chosen_subdomain and base_tenant_url:

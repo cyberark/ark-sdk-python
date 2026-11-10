@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ark-sdk-python"
-version = "2.1.7"
+version = "3.0.0"
 description='Official Ark SDK / CLI for CyberArk Identity Security Platform'
 authors = ["CyberArk <cyberark@cyberark.com>", "Ofir Iluz <ofir.iluz@cyberark.com"]
 readme = "README.md"
@@ -66,6 +66,7 @@ pywinrm = "*"
 pexpect = { version = "*", markers = "sys_platform != 'win32'" }
 pywinpty = { version = "*", markers = "sys_platform == 'win32'" }
 openpyxl = "*"
+pyperclip = "*"
 
 [tool.poetry.scripts]
 ark = 'ark_sdk_python.ark:main'

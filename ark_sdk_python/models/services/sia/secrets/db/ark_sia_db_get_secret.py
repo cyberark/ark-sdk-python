@@ -16,3 +16,7 @@ class ArkSIADBGetSecret(ArkModel):
         if 'secret_id' not in values and 'secret_name' not in values:
             raise ValueError('Either secret id or secret name needs to be provided')
         return values
+
+
+class ArkSIADBGetStrongAccount(ArkModel):
+    strong_account_id: str = Field(description='ID of the strong account to get')

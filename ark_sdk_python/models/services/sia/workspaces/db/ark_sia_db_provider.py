@@ -1,6 +1,6 @@
 # pylint: disable=invalid-name
 from enum import Enum
-from typing import Dict, Final
+from typing import Dict, Final, List
 
 from pydantic import BaseModel, Field
 
@@ -62,6 +62,12 @@ class ArkSIADBDatabaseEngineType(str, Enum):
     MongoSHVM = 'mongo-sh-vm'
     MongoAWSDocDB = 'mongo-aws-docdb'
     MongoAtlasManaged = 'mongo-atlas-managed'
+    PostgresGCPCloudSQL = 'postgres-gcp-cloudsql'
+    MySQLGCPCloudSQL = 'mysql-gcp-cloudsql'
+    MSSQLGCPCloudSQL = 'mssql-gcp-cloudsql'
+    PostgresGCPVM = 'postgres-gcp-vm'
+    MySQLGCPVM = 'mysql-gcp-vm'
+    MSSQLGCPVM = 'mssql-gcp-vm'
 
 
 class ArkSIADBDatabaseFamilyType(str, Enum):
@@ -144,7 +150,25 @@ DATABASES_ENGINES_TO_FAMILY: Final[Dict[ArkSIADBDatabaseEngineType, ArkSIADBData
     ArkSIADBDatabaseEngineType.MongoSHVM: ArkSIADBDatabaseFamilyType.Mongo,
     ArkSIADBDatabaseEngineType.MongoAWSDocDB: ArkSIADBDatabaseFamilyType.Mongo,
     ArkSIADBDatabaseEngineType.MongoAtlasManaged: ArkSIADBDatabaseFamilyType.Mongo,
+    ArkSIADBDatabaseEngineType.PostgresGCPCloudSQL: ArkSIADBDatabaseFamilyType.Postgres,
+    ArkSIADBDatabaseEngineType.MySQLGCPCloudSQL: ArkSIADBDatabaseFamilyType.MySQL,
+    ArkSIADBDatabaseEngineType.MSSQLGCPCloudSQL: ArkSIADBDatabaseFamilyType.MSSQL,
+    ArkSIADBDatabaseEngineType.PostgresGCPVM: ArkSIADBDatabaseFamilyType.Postgres,
+    ArkSIADBDatabaseEngineType.MySQLGCPVM: ArkSIADBDatabaseFamilyType.MySQL,
+    ArkSIADBDatabaseEngineType.MSSQLGCPVM: ArkSIADBDatabaseFamilyType.MSSQL,
 }
+
+
+# The database families that can be onboarded through the database-onboarding new API.
+DATABASE_TARGET_FAMILY_TYPES: Final[List[ArkSIADBDatabaseFamilyType]] = [
+    ArkSIADBDatabaseFamilyType.MySQL,
+    ArkSIADBDatabaseFamilyType.MSSQL,
+    ArkSIADBDatabaseFamilyType.Postgres,
+    ArkSIADBDatabaseFamilyType.MariaDB,
+    ArkSIADBDatabaseFamilyType.DB2,
+    ArkSIADBDatabaseFamilyType.Oracle,
+    ArkSIADBDatabaseFamilyType.Mongo,
+]
 
 
 DATABASE_FAMILIES_DEFAULT_PORTS: Final[Dict[ArkSIADBDatabaseFamilyType, int]] = {

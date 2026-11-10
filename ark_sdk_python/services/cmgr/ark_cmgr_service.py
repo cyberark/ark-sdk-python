@@ -1,29 +1,53 @@
 import itertools
+import json
 from http import HTTPStatus
-from typing import Any, Final, Iterator, List, Optional, Type
+from typing import Any, Dict, Final, Iterator, List, Optional, Set, Tuple, Type
 
+from humps.main import camelize
 from overrides import overrides
 from pydantic import TypeAdapter, ValidationError
 from requests import Response
 from requests.exceptions import JSONDecodeError
 
 from ark_sdk_python.auth.ark_isp_auth import ArkISPAuth
-from ark_sdk_python.common import ArkPage
+from ark_sdk_python.common import ArkAsyncRequest, ArkPage
+from ark_sdk_python.common.connections import ArkConnection
+from ark_sdk_python.common.connections.winrm import WINRM_HTTPS_PORT, ArkWinRMConnection
 from ark_sdk_python.common.isp import ArkISPServiceClient
-from ark_sdk_python.models import ArkServiceException
+from ark_sdk_python.models import ArkNotSupportedException, ArkServiceException
+from ark_sdk_python.models.common import ArkAsyncRequestSettings, ArkCountedValues, ArkOsType, ArkWorkspaceType
+from ark_sdk_python.models.common.connections import ArkConnectionCommand, ArkConnectionCredentials, ArkConnectionDetails, ArkConnectionType
+from ark_sdk_python.models.common.connections.connection_data import ArkWinRMConnectionData
 from ark_sdk_python.models.services import ArkServiceConfig
 from ark_sdk_python.models.services.cmgr import (
     ArkCmgrAddNetwork,
     ArkCmgrAddPool,
     ArkCmgrAddPoolBulkIdentifier,
     ArkCmgrAddPoolSingleIdentifier,
+    ArkCmgrComponent,
+    ArkCmgrComponentOperationAsyncTask,
+    ArkCmgrComponentsFilter,
+    ArkCmgrComponentsStats,
+    ArkCmgrComponentStatusCode,
+    ArkCmgrConnector,
+    ArkCmgrConnectorComponentsFilter,
+    ArkCmgrConnectorSetupScript,
+    ArkCmgrConnectorsFilter,
+    ArkCmgrConnectorsStats,
+    ArkCmgrDeleteConnector,
     ArkCmgrDeleteNetwork,
     ArkCmgrDeletePool,
     ArkCmgrDeletePoolBulkIdentifier,
     ArkCmgrDeletePoolSingleIdentifier,
+    ArkCmgrGetConnector,
+    ArkCmgrGetConnectorComponent,
+    ArkCmgrGetConnectorSetupScript,
     ArkCmgrGetNetwork,
     ArkCmgrGetPool,
     ArkCmgrGetPoolComponent,
+    ArkCmgrInstallComponent,
+    ArkCmgrInstallConnector,
+    ArkCmgrListConnectorComponents,
     ArkCmgrListPoolIdentifiers,
     ArkCmgrNetwork,
     ArkCmgrNetworksFilter,
@@ -37,15 +61,34 @@ from ark_sdk_python.models.services.cmgr import (
     ArkCmgrPoolsCommonFilter,
     ArkCmgrPoolsFilter,
     ArkCmgrPoolsStats,
+    ArkCmgrReinstallComponent,
+    ArkCmgrRescanComponents,
+    ArkCmgrUninstallConnector,
     ArkCmgrUpdateNetwork,
     ArkCmgrUpdatePool,
+    ArkCmgrUpgradeComponent,
+    ArkCmgrUpgradeConnector,
+    serialize_cmgr_workspace_type,
 )
 from ark_sdk_python.models.services.cmgr.ark_cmgr_bulk_response import ArkCmgrBulkResponses
+from ark_sdk_python.models.services.cmgr.ark_cmgr_component import MaintenanceOperationStatus
+from ark_sdk_python.models.services.cmgr.ark_cmgr_uninstall_component import ArkCmgrUninstallComponent
 from ark_sdk_python.services.ark_service import ArkService
+from ark_sdk_python.services.cmgr.ark_cmgr_component_operation_async_request import ArkCmgrComponentOperationAsyncRequest
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
     service_name='cmgr', required_authenticator_names=['isp'], optional_authenticator_names=[]
 )
+CONNECTORS_API: Final[str] = 'api/connectors'
+CONNECTOR_API: Final[str] = 'api/connectors/{connector_id}'
+CONNECTOR_COMPONENTS_API: Final[str] = 'api/connectors/{connector_id}/components'
+CONNECTOR_COMPONENT_API: Final[str] = 'api/connectors/{connector_id}/components/{component_id}'
+REINSTALL_CONNECTOR_COMPONENT_API: Final[str] = 'api/connectors/{connector_id}/components/{component_id}/reinstall'
+UPGRADE_CONNECTOR_COMPONENT_API: Final[str] = 'api/connectors/{connector_id}/components/{component_id}/upgrade'
+RESCAN_CONNECTOR_COMPONENTS_API: Final[str] = 'api/connectors/{connector_id}/components/rescan'
+UNINSTALL_CONNECTOR_COMPONENT_API: Final[str] = 'api/connectors/{connector_id}/components/{component_id}/uninstall'
+COMPONENTS_API: Final[str] = 'api/components'
+CONNECTORS_SETUP_SCRIPT_API: Final[str] = 'api/setup-script'
 NETWORKS_API: Final[str] = 'api/pool-service/networks'
 NETWORK_API: Final[str] = 'api/pool-service/networks/{network_id}'
 POOLS_API: Final[str] = 'api/pool-service/pools'
@@ -56,6 +99,39 @@ POOL_IDENTIFIER_API: Final[str] = 'api/pool-service/pools/{pool_id}/identifiers/
 POOLS_COMPONENTS_API: Final[str] = 'api/pool-service/pools/components'
 POOL_COMPONENT_API: Final[str] = 'api/pool-service/pools/{pool_id}/components/{component_id}'
 
+# Windows Commands
+WIN_CONNECTOR_SERVICE_NAMES: Final[List[str]] = ['IdiraManagementAgent', 'CyberArkManagementAgent']
+WIN_DETECT_CONNECTOR_SERVICE_CMD: Final[str] = (
+    '$svc = Get-Service -Name "IdiraManagementAgent","CyberArkManagementAgent" -ErrorAction SilentlyContinue'
+    ' | Select-Object -First 1\n'
+    'if ($svc) { Write-Output $svc.Name } else { Write-Output "NONE" }'
+)
+WIN_STOP_CONNECTOR_SERVICE_CMD: Final[str] = 'Stop-Service -Name \"{service_name}\"'
+WIN_REMOVE_CONNECTOR_SERVICE_CMD: Final[str] = """$service = Get-WmiObject -Class Win32_Service -Filter "Name='{service_name}'"
+$service.delete()
+"""
+WIN_REMOVE_CONNECTOR_FILES_CMD: Final[str] = 'Remove-Item -LiteralPath \"C:\\Program Files\\CyberArk\\Management Agent\" -Force -Recurse'
+WIN_CONNECTOR_ACTIVE_CMD: Final[str] = """$result = Get-Service -Name \"{service_name}\"
+if ($result.Status -ne 'Running')
+{{
+    return 1
+}}
+"""
+WIN_READ_CONNECTOR_CONFIG_CMD: Final[str] = 'Get-Content -Path \"C:\\Program Files\\CyberArk\\Management Agent\\client.id.json\"'
+
+CONNECTOR_CMDSET: Final[Dict[ArkOsType, Dict[str, str]]] = {
+    ArkOsType.WINDOWS: {
+        'detect-connector-service': WIN_DETECT_CONNECTOR_SERVICE_CMD,
+        'stop-connector-service': WIN_STOP_CONNECTOR_SERVICE_CMD,
+        'remove-connector-service': WIN_REMOVE_CONNECTOR_SERVICE_CMD,
+        'remove-connector-files': WIN_REMOVE_CONNECTOR_FILES_CMD,
+        'connector-active': WIN_CONNECTOR_ACTIVE_CMD,
+        'read-connector-config': WIN_READ_CONNECTOR_CONFIG_CMD,
+    }
+}
+
+ArkCmgrConnectorsPage = ArkPage[ArkCmgrConnector]
+ArkCmgrComponentsPage = ArkPage[ArkCmgrComponent]
 ArkCmgrNetworkPage = ArkPage[ArkCmgrNetwork]
 ArkCmgrPoolPage = ArkPage[ArkCmgrPool]
 ArmCmgrPoolIdentifierPage = ArkPage[ArkCmgrPoolIdentifier]
@@ -74,6 +150,681 @@ class ArkCmgrService(ArkService):
 
     def __refresh_cmgr_auth(self, client: ArkISPServiceClient) -> None:
         ArkISPServiceClient.refresh_client(client, self.__isp_auth)
+
+    # pylint: disable=unused-argument
+    def __create_connection(
+        self,
+        os_type: ArkOsType,
+        target_machine: str,
+        username: str,
+        password: Optional[str] = None,
+        private_key_path: Optional[str] = None,
+        private_key_contents: Optional[str] = None,
+    ) -> Tuple[ArkConnection, Dict[str, str]]:
+        if os_type == ArkOsType.WINDOWS:
+            connection = ArkWinRMConnection()
+            connection_details = ArkConnectionDetails(
+                address=target_machine,
+                port=WINRM_HTTPS_PORT,
+                connection_type=ArkConnectionType.WinRM,
+                credentials=ArkConnectionCredentials(user=username, password=password),
+                connection_data=ArkWinRMConnectionData(),
+            )
+        else:
+            raise ArkNotSupportedException('Only windows connector mgmt type is supported')
+        connection.connect(connection_details)
+        return connection, CONNECTOR_CMDSET[os_type]
+
+    def __detect_connector_service_name(self, connection: ArkConnection, cmdset: Dict[str, str]) -> Optional[str]:
+        """
+        Detects which management agent service name is installed on the machine.
+        Returns the service name if found, or None if no service is present.
+        """
+        result = connection.run_command(ArkConnectionCommand(command=cmdset['detect-connector-service'], raise_on_error=False))
+        detected = str(result.stdout).strip()
+        if detected and detected != 'NONE':
+            return detected
+        return None
+
+    def __install_connector_on_machine(
+        self,
+        install_script: str,
+        os_type: ArkOsType,
+        target_machine: str,
+        username: str,
+        password: Optional[str] = None,
+        private_key_path: Optional[str] = None,
+        private_key_contents: Optional[str] = None,
+    ) -> str:
+        connection, cmdset = self.__create_connection(os_type, target_machine, username, password, private_key_path, private_key_contents)
+        existing_service = self.__detect_connector_service_name(connection, cmdset)
+        if existing_service:
+            connection.run_command(
+                ArkConnectionCommand(command=cmdset['stop-connector-service'].format(service_name=existing_service), raise_on_error=False)
+            )
+            connection.run_command(
+                ArkConnectionCommand(command=cmdset['remove-connector-service'].format(service_name=existing_service), raise_on_error=False)
+            )
+        connection.run_command(ArkConnectionCommand(command=cmdset['remove-connector-files'], raise_on_error=False))
+        connection.run_command(ArkConnectionCommand(command=install_script))
+        new_service = self.__detect_connector_service_name(connection, cmdset)
+        if not new_service:
+            raise ArkServiceException('Connector service not found after installation')
+        connection.run_command(ArkConnectionCommand(command=cmdset['connector-active'].format(service_name=new_service)))
+        result = connection.run_command(ArkConnectionCommand(command=cmdset['read-connector-config']))
+        connector_config = json.loads(str(result.stdout).strip())
+        return connector_config['thing_id']
+
+    def __uninstall_connector_on_machine(
+        self,
+        os_type: ArkOsType,
+        target_machine: str,
+        username: str,
+        password: Optional[str] = None,
+        private_key_path: Optional[str] = None,
+        private_key_contents: Optional[str] = None,
+    ) -> None:
+        connection, cmdset = self.__create_connection(os_type, target_machine, username, password, private_key_path, private_key_contents)
+        service_name = self.__detect_connector_service_name(connection, cmdset)
+        if service_name:
+            connection.run_command(ArkConnectionCommand(command=cmdset['stop-connector-service'].format(service_name=service_name)))
+            connection.run_command(ArkConnectionCommand(command=cmdset['remove-connector-service'].format(service_name=service_name)))
+        connection.run_command(ArkConnectionCommand(command=cmdset['remove-connector-files']))
+
+    def __list_connectors_with_filters(
+        self, connectors_filter: Optional[ArkCmgrConnectorsFilter] = None
+    ) -> Iterator[ArkCmgrConnectorsPage]:
+        url = CONNECTORS_API
+        while True:
+            params = connectors_filter.model_dump(by_alias=True) if connectors_filter else None
+            if params and 'platformType' in params:
+                params['platformType'] = serialize_cmgr_workspace_type(connectors_filter.platform_type)
+            resp: Response = self.__client.get(url, params=params)
+            if resp.status_code == HTTPStatus.OK:
+                try:
+                    result = resp.json()
+                    yield ArkCmgrConnectorsPage(TypeAdapter(List[ArkCmgrConnector]).validate_python(result['connectors']))
+                    if 'nextCursor' in result and result['nextCursor']:
+                        url = result['nextCursor']
+                    else:
+                        break
+                except (ValidationError, JSONDecodeError, KeyError) as ex:
+                    self._logger.exception(f'Failed to parse list connectors response [{str(ex)}] - [{resp.text}]')
+                    raise ArkServiceException(f'Failed to parse list connectors response [{str(ex)}]') from ex
+            else:
+                raise ArkServiceException(f'Failed to list connectors [{resp.text}] - [{resp.status_code}]')
+
+    def __list_components_with_filters(
+        self, base_url: str, components_filter: Optional[ArkCmgrComponentsFilter] = None
+    ) -> Iterator[ArkCmgrComponentsPage]:
+        url = base_url
+        while True:
+            resp: Response = self.__client.get(
+                url, params=components_filter.model_dump(by_alias=True, exclude={'connector_id'}) if components_filter else None
+            )
+            if resp.status_code == HTTPStatus.OK:
+                try:
+                    result = resp.json()
+                    yield ArkCmgrConnectorsPage(TypeAdapter(List[ArkCmgrComponent]).validate_python(result['components']))
+                    if 'nextCursor' in result and result['nextCursor']:
+                        url = result['nextCursor']
+                    else:
+                        break
+                except (ValidationError, JSONDecodeError, KeyError) as ex:
+                    self._logger.exception(f'Failed to parse list components response [{str(ex)}] - [{resp.text}]')
+                    raise ArkServiceException(f'Failed to parse list components response [{str(ex)}]') from ex
+            else:
+                raise ArkServiceException(f'Failed to list components [{resp.text}] - [{resp.status_code}]')
+
+    def list_connectors(self) -> Iterator[ArkCmgrConnectorsPage]:
+        """
+        Listing all connectors, yielding in pages
+
+        Yields:
+            Iterator[ArkCmgrConnectorsPage]: _description_
+        """
+        self._logger.info('Listing all connectors')
+        yield from self.__list_connectors_with_filters()
+
+    def list_connectors_by(self, connectors_filter: ArkCmgrConnectorsFilter) -> Iterator[ArkCmgrConnectorsPage]:
+        """
+        Listing connectors by filters, yielding in pages
+
+        Args:
+            connectors_filter (ArkCmgrConnectorsFilter): _description_
+
+        Yields:
+            Iterator[ArkCmgrConnectorsPage]: _description_
+        """
+        self._logger.info(f'Listing connectors by filter [{connectors_filter}]')
+        yield from self.__list_connectors_with_filters(connectors_filter)
+
+    def list_connector_components(self, list_connector_components: ArkCmgrListConnectorComponents) -> Iterator[ArkCmgrComponentsPage]:
+        """
+        Listing all specific connector components, yielding in pages
+
+        Args:
+            list_connector_components (ArkCmgrListConnectorComponents): _description_
+
+        Yields:
+            Iterator[ArkCmgrComponentsPage]: _description_
+        """
+        self._logger.info(f'Listing all connector [{list_connector_components.connector_id}] components')
+        yield from self.__list_components_with_filters(CONNECTOR_COMPONENTS_API.format(connector_id=list_connector_components.connector_id))
+
+    def list_connector_components_by(
+        self, connector_components_filter: ArkCmgrConnectorComponentsFilter
+    ) -> Iterator[ArkCmgrComponentsPage]:
+        """
+        Listing specific connector components by filters, yielding in pages
+
+        Args:
+            connector_components_filter (ArkCmgrConnectorComponentsFilter): _description_
+
+        Yields:
+            Iterator[ArkCmgrComponentsPage]: _description_
+        """
+        self._logger.info(
+            f'Listing connector [{connector_components_filter.connector_id}] components by filter [{connector_components_filter}]'
+        )
+        yield from self.__list_components_with_filters(
+            CONNECTOR_COMPONENTS_API.format(connector_id=connector_components_filter.connector_id), connector_components_filter
+        )
+
+    def list_components(self) -> Iterator[ArkCmgrComponentsPage]:
+        """
+        Listing all components, yielding in pages
+
+        Yields:
+            Iterator[ArkCmgrComponentsPage]: _description_
+        """
+        self._logger.info('Listing all components')
+        yield from self.__list_components_with_filters(COMPONENTS_API)
+
+    def list_components_by(self, components_filter: ArkCmgrComponentsFilter) -> Iterator[ArkCmgrComponentsPage]:
+        """
+        Listing components by filters, yielding in pages
+
+        Args:
+            components_filter (ArkCmgrComponentsFilter): _description_
+
+        Yields:
+            Iterator[ArkCmgrComponentsPage]: _description_
+        """
+        self._logger.info(f'Listing components by filter [{components_filter}]')
+        yield from self.__list_components_with_filters(COMPONENTS_API, components_filter)
+
+    def connector(self, get_connector: ArkCmgrGetConnector) -> ArkCmgrConnector:
+        """
+        Retrieves a connector by id
+
+        Args:
+            get_connector (ArkCmgrGetConnector): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkCmgrConnector: _description_
+        """
+        self._logger.info(f'Retrieving connector [{get_connector.connector_id}]')
+        resp: Response = self.__client.get(CONNECTOR_API.format(connector_id=get_connector.connector_id))
+        if resp.status_code == HTTPStatus.OK:
+            try:
+                return ArkCmgrConnector.model_validate(resp.json())
+            except (ValidationError, JSONDecodeError) as ex:
+                self._logger.exception(f'Failed to parse connector response [{str(ex)}] - [{resp.text}]')
+                raise ArkServiceException(f'Failed to parse connector response [{str(ex)}]') from ex
+        raise ArkServiceException(f'Failed to retrieve connector [{resp.text}] - [{resp.status_code}]')
+
+    def connector_component(self, get_connector_component: ArkCmgrGetConnectorComponent) -> ArkCmgrComponent:
+        """
+        Retrieves a connector component by connector id and component id
+
+        Args:
+            get_connector_component (ArkCmgrGetConnectorComponent): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkCmgrComponent: _description_
+        """
+        self._logger.info(
+            f'Retrieving connector [{get_connector_component.connector_id}] ' f'component [{get_connector_component.component_id}]'
+        )
+        resp: Response = self.__client.get(
+            CONNECTOR_COMPONENT_API.format(
+                connector_id=get_connector_component.connector_id, component_id=get_connector_component.component_id
+            )
+        )
+        if resp.status_code == HTTPStatus.OK:
+            try:
+                return ArkCmgrComponent.model_validate(resp.json())
+            except (ValidationError, JSONDecodeError) as ex:
+                self._logger.exception(f'Failed to parse connector component response [{str(ex)}] - [{resp.text}]')
+                raise ArkServiceException(f'Failed to parse connector component response [{str(ex)}]') from ex
+        raise ArkServiceException(f'Failed to retrieve connector component [{resp.text}] - [{resp.status_code}]')
+
+    def rescan_components(self, rescan_components: ArkCmgrRescanComponents) -> None:
+        """
+        Triggers a rescanning of components on the connector host machine
+        The rescanning is an async operation, which ends after a few seconds at most
+
+        Args:
+            rescan_components (ArkCmgrRescanComponents): _description_
+
+        Raises:
+            ArkServiceException: _description_
+        """
+        self._logger.info(f'Triggering rescanning of components for connector [{rescan_components.connector_id}]')
+        resp: Response = self.__client.post(RESCAN_CONNECTOR_COMPONENTS_API.format(connector_id=rescan_components.connector_id))
+        if resp.status_code != HTTPStatus.ACCEPTED:
+            raise ArkServiceException(f'Failed to trigger rescanning of components [{resp.text}] - [{resp.status_code}]')
+
+    def delete_connector(self, delete_connector: ArkCmgrDeleteConnector) -> None:
+        """
+        Deletes a given connector from the backend database
+        If uninstallation of the connector is also requested, connects and uninstalls the connector from the machine
+
+        Args:
+            delete_connector (ArkCmgrDeleteConnector): _description_
+
+        Raises:
+            ArkServiceException: _description_
+        """
+        self._logger.info(f'Deleting connector [{delete_connector.connector_id}]')
+        if delete_connector.uninstall_connector:
+            self.uninstall_connector(
+                ArkCmgrUninstallConnector(
+                    connector_id=delete_connector.connector_id,
+                    username=delete_connector.username,
+                    target_machine=delete_connector.target_machine,
+                    password=delete_connector.password,
+                    private_key_path=delete_connector.private_key_path,
+                    private_key_contents=delete_connector.private_key_contents,
+                )
+            )
+
+        resp: Response = self.__client.delete(CONNECTOR_API.format(connector_id=delete_connector.connector_id))
+        if resp.status_code != HTTPStatus.NO_CONTENT:
+            raise ArkServiceException(f'Failed to delete connector [{resp.text}] - [{resp.status_code}]')
+
+    def connector_setup_script(self, get_connector_setup_script: ArkCmgrGetConnectorSetupScript) -> ArkCmgrConnectorSetupScript:
+        """
+        Retrieves a new connector installation setup script
+
+        Args:
+            get_connector_setup_script (ArkCmgrGetConnectorSetupScript): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkCmgrConnectorSetupScript: _description_
+        """
+        from urlextract import URLExtract
+
+        self._logger.info('Retrieving new connector setup script')
+        get_connector_setup_script_data = get_connector_setup_script.model_dump(exclude_none=True)
+        if not get_connector_setup_script.proxy_details or not get_connector_setup_script.proxy_details.proxy_address:
+            if 'proxy_details' in get_connector_setup_script_data:
+                del get_connector_setup_script_data['proxy_details']
+        resp: Response = self.__client.post(CONNECTORS_SETUP_SCRIPT_API, json=get_connector_setup_script_data)
+        if resp.status_code == HTTPStatus.OK:
+            try:
+                script = resp.json()['script']
+                return ArkCmgrConnectorSetupScript(script=script, script_url=URLExtract().find_urls(script)[0])
+            except (ValidationError, JSONDecodeError) as ex:
+                self._logger.exception(f'Failed to parse connector setup script response [{str(ex)}] - [{resp.text}]')
+                raise ArkServiceException(f'Failed to parse connector setup script response [{str(ex)}]') from ex
+        raise ArkServiceException(f'Failed to retrieve connector setup script [{resp.text}] - [{resp.status_code}]')
+
+    def install_connector(self, install_connector: ArkCmgrInstallConnector) -> ArkCmgrConnector:
+        """
+        Gets a connector installation script
+        Afterwards, installs a connector on the remote machine based on the given parameters
+        Uses WinRM on windows os type
+        Linux / Darwin is not yet supported
+
+        Args:
+            install_connector (ArkCmgrInstallConnector): _description_
+
+        Returns:
+            ArkCmgrConnector: _description_
+        """
+        self._logger.info(f'Installing connector on machine [{install_connector.target_machine}] of type [{install_connector.os_type}]')
+        installation_script = self.connector_setup_script(
+            ArkCmgrGetConnectorSetupScript(
+                os_type=install_connector.os_type,
+                version=install_connector.version,
+                installation_path=install_connector.installation_path,
+                connector_pool_id=install_connector.connector_pool_id,
+                proxy_details=install_connector.proxy_details,
+            ),
+        )
+        connector_id = self.__install_connector_on_machine(
+            install_script=installation_script.script,
+            os_type=install_connector.os_type,
+            target_machine=install_connector.target_machine,
+            username=install_connector.username,
+            password=install_connector.password.get_secret_value() if install_connector.password else None,
+            private_key_path=install_connector.private_key_path,
+            private_key_contents=(
+                install_connector.private_key_contents.get_secret_value() if install_connector.private_key_contents else None
+            ),
+        )
+        return self.connector(ArkCmgrGetConnector(connector_id=connector_id))
+
+    def uninstall_component(self, uninstall_component: ArkCmgrUninstallComponent) -> ArkAsyncRequest:
+        """
+        Triggers an uninstall flow of a component on the connector machine via the CMS API.
+        Returns an async request that can be polled until the uninstall completes or fails.
+
+        Args:
+            uninstall_component (ArkCmgrUninstallComponent): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkAsyncRequest: _description_
+        """
+        self._logger.info(f'Uninstalling component [{uninstall_component.component_id}] on connector [{uninstall_component.connector_id}]')
+        body: Dict[str, Any] = {'extra_vars': uninstall_component.extra_vars or {}}
+        resp: Response = self.__client.post(
+            UNINSTALL_CONNECTOR_COMPONENT_API.format(
+                connector_id=uninstall_component.connector_id,
+                component_id=uninstall_component.component_id,
+            ),
+            json=body,
+        )
+        if resp.status_code == HTTPStatus.ACCEPTED:
+            component = self.connector_component(
+                ArkCmgrGetConnectorComponent(
+                    connector_id=uninstall_component.connector_id,
+                    component_id=uninstall_component.component_id,
+                )
+            )
+            req = ArkCmgrComponentOperationAsyncRequest(
+                client=self.__client,
+                async_task=ArkCmgrComponentOperationAsyncTask(
+                    task_id=uninstall_component.component_id,
+                    component=component,
+                    operation='UNINSTALL',
+                ),
+                async_request_settings=ArkAsyncRequestSettings(
+                    poll_allow_refreshable_connection=uninstall_component.poll_allow_refreshable_connection,
+                ),
+            )
+            if uninstall_component.poll:
+                req.poll(uninstall_component.poll_timeout_seconds, uninstall_component.poll_progress_callback)
+            return req
+        raise ArkServiceException(f'Failed to uninstall component [{resp.text}] - [{resp.status_code}]')
+
+    def uninstall_connector(self, uninstall_connector: ArkCmgrUninstallConnector) -> None:
+        """
+        Uninstalls a connector on the remote machine based on the given parameters
+        Uses WinRM on windows os type
+        Linux / Darwin is not yet supported
+
+        Args:
+            uninstall_connector (ArkCmgrUninstallConnector): _description_
+        """
+        self._logger.info(f'Uninstalling connector [{uninstall_connector.connector_id}] from machine')
+        connector = self.connector(ArkCmgrGetConnector(connector_id=uninstall_connector.connector_id))
+        self.__uninstall_connector_on_machine(
+            connector.host.os,
+            uninstall_connector.target_machine or connector.connector_host_ip,
+            uninstall_connector.username,
+            uninstall_connector.password.get_secret_value() if uninstall_connector.password else None,
+            uninstall_connector.private_key_path,
+            uninstall_connector.private_key_contents,
+        )
+
+    def install_component(self, install_component: ArkCmgrInstallComponent) -> ArkAsyncRequest:
+        """
+        Triggers an installation flow of a component on the connector machine
+        The component will be installed async on the connector machine
+        And an async request is returned to be polled untill the component is done installing
+
+        Args:
+            install_component (ArkCmgrInstallComponent): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkAsyncRequest: _description_
+        """
+        self._logger.info(f'Installing component [{install_component.component_name}] on connector [{install_component.connector_id}]')
+        resp: Response = self.__client.post(
+            CONNECTOR_COMPONENTS_API.format(connector_id=install_component.connector_id),
+            json=install_component.model_dump(
+                by_alias=True,
+                exclude={'connector_id', 'poll', 'poll_timeout_seconds', 'poll_progress_callback', 'poll_allow_refreshable_connection'},
+                exclude_none=True,
+            ),
+        )
+        if resp.status_code == HTTPStatus.ACCEPTED:
+            try:
+                data = resp.json()
+                component_id = None
+                for key in ['component_id', 'job_id', 'operation_id', 'activity_id', 'task_id']:
+                    if key in data:
+                        component_id = data[key]
+                        break
+                    elif camelize(key) in data:
+                        component_id = data[camelize(key)]
+                        break
+                if not component_id:
+                    raise ArkServiceException(
+                        f'Failed to install component, cannot find the response task id [{resp.text}] - [{resp.status_code}]'
+                    )
+                component = self.connector_component(
+                    ArkCmgrGetConnectorComponent(connector_id=install_component.connector_id, component_id=component_id)
+                )
+                req = ArkCmgrComponentOperationAsyncRequest(
+                    client=self.__client,
+                    async_task=ArkCmgrComponentOperationAsyncTask(task_id=component_id, component=component, operation='INSTALL'),
+                    async_request_settings=ArkAsyncRequestSettings(
+                        poll_allow_refreshable_connection=install_component.poll_allow_refreshable_connection
+                    ),
+                )
+                if install_component.poll:
+                    req.poll(install_component.poll_timeout_seconds, install_component.poll_progress_callback)
+                return req
+            except (ValidationError, JSONDecodeError) as ex:
+                self._logger.exception(f'Failed to parse component installation response [{str(ex)}] - [{resp.text}]')
+                raise ArkServiceException(f'Failed to parse component installation response [{str(ex)}]') from ex
+        raise ArkServiceException(f'Failed to install component [{resp.text}] - [{resp.status_code}]')
+
+    def reinstall_component(self, reinstall_component: ArkCmgrReinstallComponent) -> ArkAsyncRequest:
+        """
+        Triggers a reinstallation flow of a component on the connector machine
+        The component will be reinstalled async on the connector machine
+        And an async request is returned to be polled untill the component is done reinstalling
+
+        Args:
+            reinstall_component (ArkCmgrReInstallComponent): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkAsyncRequest: _description_
+        """
+        self._logger.info(f'Reinstalling component [{reinstall_component.component_id}] on connector [{reinstall_component.connector_id}]')
+        resp: Response = self.__client.post(
+            REINSTALL_CONNECTOR_COMPONENT_API.format(
+                connector_id=reinstall_component.connector_id, component_id=reinstall_component.component_id
+            )
+        )
+        if resp.status_code == HTTPStatus.ACCEPTED:
+            component = self.connector_component(
+                ArkCmgrGetConnectorComponent(connector_id=reinstall_component.connector_id, component_id=reinstall_component.component_id)
+            )
+            req = ArkCmgrComponentOperationAsyncRequest(
+                client=self.__client,
+                async_task=ArkCmgrComponentOperationAsyncTask(
+                    task_id=reinstall_component.component_id, component=component, operation='REINSTALL'
+                ),
+                async_request_settings=ArkAsyncRequestSettings(
+                    poll_allow_refreshable_connection=reinstall_component.poll_allow_refreshable_connection
+                ),
+            )
+            if reinstall_component.poll:
+                req.poll(reinstall_component.poll_timeout_seconds, reinstall_component.poll_progress_callback)
+            return req
+        raise ArkServiceException(f'Failed to reinstall component [{resp.text}] - [{resp.status_code}]')
+
+    def upgrade_component(self, upgrade_component: ArkCmgrUpgradeComponent) -> ArkAsyncRequest:
+        """
+        Triggers an upgrade flow of a component on the connector machine
+        The component will be upgraded async on the connector machine
+        And an async request is returned to be polled untill the component is done upgrading
+
+        Args:
+            upgrade_component (ArkCmgrUpgradeComponent): _description_
+
+        Raises:
+            ArkServiceException: _description_
+
+        Returns:
+            ArkAsyncRequest: _description_
+        """
+        self._logger.info(f'Upgrading component [{upgrade_component.component_id}] on connector [{upgrade_component.connector_id}]')
+        resp: Response = self.__client.post(
+            UPGRADE_CONNECTOR_COMPONENT_API.format(
+                connector_id=upgrade_component.connector_id, component_id=upgrade_component.component_id
+            ),
+            json=upgrade_component.model_dump(
+                by_alias=True,
+                exclude={
+                    'connector_id',
+                    'component_id',
+                    'poll',
+                    'poll_timeout_seconds',
+                    'poll_progress_callback',
+                    'poll_allow_refreshable_connection',
+                },
+                exclude_none=True,
+            ),
+        )
+        if resp.status_code == HTTPStatus.ACCEPTED:
+            component = self.connector_component(
+                ArkCmgrGetConnectorComponent(connector_id=upgrade_component.connector_id, component_id=upgrade_component.component_id)
+            )
+            req = ArkCmgrComponentOperationAsyncRequest(
+                client=self.__client,
+                async_task=ArkCmgrComponentOperationAsyncTask(
+                    task_id=upgrade_component.component_id, component=component, operation='UPGRADE'
+                ),
+                async_request_settings=ArkAsyncRequestSettings(
+                    poll_allow_refreshable_connection=upgrade_component.poll_allow_refreshable_connection
+                ),
+            )
+            if upgrade_component.poll:
+                req.poll(upgrade_component.poll_timeout_seconds, upgrade_component.poll_progress_callback)
+            return req
+        raise ArkServiceException(f'Failed to upgrade component [{resp.text}] - [{resp.status_code}]')
+
+    def upgrade_connector(self, upgrade_connector: ArkCmgrUpgradeConnector) -> ArkAsyncRequest:
+        """
+        Triggers an upgrade flow of a connector on the connector machine
+        The connector will be upgraded async on the connector machine
+        And an async request is returned to be polled untill the connector is done upgrading
+
+        Args:
+            upgrade_connector (ArkCmgrUpgradeConnector): _description_
+
+        Returns:
+            ArkAsyncRequest: _description_
+        """
+        return self.upgrade_component(
+            ArkCmgrUpgradeComponent(
+                connector_id=upgrade_connector.connector_id,
+                component_id=upgrade_connector.connector_id,
+                poll=upgrade_connector.poll,
+                poll_timeout_seconds=upgrade_connector.poll_timeout_seconds,
+                poll_progress_callback=upgrade_connector.poll_progress_callback,
+                poll_allow_refreshable_connection=upgrade_connector.poll_allow_refreshable_connection,
+            )
+        )
+
+    def connectors_stats(self) -> ArkCmgrConnectorsStats:
+        """
+        Calculates connectors statistics
+
+        Returns:
+            ArkCmgrConnectorsStats: _description_
+        """
+        self._logger.info('Calculating connectors statistics')
+        connectors = list(itertools.chain.from_iterable([p.items for p in list(self.list_connectors())]))
+        connectors_stats = ArkCmgrConnectorsStats.model_construct()
+        connectors_stats.connectors_count = len(connectors)
+
+        # Get connectors count per status
+        status_codes: Set[ArkCmgrComponentStatusCode] = {c.connector_status for c in connectors}
+        connectors_stats.connectors_count_per_status = {sc: len([c for c in connectors if c.connector_status == sc]) for sc in status_codes}
+
+        # Get connectors count per platform
+        platform_types: Set[ArkWorkspaceType] = {c.platform_type for c in connectors}
+        connectors_stats.connectors_count_per_platform = {
+            pt: len([c for c in connectors if c.platform_type == pt]) for pt in platform_types
+        }
+
+        # Get connectors count per os
+        os_types: Set[ArkOsType] = {c.host.os for c in connectors}
+        connectors_stats.connectors_count_per_os = {ot: len([c for c in connectors if c.host.os == ot]) for ot in os_types}
+
+        # Get upgradable connectors
+        upgradable_connectors = [c.connector_id for c in connectors if c.upgrade_versions]
+        connectors_stats.upgradable_connectors = ArkCountedValues(count=len(upgradable_connectors), values=upgradable_connectors)
+
+        return connectors_stats
+
+    def components_stats(self) -> ArkCmgrComponentsStats:
+        """
+        Calculates components statistics
+
+        Returns:
+            ArkCmgrComponentsStats: _description_
+        """
+        self._logger.info('Calculating components statistics')
+        components = list(itertools.chain.from_iterable([p.items for p in list(self.list_components())]))
+        components_stats = ArkCmgrComponentsStats.model_construct()
+        components_stats.components_count = len(components)
+
+        # Get components per connector
+        connector_ids: Set[str] = {c.connector_id for c in components}
+        components_per_connector = {cid: [c.component_name for c in components if c.connector_id == cid] for cid in connector_ids}
+        components_stats.components_per_connector = {
+            cid: ArkCountedValues(count=len(cmps), values=cmps) for cid, cmps in components_per_connector.items()
+        }
+
+        # Get connectors count per status
+        status_codes: Set[ArkCmgrComponentStatusCode] = {c.component_status for c in components}
+        components_stats.components_count_per_status = {sc: len([c for c in components if c.component_status == sc]) for sc in status_codes}
+
+        # Get maintenanced components
+        maintenanced_components = [
+            c.component_id
+            for c in components
+            if c.maintenance_operation_details
+            and c.maintenance_operation_details.status
+            in [
+                MaintenanceOperationStatus.PENDING,
+                MaintenanceOperationStatus.RUNNING,
+            ]
+        ]
+        components_stats.maintenanced_components = ArkCountedValues(count=len(maintenanced_components), values=maintenanced_components)
+
+        # Get upgradable components
+        upgradable_components = [c.component_id for c in components if c.upgrade_versions]
+        components_stats.upgradable_components = ArkCountedValues(count=len(upgradable_components), values=upgradable_components)
+
+        return components_stats
 
     def __list_common_pools(
         self, name: str, route: str, item_type: Type[Any], common_filter: Optional[ArkCmgrPoolsCommonFilter] = None

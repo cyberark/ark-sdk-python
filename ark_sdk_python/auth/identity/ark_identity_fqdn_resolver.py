@@ -81,12 +81,12 @@ class ArkIdentityFQDNResolver:
         Returns:
             str: The tenant's FQDN
         """
-        identity_env_url = identity_env_url or (
-            IDENTITY_ENV_URLS[AwsEnv(os.getenv('DEPLOY_ENV', None))] if os.getenv('DEPLOY_ENV', None) else IDENTITY_ENV_URLS[AwsEnv.PROD]
-        )
+        env = AwsEnv(os.getenv('DEPLOY_ENV', None)) if os.getenv('DEPLOY_ENV', None) else AwsEnv.PROD
+        identity_env_url = identity_env_url or IDENTITY_ENV_URLS[env]
+        pod_prefix = 'cloud' if env.value.startswith('gov-') else 'pod0'
         session = Session()
         response = session.post(
-            f'https://pod0.{identity_env_url}/Security/StartAuthentication',
+            f'https://{pod_prefix}.{identity_env_url}/Security/StartAuthentication',
             json={'User': tenant_suffix, 'Version': '1.0', 'PlatformTokenResponse': True, 'MfaRequestor': 'DeviceAgent'},
             headers={'Content-Type': 'application/json', 'X-IDAP-NATIVE-CLIENT': 'true'},
         )

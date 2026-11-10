@@ -33,6 +33,7 @@ class ArkSMSession(ArkCamelizedModel):
     platform: Optional[ArkWorkspaceType] = Field(default=None, description='Connection platform of the session')
     custom_data: Optional[Dict[str, Any]] = Field(default=None, description='Custom data of the session')
     is_recording: Optional[bool] = Field(default=None, description='Whether the session is recorded or not')
+    org_data: Optional[Dict[str, Any]] = Field(default=None, description='Identity organization of the session')
 
     # pylint: disable=no-self-use,no-self-argument
     @field_validator('platform', mode="before")

@@ -14,7 +14,7 @@ class ArkUAPMetadata(ArkCamelizedModel):
     policy_id: Optional[constr(max_length=99)] = Field(default=None, description='Policy id')
     name: constr(min_length=1, max_length=200) = Field(description='Name of the policy')
     description: Optional[constr(max_length=200)] = Field(default=None, description='Description of the policy')
-    status: ArkUAPPolicyStatus = Field(description='Status of the policy')
+    status: Optional[ArkUAPPolicyStatus] = Field(default=None, description='Status of the policy')
     time_frame: Optional[ArkUAPTimeFrame] = Field(default=None, description='The time that the policy is active')
     policy_entitlement: ArkUAPPolicyEntitlement = Field(description='The policy target category, location type and policy type')
     created_by: Optional[ArkUAPChangeInfo] = Field(default=None, description='The user who created the policy, and the creation time')

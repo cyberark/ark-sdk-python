@@ -17,6 +17,7 @@ from ark_sdk_python.models.common.connections.ark_connection_credentials import 
 from ark_sdk_python.models.common.connections.ark_connection_details import ArkConnectionDetails
 from ark_sdk_python.models.services.sia.sso.ark_sia_sso_get_ssh_key import ArkSIASSOGetSSHKey
 from ark_sdk_python.services.sia.sso import ArkSIASSOService
+from ark_sdk_python.services.sia.sso.consts import OPENSSH, PPK
 
 
 def login_to_identity_security_platform(user: str, secret: str, is_service_user: bool, application_name: str) -> ArkISPAuth:
@@ -72,7 +73,7 @@ def construct_ssh_proxy_address(isp_auth: ArkISPAuth) -> str:
     return f'{ArkJWTUtils.get_subdomain_from_token(token)}.ssh.{ArkJWTUtils.get_platform_domain_from_token(token)}'
 
 
-def generate_mfa_caching_ssh_key(isp_auth: ArkISPAuth, folder: str) -> str:
+def generate_mfa_caching_ssh_key(isp_auth: ArkISPAuth, folder: str, ssh_key_format: str = OPENSSH) -> str:
     """
     This function will use the logged in user
     And generate an SSH key into a given folder
@@ -81,13 +82,14 @@ def generate_mfa_caching_ssh_key(isp_auth: ArkISPAuth, folder: str) -> str:
     Args:
         isp_auth (ArkISPAuth): _description_
         temp_folder (str): _description_
+        ssh_key_format (str): 'openssh' or 'ppk'
 
     Returns:
         str: _description_
     """
     print('Generating SSH MFA Caching Key')
     sso_service = ArkSIASSOService(isp_auth=isp_auth)
-    path = sso_service.short_lived_ssh_key(get_ssh_key=ArkSIASSOGetSSHKey(folder=folder))
+    path = sso_service.short_lived_ssh_key(get_ssh_key=ArkSIASSOGetSSHKey(folder=folder, format=ssh_key_format))
     print(f'MFA Caching SSH Key generated to [{path}]')
     return path
 
@@ -145,7 +147,12 @@ if __name__ == '__main__':
     )
     parser.add_argument('--test-command', default='ls -l', help='Test command to use once connected to the target, defaults to ls -l')
 
-    # Parse the CLI parameters
+    parser.add_argument(
+        '--format',
+        choices=[OPENSSH, PPK],
+        default=OPENSSH,
+        help='Format of the generated SSH key: openssh (default) or ppk',
+    )
     args = parser.parse_args()
 
     # Construct a temporary folder to be used for the MFA Caching SSH key generation
@@ -157,6 +164,6 @@ if __name__ == '__main__':
         # - Construct the ssh proxy address
         # - Connect in SSH to the proxy / target with the MFA Caching SSH Key and perform the command
         isp_auth = login_to_identity_security_platform(args.user, args.secret, args.is_service_user, args.service_application)
-        ssh_key_path = generate_mfa_caching_ssh_key(isp_auth, temp_folder)
+        ssh_key_path = generate_mfa_caching_ssh_key(isp_auth, temp_folder, args.format)
         proxy_address = construct_ssh_proxy_address(isp_auth)
         connect_and_validate_connection(ssh_key_path, proxy_address, args.connection_string, args.test_command)

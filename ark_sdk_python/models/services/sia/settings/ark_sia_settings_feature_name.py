@@ -14,3 +14,4 @@ class ArkSIASettingsFeatureName(str, Enum):
     SSHCommandAudit = 'SSH_COMMAND_AUDIT'
     StandingAccess = 'STANDING_ACCESS'
     LogonSequence = 'LOGON_SEQUENCE'
+    HttpsRelay = 'HTTPS_RELAY'

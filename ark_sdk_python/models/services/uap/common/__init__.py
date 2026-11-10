@@ -1,3 +1,4 @@
+from ark_sdk_python.models.services.uap.common.ark_uap_access_approval import ArkUAPAccessApproval
 from ark_sdk_python.models.services.uap.common.ark_uap_change_info import ArkUAPChangeInfo
 from ark_sdk_python.models.services.uap.common.ark_uap_common_access_policy import ArkUAPCommonAccessPolicy
 from ark_sdk_python.models.services.uap.common.ark_uap_conditions import ArkUAPConditions
@@ -26,6 +27,7 @@ from ark_sdk_python.models.services.uap.common.ark_uap_time_condition import Ark
 from ark_sdk_python.models.services.uap.common.ark_uap_time_frame import ArkUAPTimeFrame
 
 __all__ = [
+    'ArkUAPAccessApproval',
     'ArkUAPStatusType',
     'ArkUAPDelegationClassification',
     'ArkUAPMetadata',

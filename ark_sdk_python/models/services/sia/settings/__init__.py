@@ -4,6 +4,7 @@ from ark_sdk_python.models.services.sia.settings.ark_sia_settings_adb_mfa_cachin
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_certificate_validation import ArkSIASettingsCertificateValidation
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_feature_name import ArkSIASettingsFeatureName
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_get_setting import ArkSIASettingsGetSetting
+from ark_sdk_python.models.services.sia.settings.ark_sia_settings_https_relay import ArkSIASettingsHttpsRelay
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_k8s_mfa_caching import ArkSIASettingsK8SMfaCaching
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_list_settings import ArkSIASettingsListSettings
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_logon_sequence import ArkSIASettingsLogonSequence
@@ -41,4 +42,5 @@ __all__ = [
     'ArkSIASettingsSettingTypes',
     'ArkSIASettingsSetSetting',
     'ArkSIASettingsLogonSequence',
+    'ArkSIASettingsHttpsRelay',
 ]

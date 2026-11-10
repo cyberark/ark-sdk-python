@@ -89,6 +89,7 @@ class ArkExecAction(ArkAction):
                 ArkPydanticArgparse.argparse_to_schema(model_type.model_json_schema(), args)
             )
             model.poll_progress_callback = ArkPollers.default_poller()
+            model.poll = True
             output = getattr(service, action.replace('-', '_'))(model)
             async_req = None
             if issubclass(type(output), ArkAsyncRequest):

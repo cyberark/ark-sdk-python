@@ -93,7 +93,7 @@ platform_region_dict = {
     'India': 'ap-south-1',
     'Australia': 'ap-southeast-2',
     'GovCloud (US East)': 'us-gov-east-1',
-    'GovCloud (US West)': 'us-gov-east-1',
+    'GovCloud (US West)': 'us-gov-west-1',
     'US-East-Perf': 'us-east-perf',
     'us-east-perf': 'US-East-Perf',
     'US-East-Pod': 'us-east-pod',
@@ -104,6 +104,7 @@ platform_region_dict = {
     'Melbourne': 'ap-southeast-4',
     'UAE': 'me-central-1',
     'Israel': 'il-central-1',
+    'Brazil': 'sa-east-1',
 }
 
 

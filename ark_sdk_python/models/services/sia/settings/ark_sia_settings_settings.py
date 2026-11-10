@@ -5,6 +5,7 @@ from pydantic import Field
 from ark_sdk_python.models.ark_model import ArkCamelizedModel
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_adb_mfa_caching import ArkSIASettingsADBMfaCaching
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_certificate_validation import ArkSIASettingsCertificateValidation
+from ark_sdk_python.models.services.sia.settings.ark_sia_settings_https_relay import ArkSIASettingsHttpsRelay
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_k8s_mfa_caching import ArkSIASettingsK8SMfaCaching
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_logon_sequence import ArkSIASettingsLogonSequence
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_rdp_file_transfer import ArkSIASettingsRDPFileTransfer
@@ -34,3 +35,4 @@ class ArkSIASettings(ArkCamelizedModel):
     ssh_command_audit: Optional[ArkSIASettingsSSHCommandAudit] = Field(default=None, description="Settings for SSH Command Audit")
     standing_access: Optional[ArkSIASettingsStandingAccess] = Field(default=None, description="Settings for Standing Access")
     logon_sequence: Optional[ArkSIASettingsLogonSequence] = Field(default=None, description="Settings for Logon Sequence")
+    https_relay: Optional[ArkSIASettingsHttpsRelay] = Field(default=None, description="Settings for HTTPS Relay")

@@ -4,9 +4,16 @@ from pydantic import Field, field_validator
 
 from ark_sdk_python.models.ark_model import ArkCamelizedModel
 from ark_sdk_python.models.common.ark_workspace_type import ArkWorkspaceType
-from ark_sdk_python.models.services.sia.workspaces.db.ark_sia_db_auth_method import ArkSIADBDatabaseTargetConfiguredAuthMethod
+from ark_sdk_python.models.services.sia.workspaces.db.ark_sia_db_auth_method import (
+    ArkSIADBAuthMethodType,
+    ArkSIADBDatabaseTargetConfiguredAuthMethod,
+)
 from ark_sdk_python.models.services.sia.workspaces.db.ark_sia_db_database_target_service import ArkSIADBDatabaseTargetServiceTypes
-from ark_sdk_python.models.services.sia.workspaces.db.ark_sia_db_provider import ArkSIADBDatabaseProvider
+from ark_sdk_python.models.services.sia.workspaces.db.ark_sia_db_provider import (
+    ArkSIADBDatabaseEngineType,
+    ArkSIADBDatabaseFamilyType,
+    ArkSIADBDatabaseProvider,
+)
 from ark_sdk_python.models.services.sia.workspaces.db.ark_sia_db_tag import ArkSIADBTag
 
 
@@ -44,6 +51,98 @@ class ArkSIADBDatabase(ArkCamelizedModel):
         default=None, description='The target configured auth method'
     )
     region: Optional[str] = Field(default=None, description='Region of the database, most commonly used with iam authentication')
+
+    # pylint: disable=no-self-use,no-self-argument
+    @field_validator('platform', mode="before")
+    @classmethod
+    def validate_workspace_type(cls, val):
+        if val is not None:
+            if val and ArkWorkspaceType(val) not in [
+                ArkWorkspaceType.AWS,
+                ArkWorkspaceType.AZURE,
+                ArkWorkspaceType.GCP,
+                ArkWorkspaceType.ONPREM,
+                ArkWorkspaceType.ATLAS,
+            ]:
+                raise ValueError('Invalid Platform / Workspace Type')
+            return ArkWorkspaceType(val)
+        return val
+
+
+class ArkSIADBDatabaseTarget(ArkCamelizedModel):
+    id: str = Field(description='ID of the database target that can be referenced in operations')
+    name: str = Field(description='Name of the database, often referenced in policies and other APIs')
+    platform: ArkWorkspaceType = Field(description='Platform of the database, as in, where it resides')
+    region: Optional[str] = Field(
+        default=None,
+        description='Region of the database. Applies to auto-discovered databases; required when '
+        'configuredAuthMethodType is rds_iam_authentication.',
+    )
+    auth_database: str = Field(description='Authentication database used. Applies to MongoDB only.', default='admin')
+    services: List[ArkSIADBDatabaseTargetServiceTypes] = Field(
+        description='Services of the database. Applies to Oracle and MSSQL only; the item type differs per family '
+        '(Oracle: SID/service-name strings, at least one required; MSSQL: service objects).',
+        default_factory=list,
+    )
+    domain: Optional[str] = Field(
+        default=None,
+        description='The domain the DB resides in. Applies to Active Directory based authentication (MSSQL / DB2); '
+        'required when configuredAuthMethodType is ad_ephemeral_user.',
+    )
+    domain_controller_name: Optional[str] = Field(
+        default=None,
+        description='Domain controller name, or comma-separated list of names, associated to this database. Applies to Active Directory based '
+        'authentication (MSSQL / DB2).',
+    )
+    domain_controller_netbios: Optional[str] = Field(
+        default=None,
+        description='Domain controller netbios associated to this database. Applies to Active Directory based '
+        'authentication (MSSQL / DB2).',
+    )
+    domain_controller_use_ldaps: bool = Field(
+        description='Whether to work with LDAP secure or not. Applies to Active Directory based authentication (MSSQL / DB2).'
+    )
+    domain_controller_enable_certificate_validation: bool = Field(
+        description='Whether to enforce certificate validation on TLS comm to the DC. Applies to Active Directory '
+        'based authentication (MSSQL / DB2).'
+    )
+    domain_controller_ldaps_certificate: Optional[str] = Field(
+        default=None,
+        description='Certificate id to use for the domain controller TLS comm. Applies to Active Directory based '
+        'authentication (MSSQL / DB2); required when both domainControllerUseLdaps and '
+        'domainControllerEnableCertificateValidation are true.',
+    )
+    domain_controller_organizational_unit: Optional[str] = Field(
+        default=None,
+        description='Organizational Unit (OU) in which the ephemeral user will be created. Applies to Active '
+        'Directory based authentication (MSSQL / DB2).',
+    )
+    account: Optional[str] = Field(
+        default=None,
+        description='Account to be used for provider-managed databases. Not required for the currently supported database types.',
+    )
+    provider_engine: ArkSIADBDatabaseEngineType = Field(
+        description='Provider engine, will be later deduced to the identifer of the provider'
+    )
+    enable_certificate_validation: bool = Field(
+        description='Whether to enable and enforce certificate validation. Defaults to true; when true, certificate is required.'
+    )
+    certificate: Optional[str] = Field(
+        default=None,
+        description='Certificate id used for this database that resides in the certificates service. Required when '
+        'enableCertificateValidation is true (which is the default).',
+    )
+    read_write_endpoint: str = Field(description='Read write endpoint of the database')
+    read_only_endpoint: Optional[str] = Field(default=None, description='Optionally, a read only endpoint of the database')
+    port: Optional[int] = Field(
+        default=None,
+        description='Port of the database. Required for all supported database families; the family default is used when omitted.',
+    )
+    secret_id: Optional[str] = Field(default=None, description='Secret identifier stored in the secret service related to this database')
+    configured_auth_method_type: Optional[ArkSIADBAuthMethodType] = Field(
+        default=None, description='The target configured auth method type'
+    )
+    family: Optional[ArkSIADBDatabaseFamilyType] = Field(default=None, description='Family of the database provider')
 
     # pylint: disable=no-self-use,no-self-argument
     @field_validator('platform', mode="before")

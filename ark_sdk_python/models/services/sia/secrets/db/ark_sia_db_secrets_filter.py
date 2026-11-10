@@ -14,3 +14,10 @@ class ArkSIADBSecretsFilter(ArkModel):
     store_type: Optional[ArkSIADBStoreType] = Field(default=None, description='Filter by store type')
     is_active: Optional[bool] = Field(default=None, description='Filter by if secret is active')
     tags: Optional[List[ArkSIADBTag]] = Field(default=None, description='Filter by tags')
+
+
+class ArkSIADBListStrongAccountsRequest(ArkModel):
+    """Request model for listing strong accounts with pagination."""
+
+    limit: Optional[int] = Field(default=500, ge=1, le=1000, description='Maximum number of items to return')
+    cursor: Optional[str] = Field(default=None, description='Pagination cursor from previous response')

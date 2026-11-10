@@ -165,6 +165,18 @@ class ArkAPI:
         return cast(ArkSMService, self.service(ArkSMService))
 
     @property
+    def access_assets(self) -> "ArkAccessAssetsService":
+        """
+        Returns the Access Assets service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkAccessAssetsService: Access assets service.
+        """
+        from ark_sdk_python.services.access.assets import ArkAccessAssetsService
+
+        return cast(ArkAccessAssetsService, self.service(ArkAccessAssetsService))
+
+    @property
     def sia_workspaces_target_sets(self) -> "ArkSIATargetSetsWorkspaceService":
         """
         Returns the SIA Target Sets Workspace service if the appropriate authenticators were provided.
@@ -321,6 +333,18 @@ class ArkAPI:
         return cast(ArkSIASettingsService, self.service(ArkSIASettingsService))
 
     @property
+    def sia_shortened_connection_string(self) -> "ArkSIAShortenedConnectionStringService":
+        """
+        Returns the SIA Shortened-Connection-String service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkSIAShortenedConnectionStringService: _description_
+        """
+        from ark_sdk_python.services.sia.shortened_connection_string import ArkSIAShortenedConnectionStringService
+
+        return cast(ArkSIAShortenedConnectionStringService, self.service(ArkSIAShortenedConnectionStringService))
+
+    @property
     def pcloud_accounts(self) -> "ArkPCloudAccountsService":
         """
         Returns the PCloud Accounts service if the appropriate authenticators were provided.
@@ -391,6 +415,18 @@ class ArkAPI:
         from ark_sdk_python.services.cmgr import ArkCmgrService
 
         return cast(ArkCmgrService, self.service(ArkCmgrService))
+
+    @property
+    def ars_requests(self) -> "ArkARSRequestsService":
+        """
+        Returns the ARS Requests service if the appropriate authenticators were provided.
+
+        Returns:
+            ArkARSRequestsService: _description_
+        """
+        from ark_sdk_python.services.ars.requests import ArkARSRequestsService
+
+        return cast(ArkARSRequestsService, self.service(ArkARSRequestsService))
 
     @property
     def uap(self) -> "ArkUAPService":

@@ -6,6 +6,7 @@ class ArkOsType(str, Enum):
     WINDOWS = 'windows'
     DARWIN = 'darwin'
     LINUX = 'linux'
+    K8S_EPHEMERAL = 'k8s-ephemeral'
 
 
 def running_os() -> ArkOsType:
