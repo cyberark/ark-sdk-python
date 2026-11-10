@@ -23,3 +23,16 @@ class ArkSIADBDatabasesFilter(ArkModel):
     db_warnings_filter: Optional[ArkSIADBWarning] = Field(
         default=None, description='Filter by databases who are with warnings / incomplete'
     )
+
+
+class ArkSIADBDatabaseTargetsFilter(ArkModel):
+    name: Optional[str] = Field(default=None, description='Name of the database to filter on')
+    provider_family: Optional[ArkSIADBDatabaseFamilyType] = Field(default=None, description='List filter by family')
+    provider_engine: Optional[ArkSIADBDatabaseEngineType] = Field(default=None, description='List filter by engine')
+    provider_platform: Optional[ArkSIADBDatabaseWorkspaceType] = Field(default=None, description='List filter by workspace')
+    auth_methods: Optional[List[ArkSIADBAuthMethodType]] = Field(default=None, description='Auth method types to filter on')
+    db_warnings_filter: Optional[ArkSIADBWarning] = Field(
+        default=None, description='Filter by databases who are with warnings / incomplete'
+    )
+    limit: Optional[int] = Field(default=None, description='Limit the number of results returned', ge=1, le=1000)
+    cursor: Optional[str] = Field(default=None, description='Cursor for pagination')

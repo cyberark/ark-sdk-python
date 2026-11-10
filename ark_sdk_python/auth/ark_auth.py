@@ -186,6 +186,7 @@ class ArkAuth(ABC):
         """
         Loads and returns the authentication token from the cache, if it exists.
         If specified, the method also attempts to refresh the token as needed.
+        When the cache holds no token, the already loaded in-memory token, if any, is kept.
 
         Args:
             profile (Optional[ArkProfile], optional): _description_. Defaults to None.
@@ -209,7 +210,11 @@ class ArkAuth(ABC):
                 f'Loading authentication for profile [{profile.profile_name}] and auth profile [{self.authenticator_name()}] of type [{auth_profile.auth_method.value}]'
             )
             if self._cache_keyring:
-                self.__token = self._cache_keyring.load_token(profile, self._resolve_cache_postfix(auth_profile))
+                # Adopt the cached token only when one was actually loaded, so that a cache miss or an unreadable
+                # keyring falls back to the in-memory token instead of discarding it
+                cached_token = self._cache_keyring.load_token(profile, self._resolve_cache_postfix(auth_profile))
+                if cached_token:
+                    self.__token = cached_token
             if refresh_auth:
                 grace_seconds = grace_seconds if grace_seconds is not None else DEFAULT_EXPIRATION_GRACE_DELTA_SECONDS
                 if self.__token and self.__token.expires_in.replace(tzinfo=None) - timedelta(seconds=grace_seconds) > datetime.now():

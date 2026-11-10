@@ -4,6 +4,7 @@ from pydantic import Field, field_validator
 
 from ark_sdk_python.models import ArkModel, ArkSecretStr
 from ark_sdk_python.models.common import ArkOsType, ArkWorkspaceType
+from ark_sdk_python.models.services.sia.access.ark_sia_k8s_details import ArkSIAK8sDetails
 
 
 class ArkSIAInstallConnector(ArkModel):
@@ -14,8 +15,18 @@ class ArkSIAInstallConnector(ArkModel):
         description='The connector pool which the connector will be part of, '
         'if not given, the connector will be assigned to the default one',
     )
-    target_machine: str = Field(description='Target machine on which to install the connector on')
-    username: str = Field(description='Username to connect with to the target machine')
+    k8s_details: Optional[ArkSIAK8sDetails] = Field(
+        default=None,
+        description='Kubernetes configuration used when connector_os is k8s-ephemeral. Forwarded to the setup-script API so the '
+        'returned script is pre-configured with these values; the script is then run locally instead of over a target machine '
+        'connection',
+    )
+    target_machine: Optional[str] = Field(
+        default=None, description='Target machine on which to install the connector on. Required unless connector_os is k8s-ephemeral'
+    )
+    username: Optional[str] = Field(
+        default=None, description='Username to connect with to the target machine. Required unless connector_os is k8s-ephemeral'
+    )
     password: Optional[ArkSecretStr] = Field(default=None, description='Password to connect with to the target machine')
     private_key_path: Optional[str] = Field(
         default=None, description='Private key file path to use for connecting to the target machine via ssh'

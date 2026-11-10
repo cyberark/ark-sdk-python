@@ -34,6 +34,7 @@ from ark_sdk_python.models.services.sia.sso import (
 )
 from ark_sdk_python.models.services.sia.sso.ark_sia_sso_get_short_lived_client_certificate import ArkSIASSOShortLiveClientCertificateFormat
 from ark_sdk_python.services.ark_service import ArkService
+from ark_sdk_python.services.sia.sso.consts import OPENSSH, PEM_FILE_TYPE, PPK, PPK_FILE_TYPE
 
 SERVICE_CONFIG: Final[ArkServiceConfig] = ArkServiceConfig(
     service_name='sia-sso', required_authenticator_names=['isp'], optional_authenticator_names=[]
@@ -305,6 +306,7 @@ class ArkSIASSOService(ArkService):
             'targetAddress': get_short_lived_rdp_file.target_address,
             'targetDomain': get_short_lived_rdp_file.target_domain,
             'targetUser': get_short_lived_rdp_file.target_user,
+            'vaultedAccountID': get_short_lived_rdp_file.vaulted_account_id,
             'elevatedPrivileges': get_short_lived_rdp_file.elevated_privileges,
         }
         response: Response = self.__client.post(
@@ -366,7 +368,14 @@ class ArkSIASSOService(ArkService):
             ArkSIASSOTokenInfo: __description__
         """
         self._logger.info('Getting short lived token info')
-        response: Response = self.__client.get(SSH_SSO_KEY_URL)
+        url = SSH_SSO_KEY_URL
+        if not get_ssh_key.format:
+            get_ssh_key.format = OPENSSH
+        if get_ssh_key.format != OPENSSH and get_ssh_key.format != PPK:
+            raise ArkServiceException(f'Invalid ssh key format [{get_ssh_key.format}] - supported formats are [{OPENSSH}] and [{PPK}]')
+        if get_ssh_key.format:
+            url = f"{SSH_SSO_KEY_URL}?format={get_ssh_key.format}"
+        response: Response = self.__client.get(url)
         if response.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to get short lived ssh sso key - [{response.status_code}] - [{response.text}]')
         try:
@@ -377,7 +386,8 @@ class ArkSIASSOService(ArkService):
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
             claims = ArkJWTUtils.get_unverified_claims(self.__client.session_token)
-            base_name = f'sia_ssh_key_{claims["unique_name"].split("@")[0]}.pem'
+            file_type = PPK_FILE_TYPE if get_ssh_key.format == PPK else PEM_FILE_TYPE
+            base_name = f'sia_ssh_key_{claims["unique_name"].split("@")[0]}.{file_type}'
             full_path = os.path.normpath(f'{folder_path}{os.path.sep}{base_name}')
             with open(full_path, 'w', encoding='utf-8') as file_handle:
                 file_handle.write(response.text)

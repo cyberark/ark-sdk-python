@@ -16,3 +16,16 @@ class ArkSIADBDeleteDatabase(ArkCamelizedModel):
         if 'id' not in values and 'name' not in values:
             raise ValueError('Either id or name needs to be provided')
         return values
+
+
+class ArkSIADBDeleteDatabaseTarget(ArkCamelizedModel):
+    id: Optional[str] = Field(default=None, description='Database id to delete')
+    name: Optional[str] = Field(default=None, description='Database name to delete')
+
+    # pylint: disable=no-self-use,no-self-argument
+    @model_validator(mode='before')
+    @classmethod
+    def validate_either(cls, values):
+        if 'id' not in values and 'name' not in values:
+            raise ValueError('Either id or name needs to be provided')
+        return values

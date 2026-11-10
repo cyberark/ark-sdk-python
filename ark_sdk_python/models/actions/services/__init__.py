@@ -1,5 +1,7 @@
 from typing import Any, List
 
+from ark_sdk_python.models.actions.services.ark_access_exec_action_consts import ACCESS_ACTIONS
+from ark_sdk_python.models.actions.services.ark_ars_exec_action_consts import ARS_ACTIONS
 from ark_sdk_python.models.actions.services.ark_cmgr_exec_action_consts import CMGR_ACTIONS
 from ark_sdk_python.models.actions.services.ark_identity_exec_action_consts import IDENTITY_ACTIONS
 from ark_sdk_python.models.actions.services.ark_pcloud_exec_action_consts import PCLOUD_ACTIONS
@@ -14,6 +16,8 @@ SUPPORTED_SERVICE_ACTIONS: List[Any] = [
     SM_ACTIONS,
     PCLOUD_ACTIONS,
     CMGR_ACTIONS,
+    ACCESS_ACTIONS,
+    ARS_ACTIONS,
 ]
 
 __all__ = [
@@ -22,5 +26,7 @@ __all__ = [
     'SM_ACTIONS',
     'PCLOUD_ACTIONS',
     'CMGR_ACTIONS',
+    'ACCESS_ACTIONS',
+    'ARS_ACTIONS',
     'SUPPORTED_SERVICE_ACTIONS',
 ]

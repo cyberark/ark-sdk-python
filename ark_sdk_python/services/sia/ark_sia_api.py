@@ -8,6 +8,7 @@ from ark_sdk_python.services.sia.policies.vm import ArkSIAVMPoliciesService
 from ark_sdk_python.services.sia.secrets.db import ArkSIADBSecretsService
 from ark_sdk_python.services.sia.secrets.vm import ArkSIAVMSecretsService
 from ark_sdk_python.services.sia.settings import ArkSIASettingsService
+from ark_sdk_python.services.sia.shortened_connection_string import ArkSIAShortenedConnectionStringService
 from ark_sdk_python.services.sia.ssh_ca import ArkSIASSHCAService
 from ark_sdk_python.services.sia.sso import ArkSIASSOService
 from ark_sdk_python.services.sia.workspaces.db import ArkSIADBWorkspaceService
@@ -29,6 +30,7 @@ class ArkSIAAPI:
         self.__certificates_service = ArkSIACertificatesService(isp_auth)
         self.__k8s_service = ArkSIAK8SService(isp_auth)
         self.__settings_service = ArkSIASettingsService(isp_auth)
+        self.__shortened_connection_string_service = ArkSIAShortenedConnectionStringService(isp_auth)
 
     @property
     def workspace_db(self) -> ArkSIADBWorkspaceService:
@@ -159,3 +161,13 @@ class ArkSIAAPI:
             ArkSIASettingsService: _description_
         """
         return self.__settings_service
+
+    @property
+    def shortened_connection_string(self) -> ArkSIAShortenedConnectionStringService:
+        """
+        Getter for the shortened-connection-string service
+
+        Returns:
+            ArkSIAShortenedConnectionStringService: _description_
+        """
+        return self.__shortened_connection_string_service

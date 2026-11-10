@@ -16,6 +16,7 @@ from ark_sdk_python.models.services.sia.settings import (
     ArkSIASettingsCertificateValidation,
     ArkSIASettingsFeatureName,
     ArkSIASettingsGetSetting,
+    ArkSIASettingsHttpsRelay,
     ArkSIASettingsK8SMfaCaching,
     ArkSIASettingsListSettings,
     ArkSIASettingsLogonSequence,
@@ -53,6 +54,7 @@ FEATURE_NAME_TO_SETTING: Final[Dict[ArkSIASettingsFeatureName, ArkSIASettingsSet
     ArkSIASettingsFeatureName.SSHCommandAudit: ArkSIASettingsSSHCommandAudit,
     ArkSIASettingsFeatureName.StandingAccess: ArkSIASettingsStandingAccess,
     ArkSIASettingsFeatureName.LogonSequence: ArkSIASettingsLogonSequence,
+    ArkSIASettingsFeatureName.HttpsRelay: ArkSIASettingsHttpsRelay,
 }
 
 
@@ -114,9 +116,63 @@ class ArkSIASettingsService(ArkService):
             raise ArkServiceException(f'Failed to set SIA setting - [{response.status_code}] - [{response.text}]')
         return set_setting.setting
 
+    def get_ssh_mfa_caching(self) -> ArkSIASettingsSSHMfaCaching:
+        """
+        Get SIA SSH MFA caching setting.
+
+        Raises:
+            ArkServiceException: If an error occurs while getting the setting.
+
+        Returns:
+            ArkSIASettingsSSHMfaCaching: The retrieved SSH MFA caching setting.
+        """
+        return self.setting(ArkSIASettingsGetSetting(feature_name=ArkSIASettingsFeatureName.SSHMfaCaching))
+
+    def set_ssh_mfa_caching(self, set_ssh_mfa_caching: ArkSIASettingsSSHMfaCaching) -> ArkSIASettingsSSHMfaCaching:
+        """
+        Set SIA SSH MFA caching setting.
+
+        Args:
+            set_ssh_mfa_caching (ArkSIASettingsSSHMfaCaching): The new SSH MFA caching setting.
+
+        Raises:
+            ArkServiceException: If there is an error setting the SSH MFA caching setting.
+
+        Returns:
+            ArkSIASettingsSSHMfaCaching: The new SSH MFA caching setting.
+        """
+        return self.set_setting(ArkSIASettingsSetSetting(feature_name=ArkSIASettingsFeatureName.SSHMfaCaching, setting=set_ssh_mfa_caching))
+
+    def get_https_relay_setting(self) -> ArkSIASettingsHttpsRelay:
+        """
+        Get SIA HTTPS Relay setting.
+
+        Raises:
+            ArkServiceException: If an error occurs while getting the setting.
+
+        Returns:
+            ArkSIASettingsHttpsRelay: The retrieved HTTPS Relay setting.
+        """
+        return self.setting(ArkSIASettingsGetSetting(feature_name=ArkSIASettingsFeatureName.HttpsRelay))
+
+    def set_https_relay_setting(self, set_https_relay: ArkSIASettingsHttpsRelay) -> ArkSIASettingsHttpsRelay:
+        """
+        Set SIA HTTPS Relay setting.
+
+        Args:
+            set_https_relay (ArkSIASettingsHttpsRelay): The new HTTPS Relay setting.
+
+        Raises:
+            ArkServiceException: If there is an error setting the HTTPS Relay setting.
+
+        Returns:
+            ArkSIASettingsHttpsRelay: The new HTTPS Relay setting.
+        """
+        return self.set_setting(ArkSIASettingsSetSetting(feature_name=ArkSIASettingsFeatureName.HttpsRelay, setting=set_https_relay))
+
     def list_settings(self, list_settings: ArkSIASettingsListSettings) -> ArkSIASettings:
         """
-        Get SIA settings.
+        Get SIA settings - the tenant's effective settings, or the environment defaults when `default` is set.
 
         Args:
             list_settings (ArkSIASettingsListSettings): The settings to list.
@@ -128,7 +184,9 @@ class ArkSIASettingsService(ArkService):
             ArkSIASettings: The retrieved SIA settings.
         """
         self._logger.info('Getting SIA settings')
-        response: Response = self.__client.get(SETTINGS_PATH, params=list_settings.model_dump())
+        # The service answers the environment defaults whenever `default` is present, whatever its value
+        params = {'default': 'true'} if list_settings.default else None
+        response: Response = self.__client.get(SETTINGS_PATH, params=params)
         if response.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to get SIA settings - [{response.status_code}] - [{response.text}]')
         try:

@@ -10,6 +10,7 @@ from ark_sdk_python.models.services.uap.sia.vm.ark_uap_sia_vm_behavior import (
     ArkUAPSSIAVMRDPProfile,
     ArkUAPSSIAVMSSHProfile,
 )
+from ark_sdk_python.models.services.uap.sia.vm.ark_uap_sia_vm_conditions import ArkUAPSIAVMConditions
 from ark_sdk_python.models.services.uap.sia.vm.ark_uap_sia_vm_targets import (
     ArkUAPSIAVMAWSResource,
     ArkUAPSIAVMAzureResource,
@@ -17,9 +18,13 @@ from ark_sdk_python.models.services.uap.sia.vm.ark_uap_sia_vm_targets import (
     ArkUAPSIAVMGCPResource,
     ArkUAPSIAVMPlatformTargets,
 )
+from ark_sdk_python.models.services.uap.utils import serialize_uap_policies_workspace_type
 
 
 class ArkUAPSIAVMAccessPolicy(ArkUAPSIACommonAccessPolicy):
+    conditions: Annotated[
+        ArkUAPSIAVMConditions, Field(description='The time, session, idle time, and recording override conditions of the VM access policy')
+    ]
     targets: Annotated[ArkUAPSIAVMPlatformTargets, Field(description='The targets of the vm access policy')]
     behavior: Annotated[ArkUAPSSIAVMBehavior, Field(description='Defines the behavior of a connection to the VM')]
 
@@ -28,6 +33,12 @@ class ArkUAPSIAVMAccessPolicy(ArkUAPSIACommonAccessPolicy):
         Serializes the model to a dictionary, including the behavior of the VM access policy.
         """
         data = super().model_dump(*args, **kwargs)
+
+        # Fixing location type serialization
+        data['metadata']['policyEntitlement']['locationType'] = serialize_uap_policies_workspace_type(
+            self.metadata.policy_entitlement.location_type
+        )
+
         if self.metadata.policy_entitlement.location_type == ArkWorkspaceType.AWS and self.targets.aws_resource:
             data['targets'] = {
                 'AWS': self.targets.aws_resource.model_dump(*args, **kwargs),

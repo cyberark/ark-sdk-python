@@ -85,12 +85,18 @@ class ArkUAPBaseService(ArkService, ABC):
         if resp.status_code != HTTPStatus.OK:
             raise ArkServiceException(f'Failed to delete policy [{resp.text}] - [{resp.status_code}]')
 
+    @staticmethod
+    def _status_type_from_common_policy(policy: ArkUAPCommonAccessPolicy) -> ArkUAPStatusType:
+        if policy.metadata.status is None:
+            raise ArkServiceException('Policy response did not include status')
+        return policy.metadata.status.status
+
     def policy_status(self, get_policy_status: ArkUAPGetPolicyStatus) -> ArkUAPStatusType:
         """
         Retrieves a policy status by its id or name
 
         Args:
-            get_policy_status (ArkSCAGetPolicyStatus): _description_
+            get_policy_status (ArkUAPGetPolicyStatus): _description_
 
         Raises:
             ArkServiceException: _description_
@@ -101,11 +107,11 @@ class ArkUAPBaseService(ArkService, ABC):
 
         self._logger.info('Retrieving policy status')
         if get_policy_status.policy_id:
-            return ArkUAPCommonAccessPolicy(
-                **self._base_policy(ArkUAPGetPolicyRequest(policy_id=get_policy_status.policy_id))
-            ).metadata.status.status
+            policy = ArkUAPCommonAccessPolicy(**self._base_policy(ArkUAPGetPolicyRequest(policy_id=get_policy_status.policy_id)))
+            return self._status_type_from_common_policy(policy)
         if get_policy_status.policy_name:
-            return self._base_policy_by_name(ArkUAPGetPolicyByNameRequest(policy_name=get_policy_status.policy_name)).metadata.status.status
+            policy = self._base_policy_by_name(ArkUAPGetPolicyByNameRequest(policy_name=get_policy_status.policy_name))
+            return self._status_type_from_common_policy(policy)
         raise ArkServiceException('Failed to retrieve policy status')
 
     def _base_update_policy(self, update_policy: Dict[str, Any], policy_id: str) -> None:
@@ -201,7 +207,8 @@ class ArkUAPBaseService(ArkService, ABC):
         provider_counts = defaultdict(int)
 
         for policy in policies:
-            status_counts[policy.metadata.status.status] += 1
+            if policy.metadata.status is not None:
+                status_counts[policy.metadata.status.status] += 1
             provider_counts[policy.metadata.policy_entitlement.location_type] += 1
 
         policies_stats.policies_count_per_status = dict(status_counts)

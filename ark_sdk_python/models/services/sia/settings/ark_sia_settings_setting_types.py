@@ -2,6 +2,7 @@ from typing import Union
 
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_adb_mfa_caching import ArkSIASettingsADBMfaCaching
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_certificate_validation import ArkSIASettingsCertificateValidation
+from ark_sdk_python.models.services.sia.settings.ark_sia_settings_https_relay import ArkSIASettingsHttpsRelay
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_k8s_mfa_caching import ArkSIASettingsK8SMfaCaching
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_logon_sequence import ArkSIASettingsLogonSequence
 from ark_sdk_python.models.services.sia.settings.ark_sia_settings_rdp_file_transfer import ArkSIASettingsRDPFileTransfer
@@ -26,4 +27,5 @@ ArkSIASettingsSettingTypes = Union[
     ArkSIASettingsSSHCommandAudit,
     ArkSIASettingsStandingAccess,
     ArkSIASettingsLogonSequence,
+    ArkSIASettingsHttpsRelay,
 ]

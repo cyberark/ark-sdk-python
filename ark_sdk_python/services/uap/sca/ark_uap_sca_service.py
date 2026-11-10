@@ -44,9 +44,9 @@ class ArkUAPSCAService(ArkUAPBaseService):
         retry_count = 0
         while True:
             policy = self.policy(ArkUAPGetPolicyRequest(policy_id=add_policy_response.policy_id))
-            if policy.metadata.status == ArkUAPStatusType.ACTIVE:
+            if policy.metadata and policy.metadata.status and policy.metadata.status.status == ArkUAPStatusType.ACTIVE:
                 break
-            if policy.metadata.status == ArkUAPStatusType.ERROR:
+            if policy.metadata and policy.metadata.status and policy.metadata.status.status == ArkUAPStatusType.ERROR:
                 raise ArkServiceException(f'Policy [{add_policy_response.policy_id}] is in error state')
             if retry_count >= ArkUAPSCAService.__MAX_ACTIVE_STATUS_RETRY_COUNT:
                 self._logger.warning(
@@ -91,9 +91,9 @@ class ArkUAPSCAService(ArkUAPBaseService):
         retry_count = 0
         while True:
             policy = self.policy(ArkUAPGetPolicyRequest(policy_id=update_policy.metadata.policy_id))
-            if policy.metadata.status == ArkUAPStatusType.ACTIVE:
+            if policy.metadata and policy.metadata.status and policy.metadata.status.status == ArkUAPStatusType.ACTIVE:
                 break
-            if policy.metadata.status == ArkUAPStatusType.ERROR:
+            if policy.metadata and policy.metadata.status and policy.metadata.status.status == ArkUAPStatusType.ERROR:
                 raise ArkServiceException(f'Policy [{update_policy.metadata.policy_id}] is in error state')
             if retry_count >= ArkUAPSCAService.__MAX_ACTIVE_STATUS_RETRY_COUNT:
                 self._logger.warning(

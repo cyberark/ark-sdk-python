@@ -1,4 +1,4 @@
-from typing import Dict, Final, Optional, Type
+from typing import Dict, Final, List, Optional, Type
 
 from ark_sdk_python.models import ArkModel
 from ark_sdk_python.models.actions.ark_service_action_definition import ArkServiceActionDefinition
@@ -15,10 +15,24 @@ from ark_sdk_python.models.cli_services.sia.policies_editor.common import (
 from ark_sdk_python.models.cli_services.sia.policies_editor.db import ArkSIADBGeneratePolicy
 from ark_sdk_python.models.cli_services.sia.policies_editor.vm import ArkSIAVMGeneratePolicy
 from ark_sdk_python.models.services.sia.access import (
+    ArkSIAConnectorsFilter,
+    ArkSIADeleteConnector,
+    ArkSIADeleteHttpsRelay,
+    ArkSIAGetConnector,
     ArkSIAGetConnectorSetupScript,
+    ArkSIAGetHttpsRelay,
+    ArkSIAGetHttpsRelaySetupScript,
+    ArkSIAHttpsRelaysFilter,
     ArkSIAInstallConnector,
+    ArkSIAInstallRelay,
+    ArkSIARotateConnector,
+    ArkSIARotateHttpsRelay,
     ArkSIATestConnectorReachability,
     ArkSIAUninstallConnector,
+    ArkSIAUninstallRelay,
+    ArkSIAUpdateMaintenanceMode,
+    ArkSIAUpgradeConnector,
+    ArkSIAUpgradeHttpsRelay,
 )
 from ark_sdk_python.models.services.sia.certificates import (
     ArkSIACertificatesFilter,
@@ -33,19 +47,26 @@ from ark_sdk_python.models.services.sia.db import (
     ArkSIADBProxyFullchainGenerateAssets,
     ArkSIADBPsqlExecution,
 )
+from ark_sdk_python.models.services.sia.k8s.ark_sia_k8s_generate_cluster_config import ArkSIAK8SGenerateClusterConfig
 from ark_sdk_python.models.services.sia.k8s.ark_sia_k8s_generate_kubeconfig import ArkSIAK8SGenerateKubeConfig
+from ark_sdk_python.models.services.sia.k8s.ark_sia_k8s_list_clusters import ArkSIAK8SListClusters
 from ark_sdk_python.models.services.sia.policies.common import ArkSIADeletePolicy, ArkSIAGetPolicy, ArkSIAUpdatePolicyStatus
 from ark_sdk_python.models.services.sia.policies.db import ArkSIADBAddPolicy, ArkSIADBPoliciesFilter, ArkSIADBUpdatePolicy
 from ark_sdk_python.models.services.sia.policies.vm import ArkSIAVMAddPolicy, ArkSIAVMPoliciesFilter, ArkSIAVMUpdatePolicy
 from ark_sdk_python.models.services.sia.policies.vm.ark_sia_vm_policies_filter_by_query import ArkSIAVMQueryPolicies
 from ark_sdk_python.models.services.sia.secrets.db import (
     ArkSIADBAddSecret,
+    ArkSIADBAddStrongAccount,
     ArkSIADBDeleteSecret,
+    ArkSIADBDeleteStrongAccount,
     ArkSIADBDisableSecret,
     ArkSIADBEnableSecret,
     ArkSIADBGetSecret,
+    ArkSIADBGetStrongAccount,
     ArkSIADBSecretsFilter,
+    ArkSIADBStrongAccountsFilter,
     ArkSIADBUpdateSecret,
+    ArkSIADBUpdateStrongAccount,
 )
 from ark_sdk_python.models.services.sia.secrets.vm import (
     ArkSIAVMAddSecret,
@@ -55,6 +76,7 @@ from ark_sdk_python.models.services.sia.secrets.vm import (
     ArkSIAVMSecretsFilter,
 )
 from ark_sdk_python.models.services.sia.settings import ArkSIASettingsGetSetting, ArkSIASettingsListSettings, ArkSIASettingsSetSettings
+from ark_sdk_python.models.services.sia.shortened_connection_string import ArkSIAGenerateShortenedConnectionString
 from ark_sdk_python.models.services.sia.ssh_ca import ArkSIASSHCAGetSSHPublicKey
 from ark_sdk_python.models.services.sia.sso import (
     ArkSIASSOGetShortLivedClientCertificate,
@@ -66,10 +88,15 @@ from ark_sdk_python.models.services.sia.sso import (
 )
 from ark_sdk_python.models.services.sia.workspaces.db import (
     ArkSIADBAddDatabase,
+    ArkSIADBAddDatabaseTarget,
     ArkSIADBDatabasesFilter,
+    ArkSIADBDatabaseTargetsFilter,
     ArkSIADBDeleteDatabase,
+    ArkSIADBDeleteDatabaseTarget,
     ArkSIADBGetDatabase,
+    ArkSIADBGetDatabaseTarget,
     ArkSIADBUpdateDatabase,
+    ArkSIADBUpdateDatabaseTarget,
 )
 from ark_sdk_python.models.services.sia.workspaces.targetsets import (
     ArkSIAAddTargetSet,
@@ -106,6 +133,13 @@ WORKSPACES_DB_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] =
     'list-databases-by': ArkSIADBDatabasesFilter,
     'database': ArkSIADBGetDatabase,
     'databases-stats': None,
+    'add-database-target': ArkSIADBAddDatabaseTarget,
+    'delete-database-target': ArkSIADBDeleteDatabaseTarget,
+    'update-database-target': ArkSIADBUpdateDatabaseTarget,
+    'list-database-targets': None,
+    'list-database-targets-by': ArkSIADBDatabaseTargetsFilter,
+    'database-target': ArkSIADBGetDatabaseTarget,
+    'database-targets-stats': None,
 }
 WORKSPACES_DB_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='db',
@@ -133,7 +167,7 @@ POLICIES_VM_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
     'list-policies-by': ArkSIAVMPoliciesFilter,
     'policies-stats': None,
 }
-POLICIES_VM_EDITOR_ACTION_TO_SCHEMA_MAP: Final[Dict[(str, Optional[Type[ArkModel]])]] = {
+POLICIES_VM_EDITOR_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
     'load-policies': ArkSIALoadPolicies,
     'generate-policy': ArkSIAVMGeneratePolicy,
     'edit-policies': ArkSIAEditPolicies,
@@ -235,6 +269,12 @@ SECRETS_DB_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
     'list-secrets': None,
     'list-secrets-by': ArkSIADBSecretsFilter,
     'secrets-stats': None,
+    'add-strong-account': ArkSIADBAddStrongAccount,
+    'update-strong-account': ArkSIADBUpdateStrongAccount,
+    'delete-strong-account': ArkSIADBDeleteStrongAccount,
+    'get-strong-account': ArkSIADBGetStrongAccount,
+    'list-strong-accounts': None,
+    'list-strong-accounts-by': ArkSIADBStrongAccountsFilter,
 }
 SECRETS_DB_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='db',
@@ -251,14 +291,33 @@ SECRETS_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
 
 # SIA Access Definitions
 ACCESS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'list-connectors': None,
+    'list-connectors-by': ArkSIAConnectorsFilter,
+    'delete-connector': ArkSIADeleteConnector,
+    'upgrade-connector': ArkSIAUpgradeConnector,
+    'rotate-connector': ArkSIARotateConnector,
+    'update-connector-maintenance-mode': ArkSIAUpdateMaintenanceMode,
+    'connector': ArkSIAGetConnector,
     'connector-setup-script': ArkSIAGetConnectorSetupScript,
+    'connectors-stats': None,
     'install-connector': ArkSIAInstallConnector,
     'uninstall-connector': ArkSIAUninstallConnector,
     'test-connector-reachability': ArkSIATestConnectorReachability,
+    'list-relays': None,
+    'list-relays-by': ArkSIAHttpsRelaysFilter,
+    'relay': ArkSIAGetHttpsRelay,
+    'delete-relay': ArkSIADeleteHttpsRelay,
+    'relay-setup-script': ArkSIAGetHttpsRelaySetupScript,
+    'install-relay': ArkSIAInstallRelay,
+    'uninstall-relay': ArkSIAUninstallRelay,
+    'upgrade-relay': ArkSIAUpgradeHttpsRelay,
+    'rotate-relay': ArkSIARotateHttpsRelay,
 }
+ACCESS_ASYNC_ACTIONS: Final[List[str]] = ['upgrade-connector']
 ACCESS_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='access',
     schemas=ACCESS_ACTION_TO_SCHEMA_MAP,
+    async_actions=ACCESS_ASYNC_ACTIONS,
 )
 
 # SIA SSH CA Definitions
@@ -273,7 +332,6 @@ SSH_CA_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='ssh-ca',
     schemas=SSH_CA_ACTION_TO_SCHEMA_MAP,
 )
-
 # SIA SSO Definitions
 SSO_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
     'short-lived-password': ArkSIASSOGetShortLivedPassword,
@@ -301,7 +359,11 @@ DB_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
 )
 
 # SIA K8S Definitions
-K8S_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {'generate-kubeconfig': ArkSIAK8SGenerateKubeConfig}
+K8S_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'generate-kubeconfig': ArkSIAK8SGenerateKubeConfig,
+    'list-clusters': ArkSIAK8SListClusters,
+    'generate-cluster-config': ArkSIAK8SGenerateClusterConfig,
+}
 K8S_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='k8s',
     schemas=K8S_ACTION_TO_SCHEMA_MAP,
@@ -319,6 +381,19 @@ SETTINGS_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='settings',
     schemas=SETTINGS_ACTION_TO_SCHEMA_MAP,
 )
+
+# SIA Shortened-Connection-String Definitions
+SHORTENED_CONNECTION_STRING_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'generate': ArkSIAGenerateShortenedConnectionString,
+}
+
+SHORTENED_CONNECTION_STRING_ACTION: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
+    action_name='shortened-connection-string',
+    schemas=SHORTENED_CONNECTION_STRING_ACTION_TO_SCHEMA_MAP,
+)
+
+
+# Service Actions Definition
 SIA_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='sia',
     subactions=[
@@ -332,5 +407,6 @@ SIA_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
         CERTIFICATES_ACTION,
         K8S_ACTION,
         SETTINGS_ACTION,
+        SHORTENED_CONNECTION_STRING_ACTION,
     ],
 )

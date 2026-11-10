@@ -16,3 +16,17 @@ class ArkUAPSIACommonConditions(ArkUAPConditions):
             description='The maximum idle time before the session ends, in minutes.',
         ),
     ]
+    override_idle_time: Annotated[
+        Optional[bool],
+        Field(
+            default=None,
+            description='When true, the policy idle_time overrides the tenant-level default idle time setting.',
+        ),
+    ] = None
+    override_max_session_duration: Annotated[
+        Optional[bool],
+        Field(
+            default=None,
+            description='When true, the policy max_session_duration overrides the tenant-level default maximum session duration.',
+        ),
+    ] = None

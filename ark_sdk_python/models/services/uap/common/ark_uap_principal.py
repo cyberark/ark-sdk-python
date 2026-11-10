@@ -8,8 +8,8 @@ from ark_sdk_python.models.services.uap.common.ark_uap_principal_type import Ark
 
 class ArkUAPPrincipal(ArkCamelizedModel):
     id: constr(max_length=40) = Field(description='The id of the principal')
-    name: constr(max_length=100, pattern=r'\w+') = Field(description='The name of the principal')
-    source_directory_name: Optional[constr(max_length=50, pattern=r'\w+')] = Field(None, description='The name of the source directory')
+    name: constr(max_length=512, pattern=r'[\w.\-+]+') = Field(description='The name of the principal')
+    source_directory_name: Optional[constr(max_length=256, pattern=r'\w+')] = Field(None, description='The name of the source directory')
     source_directory_id: Optional[str] = Field(None, description='The id of the source directory')
     type: ArkUAPPrincipalType = Field(description='The type of the principal user, group or role')
 

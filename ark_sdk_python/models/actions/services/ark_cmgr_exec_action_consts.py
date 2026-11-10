@@ -1,4 +1,4 @@
-from typing import Dict, Final, Optional, Type
+from typing import Dict, Final, List, Optional, Type
 
 from ark_sdk_python.models import ArkModel
 from ark_sdk_python.models.actions.ark_service_action_definition import ArkServiceActionDefinition
@@ -7,24 +7,60 @@ from ark_sdk_python.models.services.cmgr import (
     ArkCmgrAddPool,
     ArkCmgrAddPoolBulkIdentifier,
     ArkCmgrAddPoolSingleIdentifier,
+    ArkCmgrComponentsFilter,
+    ArkCmgrConnectorComponentsFilter,
+    ArkCmgrConnectorsFilter,
+    ArkCmgrDeleteConnector,
     ArkCmgrDeleteNetwork,
     ArkCmgrDeletePool,
     ArkCmgrDeletePoolBulkIdentifier,
     ArkCmgrDeletePoolSingleIdentifier,
+    ArkCmgrGetConnector,
+    ArkCmgrGetConnectorComponent,
+    ArkCmgrGetConnectorSetupScript,
     ArkCmgrGetNetwork,
     ArkCmgrGetPool,
     ArkCmgrGetPoolComponent,
+    ArkCmgrInstallComponent,
+    ArkCmgrInstallConnector,
+    ArkCmgrListConnectorComponents,
     ArkCmgrListPoolIdentifiers,
     ArkCmgrNetworksFilter,
     ArkCmgrPoolComponentsFilter,
     ArkCmgrPoolIdentifiersFilter,
     ArkCmgrPoolsFilter,
+    ArkCmgrReinstallComponent,
+    ArkCmgrRescanComponents,
+    ArkCmgrUninstallComponent,
+    ArkCmgrUninstallConnector,
     ArkCmgrUpdateNetwork,
     ArkCmgrUpdatePool,
+    ArkCmgrUpgradeComponent,
+    ArkCmgrUpgradeConnector,
 )
 
 # Component Manager Definitions
 CMGR_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'list-connectors': None,
+    'list-connectors-by': ArkCmgrConnectorsFilter,
+    'list-connector-components': ArkCmgrListConnectorComponents,
+    'list-connector-components-by': ArkCmgrConnectorComponentsFilter,
+    'list-components': None,
+    'list-components-by': ArkCmgrComponentsFilter,
+    'delete-connector': ArkCmgrDeleteConnector,
+    'connector': ArkCmgrGetConnector,
+    'connector-component': ArkCmgrGetConnectorComponent,
+    'connector-setup-script': ArkCmgrGetConnectorSetupScript,
+    'install-connector': ArkCmgrInstallConnector,
+    'install-component': ArkCmgrInstallComponent,
+    'rescan-components': ArkCmgrRescanComponents,
+    'uninstall-component': ArkCmgrUninstallComponent,
+    'uninstall-connector': ArkCmgrUninstallConnector,
+    'upgrade-component': ArkCmgrUpgradeComponent,
+    'upgrade-connector': ArkCmgrUpgradeConnector,
+    'reinstall-component': ArkCmgrReinstallComponent,
+    'components-stats': None,
+    'connectors-stats': None,
     'add-network': ArkCmgrAddNetwork,
     'update-network': ArkCmgrUpdateNetwork,
     'delete-network': ArkCmgrDeleteNetwork,
@@ -49,9 +85,17 @@ CMGR_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
     'list-pools-components-by': ArkCmgrPoolComponentsFilter,
     'pool-component': ArkCmgrGetPoolComponent,
 }
+CMGR_ASYNC_ACTIONS: Final[List[str]] = [
+    'install-component',
+    'uninstall-component',
+    'upgrade-component',
+    'upgrade-connector',
+    'reinstall-component',
+]
 
 # Service Actions Definition
 CMGR_ACTIONS: Final[ArkServiceActionDefinition] = ArkServiceActionDefinition(
     action_name='cmgr',
     schemas=CMGR_ACTION_TO_SCHEMA_MAP,
+    async_actions=CMGR_ASYNC_ACTIONS,
 )

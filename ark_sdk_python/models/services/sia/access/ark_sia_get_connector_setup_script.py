@@ -4,6 +4,7 @@ from pydantic import Field, field_validator
 
 from ark_sdk_python.models import ArkModel
 from ark_sdk_python.models.common import ArkOsType, ArkWorkspaceType
+from ark_sdk_python.models.services.sia.access.ark_sia_k8s_details import ArkSIAK8sDetails
 
 HTTP_PREFIX: Final[str] = 'http://'
 HTTPS_PREFIX: Final[str] = 'https://'
@@ -31,6 +32,9 @@ class ArkSIAGetConnectorSetupScript(ArkModel):
     proxy_host: Optional[str] = Field(default='', description='The proxy host to use in this connector.')
     proxy_port: Optional[int] = Field(default=443, description='The proxy port to use in this connector.')
     windows_installation_path: Optional[str] = Field(default='', description='The installation path for the connector on Windows machines')
+    k8s_details: Optional[ArkSIAK8sDetails] = Field(
+        default=None, description='Kubernetes configuration used when connector_os is k8s-ephemeral'
+    )
 
     # pylint: disable=no-self-use,no-self-argument
     @field_validator('connector_type', mode="before")
