@@ -13,7 +13,6 @@ if Version(VERSION) < Version("2.9"):
     class ArkTargetCategory(str, Enum):
         CLOUD_CONSOLE = 'CLOUD_CONSOLE'
         VM = 'VM'
-        DB = 'DB'
 
 else:
     ArkTargetCategory = Annotated[

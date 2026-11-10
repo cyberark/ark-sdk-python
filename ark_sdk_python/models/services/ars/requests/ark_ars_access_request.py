@@ -7,7 +7,6 @@ from pydantic import Field, field_validator, model_validator
 
 from ark_sdk_python.models import ArkCamelizedModel
 from ark_sdk_python.models.services.ars.requests.ark_target_category import ArkTargetCategory
-from ark_sdk_python.models.services.ars.rules.ark_ars_workflow_rule import ArkARSWorkflowAssociationType
 
 
 class ArkARSAccessRequestState(str, Enum):
@@ -46,7 +45,7 @@ class ArkARSAccessRequest(ArkCamelizedModel):
     request_outcomes: Optional[Dict[str, Any]] = Field(description='Outcomes of this request', default_factory=dict)
     request_steps: Dict[str, Any] = Field(description='Status in regards to the steps in the access request', default_factory=dict)
     last_executed_step: Optional[str] = Field(description='Last step that was actually executed', default=None)
-    associations: Dict[ArkARSWorkflowAssociationType, List[Dict[str, Any]]] = Field(
+    associations: Dict[str, List[Dict[str, Any]]] = Field(
         description='Entity associations to the request', default_factory=dict
     )
     finalization_reason: Optional[str] = Field(description='Reason for canceling or rejecting or approving the request', default=None)

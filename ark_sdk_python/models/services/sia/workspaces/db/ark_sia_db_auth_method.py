@@ -11,7 +11,6 @@ from ark_sdk_python.models.services.sia.workspaces.db.ark_sia_db_provider import
 
 class ArkSIADBAuthMethodType(str, Enum):
     ADEphemeralUser = 'ad_ephemeral_user'
-    ADGroupAssociation = 'ad_group_association'
     LocalEphemeralUser = 'local_ephemeral_user'
     RDSIAMAuthentication = 'rds_iam_authentication'
     AtlasEphemeralUser = 'atlas_ephemeral_user'

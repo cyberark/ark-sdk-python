@@ -120,7 +120,7 @@ class ArkARSRequestsService(ArkService):
             ArkARSRequestsAsyncRequest: _description_
         """
         self._logger.info(f'Submitting a access request [{submit_request.target_category}]')
-        if submit_request.association and not submit_request.association.association_id:
+        if submit_request.association is not None and not submit_request.association.get('association_id'):
             submit_request.association = None
         resp: Response = self.__client.post(
             ACCESS_REQUESTS_ROUTE,
