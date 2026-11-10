@@ -32,7 +32,6 @@ class ArkARSAccessRequest(ArkCamelizedModel):
     request_id: str = Field(description='ID of the request')
     target_category: ArkTargetCategory = Field(description='Target category the request is related to')
     request_link: Optional[str] = Field(description='Link to the request itself', default=None)
-    request_rule: Optional[str] = Field(description='Rule associated with this request', default=None)
     request_state: ArkARSAccessRequestState = Field(description='Current request state')
     request_result: ArkARSAccessRequestResult = Field(description='Result of the request', default=ArkARSAccessRequestResult.UNKNOWN)
     request_survey_input: Optional[Dict[str, Any]] = Field(
@@ -45,9 +44,7 @@ class ArkARSAccessRequest(ArkCamelizedModel):
     request_outcomes: Optional[Dict[str, Any]] = Field(description='Outcomes of this request', default_factory=dict)
     request_steps: Dict[str, Any] = Field(description='Status in regards to the steps in the access request', default_factory=dict)
     last_executed_step: Optional[str] = Field(description='Last step that was actually executed', default=None)
-    associations: Dict[str, List[Dict[str, Any]]] = Field(
-        description='Entity associations to the request', default_factory=dict
-    )
+    associations: Dict[str, List[Dict[str, Any]]] = Field(description='Entity associations to the request', default_factory=dict)
     finalization_reason: Optional[str] = Field(description='Reason for canceling or rejecting or approving the request', default=None)
     requester: Optional[Dict[str, Any]] = Field(description='The requester of the request', default=None)
     created_by: str = Field(description='Who created the request')

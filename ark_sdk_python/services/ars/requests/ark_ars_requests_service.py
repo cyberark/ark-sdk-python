@@ -19,6 +19,7 @@ from ark_sdk_python.models.services.ars.common import ArkARSFilter, ArkARSSortQu
 from ark_sdk_python.models.services.ars.requests import (
     ArkARSAccessRequest,
     ArkARSAccessRequestAsyncTask,
+    ArkARSAccessRequestForms,
     ArkARSAccessRequestInfo,
     ArkARSAccessRequestResult,
     ArkARSAccessRequestsInfo,
@@ -27,10 +28,9 @@ from ark_sdk_python.models.services.ars.requests import (
     ArkARSCancelAccessRequest,
     ArkARSFinalizeAccessRequest,
     ArkARSGetAccessRequest,
+    ArkARSListAccessRequestForms,
     ArkARSSubmitAccessRequest,
 )
-from ark_sdk_python.models.services.ars.requests.ark_ars_access_request_survey import ArkARSAccessRequestSurvey
-from ark_sdk_python.models.services.ars.requests.ark_ars_get_access_request_survey import ArkARSGetAccessRequestSurvey
 from ark_sdk_python.models.services.ars.requests.ark_target_category import ArkTargetCategory
 from ark_sdk_python.services.ark_service import ArkService
 from ark_sdk_python.services.ars.requests.ark_ars_requests_async_request import ArkARSRequestsAsyncRequest
@@ -44,7 +44,7 @@ ACCESS_REQUESTS_ROUTE: Final[str] = '/api/workflows/requests'
 ACCESS_REQUEST_ROUTE: Final[str] = '/api/workflows/requests/{request_id}'
 CANCEL_ACCESS_REQUEST_ROUTE: Final[str] = '/api/workflows/requests/{request_id}/cancel'
 FINALIZE_ACCESS_REQUEST_ROUTE: Final[str] = '/api/workflows/requests/{request_id}/finalize'
-SURVEY_ROUTE: Final[str] = '/api/workflows/request-forms/{categoryType}'
+REQUEST_FORMS_ROUTE: Final[str] = '/api/workflows/request-forms'
 
 MAX_REQUESTS_LIST_ITERATIONS: Final[int] = 100
 
@@ -344,34 +344,32 @@ class ArkARSRequestsService(ArkService):
 
         return access_requests_stats
 
-    def access_request_survey(self, get_survey_request: ArkARSGetAccessRequestSurvey) -> ArkARSAccessRequestSurvey:
+    def list_access_request_forms(self, list_request_forms: ArkARSListAccessRequestForms) -> ArkARSAccessRequestForms:
         """
-        Gets an access request survey for a given category type.
+        Lists the access request form structures for a given target category and request type.
+        The structure describes the questions to answer, their value types and validations, when submitting an access request.
 
         Args:
-            get_survey_request (ArkARSGetAccessRequestSurvey): The request model containing the category type and request type.
+            list_request_forms (ArkARSListAccessRequestForms): The target category and request type to list the request forms for.
 
         Raises:
             ArkServiceException: If the request fails or the response cannot be parsed.
 
         Returns:
-            ArkARSAccessRequestSurvey: The access request survey response.
+            ArkARSAccessRequestForms: The access request forms matching the given filters.
         """
-        dumped = get_survey_request.model_dump()
-        target_category = dumped['target_category']
-        request_type = dumped['request_type']
-        self._logger.info(f'Getting access request survey for target category [{target_category}] and request type [{request_type}]')
-        resp: Response = self.__client.get(
-            SURVEY_ROUTE.format(categoryType=target_category),
-            params={'requestType': request_type},
+        params = list_request_forms.model_dump(mode='json', by_alias=True)
+        self._logger.info(
+            f'Listing access request forms for target category [{params["targetCategory"]}] and request type [{params["requestType"]}]'
         )
+        resp: Response = self.__client.get(REQUEST_FORMS_ROUTE, params=params)
         if resp.status_code == HTTPStatus.OK:
             try:
-                return ArkARSAccessRequestSurvey.model_validate(resp.json())
+                return ArkARSAccessRequestForms.model_validate(resp.json())
             except (ValidationError, JSONDecodeError, KeyError) as ex:
-                self._logger.exception(f'Failed to parse access request survey response [{str(ex)}] - [{resp.text}]')
-                raise ArkServiceException(f'Failed to parse access request survey response [{str(ex)}]') from ex
-        raise ArkServiceException(f'Failed to get access request survey [{resp.text}] - [{resp.status_code}]')
+                self._logger.exception(f'Failed to parse access request forms response [{str(ex)}] - [{resp.text}]')
+                raise ArkServiceException(f'Failed to parse access request forms response [{str(ex)}]') from ex
+        raise ArkServiceException(f'Failed to list access request forms [{resp.text}] - [{resp.status_code}]')
 
     @staticmethod
     @overrides

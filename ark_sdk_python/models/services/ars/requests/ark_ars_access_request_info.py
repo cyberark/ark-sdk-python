@@ -10,7 +10,6 @@ from ark_sdk_python.models.services.ars.requests.ark_target_category import ArkT
 
 class ArkARSAccessRequestInfo(ArkCamelizedModel):
     request_id: str = Field(description='ID of the request')
-    request_rule: Optional[str] = Field(description='ID of the rule being used for the request', default=None)
     target_category: ArkTargetCategory = Field(description='Target category the request is related to')
     request_link: Optional[str] = Field(description='Link to the request itself', default=None)
     request_state: ArkARSAccessRequestState = Field(description='Current request state')

@@ -4,6 +4,7 @@ from typing import Any, List, Optional, Union
 from pydantic import Field
 
 from ark_sdk_python.models import ArkCamelizedModel
+from ark_sdk_python.models.services.ars.requests.ark_ars_request_type import ArkARSRequestType
 from ark_sdk_python.models.services.ars.requests.ark_target_category import ArkTargetCategory
 
 
@@ -56,6 +57,11 @@ class ArkARSSurvey(ArkCamelizedModel):
     questions: List[ArkARSSurveyQuestion] = Field(description='Questions required answering on the survey')
 
 
-class ArkARSAccessRequestSurvey(ArkCamelizedModel):
-    request_form: ArkARSSurvey = Field(description='The category request form')
-    target_category: ArkTargetCategory = Field(description='Type of category the survey is related to')
+class ArkARSAccessRequestForm(ArkCamelizedModel):
+    target_category: ArkTargetCategory = Field(description='Target category the request form is related to')
+    request_type: ArkARSRequestType = Field(description='Request type the request form is related to')
+    request_form: ArkARSSurvey = Field(description='Structure of the request form, as the questions to answer when submitting a request')
+
+
+class ArkARSAccessRequestForms(ArkCamelizedModel):
+    request_forms: List[ArkARSAccessRequestForm] = Field(description='Request forms matching the given filters', default_factory=list)

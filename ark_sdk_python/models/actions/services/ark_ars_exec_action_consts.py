@@ -3,7 +3,12 @@ from typing import Dict, Final, List, Optional, Type
 from ark_sdk_python.models import ArkModel
 from ark_sdk_python.models.actions.ark_service_action_definition import ArkServiceActionDefinition
 from ark_sdk_python.models.services.ars.common import ArkARSFilter
-from ark_sdk_python.models.services.ars.requests import ArkARSCancelAccessRequest, ArkARSFinalizeAccessRequest, ArkARSGetAccessRequest
+from ark_sdk_python.models.services.ars.requests import (
+    ArkARSCancelAccessRequest,
+    ArkARSFinalizeAccessRequest,
+    ArkARSGetAccessRequest,
+    ArkARSListAccessRequestForms,
+)
 
 # ARS Definitions
 # Requests
@@ -14,6 +19,7 @@ ARS_REQUESTS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = 
     'list-access-requests-by': ArkARSFilter,
     'access-request': ArkARSGetAccessRequest,
     'access-requests-stats': None,
+    'list-access-request-forms': ArkARSListAccessRequestForms,
 }
 ARS_REQUESTS_ASYNC_ACTIONS: Final[List[str]] = [
     'cancel-access-request',
