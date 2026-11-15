@@ -7,7 +7,9 @@ from pydantic.version import VERSION
 
 from ark_sdk_python.models.common import ArkCategoryType
 
-ARS_SUPPORTED_CATEGORIES: Final[FrozenSet[ArkCategoryType]] = frozenset({ArkCategoryType.CLOUD_CONSOLE, ArkCategoryType.VM})
+ARS_SUPPORTED_CATEGORIES: Final[FrozenSet[ArkCategoryType]] = frozenset(
+    {ArkCategoryType.CLOUD_CONSOLE, ArkCategoryType.VM, ArkCategoryType.GROUP}
+)
 
 
 def _validate_target_category(value: Any) -> ArkCategoryType:
@@ -23,6 +25,7 @@ if Version(VERSION) < Version("2.9"):
     class ArkTargetCategory(str, Enum):
         CLOUD_CONSOLE = 'CLOUD_CONSOLE'
         VM = 'VM'
+        GROUP = 'GROUP'
 
 else:
     ArkTargetCategory = Annotated[
