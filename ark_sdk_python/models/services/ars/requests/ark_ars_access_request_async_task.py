@@ -24,7 +24,6 @@ class ArkARSAccessRequestAsyncTask(ArkAsyncTask):
         if self.request.request_state == ArkARSAccessRequestState.FINISHED:
             if self.request.request_result in (
                 ArkARSAccessRequestResult.APPROVED,
-                ArkARSAccessRequestResult.FULFILLED,
                 ArkARSAccessRequestResult.REJECTED,
                 ArkARSAccessRequestResult.CANCELED,
             ):
@@ -36,8 +35,6 @@ class ArkARSAccessRequestAsyncTask(ArkAsyncTask):
             return ArkStatus.Pending
         if self.request.request_state in (
             ArkARSAccessRequestState.RUNNING,
-            ArkARSAccessRequestState.FULFILLING,
-            ArkARSAccessRequestState.REVERTING_FULFILLMENT,
             ArkARSAccessRequestState.STARTING,
         ):
             return ArkStatus.InProgress
