@@ -519,6 +519,8 @@ class ArkPydanticArgparse:
                         and len(schema['properties'][prop_name]['additionalProperties']) == 1
                     )
                     or (all(k in ['title', 'description', 'type'] for k in schema['properties'][prop_name]))
+                    # Dict[str, Any] in pydantic v2 is a free form object with additionalProperties set to true
+                    or schema['properties'][prop_name].get('additionalProperties') is True
                 ):
                     # Special use case for dicitionary
                     is_required = False

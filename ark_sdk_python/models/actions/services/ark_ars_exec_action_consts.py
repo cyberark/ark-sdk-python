@@ -8,11 +8,13 @@ from ark_sdk_python.models.services.ars.requests import (
     ArkARSFinalizeAccessRequest,
     ArkARSGetAccessRequest,
     ArkARSListAccessRequestForms,
+    ArkARSSubmitAccessRequest,
 )
 
 # ARS Definitions
 # Requests
 ARS_REQUESTS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = {
+    'submit-access-request': ArkARSSubmitAccessRequest,
     'cancel-access-request': ArkARSCancelAccessRequest,
     'finalize-access-request': ArkARSFinalizeAccessRequest,
     'list-access-requests': None,
@@ -22,6 +24,7 @@ ARS_REQUESTS_ACTION_TO_SCHEMA_MAP: Final[Dict[str, Optional[Type[ArkModel]]]] = 
     'list-access-request-forms': ArkARSListAccessRequestForms,
 }
 ARS_REQUESTS_ASYNC_ACTIONS: Final[List[str]] = [
+    'submit-access-request',
     'cancel-access-request',
     'finalize-access-request',
 ]
